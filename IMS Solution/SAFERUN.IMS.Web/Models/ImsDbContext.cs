@@ -29,5 +29,7 @@ namespace SAFERUN.IMS.Web.Models
         public DbSet<ProcessStep> ProcessSteps { get; set; }
 
         public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.Station> Stations { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.Employee> Employees { get; set; }
     }
 }

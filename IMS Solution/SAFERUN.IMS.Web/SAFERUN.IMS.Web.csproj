@@ -196,6 +196,7 @@
     <Compile Include="Controllers\CustomersController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManagementController.cs" />
@@ -230,6 +231,10 @@
     <Compile Include="Migrations\201601311048032_d.Designer.cs">
       <DependentUpon>201601311048032_d.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601311119170_emp.cs" />
+    <Compile Include="Migrations\201601311119170_emp.Designer.cs">
+      <DependentUpon>201601311119170_emp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
@@ -241,6 +246,8 @@
     <Compile Include="Models\CustomerMetadata.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\EmployeeMetadata.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ImsDbContext.cs" />
     <Compile Include="Models\ManagementViewModels.cs" />
@@ -263,6 +270,8 @@
     <Compile Include="Repositories\BaseCodes\BaseCodeRepository.cs" />
     <Compile Include="Repositories\Customers\CustomerQuery.cs" />
     <Compile Include="Repositories\Customers\CustomerRepository.cs" />
+    <Compile Include="Repositories\Employees\EmployeeQuery.cs" />
+    <Compile Include="Repositories\Employees\EmployeeRepository.cs" />
     <Compile Include="Repositories\MenuItems\MenuItemQuery.cs" />
     <Compile Include="Repositories\MenuItems\MenuItemRepository.cs" />
     <Compile Include="Repositories\Multicomponents\MulticomponentQuery.cs" />
@@ -279,6 +288,8 @@
     <Compile Include="Services\BaseCodes\IBaseCodeService.cs" />
     <Compile Include="Services\Customers\CustomerService.cs" />
     <Compile Include="Services\Customers\ICustomerService.cs" />
+    <Compile Include="Services\Employees\EmployeeService.cs" />
+    <Compile Include="Services\Employees\IEmployeeService.cs" />
     <Compile Include="Services\MenuItems\IMenuItemService.cs" />
     <Compile Include="Services\MenuItems\MenuItemService.cs" />
     <Compile Include="Services\Multicomponents\IMulticomponentService.cs" />
@@ -951,6 +962,11 @@
     <Content Include="Views\Stations\Edit.cshtml" />
     <Content Include="Views\Stations\EditForm.cshtml" />
     <Content Include="Views\Stations\_PopupSearch.cshtml" />
+    <Content Include="Views\Employees\Index.cshtml" />
+    <Content Include="Views\Employees\Create.cshtml" />
+    <Content Include="Views\Employees\Edit.cshtml" />
+    <Content Include="Views\Employees\EditForm.cshtml" />
+    <Content Include="Views\Employees\_PopupSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -991,6 +1007,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601311048032_d.resx">
       <DependentUpon>201601311048032_d.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601311119170_emp.resx">
+      <DependentUpon>201601311119170_emp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -84,6 +84,9 @@ namespace SAFERUN.IMS.Web.App_Start
             container.RegisterType<IRepositoryAsync<Station>, Repository<Station>>();
             container.RegisterType<IStationService, StationService>();
 
+            container.RegisterType<IRepositoryAsync<Employee>, Repository<Employee>>();
+            container.RegisterType<IEmployeeService, EmployeeService>();
+
         }
     }
 }
