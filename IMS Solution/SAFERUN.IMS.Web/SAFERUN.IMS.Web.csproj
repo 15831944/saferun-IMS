@@ -193,12 +193,18 @@
     <Compile Include="Controllers\AccountManageController.cs" />
     <Compile Include="Controllers\BaseCodesController.cs" />
     <Compile Include="Controllers\ButtonAttribute.cs" />
+    <Compile Include="Controllers\CustomersController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManagementController.cs" />
     <Compile Include="Controllers\MenuItemsController.cs" />
+    <Compile Include="Controllers\MulticomponentsController.cs" />
     <Compile Include="Controllers\ProcessNodesController.cs" />
+    <Compile Include="Controllers\ProcessStepsController.cs" />
     <Compile Include="Controllers\RoleMenusController.cs" />
+    <Compile Include="Controllers\StationsController.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Extensions\LinqOrderByColumnsNameExtensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -212,39 +218,79 @@
     <Compile Include="Migrations\201601310742131_add.Designer.cs">
       <DependentUpon>201601310742131_add.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601310852508_customer.cs" />
+    <Compile Include="Migrations\201601310852508_customer.Designer.cs">
+      <DependentUpon>201601310852508_customer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601311023501_mu.cs" />
+    <Compile Include="Migrations\201601311023501_mu.Designer.cs">
+      <DependentUpon>201601311023501_mu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601311048032_d.cs" />
+    <Compile Include="Migrations\201601311048032_d.Designer.cs">
+      <DependentUpon>201601311048032_d.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
     <Compile Include="Models\BaseCode.cs" />
     <Compile Include="Models\BaseCodeMetadata.cs" />
+    <Compile Include="Models\Customer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\CustomerMetadata.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ImsDbContext.cs" />
     <Compile Include="Models\ManagementViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Models\MenuItemMetadata.cs" />
+    <Compile Include="Models\Multicomponent.cs" />
+    <Compile Include="Models\MulticomponentMetadata.cs" />
     <Compile Include="Models\ProcessNode.cs" />
     <Compile Include="Models\ProcessNodeMetadata.cs" />
+    <Compile Include="Models\ProcessStep.cs" />
+    <Compile Include="Models\ProcessStepMetadata.cs" />
     <Compile Include="Models\RoleMenu.cs" />
     <Compile Include="Models\RoleMenuMetadata.cs" />
     <Compile Include="Models\RoleMenuViewModel.cs" />
+    <Compile Include="Models\Station.cs" />
+    <Compile Include="Models\StationMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseCodes\BaseCodeQuery.cs" />
     <Compile Include="Repositories\BaseCodes\BaseCodeRepository.cs" />
+    <Compile Include="Repositories\Customers\CustomerQuery.cs" />
+    <Compile Include="Repositories\Customers\CustomerRepository.cs" />
     <Compile Include="Repositories\MenuItems\MenuItemQuery.cs" />
     <Compile Include="Repositories\MenuItems\MenuItemRepository.cs" />
+    <Compile Include="Repositories\Multicomponents\MulticomponentQuery.cs" />
+    <Compile Include="Repositories\Multicomponents\MulticomponentRepository.cs" />
     <Compile Include="Repositories\ProcessNodes\ProcessNodeQuery.cs" />
     <Compile Include="Repositories\ProcessNodes\ProcessNodeRepository.cs" />
+    <Compile Include="Repositories\ProcessSteps\ProcessStepQuery.cs" />
+    <Compile Include="Repositories\ProcessSteps\ProcessStepRepository.cs" />
     <Compile Include="Repositories\RoleMenus\RoleMenuQuery.cs" />
     <Compile Include="Repositories\RoleMenus\RoleMenuRepository.cs" />
+    <Compile Include="Repositories\Stations\StationQuery.cs" />
+    <Compile Include="Repositories\Stations\StationRepository.cs" />
     <Compile Include="Services\BaseCodes\BaseCodeService.cs" />
     <Compile Include="Services\BaseCodes\IBaseCodeService.cs" />
+    <Compile Include="Services\Customers\CustomerService.cs" />
+    <Compile Include="Services\Customers\ICustomerService.cs" />
     <Compile Include="Services\MenuItems\IMenuItemService.cs" />
     <Compile Include="Services\MenuItems\MenuItemService.cs" />
+    <Compile Include="Services\Multicomponents\IMulticomponentService.cs" />
+    <Compile Include="Services\Multicomponents\MulticomponentService.cs" />
     <Compile Include="Services\ProcessNodes\IProcessNodeService.cs" />
     <Compile Include="Services\ProcessNodes\ProcessNodeService.cs" />
+    <Compile Include="Services\ProcessSteps\IProcessStepService.cs" />
+    <Compile Include="Services\ProcessSteps\ProcessStepService.cs" />
     <Compile Include="Services\RoleMenus\IRoleMenuService.cs" />
     <Compile Include="Services\RoleMenus\RoleMenuService.cs" />
+    <Compile Include="Services\Stations\IStationService.cs" />
+    <Compile Include="Services\Stations\StationService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -885,6 +931,26 @@
     <Content Include="Views\Shared\EditorTemplates\Slider.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Date.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\Customers\Create.cshtml" />
+    <Content Include="Views\Customers\Edit.cshtml" />
+    <Content Include="Views\Customers\EditForm.cshtml" />
+    <Content Include="Views\Customers\_PopupSearch.cshtml" />
+    <Content Include="Views\Multicomponents\Index.cshtml" />
+    <Content Include="Views\Multicomponents\Create.cshtml" />
+    <Content Include="Views\Multicomponents\Edit.cshtml" />
+    <Content Include="Views\Multicomponents\EditForm.cshtml" />
+    <Content Include="Views\Multicomponents\_PopupSearch.cshtml" />
+    <Content Include="Views\ProcessSteps\Index.cshtml" />
+    <Content Include="Views\ProcessSteps\Create.cshtml" />
+    <Content Include="Views\ProcessSteps\Edit.cshtml" />
+    <Content Include="Views\ProcessSteps\EditForm.cshtml" />
+    <Content Include="Views\ProcessSteps\_PopupSearch.cshtml" />
+    <Content Include="Views\Stations\Index.cshtml" />
+    <Content Include="Views\Stations\Create.cshtml" />
+    <Content Include="Views\Stations\Edit.cshtml" />
+    <Content Include="Views\Stations\EditForm.cshtml" />
+    <Content Include="Views\Stations\_PopupSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -916,6 +982,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601310742131_add.resx">
       <DependentUpon>201601310742131_add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601310852508_customer.resx">
+      <DependentUpon>201601310852508_customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601311023501_mu.resx">
+      <DependentUpon>201601311023501_mu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601311048032_d.resx">
+      <DependentUpon>201601311048032_d.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

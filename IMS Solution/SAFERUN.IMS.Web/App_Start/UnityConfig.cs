@@ -72,6 +72,17 @@ namespace SAFERUN.IMS.Web.App_Start
             container.RegisterType<IRoleMenuService, RoleMenuService>();
             container.RegisterType<IRepositoryAsync<RoleMenu>, Repository<RoleMenu>>();
 
+            container.RegisterType<IRepositoryAsync<ProcessNode>, Repository<ProcessNode>>();
+            container.RegisterType<IProcessNodeService, ProcessNodeService>();
+            container.RegisterType<IRepositoryAsync<Customer>, Repository<Customer>>();
+            container.RegisterType<ICustomerService, CustomerService>();
+
+            container.RegisterType<IRepositoryAsync<Multicomponent>, Repository<Multicomponent>>();
+            container.RegisterType<IMulticomponentService, MulticomponentService>();
+            container.RegisterType<IRepositoryAsync<ProcessStep>, Repository<ProcessStep>>();
+            container.RegisterType<IProcessStepService, ProcessStepService>();
+            container.RegisterType<IRepositoryAsync<Station>, Repository<Station>>();
+            container.RegisterType<IStationService, StationService>();
 
         }
     }

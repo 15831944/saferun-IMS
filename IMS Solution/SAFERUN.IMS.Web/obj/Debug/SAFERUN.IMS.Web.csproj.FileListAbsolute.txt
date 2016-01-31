@@ -144,3 +144,6 @@ D:\萨驰项目\SourceCode\saferun-IMS\IMS Solution\SAFERUN.IMS.Web\bin\LinqKit.
 D:\萨驰项目\SourceCode\saferun-IMS\IMS Solution\SAFERUN.IMS.Web\obj\Debug\SAFERUN.IMS.Web.Migrations.InitialCreate.resources
 D:\萨驰项目\SourceCode\saferun-IMS\IMS Solution\SAFERUN.IMS.Web\obj\Debug\SAFERUN.IMS.Web.csproj.GenerateResource.Cache
 D:\萨驰项目\SourceCode\saferun-IMS\IMS Solution\SAFERUN.IMS.Web\obj\Debug\SAFERUN.IMS.Web.Migrations.add.resources
+D:\萨驰项目\SourceCode\saferun-IMS\IMS Solution\SAFERUN.IMS.Web\obj\Debug\SAFERUN.IMS.Web.Migrations.customer.resources
+D:\萨驰项目\SourceCode\saferun-IMS\IMS Solution\SAFERUN.IMS.Web\obj\Debug\SAFERUN.IMS.Web.Migrations.mu.resources
+D:\萨驰项目\SourceCode\saferun-IMS\IMS Solution\SAFERUN.IMS.Web\obj\Debug\SAFERUN.IMS.Web.Migrations.d.resources

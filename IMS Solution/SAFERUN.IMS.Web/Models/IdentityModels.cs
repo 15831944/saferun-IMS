@@ -29,5 +29,7 @@ namespace SAFERUN.IMS.Web.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.Multicomponent> Multicomponents { get; set; }
     }
 }

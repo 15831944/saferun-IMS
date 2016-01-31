@@ -41,15 +41,16 @@ namespace SAFERUN.IMS.Web.Repositories
 					
 				    						if (rule.field == "Id")
 						{
-							And(x => x.Id == Convert.ToInt32(rule.value));
+                            And(x => x.Id == Convert.ToInt16(rule.value));
 						}
-				   
-					 				
-					
-				    						if (rule.field == "Order")
-						{
-							And(x => x.Order == Convert.ToInt32(rule.value));
-						}
+
+
+
+                                            if (rule.field == "Order")
+                                            {
+                                                int val = Convert.ToInt32(rule.value);
+                                                And(x => x.Order == val);
+                                            }
 				   
 					 				
 											if (rule.field == "Name")

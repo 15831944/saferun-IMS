@@ -21,5 +21,13 @@ namespace SAFERUN.IMS.Web.Models
         public DbSet<RoleMenu> RoleMenus { get; set; }
 
         public DbSet<ProcessNode> ProcessNodes { get; set; }
+
+        public DbSet<Customer> Customers { get; set; }
+
+        public DbSet<Multicomponent> Multicomponents { get; set; }
+
+        public DbSet<ProcessStep> ProcessSteps { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.Station> Stations { get; set; }
     }
 }
