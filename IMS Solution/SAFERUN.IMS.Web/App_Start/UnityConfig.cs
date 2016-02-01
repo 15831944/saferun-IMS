@@ -8,6 +8,10 @@ using Repository.Pattern.Ef6;
 using Repository.Pattern.DataContext;
 using Repository.Pattern.Repositories;
 using SAFERUN.IMS.Web.Services;
+using Microsoft.AspNet.Identity;
+using System.Web;
+using Microsoft.Owin.Security;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace SAFERUN.IMS.Web.App_Start
 {
@@ -47,9 +51,9 @@ namespace SAFERUN.IMS.Web.App_Start
             container.RegisterType<DbContext, ApplicationDbContext>(new HierarchicalLifetimeManager());
             container.RegisterType<ApplicationDbContext>(new HierarchicalLifetimeManager());
 
-            //container.RegisterType<IRoleStore<ApplicationRole, string>, RoleStore<ApplicationRole>>(new HierarchicalLifetimeManager());
-            //container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(new HierarchicalLifetimeManager());
-            //container.RegisterType<IAuthenticationManager>(new InjectionFactory(o => HttpContext.Current.GetOwinContext().Authentication));
+            container.RegisterType<IRoleStore<ApplicationRole, string>, RoleStore<ApplicationRole>>(new HierarchicalLifetimeManager());
+            container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(new HierarchicalLifetimeManager());
+            container.RegisterType<IAuthenticationManager>(new InjectionFactory(o => HttpContext.Current.GetOwinContext().Authentication));
             ////container.RegisterType<IAuthenticationManager>(new InjectionFactory(o => HttpContext.Current.GetOwinContext().Authentication));
             container.RegisterType<IUnitOfWorkAsync, UnitOfWork>(new PerRequestLifetimeManager());
             container.RegisterType<IDataContextAsync, ImsDbContext>(new PerRequestLifetimeManager());
@@ -86,6 +90,12 @@ namespace SAFERUN.IMS.Web.App_Start
 
             container.RegisterType<IRepositoryAsync<Employee>, Repository<Employee>>();
             container.RegisterType<IEmployeeService, EmployeeService>();
+
+            container.RegisterType<IRepositoryAsync<DefectCode>, Repository<DefectCode>>();
+            container.RegisterType<IDefectCodeService, DefectCodeService>();
+
+            container.RegisterType<IRepositoryAsync<DefectType>, Repository<DefectType>>();
+            container.RegisterType<IDefectTypeService, DefectTypeService>();
 
         }
     }

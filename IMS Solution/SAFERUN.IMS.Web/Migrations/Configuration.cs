@@ -10,7 +10,6 @@ namespace SAFERUN.IMS.Web.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "SAFERUN.IMS.Web.Models.ImsDbContext";
         }
 
         protected override void Seed(SAFERUN.IMS.Web.Models.ImsDbContext context)

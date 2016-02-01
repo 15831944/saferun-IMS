@@ -1,0 +1,54 @@
+﻿ 
+
+
+@model SAFERUN.IMS.Web.Models.DefectCode
+
+
+ 
+
+<div class="form-horizontal">
+
+    @Html.Hidden("Id",-1)
+    @*@Html.HiddenFor(model => model.Id)*@ 
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name,   htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Code,   htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Code,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description,   htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+      @*--ForeignKey DefectTypeId RelatedMasterModel  ---*@
+      @Html.HiddenFor(model => model.DefectTypeId)
+      @*<div class="form-group">
+            @Html.LabelFor(model => model.DefectTypeId,  htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.DefectTypeId, ViewBag.DefectTypeId as List<SelectListItem>,"---Select---", htmlAttributes: new { @class = "form-control" }) 
+                @Html.ValidationMessageFor(model => model.DefectTypeId,"" , new { @class = "text-danger" })
+            </div>
+        </div>*@
+       @*--End ForeignKey DefectTypeId RelatedMasterModel  ---*@
+
+
+		<!-- output all Scaffold = false Hiden field -->
+					@Html.HiddenFor(model => model.CreatedUserId)
+					@Html.HiddenFor(model => model.CreatedDateTime)
+					@Html.HiddenFor(model => model.LastEditUserId)
+					@Html.HiddenFor(model => model.LastEditDateTime)
+				<!-- end output all Scaffold = false Hiden field -->
+</div>
+
+

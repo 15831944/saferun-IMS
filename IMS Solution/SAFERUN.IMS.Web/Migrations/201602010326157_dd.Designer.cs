@@ -7,13 +7,13 @@ namespace SAFERUN.IMS.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class emp : IMigrationMetadata
+    public sealed partial class dd : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(emp));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(dd));
         
         string IMigrationMetadata.Id
         {
-            get { return "201601311119170_emp"; }
+            get { return "201602010326157_dd"; }
         }
         
         string IMigrationMetadata.Source

@@ -196,6 +196,8 @@
     <Compile Include="Controllers\CustomersController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\DefectCodesController.cs" />
+    <Compile Include="Controllers\DefectTypesController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -211,29 +213,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201601310733224_InitialCreate.cs" />
-    <Compile Include="Migrations\201601310733224_InitialCreate.Designer.cs">
-      <DependentUpon>201601310733224_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201602010326157_dd.cs" />
+    <Compile Include="Migrations\201602010326157_dd.Designer.cs">
+      <DependentUpon>201602010326157_dd.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201601310742131_add.cs" />
-    <Compile Include="Migrations\201601310742131_add.Designer.cs">
-      <DependentUpon>201601310742131_add.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601310852508_customer.cs" />
-    <Compile Include="Migrations\201601310852508_customer.Designer.cs">
-      <DependentUpon>201601310852508_customer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601311023501_mu.cs" />
-    <Compile Include="Migrations\201601311023501_mu.Designer.cs">
-      <DependentUpon>201601311023501_mu.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601311048032_d.cs" />
-    <Compile Include="Migrations\201601311048032_d.Designer.cs">
-      <DependentUpon>201601311048032_d.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601311119170_emp.cs" />
-    <Compile Include="Migrations\201601311119170_emp.Designer.cs">
-      <DependentUpon>201601311119170_emp.cs</DependentUpon>
+    <Compile Include="Migrations\201602011142070_test.cs" />
+    <Compile Include="Migrations\201602011142070_test.Designer.cs">
+      <DependentUpon>201602011142070_test.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -246,6 +232,10 @@
     <Compile Include="Models\CustomerMetadata.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\DefectCode.cs" />
+    <Compile Include="Models\DefectCodeMetadata.cs" />
+    <Compile Include="Models\DefectType.cs" />
+    <Compile Include="Models\DefectTypeMetadata.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\EmployeeMetadata.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -270,6 +260,10 @@
     <Compile Include="Repositories\BaseCodes\BaseCodeRepository.cs" />
     <Compile Include="Repositories\Customers\CustomerQuery.cs" />
     <Compile Include="Repositories\Customers\CustomerRepository.cs" />
+    <Compile Include="Repositories\DefectCodes\DefectCodeQuery.cs" />
+    <Compile Include="Repositories\DefectCodes\DefectCodeRepository.cs" />
+    <Compile Include="Repositories\DefectTypes\DefectTypeQuery.cs" />
+    <Compile Include="Repositories\DefectTypes\DefectTypeRepository.cs" />
     <Compile Include="Repositories\Employees\EmployeeQuery.cs" />
     <Compile Include="Repositories\Employees\EmployeeRepository.cs" />
     <Compile Include="Repositories\MenuItems\MenuItemQuery.cs" />
@@ -288,6 +282,10 @@
     <Compile Include="Services\BaseCodes\IBaseCodeService.cs" />
     <Compile Include="Services\Customers\CustomerService.cs" />
     <Compile Include="Services\Customers\ICustomerService.cs" />
+    <Compile Include="Services\DefectCodes\DefectCodeService.cs" />
+    <Compile Include="Services\DefectCodes\IDefectCodeService.cs" />
+    <Compile Include="Services\DefectTypes\DefectTypeService.cs" />
+    <Compile Include="Services\DefectTypes\IDefectTypeService.cs" />
     <Compile Include="Services\Employees\EmployeeService.cs" />
     <Compile Include="Services\Employees\IEmployeeService.cs" />
     <Compile Include="Services\MenuItems\IMenuItemService.cs" />
@@ -967,6 +965,17 @@
     <Content Include="Views\Employees\Edit.cshtml" />
     <Content Include="Views\Employees\EditForm.cshtml" />
     <Content Include="Views\Employees\_PopupSearch.cshtml" />
+    <Content Include="Views\DefectTypes\Index.cshtml" />
+    <Content Include="Views\DefectTypes\Create.cshtml" />
+    <Content Include="Views\DefectTypes\Edit.cshtml" />
+    <Content Include="Views\DefectTypes\EditForm.cshtml" />
+    <Content Include="Views\DefectTypes\_PopupSearch.cshtml" />
+    <Content Include="Views\DefectTypes\_DefectCodeEditForm.cshtml" />
+    <Content Include="Views\DefectCodes\Index.cshtml" />
+    <Content Include="Views\DefectCodes\Create.cshtml" />
+    <Content Include="Views\DefectCodes\Edit.cshtml" />
+    <Content Include="Views\DefectCodes\EditForm.cshtml" />
+    <Content Include="Views\DefectCodes\_PopupSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -993,23 +1002,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201601310733224_InitialCreate.resx">
-      <DependentUpon>201601310733224_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201602010326157_dd.resx">
+      <DependentUpon>201602010326157_dd.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601310742131_add.resx">
-      <DependentUpon>201601310742131_add.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601310852508_customer.resx">
-      <DependentUpon>201601310852508_customer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601311023501_mu.resx">
-      <DependentUpon>201601311023501_mu.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601311048032_d.resx">
-      <DependentUpon>201601311048032_d.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601311119170_emp.resx">
-      <DependentUpon>201601311119170_emp.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201602011142070_test.resx">
+      <DependentUpon>201602011142070_test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
