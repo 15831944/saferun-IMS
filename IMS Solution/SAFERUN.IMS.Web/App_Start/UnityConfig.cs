@@ -61,7 +61,8 @@ namespace SAFERUN.IMS.Web.App_Start
 
 
 
-
+            container.RegisterType<IRepositoryAsync<Message>, Repository<Message>>();
+            container.RegisterType<IMessageService, MessageService>();
             container.RegisterType<IRepositoryAsync<BaseCode>, Repository<BaseCode>>();
             container.RegisterType<IBaseCodeService, BaseCodeService>();
             container.RegisterType<IRepositoryAsync<CodeItem>, Repository<CodeItem>>();

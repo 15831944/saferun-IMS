@@ -35,5 +35,7 @@ namespace SAFERUN.IMS.Web.Models
         public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.DefectType> DefectTypes { get; set; }
 
         public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.DefectCode> DefectCodes { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.Message> Messages { get; set; }
     }
 }

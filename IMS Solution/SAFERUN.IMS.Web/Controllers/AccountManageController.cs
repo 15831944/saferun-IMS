@@ -57,21 +57,7 @@ namespace SAFERUN.IMS.Web.Controllers
         {
             return View();
         }
-        // Get :AccountManager/PageList
-        // For Index View Boostrap-Table load  data 
-        [HttpGet]
-        public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "", string order = "")
-        {
-            int totalCount = 0;
-            int pagenum = offset / limit + 1;
-
-            var users = _userManager.Users.Where(n => n.UserName.Contains(search) || n.Email.Contains(search) || n.PhoneNumber.Contains(search)).OrderByName(sort, order);
-            totalCount = users.Count();
-            var datalist = users.Skip(offset).Take(limit);
-            var rows = datalist.Select(n => new { Id = n.Id, UserName = n.UserName, Email = n.Email, PhoneNumber = n.PhoneNumber, AccessFailedCount = n.AccessFailedCount, LockoutEnabled = n.LockoutEnabled, LockoutEndDateUtc = n.LockoutEndDateUtc }).ToList();
-            var pagelist = new { total = totalCount, rows = rows };
-            return Json(pagelist, JsonRequestBehavior.AllowGet);
-        }
+      
         [HttpGet]
         public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {

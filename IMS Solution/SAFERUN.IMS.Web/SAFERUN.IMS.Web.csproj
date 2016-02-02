@@ -203,6 +203,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManagementController.cs" />
     <Compile Include="Controllers\MenuItemsController.cs" />
+    <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\MulticomponentsController.cs" />
     <Compile Include="Controllers\ProcessNodesController.cs" />
     <Compile Include="Controllers\ProcessStepsController.cs" />
@@ -220,6 +221,10 @@
     <Compile Include="Migrations\201602011142070_test.cs" />
     <Compile Include="Migrations\201602011142070_test.Designer.cs">
       <DependentUpon>201602011142070_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602021035142_a.cs" />
+    <Compile Include="Migrations\201602021035142_a.Designer.cs">
+      <DependentUpon>201602021035142_a.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -244,6 +249,8 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Models\MenuItemMetadata.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\MessageMetadata.cs" />
     <Compile Include="Models\Multicomponent.cs" />
     <Compile Include="Models\MulticomponentMetadata.cs" />
     <Compile Include="Models\ProcessNode.cs" />
@@ -268,6 +275,8 @@
     <Compile Include="Repositories\Employees\EmployeeRepository.cs" />
     <Compile Include="Repositories\MenuItems\MenuItemQuery.cs" />
     <Compile Include="Repositories\MenuItems\MenuItemRepository.cs" />
+    <Compile Include="Repositories\Messages\MessageQuery.cs" />
+    <Compile Include="Repositories\Messages\MessageRepository.cs" />
     <Compile Include="Repositories\Multicomponents\MulticomponentQuery.cs" />
     <Compile Include="Repositories\Multicomponents\MulticomponentRepository.cs" />
     <Compile Include="Repositories\ProcessNodes\ProcessNodeQuery.cs" />
@@ -290,6 +299,8 @@
     <Compile Include="Services\Employees\IEmployeeService.cs" />
     <Compile Include="Services\MenuItems\IMenuItemService.cs" />
     <Compile Include="Services\MenuItems\MenuItemService.cs" />
+    <Compile Include="Services\Messages\IMessageService.cs" />
+    <Compile Include="Services\Messages\MessageService.cs" />
     <Compile Include="Services\Multicomponents\IMulticomponentService.cs" />
     <Compile Include="Services\Multicomponents\MulticomponentService.cs" />
     <Compile Include="Services\ProcessNodes\IProcessNodeService.cs" />
@@ -799,6 +810,7 @@
     <Content Include="Scripts\locale\easyui-lang-zh_CN.js" />
     <Content Include="Scripts\locale\easyui-lang-zh_TW.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\plugins\datagrid-filter.js" />
     <Content Include="Scripts\plugins\jquery.accordion.js" />
     <Content Include="Scripts\plugins\jquery.calendar.js" />
@@ -976,6 +988,12 @@
     <Content Include="Views\DefectCodes\Edit.cshtml" />
     <Content Include="Views\DefectCodes\EditForm.cshtml" />
     <Content Include="Views\DefectCodes\_PopupSearch.cshtml" />
+    <Content Include="Views\Messages\Index.cshtml" />
+    <Content Include="Views\Messages\Create.cshtml" />
+    <Content Include="Views\Messages\Edit.cshtml" />
+    <Content Include="Views\Messages\EditForm.cshtml" />
+    <Content Include="Views\Messages\_PopupSearch.cshtml" />
+    <Content Include="Views\Messages\_ToMyMesssage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1007,6 +1025,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602011142070_test.resx">
       <DependentUpon>201602011142070_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602021035142_a.resx">
+      <DependentUpon>201602021035142_a.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
