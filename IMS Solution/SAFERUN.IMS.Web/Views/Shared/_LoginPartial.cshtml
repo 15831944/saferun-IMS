@@ -47,14 +47,14 @@
                     </a>
                 </li>
                 
-@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = " " }))
-                    {
+ 
+                
                 <li>
                    
-                    @Html.AntiForgeryToken()
-                    <a href="javascript:document.getElementById('logoutForm').submit()"> <i class="icon-off"></i> Log off</a> 
+                
+                    <a href="/Account/Login"> <i class="icon-off"></i> Log off</a> 
                       </li>
-                    }
+                  
 
               
             </ul>

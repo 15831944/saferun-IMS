@@ -1,41 +1,31 @@
 ﻿@model SAFERUN.IMS.Web.Models.RegisterViewModel
 @{
+    Layout = "~/Views/Shared/_LoginViewLayout.cshtml";
     ViewBag.Title = "Register";
 }
 
-<h2>@ViewBag.Title.</h2>
-
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+<div class="login-container">
+    <a href="./"><img width="100" height="30" src="~/images/logo-login@2x.png" /></a>
+    <form action="/Account/Register" method="post">
+        <div class="form-group">
+            <input class="form-control" type="text" id="Email" name="Email" value="输入您的邮箱地址">
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        <div class="form-group">
+            <input class="form-control" type="text" id="Password" name="Password" value="输入密码">
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        <div class="form-group">
+            <input class="form-control" type="text" id="ConfirmPassword" name="ConfirmPassword" value="确认密码"><input type="submit" value="&#xf054;">
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
+        <div class="form-options">
+            <label class="checkbox"><input type="checkbox"><span>同意《注册条款》</span></label>
         </div>
-    </div>
-}
-
+    </form>
+    
+    <p class="signup">
+        已经有账户了？ <a href="/Account/Login">立即登录</a>
+    </p>
+</div>
+ 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

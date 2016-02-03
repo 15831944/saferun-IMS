@@ -113,7 +113,7 @@ namespace SAFERUN.IMS.Web.Controllers
             {
                 foreach (var inserted in users.inserted)
                 {
-                    var user = new ApplicationUser { UserName = inserted.UserName, Email = inserted.Email };
+                    var user = new ApplicationUser { UserName = inserted.Email, Email = inserted.Email };
                     var result =   UserManager.Create(user, "123456");
                 }
             }

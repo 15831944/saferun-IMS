@@ -994,6 +994,8 @@
     <Content Include="Views\Messages\EditForm.cshtml" />
     <Content Include="Views\Messages\_PopupSearch.cshtml" />
     <Content Include="Views\Messages\_ToMyMesssage.cshtml" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\Shared\_LoginViewLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
