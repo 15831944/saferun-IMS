@@ -13,6 +13,8 @@ namespace SAFERUN.IMS.Web.Models
     {
         [Display(Name = "主管")]
         public Employee Manager { get; set; }
+        [Display(Name = "部门")]
+        public Department Department { get; set; }
 
         [Required(ErrorMessage = "Please enter : Id")]
         [Display(Name = "Id")]
@@ -22,6 +24,9 @@ namespace SAFERUN.IMS.Web.Models
         [Display(Name = "姓名")]
         [MaxLength(20)]
         public string Name { get; set; }
+
+        [Display(Name = "所在部门")]
+        public int DepartmentId { get; set; }
 
         [Required(ErrorMessage = "Please enter : 工号")]
         [Display(Name = "工号")]

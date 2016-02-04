@@ -42,6 +42,9 @@ namespace SAFERUN.IMS.Web.Repositories
 				    
 					 				
 					
+				    
+					 				
+					
 				    						if (rule.field == "Id")
 						{
 							And(x => x.Id == Convert.ToInt32(rule.value));
@@ -73,7 +76,7 @@ namespace SAFERUN.IMS.Web.Repositories
 				    
 					 						if (rule.field == "BirthDate")
 						{
-							And(x => x.BirthDate .Date == Convert.ToDateTime(rule.value).Date);
+							And(x => x.BirthDate.Date == Convert.ToDateTime(rule.value).Date);
 						}
 				   				
 											if (rule.field == "MaritalStatus")
@@ -94,7 +97,7 @@ namespace SAFERUN.IMS.Web.Repositories
 				    
 					 						if (rule.field == "HireDate")
 						{
-							And(x => x.HireDate .Date == Convert.ToDateTime(rule.value).Date);
+							And(x => x.HireDate.Date == Convert.ToDateTime(rule.value).Date);
 						}
 				   									
                    

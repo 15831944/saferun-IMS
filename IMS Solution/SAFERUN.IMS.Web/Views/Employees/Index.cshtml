@@ -59,15 +59,30 @@
         			<th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>
                 
 				     <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.Name)</th>
-		
+                        <th data-options="field:'HireDate',width:160,align:'right',editor:{type:'datetimebox',options:{}}">@Html.DisplayNameFor(model => model.HireDate)</th>
+
+                        <th data-options="field:'DepartmentId',width:100,
+                        formatter:function(value,row){
+                            return row.DepartmentName;
+                        },
+                        editor:{
+                            type:'combobox',
+                            options:{
+                                valueField:'Id',
+                                textField:'Name',
+                                method:'get',
+                                url:'/Employees/GetDepartments',
+                                required:true
+                            }
+                        }">@Html.DisplayNameFor(model => model.DepartmentId)</th>
                 
 				     <th data-options="field:'WorkNo',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.WorkNo)</th>
 		
                 
-				     <th data-options="field:'Title',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Title)</th>
+				     <th data-options="field:'Title',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.Title)</th>
 		
                 
-				     <th data-options="field:'BirthDate',width:160,align:'right',editor:{type:'datetimebox',options:{}}">@Html.DisplayNameFor(model => model.BirthDate)</th>
+                        <th data-options="field:'BirthDate',width:160,align:'right',editor:{type:'datetimebox',options:{}},formatter:dateformatter">@Html.DisplayNameFor(model => model.BirthDate)</th>
 		
                 
 				     <th data-options="field:'MaritalStatus',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.MaritalStatus)</th>
@@ -76,8 +91,9 @@
 				     <th data-options="field:'Gender',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Gender)</th>
 		
                 
-				     <th data-options="field:'HireDate',width:160,align:'right',editor:{type:'datetimebox',options:{}}">@Html.DisplayNameFor(model => model.HireDate)</th>
-		
+				     
+
+           
                 			<th data-options="field:'ManagerID',width:100,
                         formatter:function(value,row){
                             return row.ManagerName;
@@ -101,7 +117,7 @@
 
 </table>
 	<div id="employees_toolbar" style="height:auto">
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">Append</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
@@ -120,6 +136,16 @@
         function endEditing() {
             if (editIndex == undefined) { return true }
             if ($dg.datagrid('validateRow', editIndex)) {
+
+				                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'DepartmentId' });
+                var departmentname = $(ed.target).combobox('getText');
+                var departmentid = $(ed.target).combobox('getValue');
+                //console.log(categoryname, categoryid);
+                //console.log(1,$dg.datagrid('getRows')[editIndex]);
+                $dg.datagrid('getRows')[editIndex]['DepartmentName'] =  departmentname;
+                $dg.datagrid('getRows')[editIndex]['DepartmentId'] = departmentid;
+                
+                //console.log(2,$dg.datagrid('getRows')[editIndex]);
 
 				                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'ManagerID' });
                 var managername = $(ed.target).combobox('getText');

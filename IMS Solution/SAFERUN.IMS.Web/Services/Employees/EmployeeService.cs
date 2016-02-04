@@ -25,7 +25,11 @@ namespace SAFERUN.IMS.Web.Services
             _repository=repository;
         }
         
-                 public  IEnumerable<Employee> GetByManagerID(int  managerid)
+                 public  IEnumerable<Employee> GetByDepartmentId(int  departmentid)
+         {
+            return _repository.GetByDepartmentId(departmentid);
+         }
+                  public  IEnumerable<Employee> GetByManagerID(int  managerid)
          {
             return _repository.GetByManagerID(managerid);
          }

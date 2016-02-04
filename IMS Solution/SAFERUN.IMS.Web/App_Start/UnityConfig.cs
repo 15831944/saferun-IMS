@@ -92,11 +92,21 @@ namespace SAFERUN.IMS.Web.App_Start
             container.RegisterType<IRepositoryAsync<Employee>, Repository<Employee>>();
             container.RegisterType<IEmployeeService, EmployeeService>();
 
+            container.RegisterType<IRepositoryAsync<Department>, Repository<Department>>();
+          container.RegisterType<IDepartmentService, DepartmentService>();
+
             container.RegisterType<IRepositoryAsync<DefectCode>, Repository<DefectCode>>();
             container.RegisterType<IDefectCodeService, DefectCodeService>();
 
             container.RegisterType<IRepositoryAsync<DefectType>, Repository<DefectType>>();
             container.RegisterType<IDefectTypeService, DefectTypeService>();
+
+
+            container.RegisterType<IRepositoryAsync<ProjectType>, Repository<ProjectType>>();
+            container.RegisterType<IProjectTypeService, ProjectTypeService>();
+
+            container.RegisterType<IRepositoryAsync<ProjectNode>, Repository<ProjectNode>>();
+            container.RegisterType<IProjectNodeService, ProjectNodeService>();
 
         }
     }

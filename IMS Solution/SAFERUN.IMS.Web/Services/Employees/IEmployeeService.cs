@@ -18,7 +18,8 @@ namespace SAFERUN.IMS.Web.Services
     public interface IEmployeeService:IService<Employee>
     {
 
-                  IEnumerable<Employee> GetByManagerID(int  managerid);
+                  IEnumerable<Employee> GetByDepartmentId(int  departmentid);
+                 IEnumerable<Employee> GetByManagerID(int  managerid);
         
          
  

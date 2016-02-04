@@ -37,5 +37,11 @@ namespace SAFERUN.IMS.Web.Models
         public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.DefectCode> DefectCodes { get; set; }
 
         public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.Message> Messages { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.Department> Departments { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.ProjectType> ProjectTypes { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.ProjectNode> ProjectNodes { get; set; }
     }
 }

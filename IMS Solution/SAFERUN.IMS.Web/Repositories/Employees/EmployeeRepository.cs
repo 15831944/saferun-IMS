@@ -18,6 +18,15 @@ namespace SAFERUN.IMS.Web.Repositories
   public static class EmployeeRepository  
     {
  
+                 public static IEnumerable<Employee> GetByDepartmentId(this IRepositoryAsync<Employee> repository, int departmentid)
+         {
+             var query= repository
+                .Queryable()
+                .Where(x => x.DepartmentId==departmentid);
+             return query;
+
+         }
+             
                  public static IEnumerable<Employee> GetByManagerID(this IRepositoryAsync<Employee> repository, int managerid)
          {
              var query= repository

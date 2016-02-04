@@ -198,6 +198,7 @@
     </Compile>
     <Compile Include="Controllers\DefectCodesController.cs" />
     <Compile Include="Controllers\DefectTypesController.cs" />
+    <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -207,6 +208,8 @@
     <Compile Include="Controllers\MulticomponentsController.cs" />
     <Compile Include="Controllers\ProcessNodesController.cs" />
     <Compile Include="Controllers\ProcessStepsController.cs" />
+    <Compile Include="Controllers\ProjectNodesController.cs" />
+    <Compile Include="Controllers\ProjectTypesController.cs" />
     <Compile Include="Controllers\RoleMenusController.cs" />
     <Compile Include="Controllers\StationsController.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
@@ -226,6 +229,14 @@
     <Compile Include="Migrations\201602021035142_a.Designer.cs">
       <DependentUpon>201602021035142_a.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602041155262_d.cs" />
+    <Compile Include="Migrations\201602041155262_d.Designer.cs">
+      <DependentUpon>201602041155262_d.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602041345224_2.cs" />
+    <Compile Include="Migrations\201602041345224_2.Designer.cs">
+      <DependentUpon>201602041345224_2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
@@ -241,6 +252,8 @@
     <Compile Include="Models\DefectCodeMetadata.cs" />
     <Compile Include="Models\DefectType.cs" />
     <Compile Include="Models\DefectTypeMetadata.cs" />
+    <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\DepartmentMetadata.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\EmployeeMetadata.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -257,6 +270,9 @@
     <Compile Include="Models\ProcessNodeMetadata.cs" />
     <Compile Include="Models\ProcessStep.cs" />
     <Compile Include="Models\ProcessStepMetadata.cs" />
+    <Compile Include="Models\ProjectNode.cs" />
+    <Compile Include="Models\ProjectNodeMetadata.cs" />
+    <Compile Include="Models\ProjectTypeMetadata.cs" />
     <Compile Include="Models\RoleMenu.cs" />
     <Compile Include="Models\RoleMenuMetadata.cs" />
     <Compile Include="Models\RoleMenuViewModel.cs" />
@@ -271,6 +287,8 @@
     <Compile Include="Repositories\DefectCodes\DefectCodeRepository.cs" />
     <Compile Include="Repositories\DefectTypes\DefectTypeQuery.cs" />
     <Compile Include="Repositories\DefectTypes\DefectTypeRepository.cs" />
+    <Compile Include="Repositories\Departments\DepartmentQuery.cs" />
+    <Compile Include="Repositories\Departments\DepartmentRepository.cs" />
     <Compile Include="Repositories\Employees\EmployeeQuery.cs" />
     <Compile Include="Repositories\Employees\EmployeeRepository.cs" />
     <Compile Include="Repositories\MenuItems\MenuItemQuery.cs" />
@@ -283,6 +301,10 @@
     <Compile Include="Repositories\ProcessNodes\ProcessNodeRepository.cs" />
     <Compile Include="Repositories\ProcessSteps\ProcessStepQuery.cs" />
     <Compile Include="Repositories\ProcessSteps\ProcessStepRepository.cs" />
+    <Compile Include="Repositories\ProjectNodes\ProjectNodeQuery.cs" />
+    <Compile Include="Repositories\ProjectNodes\ProjectNodeRepository.cs" />
+    <Compile Include="Repositories\ProjectTypes\ProjectTypeQuery.cs" />
+    <Compile Include="Repositories\ProjectTypes\ProjectTypeRepository.cs" />
     <Compile Include="Repositories\RoleMenus\RoleMenuQuery.cs" />
     <Compile Include="Repositories\RoleMenus\RoleMenuRepository.cs" />
     <Compile Include="Repositories\Stations\StationQuery.cs" />
@@ -295,6 +317,8 @@
     <Compile Include="Services\DefectCodes\IDefectCodeService.cs" />
     <Compile Include="Services\DefectTypes\DefectTypeService.cs" />
     <Compile Include="Services\DefectTypes\IDefectTypeService.cs" />
+    <Compile Include="Services\Departments\DepartmentService.cs" />
+    <Compile Include="Services\Departments\IDepartmentService.cs" />
     <Compile Include="Services\Employees\EmployeeService.cs" />
     <Compile Include="Services\Employees\IEmployeeService.cs" />
     <Compile Include="Services\MenuItems\IMenuItemService.cs" />
@@ -307,6 +331,10 @@
     <Compile Include="Services\ProcessNodes\ProcessNodeService.cs" />
     <Compile Include="Services\ProcessSteps\IProcessStepService.cs" />
     <Compile Include="Services\ProcessSteps\ProcessStepService.cs" />
+    <Compile Include="Services\ProjectNodes\IProjectNodeService.cs" />
+    <Compile Include="Services\ProjectNodes\ProjectNodeService.cs" />
+    <Compile Include="Services\ProjectTypes\IProjectTypeService.cs" />
+    <Compile Include="Services\ProjectTypes\ProjectTypeService.cs" />
     <Compile Include="Services\RoleMenus\IRoleMenuService.cs" />
     <Compile Include="Services\RoleMenus\RoleMenuService.cs" />
     <Compile Include="Services\Stations\IStationService.cs" />
@@ -972,11 +1000,6 @@
     <Content Include="Views\Stations\Edit.cshtml" />
     <Content Include="Views\Stations\EditForm.cshtml" />
     <Content Include="Views\Stations\_PopupSearch.cshtml" />
-    <Content Include="Views\Employees\Index.cshtml" />
-    <Content Include="Views\Employees\Create.cshtml" />
-    <Content Include="Views\Employees\Edit.cshtml" />
-    <Content Include="Views\Employees\EditForm.cshtml" />
-    <Content Include="Views\Employees\_PopupSearch.cshtml" />
     <Content Include="Views\DefectTypes\Index.cshtml" />
     <Content Include="Views\DefectTypes\Create.cshtml" />
     <Content Include="Views\DefectTypes\Edit.cshtml" />
@@ -996,6 +1019,26 @@
     <Content Include="Views\Messages\_ToMyMesssage.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Shared\_LoginViewLayout.cshtml" />
+    <Content Include="Views\Departments\Index.cshtml" />
+    <Content Include="Views\Departments\Create.cshtml" />
+    <Content Include="Views\Departments\Edit.cshtml" />
+    <Content Include="Views\Departments\EditForm.cshtml" />
+    <Content Include="Views\Departments\_PopupSearch.cshtml" />
+    <Content Include="Views\Employees\Index.cshtml" />
+    <Content Include="Views\Employees\Create.cshtml" />
+    <Content Include="Views\Employees\Edit.cshtml" />
+    <Content Include="Views\Employees\EditForm.cshtml" />
+    <Content Include="Views\Employees\_PopupSearch.cshtml" />
+    <Content Include="Views\ProjectTypes\Index.cshtml" />
+    <Content Include="Views\ProjectTypes\Create.cshtml" />
+    <Content Include="Views\ProjectTypes\Edit.cshtml" />
+    <Content Include="Views\ProjectTypes\EditForm.cshtml" />
+    <Content Include="Views\ProjectTypes\_PopupSearch.cshtml" />
+    <Content Include="Views\ProjectNodes\Index.cshtml" />
+    <Content Include="Views\ProjectNodes\Create.cshtml" />
+    <Content Include="Views\ProjectNodes\Edit.cshtml" />
+    <Content Include="Views\ProjectNodes\EditForm.cshtml" />
+    <Content Include="Views\ProjectNodes\_PopupSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1030,6 +1073,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602021035142_a.resx">
       <DependentUpon>201602021035142_a.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602041155262_d.resx">
+      <DependentUpon>201602041155262_d.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602041345224_2.resx">
+      <DependentUpon>201602041345224_2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

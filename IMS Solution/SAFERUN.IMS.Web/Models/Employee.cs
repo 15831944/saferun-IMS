@@ -23,11 +23,15 @@ namespace SAFERUN.IMS.Web.Models
          public string Gender { get; set; }
          public DateTime HireDate { get; set; }
 
+         public int DepartmentId { get; set; }
+         [ForeignKey("DepartmentId")]
+         public virtual Department Department { get; set; }
+
 
          public int? ManagerID { get; set; }
 
          [ForeignKey("ManagerID")]
-         public Employee Manager { get; set; }
+         public virtual Employee Manager { get; set; }
 
 
 

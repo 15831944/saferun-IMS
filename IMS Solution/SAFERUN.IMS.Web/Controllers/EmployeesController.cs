@@ -41,7 +41,7 @@ namespace SAFERUN.IMS.Web.Controllers
         public ActionResult Index()
         {
             
-            //var employees  = _employeeService.Queryable().Include(e => e.Manager).AsQueryable();
+            //var employees  = _employeeService.Queryable().Include(e => e.Department).Include(e => e.Manager).AsQueryable();
             
              //return View(employees);
 			 return View();
@@ -56,9 +56,9 @@ namespace SAFERUN.IMS.Web.Controllers
             int totalCount = 0;
             //int pagenum = offset / limit +1;
             			 
-            var employees  = _employeeService.Query(new EmployeeQuery().Withfilter(filters)).Include(e => e.Manager).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
+            var employees  = _employeeService.Query(new EmployeeQuery().Withfilter(filters)).Include(e => e.Department).Include(e => e.Manager).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
             
-                        var datarows = employees .Select(  n => new { ManagerName = (n.Manager==null?"": n.Manager.Name) , Id = n.Id , Name = n.Name , WorkNo = n.WorkNo , Title = n.Title , BirthDate = n.BirthDate , MaritalStatus = n.MaritalStatus , Gender = n.Gender , HireDate = n.HireDate , ManagerID = n.ManagerID }).ToList();
+                        var datarows = employees .Select(  n => new { DepartmentName = (n.Department==null?"": n.Department.Name) ,ManagerName = (n.Manager==null?"": n.Manager.Name) , Id = n.Id , Name = n.Name , WorkNo = n.WorkNo , Title = n.Title , BirthDate = n.BirthDate , MaritalStatus = n.MaritalStatus , Gender = n.Gender , HireDate = n.HireDate , DepartmentId = n.DepartmentId , ManagerID = n.ManagerID }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
@@ -92,6 +92,13 @@ namespace SAFERUN.IMS.Web.Controllers
             return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
         }
 
+				public ActionResult GetDepartments()
+        {
+            var departmentRepository = _unitOfWork.Repository<Department>();
+            var data = departmentRepository.Queryable().ToList();
+            var rows = data.Select(n => new { Id = n.Id, Name = n.Name });
+            return Json(rows, JsonRequestBehavior.AllowGet);
+        }
 				public ActionResult GetEmployees()
         {
             var employeeRepository = _unitOfWork.Repository<Employee>();
@@ -123,6 +130,8 @@ namespace SAFERUN.IMS.Web.Controllers
         {
             Employee employee = new Employee();
             //set default value
+            var departmentRepository = _unitOfWork.Repository<Department>();
+            ViewBag.DepartmentId = new SelectList(departmentRepository.Queryable(), "Id", "Name");
             var employeeRepository = _unitOfWork.Repository<Employee>();
             ViewBag.ManagerID = new SelectList(employeeRepository.Queryable(), "Id", "Name");
             return View(employee);
@@ -132,7 +141,7 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Manager,Id,Name,WorkNo,Title,BirthDate,MaritalStatus,Gender,HireDate,ManagerID")] Employee employee)
+        public ActionResult Create([Bind(Include = "Department,Manager,Id,Name,WorkNo,Title,BirthDate,MaritalStatus,Gender,HireDate,DepartmentId,ManagerID,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -146,6 +155,8 @@ namespace SAFERUN.IMS.Web.Controllers
                 return RedirectToAction("Index");
             }
 
+            var departmentRepository = _unitOfWork.Repository<Department>();
+            ViewBag.DepartmentId = new SelectList(departmentRepository.Queryable(), "Id", "Name", employee.DepartmentId);
             var employeeRepository = _unitOfWork.Repository<Employee>();
             ViewBag.ManagerID = new SelectList(employeeRepository.Queryable(), "Id", "Name", employee.ManagerID);
             if (Request.IsAjaxRequest())
@@ -169,6 +180,8 @@ namespace SAFERUN.IMS.Web.Controllers
             {
                 return HttpNotFound();
             }
+            var departmentRepository = _unitOfWork.Repository<Department>();
+            ViewBag.DepartmentId = new SelectList(departmentRepository.Queryable(), "Id", "Name", employee.DepartmentId);
             var employeeRepository = _unitOfWork.Repository<Employee>();
             ViewBag.ManagerID = new SelectList(employeeRepository.Queryable(), "Id", "Name", employee.ManagerID);
             return View(employee);
@@ -178,7 +191,7 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Manager,Id,Name,WorkNo,Title,BirthDate,MaritalStatus,Gender,HireDate,ManagerID")] Employee employee)
+        public ActionResult Edit([Bind(Include = "Department,Manager,Id,Name,WorkNo,Title,BirthDate,MaritalStatus,Gender,HireDate,DepartmentId,ManagerID,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -193,6 +206,8 @@ namespace SAFERUN.IMS.Web.Controllers
                 DisplaySuccessMessage("Has update a Employee record");
                 return RedirectToAction("Index");
             }
+            var departmentRepository = _unitOfWork.Repository<Department>();
+            ViewBag.DepartmentId = new SelectList(departmentRepository.Queryable(), "Id", "Name", employee.DepartmentId);
             var employeeRepository = _unitOfWork.Repository<Employee>();
             ViewBag.ManagerID = new SelectList(employeeRepository.Queryable(), "Id", "Name", employee.ManagerID);
             if (Request.IsAjaxRequest())
