@@ -12,6 +12,7 @@ using Repository.Pattern.Repositories;
 using Repository.Pattern.Ef6;
 using SAFERUN.IMS.Web.Models;
 using SAFERUN.IMS.Web.Extensions;
+using System.Data.Entity.SqlServer;
 
 namespace SAFERUN.IMS.Web.Repositories
 {
@@ -20,14 +21,14 @@ namespace SAFERUN.IMS.Web.Repositories
         public ProjectTypeQuery WithAnySearch(string search)
         {
             if (!string.IsNullOrEmpty(search))
-                And( x =>  x.TypeName.Contains(search) || x.Version.Contains(search) || x.Description.Contains(search) || x.StartDate.ToString().Contains(search) || x.ExpiryDate.ToString().Contains(search) );
+                And( x =>  x.TypeName.Contains(search) || x.Model.Contains(search) || x.Version.Contains(search) || x.Description.Contains(search) || x.StartDate.ToString().Contains(search) || x.ExpiryDate.ToString().Contains(search) );
             return this;
         }
 
 		public ProjectTypeQuery WithPopupSearch(string search,string para="")
         {
             if (!string.IsNullOrEmpty(search))
-                And( x =>  x.TypeName.Contains(search) || x.Version.Contains(search) || x.Description.Contains(search) || x.StartDate.ToString().Contains(search) || x.ExpiryDate.ToString().Contains(search) );
+                And( x =>  x.TypeName.Contains(search) || x.Model.Contains(search) || x.Version.Contains(search) || x.Description.Contains(search) || x.StartDate.ToString().Contains(search) || x.ExpiryDate.ToString().Contains(search) );
             return this;
         }
 
@@ -48,6 +49,13 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "TypeName")
 						{
 							And(x => x.TypeName.Contains(rule.value));
+						}
+				    
+				    
+					 				
+											if (rule.field == "Model")
+						{
+							And(x => x.Model.Contains(rule.value));
 						}
 				    
 				    
@@ -77,14 +85,16 @@ namespace SAFERUN.IMS.Web.Repositories
 				    
 					 						if (rule.field == "StartDate")
 						{
-							And(x => x.StartDate .Date == Convert.ToDateTime(rule.value).Date);
+                            var date = Convert.ToDateTime(rule.value) ;
+                            And(x => SqlFunctions.DateDiff("d", date, x.StartDate)>0);
 						}
 				   				
 					
 				    
 					 						if (rule.field == "ExpiryDate")
 						{
-							And(x => x.ExpiryDate .Date == Convert.ToDateTime(rule.value).Date);
+                            var date = Convert.ToDateTime(rule.value).Date;
+                            And(x => SqlFunctions.DateDiff("d", date, x.ExpiryDate) > 0);
 						}
 				   									
                    

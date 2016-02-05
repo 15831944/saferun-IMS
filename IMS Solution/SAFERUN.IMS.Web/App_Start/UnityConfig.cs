@@ -108,6 +108,9 @@ namespace SAFERUN.IMS.Web.App_Start
             container.RegisterType<IRepositoryAsync<ProjectNode>, Repository<ProjectNode>>();
             container.RegisterType<IProjectNodeService, ProjectNodeService>();
 
+            container.RegisterType<IRepositoryAsync<SKU>, Repository<SKU>>();
+        container.RegisterType<ISKUService, SKUService>();
+
         }
     }
 }

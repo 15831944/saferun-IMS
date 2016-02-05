@@ -20,6 +20,11 @@ namespace SAFERUN.IMS.Web.Models
         [MaxLength(50)]
         public string TypeName { get; set; }
 
+        [Required(ErrorMessage = "Please enter : 机型")]
+        [Display(Name = "机型")]
+        [MaxLength(50)]
+        public string Model { get; set; }
+
         [Required(ErrorMessage = "Please enter : 版本号")]
         [Display(Name = "版本号")]
         [MaxLength(10)]

@@ -1,7 +1,4 @@
-﻿
-
-
-@model IEnumerable<SAFERUN.IMS.Web.Models.ProjectNode>
+﻿@model IEnumerable<SAFERUN.IMS.Web.Models.ProjectNode>
 
 
 
@@ -39,12 +36,12 @@
             <div class="ibox-content">
 
                 <div class="table-responsive">
-           
- 
-       <table id="projectnodes_datagrid" class="easyui-datagrid" title="ProjectNodes DataGrid" style="width:auto;height:auto"
-                   data-options="
+
+
+                    <table id="projectnodes_datagrid" class="easyui-datagrid" title="ProjectNodes DataGrid" style="width:auto;height:auto"
+                           data-options="
                  rownumbers:true,
-                 
+
                 remoteFilter: true,
                 singleSelect: true,
                 toolbar: '#projectnodes_toolbar',
@@ -53,20 +50,20 @@
                 onClickCell: onClickCell,
                 pagination: 'true'
                    ">
-                <thead>
-                    <tr>
-                        @*<th data-options="field:'ck',checkbox:true"></th>*@
-        			<th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>
-                
-				     <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Name)</th>
-		
-                
-				     <th data-options="field:'Order',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Order)</th>
-		
-                
-				     <th data-options="field:'ElapsedDay',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.ElapsedDay)</th>
-		
-                			<th data-options="field:'DepartmentId',width:100,
+                        <thead>
+                            <tr>
+                                @*<th data-options="field:'ck',checkbox:true"></th>*@
+                                <th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>
+
+                                <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Name)</th>
+
+
+                                <th data-options="field:'Order',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Order)</th>
+
+
+                                <th data-options="field:'ElapsedDay',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.ElapsedDay)</th>
+
+                                <th data-options="field:'DepartmentId',width:100,
                         formatter:function(value,row){
                             return row.DepartmentName;
                         },
@@ -81,11 +78,11 @@
                             }
                         }">@Html.DisplayNameFor(model => model.DepartmentId)</th>
 
-           
-                
-				     <th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Description)</th>
-		
-                			<th data-options="field:'ProjectTypeId',width:100,
+
+
+                        <th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Description)</th>
+
+                        <th data-options="field:'ProjectTypeId',width:100,
                         formatter:function(value,row){
                             return row.ProjectTypeTypeName;
                         },
@@ -100,58 +97,57 @@
                             }
                         }">@Html.DisplayNameFor(model => model.ProjectTypeId)</th>
 
-           
-               
-    </tr>
-    </thead>
- 
 
-</table>
-	<div id="projectnodes_toolbar" style="height:auto">
+
+                    </tr>
+                </thead>
+
+
+            </table>
+            <div id="projectnodes_toolbar" style="height:auto">
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
             </div>
-				</div>
-
-            </div>
         </div>
+
     </div>
+</div>
+</div>
 </div>
 @section Scripts {
     <script type="text/javascript">
-         var $dg = $('#projectnodes_datagrid');
-		 var editIndex = undefined;
+        var $dg = $('#projectnodes_datagrid');
+        var editIndex = undefined;
         function endEditing() {
             if (editIndex == undefined) { return true }
             if ($dg.datagrid('validateRow', editIndex)) {
 
-				                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'DepartmentId' });
+                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'DepartmentId' });
                 var departmentname = $(ed.target).combobox('getText');
                 var departmentid = $(ed.target).combobox('getValue');
-                //console.log(categoryname, categoryid);
-                //console.log(1,$dg.datagrid('getRows')[editIndex]);
-                $dg.datagrid('getRows')[editIndex]['DepartmentName'] =  departmentname;
+        
+                $dg.datagrid('getRows')[editIndex]['DepartmentName'] = departmentname;
                 $dg.datagrid('getRows')[editIndex]['DepartmentId'] = departmentid;
-                
-                //console.log(2,$dg.datagrid('getRows')[editIndex]);
 
-				                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'ProjectTypeId' });
+             
+
+                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'ProjectTypeId' });
                 var projecttypetypename = $(ed.target).combobox('getText');
                 var projecttypeid = $(ed.target).combobox('getValue');
                 //console.log(categoryname, categoryid);
                 //console.log(1,$dg.datagrid('getRows')[editIndex]);
-                $dg.datagrid('getRows')[editIndex]['ProjectTypeTypeName'] =  projecttypetypename;
+                $dg.datagrid('getRows')[editIndex]['ProjectTypeTypeName'] = projecttypetypename;
                 $dg.datagrid('getRows')[editIndex]['ProjectTypeId'] = projecttypeid;
-                
+
                 //console.log(2,$dg.datagrid('getRows')[editIndex]);
 
-								$dg.datagrid('endEdit', editIndex);
+                $dg.datagrid('endEdit', editIndex);
                 editIndex = undefined;
 
-                
+
                 return true;
             } else {
                 return false;
@@ -210,10 +206,10 @@
                             $dg.datagrid('acceptChanges');
                         }
                     }, "JSON").error(function () {
-                        $.messager.alert("错误", "提交错误了！",'error');
-                      
+                        $.messager.alert("错误", "提交错误了！", 'error');
+
                     });
-              
+
                 }
 
                 $dg.datagrid('acceptChanges');
@@ -229,10 +225,59 @@
         }
 
 
-		 $(function () {
-		  
-           $dg.datagrid('enableFilter');
+        $(function () {
+
+            $dg.datagrid('enableFilter', [
+                {
+                    field: 'DepartmentId',
+                    type: 'combobox',
+                    options: {
+                        valueField: 'Id',
+                        textField: 'Name',
+                        method: 'get',
+                        url: '/ProjectNodes/GetDepartments',
+
+                        onChange: function (value) {
+                            if (value == '') {
+                                $dg.datagrid('removeFilterRule', 'DepartmentId');
+                            } else {
+                                $dg.datagrid('addFilterRule', {
+                                    field: 'DepartmentId',
+                                    op: 'equal',
+                                    value: value
+                                });
+                            }
+                            $dg.datagrid('doFilter');
+                        }
+                    }
+                }
+                ,
+                {
+                    field: 'ProjectTypeId',
+                    type: 'combobox',
+                    options: {
+                        valueField: 'Id',
+                        textField: 'TypeName',
+                        method: 'get',
+                        url: '/ProjectNodes/GetProjectTypes',
+
+                        onChange: function (value) {
+                            if (value == '') {
+                                $dg.datagrid('removeFilterRule', 'ProjectTypeId');
+                            } else {
+                                $dg.datagrid('addFilterRule', {
+                                    field: 'ProjectTypeId',
+                                    op: 'equal',
+                                    value: value
+                                });
+                            }
+                            $dg.datagrid('doFilter');
+                        }
+                    }
+                }
+
+            ]);
         })
-     </script>
+    </script>
 }
 

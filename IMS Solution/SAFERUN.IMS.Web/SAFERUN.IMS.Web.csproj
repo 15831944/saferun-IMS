@@ -211,6 +211,7 @@
     <Compile Include="Controllers\ProjectNodesController.cs" />
     <Compile Include="Controllers\ProjectTypesController.cs" />
     <Compile Include="Controllers\RoleMenusController.cs" />
+    <Compile Include="Controllers\SKUsController.cs" />
     <Compile Include="Controllers\StationsController.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Extensions\LinqOrderByColumnsNameExtensions.cs" />
@@ -237,6 +238,14 @@
     <Compile Include="Migrations\201602041345224_2.Designer.cs">
       <DependentUpon>201602041345224_2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602050317482_dd1.cs" />
+    <Compile Include="Migrations\201602050317482_dd1.Designer.cs">
+      <DependentUpon>201602050317482_dd1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602050726594_sku.cs" />
+    <Compile Include="Migrations\201602050726594_sku.Designer.cs">
+      <DependentUpon>201602050726594_sku.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
@@ -258,6 +267,7 @@
     <Compile Include="Models\EmployeeMetadata.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ImsDbContext.cs" />
+    <Compile Include="Models\MadeType.cs" />
     <Compile Include="Models\ManagementViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MenuItem.cs" />
@@ -276,6 +286,8 @@
     <Compile Include="Models\RoleMenu.cs" />
     <Compile Include="Models\RoleMenuMetadata.cs" />
     <Compile Include="Models\RoleMenuViewModel.cs" />
+    <Compile Include="Models\SKU.cs" />
+    <Compile Include="Models\SKUMetadata.cs" />
     <Compile Include="Models\Station.cs" />
     <Compile Include="Models\StationMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -307,6 +319,8 @@
     <Compile Include="Repositories\ProjectTypes\ProjectTypeRepository.cs" />
     <Compile Include="Repositories\RoleMenus\RoleMenuQuery.cs" />
     <Compile Include="Repositories\RoleMenus\RoleMenuRepository.cs" />
+    <Compile Include="Repositories\SKUs\SKUQuery.cs" />
+    <Compile Include="Repositories\SKUs\SKURepository.cs" />
     <Compile Include="Repositories\Stations\StationQuery.cs" />
     <Compile Include="Repositories\Stations\StationRepository.cs" />
     <Compile Include="Services\BaseCodes\BaseCodeService.cs" />
@@ -337,6 +351,8 @@
     <Compile Include="Services\ProjectTypes\ProjectTypeService.cs" />
     <Compile Include="Services\RoleMenus\IRoleMenuService.cs" />
     <Compile Include="Services\RoleMenus\RoleMenuService.cs" />
+    <Compile Include="Services\SKUs\ISKUService.cs" />
+    <Compile Include="Services\SKUs\SKUService.cs" />
     <Compile Include="Services\Stations\IStationService.cs" />
     <Compile Include="Services\Stations\StationService.cs" />
     <Compile Include="Startup.cs" />
@@ -1029,16 +1045,21 @@
     <Content Include="Views\Employees\Edit.cshtml" />
     <Content Include="Views\Employees\EditForm.cshtml" />
     <Content Include="Views\Employees\_PopupSearch.cshtml" />
-    <Content Include="Views\ProjectTypes\Index.cshtml" />
-    <Content Include="Views\ProjectTypes\Create.cshtml" />
-    <Content Include="Views\ProjectTypes\Edit.cshtml" />
-    <Content Include="Views\ProjectTypes\EditForm.cshtml" />
-    <Content Include="Views\ProjectTypes\_PopupSearch.cshtml" />
     <Content Include="Views\ProjectNodes\Index.cshtml" />
     <Content Include="Views\ProjectNodes\Create.cshtml" />
     <Content Include="Views\ProjectNodes\Edit.cshtml" />
     <Content Include="Views\ProjectNodes\EditForm.cshtml" />
     <Content Include="Views\ProjectNodes\_PopupSearch.cshtml" />
+    <Content Include="Views\ProjectTypes\Index.cshtml" />
+    <Content Include="Views\ProjectTypes\Create.cshtml" />
+    <Content Include="Views\ProjectTypes\Edit.cshtml" />
+    <Content Include="Views\ProjectTypes\EditForm.cshtml" />
+    <Content Include="Views\ProjectTypes\_PopupSearch.cshtml" />
+    <Content Include="Views\SKUs\Index.cshtml" />
+    <Content Include="Views\SKUs\Create.cshtml" />
+    <Content Include="Views\SKUs\Edit.cshtml" />
+    <Content Include="Views\SKUs\EditForm.cshtml" />
+    <Content Include="Views\SKUs\_PopupSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1079,6 +1100,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602041345224_2.resx">
       <DependentUpon>201602041345224_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602050317482_dd1.resx">
+      <DependentUpon>201602050317482_dd1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602050726594_sku.resx">
+      <DependentUpon>201602050726594_sku.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

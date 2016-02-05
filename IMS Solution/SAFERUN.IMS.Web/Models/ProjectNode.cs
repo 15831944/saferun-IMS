@@ -14,6 +14,8 @@ namespace SAFERUN.IMS.Web.Models
         public int Id { get; set; }
         public string TypeName { get; set; }
 
+        public string Model { get; set; }
+
         public string Version { get; set; }
 
         public int Status { get; set; }

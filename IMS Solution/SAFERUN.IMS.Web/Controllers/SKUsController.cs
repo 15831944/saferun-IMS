@@ -20,33 +20,33 @@ using SAFERUN.IMS.Web.Extensions;
 
 namespace SAFERUN.IMS.Web.Controllers
 {
-    public class ProjectTypesController : Controller
+    public class SKUsController : Controller
     {
         
         //Please RegisterType UnityConfig.cs
-        //container.RegisterType<IRepositoryAsync<ProjectType>, Repository<ProjectType>>();
-        //container.RegisterType<IProjectTypeService, ProjectTypeService>();
+        //container.RegisterType<IRepositoryAsync<SKU>, Repository<SKU>>();
+        //container.RegisterType<ISKUService, SKUService>();
         
         //private ImsDbContext db = new ImsDbContext();
-        private readonly IProjectTypeService  _projectTypeService;
+        private readonly ISKUService  _sKUService;
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public ProjectTypesController (IProjectTypeService  projectTypeService, IUnitOfWorkAsync unitOfWork)
+        public SKUsController (ISKUService  sKUService, IUnitOfWorkAsync unitOfWork)
         {
-            _projectTypeService  = projectTypeService;
+            _sKUService  = sKUService;
             _unitOfWork = unitOfWork;
         }
 
-        // GET: ProjectTypes/Index
+        // GET: SKUs/Index
         public ActionResult Index()
         {
             
-            //var projecttypes  = _projectTypeService.Queryable().AsQueryable();
-            //return View(projecttypes  );
+            //var skus  = _sKUService.Queryable().AsQueryable();
+            //return View(skus  );
 			return View();
         }
 
-        // Get :ProjectTypes/PageList
+        // Get :SKUs/PageList
         // For Index View Boostrap-Table load  data 
         [HttpGet]
         public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
@@ -54,34 +54,34 @@ namespace SAFERUN.IMS.Web.Controllers
 			var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
             //int pagenum = offset / limit +1;
-                        var projecttypes  = _projectTypeService.Query(new ProjectTypeQuery().Withfilter(filters)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
-                        var datarows = projecttypes .Select(  n => new {  Id = n.Id , TypeName = n.TypeName , Model = n.Model , Version = n.Version , Status = n.Status , Description = n.Description , StartDate = n.StartDate , ExpiryDate = n.ExpiryDate }).ToList();
+                        var skus  = _sKUService.Query(new SKUQuery().Withfilter(filters)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
+                        var datarows = skus .Select(  n => new {  Id = n.Id , Sku = n.Sku , ALTSku = n.ALTSku , ManufacturerSku = n.ManufacturerSku , Model = n.Model , CLASS = n.CLASS , SKUGroup = n.SKUGroup , MadeType = n.MadeType , STDUOM = n.STDUOM , Description = n.Description , Brand = n.Brand , PackKey = n.PackKey , QCLOC = n.QCLOC , QCLOCOUT = n.QCLOCOUT , Active = n.Active , Price = n.Price , Cost = n.Cost , STDGrossWGT = n.STDGrossWGT , STDNetWGT = n.STDNetWGT , STDCube = n.STDCube , SUSR1 = n.SUSR1 , SUSR2 = n.SUSR2 , SUSR3 = n.SUSR3 , SUSR4 = n.SUSR4 , SUSR5 = n.SUSR5 }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
 		[HttpPost]
-		public ActionResult SaveData(ProjectTypeChangeViewModel projecttypes)
+		public ActionResult SaveData(SKUChangeViewModel skus)
         {
-            if (projecttypes.updated != null)
+            if (skus.updated != null)
             {
-                foreach (var updated in projecttypes.updated)
+                foreach (var updated in skus.updated)
                 {
-                    _projectTypeService.Update(updated);
+                    _sKUService.Update(updated);
                 }
             }
-            if (projecttypes.deleted != null)
+            if (skus.deleted != null)
             {
-                foreach (var deleted in projecttypes.deleted)
+                foreach (var deleted in skus.deleted)
                 {
-                    _projectTypeService.Delete(deleted);
+                    _sKUService.Delete(deleted);
                 }
             }
-            if (projecttypes.inserted != null)
+            if (skus.inserted != null)
             {
-                foreach (var inserted in projecttypes.inserted)
+                foreach (var inserted in skus.inserted)
                 {
-                    _projectTypeService.Insert(inserted);
+                    _sKUService.Insert(inserted);
                 }
             }
             _unitOfWork.SaveChanges();
@@ -92,45 +92,45 @@ namespace SAFERUN.IMS.Web.Controllers
 		
 		
        
-        // GET: ProjectTypes/Details/5
+        // GET: SKUs/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProjectType projectType = _projectTypeService.Find(id);
-            if (projectType == null)
+            SKU sKU = _sKUService.Find(id);
+            if (sKU == null)
             {
                 return HttpNotFound();
             }
-            return View(projectType);
+            return View(sKU);
         }
         
 
-        // GET: ProjectTypes/Create
+        // GET: SKUs/Create
         public ActionResult Create()
         {
-            ProjectType projectType = new ProjectType();
+            SKU sKU = new SKU();
             //set default value
-            return View(projectType);
+            return View(sKU);
         }
 
-        // POST: ProjectTypes/Create
+        // POST: SKUs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TypeName,Model,Version,Status,Description,StartDate,ExpiryDate,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProjectType projectType)
+        public ActionResult Create([Bind(Include = "Id,Sku,ALTSku,ManufacturerSku,Model,CLASS,SKUGroup,MadeType,STDUOM,Description,Brand,PackKey,QCLOC,QCLOCOUT,Active,Price,Cost,STDGrossWGT,STDNetWGT,STDCube,SUSR1,SUSR2,SUSR3,SUSR4,SUSR5,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] SKU sKU)
         {
             if (ModelState.IsValid)
             {
-             				_projectTypeService.Insert(projectType);
+             				_sKUService.Insert(sKU);
                            _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
                 }
-                DisplaySuccessMessage("Has append a ProjectType record");
+                DisplaySuccessMessage("Has append a SKU record");
                 return RedirectToAction("Index");
             }
 
@@ -140,41 +140,41 @@ namespace SAFERUN.IMS.Web.Controllers
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
-            return View(projectType);
+            return View(sKU);
         }
 
-        // GET: ProjectTypes/Edit/5
+        // GET: SKUs/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProjectType projectType = _projectTypeService.Find(id);
-            if (projectType == null)
+            SKU sKU = _sKUService.Find(id);
+            if (sKU == null)
             {
                 return HttpNotFound();
             }
-            return View(projectType);
+            return View(sKU);
         }
 
-        // POST: ProjectTypes/Edit/5
+        // POST: SKUs/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,TypeName,Model,Version,Status,Description,StartDate,ExpiryDate,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProjectType projectType)
+        public ActionResult Edit([Bind(Include = "Id,Sku,ALTSku,ManufacturerSku,Model,CLASS,SKUGroup,MadeType,STDUOM,Description,Brand,PackKey,QCLOC,QCLOCOUT,Active,Price,Cost,STDGrossWGT,STDNetWGT,STDCube,SUSR1,SUSR2,SUSR3,SUSR4,SUSR5,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] SKU sKU)
         {
             if (ModelState.IsValid)
             {
-                projectType.ObjectState = ObjectState.Modified;
-                				_projectTypeService.Update(projectType);
+                sKU.ObjectState = ObjectState.Modified;
+                				_sKUService.Update(sKU);
                                 
                 _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
                 }
-                DisplaySuccessMessage("Has update a ProjectType record");
+                DisplaySuccessMessage("Has update a SKU record");
                 return RedirectToAction("Index");
             }
             if (Request.IsAjaxRequest())
@@ -183,37 +183,37 @@ namespace SAFERUN.IMS.Web.Controllers
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
-            return View(projectType);
+            return View(sKU);
         }
 
-        // GET: ProjectTypes/Delete/5
+        // GET: SKUs/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProjectType projectType = _projectTypeService.Find(id);
-            if (projectType == null)
+            SKU sKU = _sKUService.Find(id);
+            if (sKU == null)
             {
                 return HttpNotFound();
             }
-            return View(projectType);
+            return View(sKU);
         }
 
-        // POST: ProjectTypes/Delete/5
+        // POST: SKUs/Delete/5
         [HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ProjectType projectType =  _projectTypeService.Find(id);
-             _projectTypeService.Delete(projectType);
+            SKU sKU =  _sKUService.Find(id);
+             _sKUService.Delete(sKU);
             _unitOfWork.SaveChanges();
            if (Request.IsAjaxRequest())
                 {
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
                 }
-            DisplaySuccessMessage("Has delete a ProjectType record");
+            DisplaySuccessMessage("Has delete a SKU record");
             return RedirectToAction("Index");
         }
 

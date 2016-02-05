@@ -61,6 +61,9 @@
 				     <th data-options="field:'TypeName',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.TypeName)</th>
 		
                 
+				     <th data-options="field:'Model',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Model)</th>
+		
+                
 				     <th data-options="field:'Version',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Version)</th>
 		
                 
@@ -185,7 +188,44 @@
 
 		 $(function () {
 		  
-           $dg.datagrid('enableFilter');
+		     $dg.datagrid('enableFilter',[
+                  {
+                      field: 'StartDate',
+                      type: 'datebox',
+                      options: {
+                          onChange: function (value) {
+                              if (value == '') {
+                                  $dg.datagrid('removeFilterRule', 'StartDate');
+                              } else {
+                                  $dg.datagrid('addFilterRule', {
+                                      field: 'StartDate',
+                                      op: 'equal',
+                                      value: value
+                                  });
+                              }
+                              $dg.datagrid('doFilter');
+                          }
+                      }
+                  },
+                  {
+                      field: 'ExpiryDate',
+                      type: 'datebox',
+                      options: {
+                          onChange: function (value) {
+                              if (value == '') {
+                                  $dg.datagrid('removeFilterRule', 'ExpiryDate');
+                              } else {
+                                  $dg.datagrid('addFilterRule', {
+                                      field: 'ExpiryDate',
+                                      op: 'equal',
+                                      value: value
+                                  });
+                              }
+                              $dg.datagrid('doFilter');
+                          }
+                      }
+                  }
+		     ]);
         })
      </script>
 }
