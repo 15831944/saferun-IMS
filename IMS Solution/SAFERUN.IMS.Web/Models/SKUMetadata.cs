@@ -17,15 +17,15 @@ namespace SAFERUN.IMS.Web.Models
 
         [Required(ErrorMessage = "Please enter : Sku")]
         [Display(Name = "Sku")]
-        [MaxLength(20)]
+        [MaxLength(30)]
         public string Sku { get; set; }
 
         [Display(Name = "替代料")]
-        [MaxLength(20)]
+        [MaxLength(30)]
         public string ALTSku { get; set; }
 
         [Display(Name = "图纸编号")]
-        [MaxLength(20)]
+        [MaxLength(50)]
         public string ManufacturerSku { get; set; }
 
         [Display(Name = "型号")]

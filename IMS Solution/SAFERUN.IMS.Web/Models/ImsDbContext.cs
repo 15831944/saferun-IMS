@@ -45,5 +45,7 @@ namespace SAFERUN.IMS.Web.Models
         public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.ProjectNode> ProjectNodes { get; set; }
 
         public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.SKU> SKUs { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.BOMComponent> BOMComponents { get; set; }
     }
 }

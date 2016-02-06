@@ -111,6 +111,8 @@ namespace SAFERUN.IMS.Web.App_Start
             container.RegisterType<IRepositoryAsync<SKU>, Repository<SKU>>();
         container.RegisterType<ISKUService, SKUService>();
 
+        container.RegisterType<IRepositoryAsync<BOMComponent>, Repository<BOMComponent>>();
+        container.RegisterType<IBOMComponentService, BOMComponentService>();
         }
     }
 }

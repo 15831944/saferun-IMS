@@ -6,6 +6,7 @@
     </title>
     <meta charset="utf-8">
     <meta name="keywords" content="萨驰-智能制造平台 4.0" />
+
     
     <link href="http://fonts.useso.com/css?family=Lato:100,300,400,700" media="all" rel="stylesheet" type="text/css" />
     <link href="~/stylesheets/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
@@ -32,11 +33,17 @@
     <link href="~/stylesheets/color/magenta.css" media="all" rel="alternate stylesheet" title="magenta-theme" type="text/css" />
     <link href="~/stylesheets/color/gray.css" media="all" rel="alternate stylesheet" title="gray-theme" type="text/css" />
     <link href="~/Content/themes/metro/easyui.css" rel="stylesheet" />
+    <link href="~/Content/animate.css" rel="stylesheet" />
     @*<link href="~/Content/themes/icon.css" rel="stylesheet" />
     <link href="~/Content/themes/color.css" rel="stylesheet" />*@
     <script src="~/Scripts/jquery.min.js"></script>
      
     <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/plugins/datagrid-filter.js"></script>
+    <script src="~/Scripts/plugins/jquery.edatagrid.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/locale/easyui-lang-zh_CN.js"></script>
     <script src="~/javascripts/bootstrap.min.js" type="text/javascript"></script>
     <script src="~/javascripts/raphael.min.js" type="text/javascript"></script>
     <script src="~/javascripts/selectivizr-min.js" type="text/javascript"></script>
@@ -77,12 +84,9 @@
     <script src="~/javascripts/respond.js" type="text/javascript"></script>
 
 
-    <script src="~/Scripts/jquery.easyui.min.js"></script>
-    <script src="~/Scripts/plugins/datagrid-filter.js"></script>
-    <script src="~/Scripts/plugins/jquery.edatagrid.js"></script>
-    <script src="~/Scripts/moment.js"></script>
-    <script src="~/Scripts/locale/easyui-lang-zh_CN.js"></script>
+    
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <script src="~/Scripts/uploadify/jquery.uploadify.js"></script>
 </head>
 <body>
     <div class="modal-shiftfix">
@@ -118,6 +122,9 @@
                                 </li>
                                 <li>
                                     <a href="/SKUs">SKU维护</a>
+                                </li>
+                                <li>
+                                    <a href="/BOMComponents">BOM维护</a>
                                 </li>
                                 <li>
                                     <a href="/Customers">客户信息维护</a>
@@ -258,22 +265,23 @@
                     @ViewBag.Title
                 </h1>
             </div>
-            <div class="row">
+            <div class="row animated slideInRight">
                 <div class="col-lg-12">
-                    <div class="widget-container fluid-height clearfix">
+                    <div id="mainbody" class="widget-container fluid-height clearfix">
                         <div class="heading">
                             <i class="icon-table"></i>@ViewBag.Title
                         </div>
                         <div class="widget-content padded clearfix">
 
                             @RenderBody()
-                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
                             <!-- end DataTables Example -->
                         </div>
                     </div>
                     @RenderSection("scripts", required: false)
+    
 </body>
 </html>
