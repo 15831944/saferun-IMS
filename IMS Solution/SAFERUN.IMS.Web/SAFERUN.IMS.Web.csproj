@@ -195,7 +195,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountManageController.cs" />
     <Compile Include="Controllers\BaseCodesController.cs" />
-    <Compile Include="Controllers\BOMComponentsController.cs" />
+    <Compile Include="Controllers\BOMComponentsController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\ButtonAttribute.cs" />
     <Compile Include="Controllers\CustomersController.cs">
       <SubType>Code</SubType>
@@ -204,7 +206,9 @@
     <Compile Include="Controllers\DefectTypesController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
-    <Compile Include="Controllers\FileUploadController.cs" />
+    <Compile Include="Controllers\FileUploadController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManagementController.cs" />
@@ -259,13 +263,21 @@
     <Compile Include="Migrations\201602060245117_df.Designer.cs">
       <DependentUpon>201602060245117_df.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602061207255_dfd1.cs" />
+    <Compile Include="Migrations\201602061207255_dfd1.Designer.cs">
+      <DependentUpon>201602061207255_dfd1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
     <Compile Include="Models\BaseCode.cs" />
     <Compile Include="Models\BaseCodeMetadata.cs" />
-    <Compile Include="Models\BOM.cs" />
-    <Compile Include="Models\BOMComponentMetadata.cs" />
+    <Compile Include="Models\BOM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\BOMComponentMetadata.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\Customer.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -1151,6 +1163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602060245117_df.resx">
       <DependentUpon>201602060245117_df.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602061207255_dfd1.resx">
+      <DependentUpon>201602061207255_dfd1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

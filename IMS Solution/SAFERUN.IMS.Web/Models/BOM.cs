@@ -37,6 +37,8 @@ namespace SAFERUN.IMS.Web.Models
         public int Status { get; set; }
 
         public bool NoPur { get; set; }
+        [Required]
+        public string FinishedSKU { get; set; } 
 
         [ScaffoldColumn(false)]
         public byte[] DesignPricture1 { get; set; }

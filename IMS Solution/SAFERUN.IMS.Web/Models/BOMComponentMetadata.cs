@@ -49,10 +49,15 @@ namespace SAFERUN.IMS.Web.Models
         public string StockSKU { get; set; }
 
         [Display(Name = "备注1")]
+        [MaxLength(300)]
         public string Remark1 { get; set; }
 
         [Display(Name = "备注2")]
+        [MaxLength(300)]
         public string Remark2 { get; set; }
+        [Display(Name = "成品SKU")]
+        [MaxLength(30)]
+        public string FinishedSKU { get; set; } 
 
         [Display(Name = "用量")]
         public decimal ConsumeQty { get; set; }

@@ -14,18 +14,20 @@ namespace SAFERUN.IMS.Web.Controllers
     public class FileUploadController : Controller
     {
         private readonly ISKUService  _sKUService;
+        private readonly IBOMComponentService _iBOMComponentService;
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public FileUploadController(ISKUService sKUService, IUnitOfWorkAsync unitOfWork)
+        public FileUploadController(ISKUService sKUService, IBOMComponentService iBOMComponentService,IUnitOfWorkAsync unitOfWork)
         {
+            _iBOMComponentService = iBOMComponentService;
             _sKUService  = sKUService;
             _unitOfWork = unitOfWork;
         }
         //回单文件上传 文件名格式 回单+_+日期+_原始文件
         [HttpPost]
-        public ActionResult UploadSKU(HttpPostedFileBase Filedata)
+        public ActionResult Upload(HttpPostedFileBase Filedata)
         {
-            //string podno = "";
+            string fileType = "";
             //string date = "";
             //string filename = "";
             //string Lastfilename = "";
@@ -38,13 +40,22 @@ namespace SAFERUN.IMS.Web.Controllers
                 {
                     return this.HttpNotFound();
                 }
-                //podno = this.Request.Form["podno"];
+                fileType = this.Request.Form["fileType"];
                 //date = this.Request.Form["date"];
                 //filename = this.Request.Form["filename"];
                 //Lastfilename = this.Request.Form["Lastfilename"];
-                DataTable skutable =  ExcelHelper.GetDataTableFromExcel(Filedata.InputStream);
-                _sKUService.ImportSku(skutable);
-                _unitOfWork.SaveChanges();
+                DataTable datatable =  ExcelHelper.GetDataTableFromExcel(Filedata.InputStream);
+                if (fileType == "SKU")
+                {
+                    _sKUService.ImportSku(datatable);
+                    _unitOfWork.SaveChanges();
+                }
+                if (fileType == "BOM")
+                {
+                    _iBOMComponentService.ImportFormExcel(datatable);
+                    _unitOfWork.SaveChanges();
+                }
+               
                 string uploadfilename = System.IO.Path.GetFileName(Filedata.FileName);
                 string folder = Server.MapPath("~/UploadFiles");
                 string time = DateTime.Now.ToString().Replace("\\", "").Replace("/", "").Replace(".", "").Replace(":", "").Replace("-", "").Replace(" ", "");//获取时间
@@ -84,6 +95,8 @@ namespace SAFERUN.IMS.Web.Controllers
                 return Json(new { success = "false", message = e.Message   }, JsonRequestBehavior.AllowGet);
             }
         }
+
+
 
         public FileContentResult DownLoadFile(string FilePath = "")
         {

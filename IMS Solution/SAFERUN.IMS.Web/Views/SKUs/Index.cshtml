@@ -6,7 +6,7 @@
 @{
     ViewBag.Title = "SKUs";
 }
-<link href="~/Scripts/uploadify/uploadify.css" rel="stylesheet" />
+
 
 <div class="row">
     <div class="col-lg-12">
@@ -152,7 +152,7 @@
                 </div>
             </div>
 
-<div id="importwindow" class="easyui-window" title="Excel 导入"   data-options="modal:true,collapsible:false,minimizable:false,maximizable:false,closed:true,iconCls:'icon-paperclip'" style="width:500px;height:260px;padding:10px;">
+<div id="importwindow"  class="easyui-window" title="Excel 导入"   data-options="modal:true,collapsible:false,minimizable:false,maximizable:false,closed:true,iconCls:'icon-paperclip'" style="width:500px;height:260px;padding:10px;">
      
     <p><input type="file" name="file_upload" id="file_upload" /></p>
     <div id="alert1" class="alert alert-success">
@@ -176,11 +176,12 @@
                             'fileTypeDesc': 'Excel 2010 Files',
                             'fileTypeExts': '*.xlsx',
                             'swf': '/scripts/uploadify/uploadify.swf',
-                            'uploader': '/FileUpload/UploadSKU',
+                            'uploader': '/FileUpload/Upload',
                             'buttonText': '选择EXCEL',
                             'displayData': 'speed',
-                            width: 120,
-                            successTimeout: 100000,
+                            'width': 120,
+                            'successTimeout': 100000,
+                            'formData': { 'fileType': 'SKU' },
                             'onUploadComplete': function (file) {
                                 $('#alert1').hide('normal');
                                 $('#alert2').show('normal');

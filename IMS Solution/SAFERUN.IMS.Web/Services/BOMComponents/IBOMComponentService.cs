@@ -12,6 +12,7 @@ using Repository.Pattern.Repositories;
 using Service.Pattern;
 using SAFERUN.IMS.Web.Models;
 using SAFERUN.IMS.Web.Repositories;
+using System.Data;
 
 namespace SAFERUN.IMS.Web.Services
 {
@@ -22,6 +23,8 @@ namespace SAFERUN.IMS.Web.Services
                  IEnumerable<BOMComponent> GetByParentComponentId(int  parentcomponentid);
         
                  IEnumerable<BOMComponent>   GetComponentsByParentComponentId (int parentcomponentid);
+
+                 void ImportFormExcel(DataTable datatable);
          
          
  
