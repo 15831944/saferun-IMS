@@ -1,0 +1,313 @@
+﻿﻿
+
+
+@model SAFERUN.IMS.Web.Models.Order
+
+
+@*@Html.HiddenFor(model => model.Id)*@
+
+
+
+<div class="row">
+
+
+    <div class="form-group col-lg-6 col-md-6 col-sm-6">
+        @Html.LabelFor(model => model.OrderKey, htmlAttributes: new { @class = "control-label  col-md-3 col-sm-3" })
+        <div class=" col-md-9 col-sm-9">
+            @Html.EditorFor(model => model.OrderKey, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.OrderKey, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-lg-6 col-md-6 col-sm-6">
+        @Html.LabelFor(model => model.Sales, htmlAttributes: new { @class = "control-label  col-md-3 col-sm-3" })
+        <div class=" col-md-9 col-sm-9">
+            @Html.EditorFor(model => model.Sales, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Sales, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-lg-6 col-md-6 col-sm-6">
+        @Html.LabelFor(model => model.OrderDate, htmlAttributes: new { @class = "control-label  col-md-3 col-sm-3" })
+        <div class=" col-md-9 col-sm-9">
+            @Html.EditorFor(model => model.OrderDate, "Date", new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-lg-6 col-md-6 col-sm-6">
+        @Html.LabelFor(model => model.AuditDate, htmlAttributes: new { @class = "control-label  col-md-3 col-sm-3" })
+        <div class=" col-md-9 col-sm-9">
+            @Html.EditorFor(model => model.AuditDate, "Date", new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.AuditDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-lg-6 col-md-6 col-sm-6">
+        @Html.LabelFor(model => model.CustomerId, htmlAttributes: new { @class = "control-label  col-md-3 col-sm-3" })
+        <div class=" col-md-9 col-sm-9">
+            @Html.DropDownListFor(model => model.CustomerId, ViewBag.CustomerId as List<SelectListItem>, "---Select---", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CustomerId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-lg-6 col-md-6 col-sm-6">
+        @Html.LabelFor(model => model.ProjectTypeId, htmlAttributes: new { @class = "control-label  col-md-3 col-sm-3" })
+        <div class=" col-md-9 col-sm-9">
+            @Html.DropDownListFor(model => model.ProjectTypeId, ViewBag.ProjectTypeId as List<SelectListItem>, "---Select---", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ProjectTypeId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-lg-6 col-md-6 col-sm-6">
+        @Html.LabelFor(model => model.ProjectName, htmlAttributes: new { @class = "control-label  col-md-3 col-sm-3" })
+        <div class=" col-md-9 col-sm-9">
+            @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-lg-6 col-md-6 col-sm-6">
+        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label  col-md-3 col-sm-3" })
+        <div class=" col-md-9 col-sm-9">
+            @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-lg-6 col-md-6 col-sm-6">
+        @Html.LabelFor(model => model.AuditResult, htmlAttributes: new { @class = "control-label  col-md-3 col-sm-3" })
+        <div class=" col-md-9 col-sm-9">
+            @Html.EditorFor(model => model.AuditResult, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.AuditResult, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-lg-6 col-md-6 col-sm-6">
+        @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label  col-md-3 col-sm-3" })
+        <div class=" col-md-9 col-sm-9">
+            @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-lg-6 col-md-6 col-sm-6">
+        @Html.LabelFor(model => model.PlanFinishDate, htmlAttributes: new { @class = "control-label  col-md-3 col-sm-3" })
+        <div class=" col-md-9 col-sm-9">
+            @Html.EditorFor(model => model.PlanFinishDate, "Date", new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PlanFinishDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-lg-6 col-md-6 col-sm-6">
+        @Html.LabelFor(model => model.ActualFinishDate, htmlAttributes: new { @class = "control-label  col-md-3 col-sm-3" })
+        <div class=" col-md-9 col-sm-9">
+            @Html.EditorFor(model => model.ActualFinishDate, "Date", new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ActualFinishDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-lg-6 col-md-6 col-sm-6">
+        @Html.LabelFor(model => model.ShipDate, htmlAttributes: new { @class = "control-label  col-md-3 col-sm-3" })
+        <div class=" col-md-9 col-sm-9">
+            @Html.EditorFor(model => model.ShipDate, "Date", new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ShipDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-lg-6 col-md-6 col-sm-6">
+        @Html.LabelFor(model => model.ColseDate, htmlAttributes: new { @class = "control-label  col-md-3 col-sm-3" })
+        <div class=" col-md-9 col-sm-9">
+            @Html.EditorFor(model => model.ColseDate, "Date", new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ColseDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+</div>
+
+<!-- output all Scaffold = false Hiden field -->
+@Html.HiddenFor(model => model.CreatedUserId)
+@Html.HiddenFor(model => model.CreatedDateTime)
+@Html.HiddenFor(model => model.LastEditUserId)
+@Html.HiddenFor(model => model.LastEditDateTime)
+<!--end output all Scaffold = false Hiden field -->
+<!-- details tabs -->
+<div class="tabs-container">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#tab-orderdetails"> OrderDetails</a></li>
+
+
+
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div id="tab-orderdetails" class="tab-pane active">
+
+            <div class="panel-body">
+
+                <div class="table-responsive">
+                    <table id="orderdetails_datagrid" class="easyui-datagrid" title="OrderDetails DataGrid" style="width:auto;height:400px"
+                           data-options="
+                            rownumbers:true,
+                            iconCls: 'fa fa-list',
+                            remoteFilter: false,
+                            singleSelect: true,
+                            toolbar: '#orderdetails_toolbar',
+                            method: 'get',
+                            onClickCell: orderdetails_onClickCell,
+                            pagination: 'true'
+                    ">
+                        <thead>
+                            <tr>
+                                @*<th data-options="field:'ck',checkbox:true"></th>*@
+
+                               
+
+
+
+
+                                <th data-options="field:'LineNumber',width:140,editor:{type:'textbox',options:{required:false} } "> LineNumber</th>
+
+
+
+                                <th data-options="field:'ContractNum',width:140,editor:{type:'textbox',options:{required:false} } "> ContractNum</th>
+
+
+                                <th data-options="field:'SKUId',width:100,
+												formatter:function(value,row){
+													return row.SKUSku;
+												},
+												editor:{
+													type:'combobox',
+													options:{
+														valueField:'Id',
+														textField:'Sku',
+														method:'get',
+														url:'/Orders/GetSKUs',
+														required:false
+														}
+												}">SKUId</th>
+
+
+
+
+                             
+
+
+
+                                <th data-options="field:'Model',width:140,editor:{type:'textbox',options:{required:false} } "> Model</th>
+
+
+
+                                <th data-options="field:'Qty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}"> Qty </th>
+
+
+
+                                <th data-options="field:'UOM',width:140,editor:{type:'textbox',options:{required:false} } "> UOM</th>
+
+
+                                <th data-options="field:'Status',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}"> Status </th>
+
+
+
+                                <th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } "> Remark</th>
+
+
+
+                               
+
+
+                            </tr>
+                        </thead>
+                    </table>
+
+                    <div id="orderdetails_toolbar" style="height:auto">
+                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="orderdetails_append()">Append</a>
+                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="orderdetails_removeit()">Remove</a>
+                        @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="orderdetails_accept()">Accept</a>*@
+                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="orderdetails_reject()">Reject</a>
+                        @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="orderdetails_getChanges()">GetChanges</a>*@
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--end details tabs -->
+
+
+<script type="text/javascript">
+
+
+    var orderdetailseditIndex = undefined;
+    function orderdetails_endEditing() {
+        if ( orderdetailseditIndex == undefined) { return true }
+        if ($orderdetailsdatagrid.datagrid('validateRow', orderdetailseditIndex)) {
+            
+
+
+            var ed = $orderdetailsdatagrid.datagrid('getEditor', { index: orderdetailseditIndex, field: 'SKUId' });
+            var SKUSku = $(ed.target).combobox('getText');
+            var SKUId = $(ed.target).combobox('getValue');
+
+            $orderdetailsdatagrid.datagrid('getRows')[orderdetailseditIndex]['SKUSku'] = SKUSku;
+            $orderdetailsdatagrid.datagrid('getRows')[orderdetailseditIndex]['SKUId'] = SKUId;
+            $orderdetailsdatagrid.datagrid('getRows')[orderdetailseditIndex]['ProductionSku'] = SKUSku;
+            
+
+
+            $orderdetailsdatagrid.datagrid('endEdit', orderdetailseditIndex);
+            orderdetailseditIndex = undefined;
+
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function orderdetails_onClickCell(index, field) {
+        if (orderdetailseditIndex != index) {
+            if (orderdetails_endEditing()) {
+                $orderdetailsdatagrid.datagrid('selectRow', index)
+                        .datagrid('beginEdit', index);
+                var ed = $orderdetailsdatagrid.datagrid('getEditor', { index: index, field: field });
+                if (ed) {
+                    ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+                }
+                orderdetailseditIndex  = index;
+            } else {
+                $orderdetailsdatagrid.datagrid('selectRow', orderdetailseditIndex);
+            }
+        }
+    }
+    function orderdetails_append() {
+        if (orderdetails_endEditing()) {
+            var orderid=@Model.Id;
+            var orderKey='@Model.OrderKey';
+            var linenumber= '00'+ $orderdetailsdatagrid.datagrid('getRows').length;
+            $orderdetailsdatagrid.datagrid('appendRow', {LineNumber:linenumber,OrderId:orderid,OrderKey: orderKey  });
+            orderdetailseditIndex = $orderdetailsdatagrid.datagrid('getRows').length - 1;
+            $orderdetailsdatagrid.datagrid('selectRow', orderdetailseditIndex )
+                    .datagrid('beginEdit', orderdetailseditIndex);
+        }
+    }
+    function orderdetails_removeit() {
+        if (orderdetailseditIndex  == undefined) { return }
+        $orderdetailsdatagrid.datagrid('cancelEdit', orderdetailseditIndex )
+                .datagrid('deleteRow', orderdetailseditIndex );
+        orderdetailseditIndex = undefined;
+    }
+
+    function orderdetails_reject() {
+        $orderdetailsdatagrid.datagrid('rejectChanges');
+        orderdetailseditIndex  = undefined;
+    }
+    function orderdetails_getChanges() {
+        var rows = $orderdetailsdatagrid.datagrid('getChanges');
+        alert(rows.length + ' rows are changed!');
+    }
+
+
+
+    $(function () {
+
+        $.get('/Orders/GetOrderDetailsByOrderId/' + @Model.Id,function(data){
+            //console.log(data);
+            $orderdetailsdatagrid.datagrid('loadData',data);
+
+        })
+
+
+
+    });
+</script>

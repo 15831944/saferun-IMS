@@ -215,10 +215,15 @@
     <Compile Include="Controllers\MenuItemsController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\MulticomponentsController.cs" />
+    <Compile Include="Controllers\OrderAuditPlansController.cs" />
+    <Compile Include="Controllers\OrderDetailsController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProcessNodesController.cs" />
     <Compile Include="Controllers\ProcessStepsController.cs" />
+    <Compile Include="Controllers\ProductionPlansController.cs" />
     <Compile Include="Controllers\ProjectNodesController.cs" />
     <Compile Include="Controllers\ProjectTypesController.cs" />
+    <Compile Include="Controllers\PurchasePlansController.cs" />
     <Compile Include="Controllers\RoleMenusController.cs" />
     <Compile Include="Controllers\SKUsController.cs" />
     <Compile Include="Controllers\StationsController.cs" />
@@ -267,6 +272,10 @@
     <Compile Include="Migrations\201602061207255_dfd1.Designer.cs">
       <DependentUpon>201602061207255_dfd1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602100814008_d1.cs" />
+    <Compile Include="Migrations\201602100814008_d1.Designer.cs">
+      <DependentUpon>201602100814008_d1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
@@ -303,13 +312,23 @@
     <Compile Include="Models\MessageMetadata.cs" />
     <Compile Include="Models\Multicomponent.cs" />
     <Compile Include="Models\MulticomponentMetadata.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderAudit.cs" />
+    <Compile Include="Models\OrderAuditPlanMetadata.cs" />
+    <Compile Include="Models\OrderDetail.cs" />
+    <Compile Include="Models\OrderDetailMetadata.cs" />
+    <Compile Include="Models\OrderMetadata.cs" />
     <Compile Include="Models\ProcessNode.cs" />
     <Compile Include="Models\ProcessNodeMetadata.cs" />
     <Compile Include="Models\ProcessStep.cs" />
     <Compile Include="Models\ProcessStepMetadata.cs" />
+    <Compile Include="Models\ProductionPlan.cs" />
+    <Compile Include="Models\ProductionPlanMetadata.cs" />
     <Compile Include="Models\ProjectNode.cs" />
     <Compile Include="Models\ProjectNodeMetadata.cs" />
     <Compile Include="Models\ProjectTypeMetadata.cs" />
+    <Compile Include="Models\PurchasePlan.cs" />
+    <Compile Include="Models\PurchasePlanMetadata.cs" />
     <Compile Include="Models\RoleMenu.cs" />
     <Compile Include="Models\RoleMenuMetadata.cs" />
     <Compile Include="Models\RoleMenuViewModel.cs" />
@@ -338,14 +357,24 @@
     <Compile Include="Repositories\Messages\MessageRepository.cs" />
     <Compile Include="Repositories\Multicomponents\MulticomponentQuery.cs" />
     <Compile Include="Repositories\Multicomponents\MulticomponentRepository.cs" />
+    <Compile Include="Repositories\OrderAuditPlans\OrderAuditPlanQuery.cs" />
+    <Compile Include="Repositories\OrderAuditPlans\OrderAuditPlanRepository.cs" />
+    <Compile Include="Repositories\OrderDetails\OrderDetailQuery.cs" />
+    <Compile Include="Repositories\OrderDetails\OrderDetailRepository.cs" />
+    <Compile Include="Repositories\Orders\OrderQuery.cs" />
+    <Compile Include="Repositories\Orders\OrderRepository.cs" />
     <Compile Include="Repositories\ProcessNodes\ProcessNodeQuery.cs" />
     <Compile Include="Repositories\ProcessNodes\ProcessNodeRepository.cs" />
     <Compile Include="Repositories\ProcessSteps\ProcessStepQuery.cs" />
     <Compile Include="Repositories\ProcessSteps\ProcessStepRepository.cs" />
+    <Compile Include="Repositories\ProductionPlans\ProductionPlanQuery.cs" />
+    <Compile Include="Repositories\ProductionPlans\ProductionPlanRepository.cs" />
     <Compile Include="Repositories\ProjectNodes\ProjectNodeQuery.cs" />
     <Compile Include="Repositories\ProjectNodes\ProjectNodeRepository.cs" />
     <Compile Include="Repositories\ProjectTypes\ProjectTypeQuery.cs" />
     <Compile Include="Repositories\ProjectTypes\ProjectTypeRepository.cs" />
+    <Compile Include="Repositories\PurchasePlans\PurchasePlanQuery.cs" />
+    <Compile Include="Repositories\PurchasePlans\PurchasePlanRepository.cs" />
     <Compile Include="Repositories\RoleMenus\RoleMenuQuery.cs" />
     <Compile Include="Repositories\RoleMenus\RoleMenuRepository.cs" />
     <Compile Include="Repositories\SKUs\SKUQuery.cs" />
@@ -372,14 +401,24 @@
     <Compile Include="Services\Messages\MessageService.cs" />
     <Compile Include="Services\Multicomponents\IMulticomponentService.cs" />
     <Compile Include="Services\Multicomponents\MulticomponentService.cs" />
+    <Compile Include="Services\OrderAuditPlans\IOrderAuditPlanService.cs" />
+    <Compile Include="Services\OrderAuditPlans\OrderAuditPlanService.cs" />
+    <Compile Include="Services\OrderDetails\IOrderDetailService.cs" />
+    <Compile Include="Services\OrderDetails\OrderDetailService.cs" />
+    <Compile Include="Services\Orders\IOrderService.cs" />
+    <Compile Include="Services\Orders\OrderService.cs" />
     <Compile Include="Services\ProcessNodes\IProcessNodeService.cs" />
     <Compile Include="Services\ProcessNodes\ProcessNodeService.cs" />
     <Compile Include="Services\ProcessSteps\IProcessStepService.cs" />
     <Compile Include="Services\ProcessSteps\ProcessStepService.cs" />
+    <Compile Include="Services\ProductionPlans\IProductionPlanService.cs" />
+    <Compile Include="Services\ProductionPlans\ProductionPlanService.cs" />
     <Compile Include="Services\ProjectNodes\IProjectNodeService.cs" />
     <Compile Include="Services\ProjectNodes\ProjectNodeService.cs" />
     <Compile Include="Services\ProjectTypes\IProjectTypeService.cs" />
     <Compile Include="Services\ProjectTypes\ProjectTypeService.cs" />
+    <Compile Include="Services\PurchasePlans\IPurchasePlanService.cs" />
+    <Compile Include="Services\PurchasePlans\PurchasePlanService.cs" />
     <Compile Include="Services\RoleMenus\IRoleMenuService.cs" />
     <Compile Include="Services\RoleMenus\RoleMenuService.cs" />
     <Compile Include="Services\SKUs\ISKUService.cs" />
@@ -1110,9 +1149,36 @@
     <Content Include="Scripts\uploadify\check-exists.php" />
     <Content Include="Scripts\uploadify\index.php" />
     <Content Include="Scripts\uploadify\uploadify.php" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\EditForm.cshtml" />
+    <Content Include="Views\Orders\_PopupSearch.cshtml" />
+    <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
+    <Content Include="Views\OrderDetails\Index.cshtml" />
+    <Content Include="Views\OrderDetails\Create.cshtml" />
+    <Content Include="Views\OrderDetails\Edit.cshtml" />
+    <Content Include="Views\OrderDetails\EditForm.cshtml" />
+    <Content Include="Views\OrderDetails\_PopupSearch.cshtml" />
+    <Content Include="Views\OrderAuditPlans\Index.cshtml" />
+    <Content Include="Views\OrderAuditPlans\Create.cshtml" />
+    <Content Include="Views\OrderAuditPlans\Edit.cshtml" />
+    <Content Include="Views\OrderAuditPlans\EditForm.cshtml" />
+    <Content Include="Views\OrderAuditPlans\_PopupSearch.cshtml" />
+    <Content Include="Views\ProductionPlans\Index.cshtml" />
+    <Content Include="Views\ProductionPlans\Create.cshtml" />
+    <Content Include="Views\ProductionPlans\Edit.cshtml" />
+    <Content Include="Views\ProductionPlans\EditForm.cshtml" />
+    <Content Include="Views\ProductionPlans\_PopupSearch.cshtml" />
+    <Content Include="Views\PurchasePlans\Index.cshtml" />
+    <Content Include="Views\PurchasePlans\Create.cshtml" />
+    <Content Include="Views\PurchasePlans\Edit.cshtml" />
+    <Content Include="Views\PurchasePlans\EditForm.cshtml" />
+    <Content Include="Views\PurchasePlans\_PopupSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="bin\" />
     <Folder Include="Views\FileUpload\" />
   </ItemGroup>
   <ItemGroup>
@@ -1166,6 +1232,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602061207255_dfd1.resx">
       <DependentUpon>201602061207255_dfd1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602100814008_d1.resx">
+      <DependentUpon>201602100814008_d1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

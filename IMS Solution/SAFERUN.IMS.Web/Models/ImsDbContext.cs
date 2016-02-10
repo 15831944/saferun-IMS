@@ -47,5 +47,15 @@ namespace SAFERUN.IMS.Web.Models
         public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.SKU> SKUs { get; set; }
 
         public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.BOMComponent> BOMComponents { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.Order> Orders { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.OrderDetail> OrderDetails { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.OrderAuditPlan> OrderAuditPlans { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.ProductionPlan> ProductionPlans { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.PurchasePlan> PurchasePlans { get; set; }
     }
 }

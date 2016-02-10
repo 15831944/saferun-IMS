@@ -1,0 +1,417 @@
+﻿
+
+
+@model IEnumerable<SAFERUN.IMS.Web.Models.Order>
+
+
+
+
+@{
+    ViewBag.Title = "Orders";
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Orders Data</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="table_data_tables.html#">Config option 1</a>
+                        </li>
+                        <li>
+                            <a href="table_data_tables.html#">Config option 2</a>
+                        </li>
+                    </ul>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+
+                <div class="table-responsive">
+           
+ 
+       <table id="orders_datagrid" class="easyui-datagrid" title="Orders DataGrid" style="width:auto;height:auto"
+                   data-options="
+                 rownumbers:true,
+                 
+                remoteFilter: true,
+                singleSelect: true,
+                toolbar: '#orders_toolbar',
+                url: '/Orders/GetData',
+                method: 'get',
+                onClickCell: onClickCell,
+                pagination: 'true'
+                   ">
+                <thead>
+                    <tr>
+                        @*<th data-options="field:'ck',checkbox:true"></th>*@
+                     <th data-options="field:'_operate',width:80,align:'center',formatter:formatOper">操作</th> 
+				     <th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.OrderKey)</th>
+		
+                
+				     <th data-options="field:'Sales',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Sales)</th>
+		
+                
+				     <th data-options="field:'OrderDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.OrderDate)</th>
+		
+                
+				     <th data-options="field:'AuditDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.AuditDate)</th>
+		
+                			<th data-options="field:'CustomerId',width:100,
+                        formatter:function(value,row){
+                            return row.CustomerAccountNumber;
+                        },
+                        editor:{
+                            type:'combobox',
+                            options:{
+                                valueField:'Id',
+                                textField:'AccountNumber',
+                                method:'get',
+                                url:'/Orders/GetCustomers',
+                                required:false
+                            }
+                        }">@Html.DisplayNameFor(model => model.CustomerId)</th>
+
+           
+                			<th data-options="field:'ProjectTypeId',width:100,
+                        formatter:function(value,row){
+                            return row.ProjectTypeTypeName;
+                        },
+                        editor:{
+                            type:'combobox',
+                            options:{
+                                valueField:'Id',
+                                textField:'TypeName',
+                                method:'get',
+                                url:'/Orders/GetProjectTypes',
+                                required:false
+                            }
+                        }">@Html.DisplayNameFor(model => model.ProjectTypeId)</th>
+
+           
+                
+				     <th data-options="field:'ProjectName',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.ProjectName)</th>
+		
+                
+				     <th data-options="field:'Status',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Status)</th>
+		
+                
+				     <th data-options="field:'AuditResult',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.AuditResult)</th>
+		
+                
+				     <th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Remark)</th>
+		
+                
+				     <th data-options="field:'PlanFinishDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.PlanFinishDate)</th>
+		
+                
+				     <th data-options="field:'ActualFinishDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ActualFinishDate)</th>
+		
+                
+				     <th data-options="field:'ShipDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ShipDate)</th>
+		
+                
+				     <th data-options="field:'ColseDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ColseDate)</th>
+		
+               
+    </tr>
+    </thead>
+ 
+
+</table>
+	<div id="orders_toolbar" style="height:auto">
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
+            </div>
+				</div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+         var $dg = $('#orders_datagrid');
+         var editIndex = undefined;
+         function formatOper(val, row, index) {
+             console.log(val, row, index);
+             return '<a href="/Orders/Edit/' + row.Id + '" >修改</a>';
+         }
+
+        function endEditing() {
+            if (editIndex == undefined) { return true }
+            if ($dg.datagrid('validateRow', editIndex)) {
+
+				                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'CustomerId' });
+                var customeraccountnumber = $(ed.target).combobox('getText');
+                var customerid = $(ed.target).combobox('getValue');
+               
+                $dg.datagrid('getRows')[editIndex]['CustomerAccountNumber'] =  customeraccountnumber;
+                $dg.datagrid('getRows')[editIndex]['CustomerId'] = customerid;
+ 
+
+				                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'ProjectTypeId' });
+                var projecttypetypename = $(ed.target).combobox('getText');
+                var projecttypeid = $(ed.target).combobox('getValue');
+               
+                $dg.datagrid('getRows')[editIndex]['ProjectTypeTypeName'] =  projecttypetypename;
+                $dg.datagrid('getRows')[editIndex]['ProjectTypeId'] = projecttypeid;
+ 
+
+								$dg.datagrid('endEdit', editIndex);
+                editIndex = undefined;
+
+                
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function onClickCell(index, field) {
+            if (editIndex != index) {
+                if (endEditing()) {
+                    $dg.datagrid('selectRow', index)
+                            .datagrid('beginEdit', index);
+                    var ed = $dg.datagrid('getEditor', { index: index, field: field });
+                    if (ed) {
+                        ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+                    }
+                    editIndex = index;
+                } else {
+                    $dg.datagrid('selectRow', editIndex);
+                }
+            }
+        }
+        function append() {
+            if (endEditing()) {
+                $dg.datagrid('appendRow', { status: 'P' });
+                editIndex = $dg.datagrid('getRows').length - 1;
+                $dg.datagrid('selectRow', editIndex)
+                        .datagrid('beginEdit', editIndex);
+            }
+        }
+        function removeit() {
+            if (editIndex == undefined) { return }
+            $dg.datagrid('cancelEdit', editIndex)
+                    .datagrid('deleteRow', editIndex);
+            editIndex = undefined;
+        }
+        function accept() {
+            if (endEditing()) {
+                if ($dg.datagrid('getChanges').length) {
+                    var inserted = $dg.datagrid('getChanges', "inserted");
+                    var deleted = $dg.datagrid('getChanges', "deleted");
+                    var updated = $dg.datagrid('getChanges', "updated");
+                    var effectRow = new Object();
+                    if (inserted.length) {
+                        effectRow.inserted = inserted;
+                    }
+                    if (deleted.length) {
+                        effectRow.deleted = deleted;
+                    }
+                    if (updated.length) {
+                        effectRow.updated = updated;
+                    }
+                    console.log(JSON.stringify(effectRow));
+                    $.post("/Orders/SaveData", effectRow, function (rsp) {
+                        console.log(rsp);
+                        if (rsp.Success) {
+                            $.messager.alert("提示", "提交成功！");
+                            $dg.datagrid('acceptChanges');
+                        }
+                    }, "JSON").error(function () {
+                        $.messager.alert("错误", "提交错误了！",'error');
+                      
+                    });
+              
+                }
+
+                $dg.datagrid('acceptChanges');
+            }
+        }
+        function reject() {
+            $dg.datagrid('rejectChanges');
+            editIndex = undefined;
+        }
+        function getChanges() {
+            var rows = $dg.datagrid('getChanges');
+            alert(rows.length + ' rows are changed!');
+        }
+
+
+		 $(function () {
+		  
+           $dg.datagrid('enableFilter',[
+		   				{
+                      field: 'OrderDate',
+                      type: 'datebox',
+                      options: {
+                          onChange: function (value) {
+                              if (value == '') {
+                                  $dg.datagrid('removeFilterRule', 'OrderDate');
+                              } else {
+                                  $dg.datagrid('addFilterRule', {
+                                      field: 'OrderDate',
+                                      op: 'equal',
+                                      value: value
+                                  });
+                              }
+                              $dg.datagrid('doFilter');
+                          }
+                      }
+                  },
+		   				{
+                      field: 'AuditDate',
+                      type: 'datebox',
+                      options: {
+                          onChange: function (value) {
+                              if (value == '') {
+                                  $dg.datagrid('removeFilterRule', 'AuditDate');
+                              } else {
+                                  $dg.datagrid('addFilterRule', {
+                                      field: 'AuditDate',
+                                      op: 'equal',
+                                      value: value
+                                  });
+                              }
+                              $dg.datagrid('doFilter');
+                          }
+                      }
+                  },
+		   				{
+                      field: 'PlanFinishDate',
+                      type: 'datebox',
+                      options: {
+                          onChange: function (value) {
+                              if (value == '') {
+                                  $dg.datagrid('removeFilterRule', 'PlanFinishDate');
+                              } else {
+                                  $dg.datagrid('addFilterRule', {
+                                      field: 'PlanFinishDate',
+                                      op: 'equal',
+                                      value: value
+                                  });
+                              }
+                              $dg.datagrid('doFilter');
+                          }
+                      }
+                  },
+		   				{
+                      field: 'ActualFinishDate',
+                      type: 'datebox',
+                      options: {
+                          onChange: function (value) {
+                              if (value == '') {
+                                  $dg.datagrid('removeFilterRule', 'ActualFinishDate');
+                              } else {
+                                  $dg.datagrid('addFilterRule', {
+                                      field: 'ActualFinishDate',
+                                      op: 'equal',
+                                      value: value
+                                  });
+                              }
+                              $dg.datagrid('doFilter');
+                          }
+                      }
+                  },
+		   				{
+                      field: 'ShipDate',
+                      type: 'datebox',
+                      options: {
+                          onChange: function (value) {
+                              if (value == '') {
+                                  $dg.datagrid('removeFilterRule', 'ShipDate');
+                              } else {
+                                  $dg.datagrid('addFilterRule', {
+                                      field: 'ShipDate',
+                                      op: 'equal',
+                                      value: value
+                                  });
+                              }
+                              $dg.datagrid('doFilter');
+                          }
+                      }
+                  },
+		   				{
+                      field: 'ColseDate',
+                      type: 'datebox',
+                      options: {
+                          onChange: function (value) {
+                              if (value == '') {
+                                  $dg.datagrid('removeFilterRule', 'ColseDate');
+                              } else {
+                                  $dg.datagrid('addFilterRule', {
+                                      field: 'ColseDate',
+                                      op: 'equal',
+                                      value: value
+                                  });
+                              }
+                              $dg.datagrid('doFilter');
+                          }
+                      }
+                  },
+		   		   
+		   		   {
+				 field: 'CustomerId',
+				 type:'combobox',
+                 options:{
+                                valueField:'Id',
+                                textField:'AccountNumber',
+                                method:'get',
+                                url:'/Orders/GetCustomers',
+								onChange: function (value) {
+								if (value == '') {
+									$dg.datagrid('removeFilterRule', 'CustomerId');
+								} else {
+									$dg.datagrid('addFilterRule', {
+										field: 'CustomerId',
+									    op: 'equal',
+										value: value
+                                });
+                            }
+                            $dg.datagrid('doFilter');
+                        }
+					}
+		   },
+		   		   {
+				 field: 'ProjectTypeId',
+				 type:'combobox',
+                 options:{
+                                valueField:'Id',
+                                textField:'TypeName',
+                                method:'get',
+                                url:'/Orders/GetProjectTypes',
+								onChange: function (value) {
+								if (value == '') {
+									$dg.datagrid('removeFilterRule', 'ProjectTypeId');
+								} else {
+									$dg.datagrid('addFilterRule', {
+										field: 'ProjectTypeId',
+									    op: 'equal',
+										value: value
+                                });
+                            }
+                            $dg.datagrid('doFilter');
+                        }
+					}
+		   },
+		   		   
+		   ]);
+        })
+     </script>
+}
+

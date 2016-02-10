@@ -113,6 +113,21 @@ namespace SAFERUN.IMS.Web.App_Start
 
         container.RegisterType<IRepositoryAsync<BOMComponent>, Repository<BOMComponent>>();
         container.RegisterType<IBOMComponentService, BOMComponentService>();
+
+        container.RegisterType<IRepositoryAsync<OrderDetail>, Repository<OrderDetail>>();
+        container.RegisterType<IOrderDetailService, OrderDetailService>();
+
+        container.RegisterType<IRepositoryAsync<Order>, Repository<Order>>();
+        container.RegisterType<IOrderService, OrderService>();
+
+        container.RegisterType<IRepositoryAsync<OrderAuditPlan>, Repository<OrderAuditPlan>>();
+        container.RegisterType<IOrderAuditPlanService, OrderAuditPlanService>();
+
+        container.RegisterType<IRepositoryAsync<ProductionPlan>, Repository<ProductionPlan>>();
+        container.RegisterType<IProductionPlanService, ProductionPlanService>();
+        container.RegisterType<IRepositoryAsync<PurchasePlan>, Repository<PurchasePlan>>();
+        container.RegisterType<IPurchasePlanService, PurchasePlanService>();
+        
         }
     }
 }
