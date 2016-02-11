@@ -117,7 +117,7 @@ namespace SAFERUN.IMS.Web.Controllers
 				public ActionResult GetSKUs()
         {
             var skuRepository = _unitOfWork.Repository<SKU>();
-            var data = skuRepository.Queryable().ToList();
+            var data = skuRepository.Queryable().Where(x=>x.SKUGroup=="成品").ToList();
             var rows = data.Select(n => new { Id = n.Id, Sku = n.Sku });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
@@ -365,6 +365,12 @@ namespace SAFERUN.IMS.Web.Controllers
             var auditplan = _orderService.GenerateAuditPlan(id);
             _unitOfWork.SaveChanges();
             return Json(new {success = true } , JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult GenerateProductionPlan(int id) {
+            var productionplan = _orderService.GenerateProductionPlan(id);
+            _unitOfWork.SaveChanges();
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
         private void DisplaySuccessMessage(string msgText)

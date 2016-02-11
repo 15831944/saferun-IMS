@@ -24,6 +24,7 @@ namespace SAFERUN.IMS.Web.Services
                  IEnumerable<OrderDetail>   GetOrderDetailsByOrderId (int orderid);
 
                  IEnumerable<OrderAuditPlan> GenerateAuditPlan(int orderId);
+                 IEnumerable<ProductionPlan> GenerateProductionPlan(int orderId);
  
 	}
 }

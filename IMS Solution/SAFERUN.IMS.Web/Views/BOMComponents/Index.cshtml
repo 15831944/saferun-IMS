@@ -175,7 +175,7 @@
                 'buttonText': '选择EXCEL',
                 'displayData': 'speed',
                 'width': 120,
-                'successTimeout': 100000,
+                'successTimeout': 1000000,
                 'formData': { 'fileType': 'BOM' },
                 'onUploadComplete': function (file) {
                     $('#alert1').hide('normal');
@@ -212,7 +212,7 @@
                     if (data.success == "false") {
                         $.messager.alert('导入错误', '导入错误，请修改后再倒入！<br>' + data.message, 'error');
                     } else {
-                        $.messager.alert('导入完成', '导入完成，请修改后再倒入！<br>', 'info');
+                        $.messager.alert('导入完成', '导入完成！<br>', 'info');
                     }
                     $dg.datagrid('reload');
                     //alert('The file ' + file.name + ' was successfully uploaded with a response of ' + response + ':' + data);
