@@ -215,15 +215,23 @@
     <Compile Include="Controllers\MenuItemsController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\MulticomponentsController.cs" />
-    <Compile Include="Controllers\OrderAuditPlansController.cs" />
-    <Compile Include="Controllers\OrderDetailsController.cs" />
-    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\OrderAuditPlansController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\OrderDetailsController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\OrdersController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\ProcessNodesController.cs" />
     <Compile Include="Controllers\ProcessStepsController.cs" />
     <Compile Include="Controllers\ProductionPlansController.cs" />
     <Compile Include="Controllers\ProjectNodesController.cs" />
     <Compile Include="Controllers\ProjectTypesController.cs" />
-    <Compile Include="Controllers\PurchasePlansController.cs" />
+    <Compile Include="Controllers\PurchasePlansController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\RoleMenusController.cs" />
     <Compile Include="Controllers\SKUsController.cs" />
     <Compile Include="Controllers\StationsController.cs" />
@@ -231,50 +239,6 @@
     <Compile Include="Extensions\LinqOrderByColumnsNameExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602010326157_dd.cs" />
-    <Compile Include="Migrations\201602010326157_dd.Designer.cs">
-      <DependentUpon>201602010326157_dd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602011142070_test.cs" />
-    <Compile Include="Migrations\201602011142070_test.Designer.cs">
-      <DependentUpon>201602011142070_test.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602021035142_a.cs" />
-    <Compile Include="Migrations\201602021035142_a.Designer.cs">
-      <DependentUpon>201602021035142_a.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602041155262_d.cs" />
-    <Compile Include="Migrations\201602041155262_d.Designer.cs">
-      <DependentUpon>201602041155262_d.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602041345224_2.cs" />
-    <Compile Include="Migrations\201602041345224_2.Designer.cs">
-      <DependentUpon>201602041345224_2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602050317482_dd1.cs" />
-    <Compile Include="Migrations\201602050317482_dd1.Designer.cs">
-      <DependentUpon>201602050317482_dd1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602050726594_sku.cs" />
-    <Compile Include="Migrations\201602050726594_sku.Designer.cs">
-      <DependentUpon>201602050726594_sku.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602051133349_dfd.cs" />
-    <Compile Include="Migrations\201602051133349_dfd.Designer.cs">
-      <DependentUpon>201602051133349_dfd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602060245117_df.cs" />
-    <Compile Include="Migrations\201602060245117_df.Designer.cs">
-      <DependentUpon>201602060245117_df.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602061207255_dfd1.cs" />
-    <Compile Include="Migrations\201602061207255_dfd1.Designer.cs">
-      <DependentUpon>201602061207255_dfd1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602100814008_d1.cs" />
-    <Compile Include="Migrations\201602100814008_d1.Designer.cs">
-      <DependentUpon>201602100814008_d1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1009,6 +973,11 @@
     <Content Include="stylesheets\timepicker.css" />
     <Content Include="stylesheets\typeahead.css" />
     <Content Include="stylesheets\wizard.css" />
+    <Content Include="Views\PurchasePlans\Create.cshtml" />
+    <Content Include="Views\PurchasePlans\Edit.cshtml" />
+    <Content Include="Views\PurchasePlans\EditForm.cshtml" />
+    <Content Include="Views\PurchasePlans\Index.cshtml" />
+    <Content Include="Views\PurchasePlans\_PopupSearch.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1170,11 +1139,6 @@
     <Content Include="Views\ProductionPlans\Edit.cshtml" />
     <Content Include="Views\ProductionPlans\EditForm.cshtml" />
     <Content Include="Views\ProductionPlans\_PopupSearch.cshtml" />
-    <Content Include="Views\PurchasePlans\Index.cshtml" />
-    <Content Include="Views\PurchasePlans\Create.cshtml" />
-    <Content Include="Views\PurchasePlans\Edit.cshtml" />
-    <Content Include="Views\PurchasePlans\EditForm.cshtml" />
-    <Content Include="Views\PurchasePlans\_PopupSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1201,41 +1165,6 @@
       <Project>{86f86650-ee3c-4372-8fec-40c2fe015022}</Project>
       <Name>Service.Pattern</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201602010326157_dd.resx">
-      <DependentUpon>201602010326157_dd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602011142070_test.resx">
-      <DependentUpon>201602011142070_test.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602021035142_a.resx">
-      <DependentUpon>201602021035142_a.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602041155262_d.resx">
-      <DependentUpon>201602041155262_d.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602041345224_2.resx">
-      <DependentUpon>201602041345224_2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602050317482_dd1.resx">
-      <DependentUpon>201602050317482_dd1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602050726594_sku.resx">
-      <DependentUpon>201602050726594_sku.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602051133349_dfd.resx">
-      <DependentUpon>201602051133349_dfd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602060245117_df.resx">
-      <DependentUpon>201602060245117_df.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602061207255_dfd1.resx">
-      <DependentUpon>201602061207255_dfd1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602100814008_d1.resx">
-      <DependentUpon>201602100814008_d1.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

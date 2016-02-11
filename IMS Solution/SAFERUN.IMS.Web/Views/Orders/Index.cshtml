@@ -56,7 +56,8 @@
                 <thead>
                     <tr>
                         @*<th data-options="field:'ck',checkbox:true"></th>*@
-                     <th data-options="field:'_operate',width:80,align:'center',formatter:formatOper">操作</th> 
+                     <th data-options="field:'_operate1',width:80,align:'center',formatter:formatOper">操作</th> 
+                     <th data-options="field:'_operate2',width:80,align:'center',formatter:formatAction">评审</th> 
 				     <th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.OrderKey)</th>
 		
                 
@@ -149,9 +150,20 @@
          var editIndex = undefined;
          function formatOper(val, row, index) {
              console.log(val, row, index);
-             return '<a href="/Orders/Edit/' + row.Id + '" >修改</a>';
+             return '<a  class="easyui-linkbutton" href="/Orders/Edit/' + row.Id + '" >修改</a>';
          }
-
+         function formatAction(val, row, index) {
+             return '<a   class="easyui-linkbutton" href="javascript:void(0)" onclick="generateAudit(' + row.Id + ')" >生成评审计划</a>'
+         }
+         function generateAudit(id) {
+             $.post('/Orders/GenerateAuditPlan/' + id, function (data, textStatus, jqXHR) {
+                 console.log(data);
+                 $.messager.alert("提示", "评审计划生成完成！", 'info', function () {
+                     $(location).attr('href', '/OrderAuditPlans');
+                 });
+                 
+             });
+         }
         function endEditing() {
             if (editIndex == undefined) { return true }
             if ($dg.datagrid('validateRow', editIndex)) {

@@ -358,7 +358,14 @@ namespace SAFERUN.IMS.Web.Controllers
             return View(orderdetails); 
 
         }
- 
+
+        [HttpPost]
+        public ActionResult GenerateAuditPlan(int id)
+        {
+            var auditplan = _orderService.GenerateAuditPlan(id);
+            _unitOfWork.SaveChanges();
+            return Json(new {success = true } , JsonRequestBehavior.AllowGet);
+        }
 
         private void DisplaySuccessMessage(string msgText)
         {

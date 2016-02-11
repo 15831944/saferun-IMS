@@ -1,7 +1,4 @@
-﻿
-
-
-@model IEnumerable<SAFERUN.IMS.Web.Models.OrderAuditPlan>
+﻿@model IEnumerable<SAFERUN.IMS.Web.Models.OrderAuditPlan>
 
 
 
@@ -39,12 +36,12 @@
             <div class="ibox-content">
 
                 <div class="table-responsive">
-           
- 
-       <table id="orderauditplans_datagrid" class="easyui-datagrid" title="OrderAuditPlans DataGrid" style="width:auto;height:auto"
-                   data-options="
+
+
+                    <table id="orderauditplans_datagrid" class="easyui-datagrid" title="OrderAuditPlans DataGrid" style="width:auto;height:auto"
+                           data-options="
                  rownumbers:true,
-                 
+
                 remoteFilter: true,
                 singleSelect: true,
                 toolbar: '#orderauditplans_toolbar',
@@ -53,38 +50,11 @@
                 onClickCell: onClickCell,
                 pagination: 'true'
                    ">
-                <thead>
-                    <tr>
-                        @*<th data-options="field:'ck',checkbox:true"></th>*@
-        			<th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>
-                
-				     <th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.OrderKey)</th>
-		
-                
-				     <th data-options="field:'AuditContent',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.AuditContent)</th>
-		
-                
-				     <th data-options="field:'Department',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Department)</th>
-		
-                
-				     <th data-options="field:'AuditResult',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.AuditResult)</th>
-		
-                
-				     <th data-options="field:'Status',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Status)</th>
-		
-                
-				     <th data-options="field:'PlanAuditDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.PlanAuditDate)</th>
-		
-                
-				     <th data-options="field:'AuditDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.AuditDate)</th>
-		
-                
-				     <th data-options="field:'AuditUser',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.AuditUser)</th>
-		
-                
-				     <th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Remark)</th>
-		
-                			<th data-options="field:'OrderId',width:100,
+                        <thead>
+                            <tr>
+                                @*<th data-options="field:'ck',checkbox:true"></th>*@
+                                @*<th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>*@
+                                <th data-options="field:'OrderId',width:100,
                         formatter:function(value,row){
                             return row.OrderOrderKey;
                         },
@@ -99,46 +69,74 @@
                             }
                         }">@Html.DisplayNameFor(model => model.OrderId)</th>
 
-           
-               
-    </tr>
-    </thead>
- 
+                        @*<th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.OrderKey)</th>*@
 
-</table>
-	<div id="orderauditplans_toolbar" style="height:auto">
+
+                        <th data-options="field:'AuditContent',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.AuditContent)</th>
+
+
+                        <th data-options="field:'Department',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Department)</th>
+
+
+                        <th data-options="field:'AuditResult',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.AuditResult)</th>
+
+
+                        <th data-options="field:'Status',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Status)</th>
+
+
+                        <th data-options="field:'PlanAuditDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.PlanAuditDate)</th>
+
+
+                        <th data-options="field:'AuditDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.AuditDate)</th>
+
+
+                        <th data-options="field:'AuditUser',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.AuditUser)</th>
+
+
+                        <th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Remark)</th>
+
+
+
+
+
+                    </tr>
+                </thead>
+
+
+            </table>
+            <div id="orderauditplans_toolbar" style="height:auto">
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
             </div>
-				</div>
-
-            </div>
         </div>
+
     </div>
+</div>
+</div>
 </div>
 @section Scripts {
     <script type="text/javascript">
-         var $dg = $('#orderauditplans_datagrid');
-		 var editIndex = undefined;
+        var $dg = $('#orderauditplans_datagrid');
+        var editIndex = undefined;
         function endEditing() {
             if (editIndex == undefined) { return true }
             if ($dg.datagrid('validateRow', editIndex)) {
 
-				                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'OrderId' });
+                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'OrderId' });
                 var orderorderkey = $(ed.target).combobox('getText');
                 var orderid = $(ed.target).combobox('getValue');
-               
-                $dg.datagrid('getRows')[editIndex]['OrderOrderKey'] =  orderorderkey;
-                $dg.datagrid('getRows')[editIndex]['OrderId'] = orderid;
- 
 
-								$dg.datagrid('endEdit', editIndex);
+                $dg.datagrid('getRows')[editIndex]['OrderOrderKey'] = orderorderkey;
+                $dg.datagrid('getRows')[editIndex]['OrderId'] = orderid;
+
+
+                $dg.datagrid('endEdit', editIndex);
                 editIndex = undefined;
 
-                
+
                 return true;
             } else {
                 return false;
@@ -197,10 +195,10 @@
                             $dg.datagrid('acceptChanges');
                         }
                     }, "JSON").error(function () {
-                        $.messager.alert("错误", "提交错误了！",'error');
-                      
+                        $.messager.alert("错误", "提交错误了！", 'error');
+
                     });
-              
+
                 }
 
                 $dg.datagrid('acceptChanges');
@@ -216,71 +214,71 @@
         }
 
 
-		 $(function () {
-		  
-           $dg.datagrid('enableFilter',[
-		   				{
-                      field: 'PlanAuditDate',
-                      type: 'datebox',
-                      options: {
-                          onChange: function (value) {
-                              if (value == '') {
-                                  $dg.datagrid('removeFilterRule', 'PlanAuditDate');
-                              } else {
-                                  $dg.datagrid('addFilterRule', {
-                                      field: 'PlanAuditDate',
-                                      op: 'equal',
-                                      value: value
-                                  });
-                              }
-                              $dg.datagrid('doFilter');
-                          }
-                      }
-                  },
-		   				{
-                      field: 'AuditDate',
-                      type: 'datebox',
-                      options: {
-                          onChange: function (value) {
-                              if (value == '') {
-                                  $dg.datagrid('removeFilterRule', 'AuditDate');
-                              } else {
-                                  $dg.datagrid('addFilterRule', {
-                                      field: 'AuditDate',
-                                      op: 'equal',
-                                      value: value
-                                  });
-                              }
-                              $dg.datagrid('doFilter');
-                          }
-                      }
-                  },
-		   		   
-		   		   {
-				 field: 'OrderId',
-				 type:'combobox',
-                 options:{
-                                valueField:'Id',
-                                textField:'OrderKey',
-                                method:'get',
-                                url:'/OrderAuditPlans/GetOrders',
-								onChange: function (value) {
-								if (value == '') {
-									$dg.datagrid('removeFilterRule', 'OrderId');
-								} else {
-									$dg.datagrid('addFilterRule', {
-										field: 'OrderId',
-									    op: 'equal',
-										value: value
-                                });
+        $(function () {
+
+            $dg.datagrid('enableFilter', [
+                         {
+                             field: 'PlanAuditDate',
+                             type: 'datebox',
+                             options: {
+                                 onChange: function (value) {
+                                     if (value == '') {
+                                         $dg.datagrid('removeFilterRule', 'PlanAuditDate');
+                                     } else {
+                                         $dg.datagrid('addFilterRule', {
+                                             field: 'PlanAuditDate',
+                                             op: 'equal',
+                                             value: value
+                                         });
+                                     }
+                                     $dg.datagrid('doFilter');
+                                 }
+                             }
+                         },
+                         {
+                             field: 'AuditDate',
+                             type: 'datebox',
+                             options: {
+                                 onChange: function (value) {
+                                     if (value == '') {
+                                         $dg.datagrid('removeFilterRule', 'AuditDate');
+                                     } else {
+                                         $dg.datagrid('addFilterRule', {
+                                             field: 'AuditDate',
+                                             op: 'equal',
+                                             value: value
+                                         });
+                                     }
+                                     $dg.datagrid('doFilter');
+                                 }
+                             }
+                         },
+
+                    {
+                        field: 'OrderId',
+                        type: 'combobox',
+                        options: {
+                            valueField: 'Id',
+                            textField: 'OrderKey',
+                            method: 'get',
+                            url: '/OrderAuditPlans/GetOrders',
+                            onChange: function (value) {
+                                if (value == '') {
+                                    $dg.datagrid('removeFilterRule', 'OrderId');
+                                } else {
+                                    $dg.datagrid('addFilterRule', {
+                                        field: 'OrderId',
+                                        op: 'equal',
+                                        value: value
+                                    });
+                                }
+                                $dg.datagrid('doFilter');
                             }
-                            $dg.datagrid('doFilter');
                         }
-					}
-		   },
-		   		   
-		   ]);
+                    },
+
+            ]);
         })
-     </script>
+    </script>
 }
 
