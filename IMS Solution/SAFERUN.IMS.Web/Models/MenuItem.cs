@@ -18,7 +18,7 @@ namespace SAFERUN.IMS.Web.Models
             SubMenus = new HashSet<MenuItem>();
         }
         public int Id { get; set; }
-        [StringLength(20)]
+        [StringLength(100)]
         [Required]
         [Index("IX_menuTitle", 1, IsUnique = true)]
         public string Title { get; set; }

@@ -24,6 +24,7 @@ namespace SAFERUN.IMS.Web.Services
 
         IEnumerable<MenuItem> AllMenus();
 
+        IEnumerable<MenuItem> CreateWithController();
 
 
 

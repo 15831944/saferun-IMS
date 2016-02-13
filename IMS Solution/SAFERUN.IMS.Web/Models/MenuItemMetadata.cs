@@ -24,7 +24,7 @@ namespace SAFERUN.IMS.Web.Models
 
         [Required(ErrorMessage = "Please enter : 菜单名称")]
         [Display(Name = "菜单名称")]
-        [MaxLength(20)]
+        [MaxLength(100)]
         public string Title { get; set; }
 
         [Display(Name = "描述")]

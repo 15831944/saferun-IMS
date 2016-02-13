@@ -240,6 +240,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602131041260_dd.cs" />
+    <Compile Include="Migrations\201602131041260_dd.Designer.cs">
+      <DependentUpon>201602131041260_dd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602131044442_ddd.cs" />
+    <Compile Include="Migrations\201602131044442_ddd.Designer.cs">
+      <DependentUpon>201602131044442_ddd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
@@ -1165,6 +1173,14 @@
       <Project>{86f86650-ee3c-4372-8fec-40c2fe015022}</Project>
       <Name>Service.Pattern</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201602131041260_dd.resx">
+      <DependentUpon>201602131041260_dd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602131044442_ddd.resx">
+      <DependentUpon>201602131044442_ddd.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

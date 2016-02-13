@@ -98,6 +98,14 @@ namespace SAFERUN.IMS.Web.Controllers
             var rows = data.Select(n => new { Id = n.Id, Title = n.Title });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
+         [HttpPost]
+        public ActionResult CreateWithController()
+        {
+            _menuItemService.CreateWithController();
+            _unitOfWork.SaveChanges();
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+        }
+
 
 
 
