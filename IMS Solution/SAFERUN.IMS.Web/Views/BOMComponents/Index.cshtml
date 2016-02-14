@@ -4,7 +4,7 @@
 
 
 @{
-    ViewBag.Title = "BOMComponents";
+    ViewBag.Title = "BOM表维护";
 }
 
 
@@ -12,7 +12,7 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>BOMComponents Data</h5>
+
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -38,7 +38,7 @@
                 <div class="table-responsive">
 
 
-                    <table id="bomcomponents_datagrid" class="easyui-datagrid" title="BOMComponents DataGrid" style="width:auto;height:auto"
+                    <table id="bomcomponents_datagrid" class="easyui-datagrid" title="BOM 明细数据" style="width:auto;height:auto"
                            data-options="
                  rownumbers:true,
 
@@ -71,7 +71,7 @@
                                 required:true
                             }
                         }">@Html.DisplayNameFor(model => model.SKUId)</th>
-                                <th data-options="field:'ParentComponentId',width:100,
+                        <th data-options="field:'ParentComponentId',width:100,
                         formatter:function(value,row){
                             return row.ParentComponentDesignName;
                         },
@@ -123,7 +123,7 @@
 
 
 
-                        
+
 
                         <th data-options="field:'Remark1',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Remark1)</th>
 
