@@ -7,7 +7,7 @@
 
 
 @{
-    ViewBag.Title = "DefectTypes";
+    ViewBag.Title = "缺陷类型维护";
 }
 
 
@@ -15,7 +15,7 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>DefectTypes Data</h5>
+          
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -41,10 +41,10 @@
                 <div class="table-responsive">
            
  
-       <table id="defecttypes_datagrid" class="easyui-datagrid" title="DefectTypes DataGrid" style="width:auto;height:auto"
-                   data-options="
+                    <table id="defecttypes_datagrid" class="easyui-datagrid" title="缺陷类型 DataGrid" style="width:auto;height:auto"
+                           data-options="
                  rownumbers:true,
-                 
+
                 remoteFilter: true,
                 singleSelect: true,
                 toolbar: '#defecttypes_toolbar',
@@ -53,25 +53,25 @@
                 onClickCell: onClickCell,
                 pagination: 'true'
                    ">
-                <thead>
-                    <tr>
-                        @*<th data-options="field:'ck',checkbox:true"></th>*@
-        			<th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>
-                
-				     <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Name)</th>
-		
-                
-				     <th data-options="field:'Code',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Code)</th>
-		
-                
-				     <th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Description)</th>
-		
-               
-    </tr>
-    </thead>
- 
+                        <thead>
+                            <tr>
+                                @*<th data-options="field:'ck',checkbox:true"></th>*@
+                                <th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>
 
-</table>
+                                <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Name)</th>
+
+
+                                <th data-options="field:'Code',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Code)</th>
+
+
+                                <th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Description)</th>
+
+
+                            </tr>
+                        </thead>
+
+
+                    </table>
 	<div id="defecttypes_toolbar" style="height:auto">
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>

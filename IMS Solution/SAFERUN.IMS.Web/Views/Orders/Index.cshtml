@@ -7,7 +7,7 @@
 
 
 @{
-    ViewBag.Title = "Orders";
+    ViewBag.Title = "订单信息";
 }
 
 
@@ -15,7 +15,7 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Orders Data</h5>
+             
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -41,10 +41,10 @@
                 <div class="table-responsive">
            
  
-       <table id="orders_datagrid" class="easyui-datagrid" title="Orders DataGrid" style="width:auto;height:auto"
-                   data-options="
+                    <table id="orders_datagrid" class="easyui-datagrid" title="订单信息 DataGrid" style="width:auto;height:auto"
+                           data-options="
                  rownumbers:true,
-                 
+
                 remoteFilter: true,
                 singleSelect: true,
                 toolbar: '#orders_toolbar',
@@ -53,24 +53,24 @@
                 onClickCell: onClickCell,
                 pagination: 'true'
                    ">
-                <thead>
-                    <tr>
-                        @*<th data-options="field:'ck',checkbox:true"></th>*@
-                     <th data-options="field:'_operate1',width:80,align:'center',formatter:formatOper">操作</th> 
-                     <th data-options="field:'_operate2',width:80,align:'center',formatter:formatAction1">评审</th> 
-                        <th data-options="field:'_operate3',width:80,align:'center',formatter:formatAction2">生产计划</th> 
-				     <th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.OrderKey)</th>
-		
-                
-				     <th data-options="field:'Sales',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Sales)</th>
-		
-                
-				     <th data-options="field:'OrderDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.OrderDate)</th>
-		
-                
-				     <th data-options="field:'AuditDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.AuditDate)</th>
-		
-                			<th data-options="field:'CustomerId',width:100,
+                        <thead>
+                            <tr>
+                                @*<th data-options="field:'ck',checkbox:true"></th>*@
+                                <th data-options="field:'_operate1',width:80,align:'center',formatter:formatOper">操作</th>
+                                <th data-options="field:'_operate2',width:80,align:'center',formatter:formatAction1">评审</th>
+                                <th data-options="field:'_operate3',width:80,align:'center',formatter:formatAction2">生产计划</th>
+                                <th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.OrderKey)</th>
+
+
+                                <th data-options="field:'Sales',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Sales)</th>
+
+
+                                <th data-options="field:'OrderDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.OrderDate)</th>
+
+
+                                <th data-options="field:'AuditDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.AuditDate)</th>
+
+                                <th data-options="field:'CustomerId',width:100,
                         formatter:function(value,row){
                             return row.CustomerAccountNumber;
                         },
@@ -85,8 +85,8 @@
                             }
                         }">@Html.DisplayNameFor(model => model.CustomerId)</th>
 
-           
-                			<th data-options="field:'ProjectTypeId',width:100,
+
+                        <th data-options="field:'ProjectTypeId',width:100,
                         formatter:function(value,row){
                             return row.ProjectTypeTypeName;
                         },
@@ -101,37 +101,37 @@
                             }
                         }">@Html.DisplayNameFor(model => model.ProjectTypeId)</th>
 
-           
-                
-				     <th data-options="field:'ProjectName',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.ProjectName)</th>
-		
-                
-				     <th data-options="field:'Status',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Status)</th>
-		
-                
-				     <th data-options="field:'AuditResult',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.AuditResult)</th>
-		
-                
-				     <th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Remark)</th>
-		
-                
-				     <th data-options="field:'PlanFinishDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.PlanFinishDate)</th>
-		
-                
-				     <th data-options="field:'ActualFinishDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ActualFinishDate)</th>
-		
-                
-				     <th data-options="field:'ShipDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ShipDate)</th>
-		
-                
-				     <th data-options="field:'ColseDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ColseDate)</th>
-		
-               
-    </tr>
-    </thead>
- 
 
-</table>
+
+                        <th data-options="field:'ProjectName',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.ProjectName)</th>
+
+
+                        <th data-options="field:'Status',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Status)</th>
+
+
+                        <th data-options="field:'AuditResult',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.AuditResult)</th>
+
+
+                        <th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Remark)</th>
+
+
+                        <th data-options="field:'PlanFinishDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.PlanFinishDate)</th>
+
+
+                        <th data-options="field:'ActualFinishDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ActualFinishDate)</th>
+
+
+                        <th data-options="field:'ShipDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ShipDate)</th>
+
+
+                        <th data-options="field:'ColseDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ColseDate)</th>
+
+
+                    </tr>
+                </thead>
+
+
+                </table>
 	<div id="orders_toolbar" style="height:auto">
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>

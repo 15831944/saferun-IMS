@@ -7,7 +7,7 @@
 
 
 @{
-    ViewBag.Title = "BaseCodes";
+    ViewBag.Title = "基础代码";
 }
 
 
@@ -41,10 +41,10 @@
                 <div class="table-responsive">
            
  
-       <table id="basecodes_datagrid" class="easyui-datagrid" title="BaseCodes DataGrid" style="width:auto;height:auto"
-                   data-options="
+                    <table id="basecodes_datagrid" class="easyui-datagrid" title="基础代码 DataGrid" style="width:auto;height:auto"
+                           data-options="
                  rownumbers:true,
-                 
+
                 remoteFilter: true,
                 singleSelect: true,
                 toolbar: '#basecodes_toolbar',
@@ -53,22 +53,22 @@
                 onClickCell: onClickCell,
                 pagination: 'true'
                    ">
-                <thead>
-                    <tr>
-                        @*<th data-options="field:'ck',checkbox:true"></th>*@
-        			<th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>
-                
-				     <th data-options="field:'CodeType',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.CodeType)</th>
-		
-                
-				     <th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Description)</th>
-		
-               
-    </tr>
-    </thead>
- 
+                        <thead>
+                            <tr>
+                                @*<th data-options="field:'ck',checkbox:true"></th>*@
+                                <th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>
 
-</table>
+                                <th data-options="field:'CodeType',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.CodeType)</th>
+
+
+                                <th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Description)</th>
+
+
+                            </tr>
+                        </thead>
+
+
+                    </table>
 	<div id="basecodes_toolbar" style="height:auto">
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">Append</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>

@@ -76,9 +76,13 @@
                                                 <th data-options="field:'CLASS',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.CLASS)</th>
 
 
-                                                <th data-options="field:'SKUGroup'
+                                <th data-options="field:'SKUGroup'
                                         ,width:140
-                                        ,editor:{type:'textbox',options:{required:false}
+                                        ,editor:{ type:'combobox'
+                                            ,options:{
+                                                panelHeight: 'auto',
+                                                data: [ { value: '成品', text: '成品' },{ value: '部套', text: '部套' }, { value: '零件', text: '零件' } ],
+                                                required:true}
                                             } ">@Html.DisplayNameFor(model => model.SKUGroup)</th>
 
                                             <th data-options="field:'STDUOM',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.STDUOM)</th>
@@ -347,6 +351,26 @@
                                                  } else {
                                                      $dg.datagrid('addFilterRule', {
                                                          field: 'MadeType',
+                                                         op: 'equal',
+                                                         value: value
+                                                     });
+                                                 }
+                                                 $dg.datagrid('doFilter');
+                                             }
+                                         }
+                                     },
+                                     {
+                                         field: 'SKUGroup',
+                                         type: 'combobox',
+                                         options: {
+                                             panelHeight: 'auto',
+                                             data: [{ value: '', text: 'ALL' },{ value: '成品', text: '成品' }, { value: '部套', text: '部套' }, { value: '零件', text: '零件' }],
+                                             onChange: function (value) {
+                                                 if (value == '') {
+                                                     $dg.datagrid('removeFilterRule', 'SKUGroup');
+                                                 } else {
+                                                     $dg.datagrid('addFilterRule', {
+                                                         field: 'SKUGroup',
                                                          op: 'equal',
                                                          value: value
                                                      });

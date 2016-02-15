@@ -7,7 +7,7 @@
 
 
 @{
-    ViewBag.Title = "Employees";
+    ViewBag.Title = "员工信息维护";
 }
 
 
@@ -15,7 +15,7 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Employees Data</h5>
+           
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -41,10 +41,10 @@
                 <div class="table-responsive">
            
  
-       <table id="employees_datagrid" class="easyui-datagrid" title="Employees DataGrid" style="width:auto;height:auto"
-                   data-options="
+                    <table id="employees_datagrid" class="easyui-datagrid" title="员工信息 DataGrid" style="width:auto;height:auto"
+                           data-options="
                  rownumbers:true,
-                 
+
                 remoteFilter: true,
                 singleSelect: true,
                 toolbar: '#employees_toolbar',
@@ -53,15 +53,15 @@
                 onClickCell: onClickCell,
                 pagination: 'true'
                    ">
-                <thead>
-                    <tr>
-                        @*<th data-options="field:'ck',checkbox:true"></th>*@
-        			<th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>
-                
-				     <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.Name)</th>
-                        <th data-options="field:'HireDate',width:160,align:'right',editor:{type:'datetimebox',options:{}}">@Html.DisplayNameFor(model => model.HireDate)</th>
+                        <thead>
+                            <tr>
+                                @*<th data-options="field:'ck',checkbox:true"></th>*@
+                                <th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>
 
-                        <th data-options="field:'DepartmentId',width:100,
+                                <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.Name)</th>
+                                <th data-options="field:'HireDate',width:160,align:'right',editor:{type:'datetimebox',options:{}}">@Html.DisplayNameFor(model => model.HireDate)</th>
+
+                                <th data-options="field:'DepartmentId',width:100,
                         formatter:function(value,row){
                             return row.DepartmentName;
                         },
@@ -75,26 +75,26 @@
                                 required:true
                             }
                         }">@Html.DisplayNameFor(model => model.DepartmentId)</th>
-                
-				     <th data-options="field:'WorkNo',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.WorkNo)</th>
-		
-                
-				     <th data-options="field:'Title',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.Title)</th>
-		
-                
-                        <th data-options="field:'BirthDate',width:160,align:'right',editor:{type:'datetimebox',options:{}},formatter:dateformatter">@Html.DisplayNameFor(model => model.BirthDate)</th>
-		
-                
-				     <th data-options="field:'MaritalStatus',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.MaritalStatus)</th>
-		
-                
-				     <th data-options="field:'Gender',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Gender)</th>
-		
-                
-				     
 
-           
-                			<th data-options="field:'ManagerID',width:100,
+                        <th data-options="field:'WorkNo',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.WorkNo)</th>
+
+
+                        <th data-options="field:'Title',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.Title)</th>
+
+
+                        <th data-options="field:'BirthDate',width:160,align:'right',editor:{type:'datetimebox',options:{}},formatter:dateformatter">@Html.DisplayNameFor(model => model.BirthDate)</th>
+
+
+                        <th data-options="field:'MaritalStatus',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.MaritalStatus)</th>
+
+
+                        <th data-options="field:'Gender',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Gender)</th>
+
+
+
+
+
+                        <th data-options="field:'ManagerID',width:100,
                         formatter:function(value,row){
                             return row.ManagerName;
                         },
@@ -109,13 +109,13 @@
                             }
                         }">@Html.DisplayNameFor(model => model.ManagerID)</th>
 
-           
-               
-    </tr>
-    </thead>
- 
 
-</table>
+
+                    </tr>
+                </thead>
+
+
+                </table>
 	<div id="employees_toolbar" style="height:auto">
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">Append</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
