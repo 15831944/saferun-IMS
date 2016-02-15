@@ -4,7 +4,7 @@
 
 
 @{
-    ViewBag.Title = "SKUs";
+    ViewBag.Title = "物料主数据维护";
 }
 
 
@@ -36,10 +36,9 @@
             <div class="ibox-content">
 
                 <div class="table-responsive">
-                    <table id="skus_datagrid" class="easyui-datagrid" title="SKUs DataGrid" style="width:auto;height:auto"
+                    <table id="skus_datagrid" class="easyui-datagrid" title="物料主数据 DataGrid" style="width:auto;height:auto"
                            data-options="
-                 rownumbers:true,
-
+                rownumbers:true,
                 remoteFilter: true,
                 singleSelect: true,
                 toolbar: '#skus_toolbar',
@@ -76,7 +75,7 @@
                                                 <th data-options="field:'CLASS',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.CLASS)</th>
 
 
-                                <th data-options="field:'SKUGroup'
+                                                <th data-options="field:'SKUGroup'
                                         ,width:140
                                         ,editor:{ type:'combobox'
                                             ,options:{

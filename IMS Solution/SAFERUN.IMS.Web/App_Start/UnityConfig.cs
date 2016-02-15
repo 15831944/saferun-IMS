@@ -127,6 +127,11 @@ namespace SAFERUN.IMS.Web.App_Start
         container.RegisterType<IProductionPlanService, ProductionPlanService>();
         container.RegisterType<IRepositoryAsync<PurchasePlan>, Repository<PurchasePlan>>();
         container.RegisterType<IPurchasePlanService, PurchasePlanService>();
+
+
+
+        container.RegisterType<IRepositoryAsync<DataTableImportMapping>, Repository<DataTableImportMapping>>();
+        container.RegisterType<IDataTableImportMappingService, DataTableImportMappingService>();
         
         }
     }
