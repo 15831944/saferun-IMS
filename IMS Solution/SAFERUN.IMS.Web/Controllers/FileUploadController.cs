@@ -47,7 +47,7 @@ namespace SAFERUN.IMS.Web.Controllers
                 DataTable datatable =  ExcelHelper.GetDataTableFromExcel(Filedata.InputStream);
                 if (fileType == "SKU")
                 {
-                    _sKUService.ImportSku(datatable);
+                    _sKUService.ImportDataTable(datatable);
                     _unitOfWork.SaveChanges();
                 }
                 if (fileType == "BOM")

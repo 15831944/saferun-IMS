@@ -55,7 +55,7 @@ namespace SAFERUN.IMS.Web.Controllers
             int totalCount = 0;
             //int pagenum = offset / limit +1;
                         var datatableimportmappings  = _dataTableImportMappingService.Query(new DataTableImportMappingQuery().Withfilter(filters)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
-                        var datarows = datatableimportmappings.Select(n => new { Id = n.Id, EntitySetName = n.EntitySetName, FieldName = n.FieldName, IsRequired=n.IsRequired,TypeName = n.TypeName, SourceFieldName = n.SourceFieldName, IsEnabled = n.IsEnabled, RegularExpression = n.RegularExpression }).ToList();
+                        var datarows = datatableimportmappings.Select(n => new { Id = n.Id, EntitySetName = n.EntitySetName, DefaultValue = n.DefaultValue, FieldName = n.FieldName, IsRequired = n.IsRequired, TypeName = n.TypeName, SourceFieldName = n.SourceFieldName, IsEnabled = n.IsEnabled, RegularExpression = n.RegularExpression }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }

@@ -15,7 +15,7 @@ using SAFERUN.IMS.Web.Models;
 
 namespace SAFERUN.IMS.Web.Repositories
 {
-  public static class DataTableImportMappingRepository  
+    public static class DataTableImportMappingRepository  
     {
  
         

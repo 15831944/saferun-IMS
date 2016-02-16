@@ -81,7 +81,13 @@ namespace SAFERUN.IMS.Web.Repositories
 						{
 							And(x => x.RegularExpression.Contains(rule.value));
 						}
-				    
+
+                                            if (rule.field == "IsEnabled")
+                                            {
+                                                
+                                                var boolval=Convert.ToBoolean(rule.value);
+                                                And(x => x.IsEnabled == boolval);
+                                            }
 				    
 					 									
                    

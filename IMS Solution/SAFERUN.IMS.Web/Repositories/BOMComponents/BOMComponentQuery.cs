@@ -152,7 +152,7 @@ namespace SAFERUN.IMS.Web.Repositories
 				    
 					 				
 					
-				    						if (rule.field == "SKUId")
+				    						if (rule.field == "SKUId" && !string.IsNullOrEmpty(rule.value))
 						{
 							int val = Convert.ToInt32(rule.value);
 							And(x => x.SKUId == val);

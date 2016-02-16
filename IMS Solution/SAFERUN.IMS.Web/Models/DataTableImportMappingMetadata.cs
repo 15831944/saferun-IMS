@@ -31,6 +31,9 @@ namespace SAFERUN.IMS.Web.Models
 
         [Display(Name = "是否必填")]
         public bool IsRequired { get; set; }
+        [Display(Name = "默认值")]
+        [MaxLength(50)]
+        public string DefaultValue { get; set; }
 
         [Display(Name = "Excel列名")]
         [MaxLength(50)]

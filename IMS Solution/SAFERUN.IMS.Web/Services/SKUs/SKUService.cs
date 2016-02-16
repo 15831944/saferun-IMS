@@ -20,27 +20,35 @@ namespace SAFERUN.IMS.Web.Services
     {
 
         private readonly IRepositoryAsync<SKU> _repository;
-        public  SKUService(IRepositoryAsync< SKU> repository)
+        private readonly IDataTableImportMappingService _mappingservice;
+        public SKUService(IRepositoryAsync<SKU> repository, IDataTableImportMappingService mappingservice)
             : base(repository)
         {
             _repository=repository;
+            _mappingservice = mappingservice;
         }
 
 
 
 
-        public void ImportSku(System.Data.DataTable datatable)
+        public void ImportDataTable(System.Data.DataTable datatable)
         {
             foreach (DataRow row in datatable.Rows)
             {
-                if (row["存货编码"].ToString().Trim() == string.Empty)
-                    continue;
+                
                 SKU item = new SKU();
-                item.Sku = row["存货编码"].ToString().Trim();
-                item.ManufacturerSku = row["图纸编号"].ToString().Trim();
-                item.Description = row["图纸名称"].ToString().Trim();
+                foreach (DataColumn col in datatable.Columns)
+                {
+                    var sourcefieldname = col.ColumnName;
+                    var mapping = _mappingservice.FindMapping("SKU", sourcefieldname);
+                    if (mapping != null && row[sourcefieldname] != DBNull.Value)
+                    {
+                        
+                        Type skutype = item.GetType();
+                        skutype.GetProperty(mapping.FieldName).SetValue(item, row[sourcefieldname]);
+                    }
 
-                item.MadeType = row["生产方式"].ToString().Trim();
+                }
                 if (Find(item.Sku) == null)
                 {
                     this.Insert(item);

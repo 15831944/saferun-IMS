@@ -20,6 +20,7 @@ namespace SAFERUN.IMS.Web.Models
         [Index("IX_DataTableImportMapping", IsUnique = true, Order = 2)]
         [MaxLength(50)]
         public string FieldName { get; set; }
+        public string DefaultValue { get; set; }
         public string TypeName { get; set; }
         public bool IsRequired { get; set; }
         public string SourceFieldName { get; set; }

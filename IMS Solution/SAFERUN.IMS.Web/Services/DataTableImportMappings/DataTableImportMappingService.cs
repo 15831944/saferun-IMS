@@ -73,6 +73,12 @@ namespace SAFERUN.IMS.Web.Services
                 }
             }
         }
+
+
+        public DataTableImportMapping FindMapping(string entitySetName, string sourceFieldName)
+        {
+            return this.Queryable().Where(x => x.EntitySetName == entitySetName && x.SourceFieldName == sourceFieldName).FirstOrDefault();
+        }
     }
 }
 

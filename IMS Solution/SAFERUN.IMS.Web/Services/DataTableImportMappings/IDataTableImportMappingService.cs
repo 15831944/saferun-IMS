@@ -20,6 +20,8 @@ namespace SAFERUN.IMS.Web.Services
 
         IEnumerable<EntityInfo> GetAssemblyEntities();
         void GenerateByEnityName(string entityName);
+
+        DataTableImportMapping FindMapping(string entitySetName, string sourceFieldName);
          
  
 	}

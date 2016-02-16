@@ -62,13 +62,13 @@
                                 <th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.OrderKey)</th>
 
 
-                                <th data-options="field:'Sales',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Sales)</th>
+                                <th data-options="field:'Sales',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.Sales)</th>
 
 
-                                <th data-options="field:'OrderDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.OrderDate)</th>
+                                <th data-options="field:'OrderDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:true}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.OrderDate)</th>
 
 
-                                <th data-options="field:'AuditDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.AuditDate)</th>
+                                <th data-options="field:'AuditDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:true}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.AuditDate)</th>
 
                                 <th data-options="field:'CustomerId',width:100,
                         formatter:function(value,row){
@@ -81,7 +81,7 @@
                                 textField:'AccountNumber',
                                 method:'get',
                                 url:'/Orders/GetCustomers',
-                                required:false
+                                required:true
                             }
                         }">@Html.DisplayNameFor(model => model.CustomerId)</th>
 
@@ -97,13 +97,13 @@
                                 textField:'TypeName',
                                 method:'get',
                                 url:'/Orders/GetProjectTypes',
-                                required:false
+                                required:true
                             }
                         }">@Html.DisplayNameFor(model => model.ProjectTypeId)</th>
 
 
 
-                        <th data-options="field:'ProjectName',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.ProjectName)</th>
+                        <th data-options="field:'ProjectName',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.ProjectName)</th>
 
 
                         <th data-options="field:'Status',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Status)</th>

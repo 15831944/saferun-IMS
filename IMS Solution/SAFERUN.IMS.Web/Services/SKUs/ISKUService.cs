@@ -20,7 +20,7 @@ namespace SAFERUN.IMS.Web.Services
     {
 
 
-        void ImportSku(DataTable datatable);
+        void ImportDataTable(DataTable datatable);
 
         SKU Find(string sku);
  
