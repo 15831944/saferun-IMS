@@ -1,7 +1,4 @@
-﻿
-
-
-@model IEnumerable<SAFERUN.IMS.Web.Models.Order>
+﻿@model IEnumerable<SAFERUN.IMS.Web.Models.Order>
 
 
 
@@ -15,7 +12,7 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-             
+
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -39,8 +36,8 @@
             <div class="ibox-content">
 
                 <div class="table-responsive">
-           
- 
+
+
                     <table id="orders_datagrid" class="easyui-datagrid" title="订单信息 DataGrid" style="width:auto;height:auto"
                            data-options="
                  rownumbers:true,
@@ -131,81 +128,81 @@
                 </thead>
 
 
-                </table>
-	<div id="orders_toolbar" style="height:auto">
+            </table>
+            <div id="orders_toolbar" style="height:auto">
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
             </div>
-				</div>
-
-            </div>
         </div>
+
     </div>
+</div>
+</div>
 </div>
 @section Scripts {
     <script type="text/javascript">
-         var $dg = $('#orders_datagrid');
-         var editIndex = undefined;
-         function formatOper(val, row, index) {
-             //console.log(val, row, index);
-             return '<a  class="easyui-linkbutton" href="/Orders/Edit/' + row.Id + '" >修改</a>';
-         }
-         function formatAction1(val, row, index) {
-             return '<a   class="easyui-linkbutton" href="javascript:void(0)" onclick="generateAudit(' + row.Id + ')" >生成评审计划</a>'
-         }
-         function formatAction2(val, row, index) {
-             return '<a   class="easyui-linkbutton" href="javascript:void(0)" onclick="generateProductPlan(' + row.Id + ')" >生成生产计划</a>'
-         }
-         function generateAudit(id) {
-             $.messager.progress({ title: '正在处理请耐心等待！' });
-             $.post('/Orders/GenerateAuditPlan/' + id, function (data, textStatus, jqXHR) {
-                 //console.log(data);
-                 $.messager.progress('close');
-                 $.messager.alert("提示", "评审计划生成完成！", 'info', function () {
-                     $(location).attr('href', '/OrderAuditPlans');
-                 });
-                 
-             });
-         }
-         function generateProductPlan(id) {
-             $.messager.progress({ title: '正在处理请耐心等待！' });
-             $.post('/Orders/GenerateProductionPlan/' + id, function (data, textStatus, jqXHR) {
-                 $.messager.progress('close');
-                 console.log(data);
-                 $.messager.alert("提示", "生产计划生成完成！", 'info', function () {
-                     $(location).attr('href', '/ProductionPlans');
-                 });
+        var $dg = $('#orders_datagrid');
+        var editIndex = undefined;
+        function formatOper(val, row, index) {
+            //console.log(val, row, index);
+            return '<a  class="easyui-linkbutton" href="/Orders/Edit/' + row.Id + '" >修改</a>';
+        }
+        function formatAction1(val, row, index) {
+            return '<a   class="easyui-linkbutton" href="javascript:void(0)" onclick="generateAudit(' + row.Id + ')" >生成评审计划</a>'
+        }
+        function formatAction2(val, row, index) {
+            return '<a   class="easyui-linkbutton" href="javascript:void(0)" onclick="generateProductPlan(' + row.Id + ')" >生成生产计划</a>'
+        }
+        function generateAudit(id) {
+            $.messager.progress({ title: '正在处理请耐心等待！' });
+            $.post('/Orders/GenerateAuditPlan/' + id, function (data, textStatus, jqXHR) {
+                //console.log(data);
+                $.messager.progress('close');
+                $.messager.alert("提示", "评审计划生成完成！", 'info', function () {
+                    $(location).attr('href', '/OrderAuditPlans');
+                });
 
-             });
-         }
+            });
+        }
+        function generateProductPlan(id) {
+            $.messager.progress({ title: '正在处理请耐心等待！' });
+            $.post('/Orders/GenerateProductionPlan/' + id, function (data, textStatus, jqXHR) {
+                $.messager.progress('close');
+                console.log(data);
+                $.messager.alert("提示", "生产计划生成完成！", 'info', function () {
+                    $(location).attr('href', '/ProductionPlans');
+                });
+
+            });
+        }
 
         function endEditing() {
             if (editIndex == undefined) { return true }
             if ($dg.datagrid('validateRow', editIndex)) {
 
-				                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'CustomerId' });
+                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'CustomerId' });
                 var customeraccountnumber = $(ed.target).combobox('getText');
                 var customerid = $(ed.target).combobox('getValue');
-               
-                $dg.datagrid('getRows')[editIndex]['CustomerAccountNumber'] =  customeraccountnumber;
-                $dg.datagrid('getRows')[editIndex]['CustomerId'] = customerid;
- 
 
-				                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'ProjectTypeId' });
+                $dg.datagrid('getRows')[editIndex]['CustomerAccountNumber'] = customeraccountnumber;
+                $dg.datagrid('getRows')[editIndex]['CustomerId'] = customerid;
+
+
+                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'ProjectTypeId' });
                 var projecttypetypename = $(ed.target).combobox('getText');
                 var projecttypeid = $(ed.target).combobox('getValue');
-               
-                $dg.datagrid('getRows')[editIndex]['ProjectTypeTypeName'] =  projecttypetypename;
-                $dg.datagrid('getRows')[editIndex]['ProjectTypeId'] = projecttypeid;
- 
 
-								$dg.datagrid('endEdit', editIndex);
+                $dg.datagrid('getRows')[editIndex]['ProjectTypeTypeName'] = projecttypetypename;
+                $dg.datagrid('getRows')[editIndex]['ProjectTypeId'] = projecttypeid;
+
+
+                $dg.datagrid('endEdit', editIndex);
                 editIndex = undefined;
 
-                
+
                 return true;
             } else {
                 return false;
@@ -264,10 +261,10 @@
                             $dg.datagrid('acceptChanges');
                         }
                     }, "JSON").error(function () {
-                        $.messager.alert("错误", "提交错误了！",'error');
-                      
+                        $.messager.alert("错误", "提交错误了！", 'error');
+
                     });
-              
+
                 }
 
                 $dg.datagrid('acceptChanges');
@@ -283,165 +280,165 @@
         }
 
 
-		 $(function () {
-		  
-           $dg.datagrid('enableFilter',[
-		   				{
-                      field: 'OrderDate',
-                      type: 'datebox',
-                      options: {
-                          onChange: function (value) {
-                              if (value == '') {
-                                  $dg.datagrid('removeFilterRule', 'OrderDate');
-                              } else {
-                                  $dg.datagrid('addFilterRule', {
-                                      field: 'OrderDate',
-                                      op: 'equal',
-                                      value: value
-                                  });
-                              }
-                              $dg.datagrid('doFilter');
-                          }
-                      }
-                  },
-		   				{
-                      field: 'AuditDate',
-                      type: 'datebox',
-                      options: {
-                          onChange: function (value) {
-                              if (value == '') {
-                                  $dg.datagrid('removeFilterRule', 'AuditDate');
-                              } else {
-                                  $dg.datagrid('addFilterRule', {
-                                      field: 'AuditDate',
-                                      op: 'equal',
-                                      value: value
-                                  });
-                              }
-                              $dg.datagrid('doFilter');
-                          }
-                      }
-                  },
-		   				{
-                      field: 'PlanFinishDate',
-                      type: 'datebox',
-                      options: {
-                          onChange: function (value) {
-                              if (value == '') {
-                                  $dg.datagrid('removeFilterRule', 'PlanFinishDate');
-                              } else {
-                                  $dg.datagrid('addFilterRule', {
-                                      field: 'PlanFinishDate',
-                                      op: 'equal',
-                                      value: value
-                                  });
-                              }
-                              $dg.datagrid('doFilter');
-                          }
-                      }
-                  },
-		   				{
-                      field: 'ActualFinishDate',
-                      type: 'datebox',
-                      options: {
-                          onChange: function (value) {
-                              if (value == '') {
-                                  $dg.datagrid('removeFilterRule', 'ActualFinishDate');
-                              } else {
-                                  $dg.datagrid('addFilterRule', {
-                                      field: 'ActualFinishDate',
-                                      op: 'equal',
-                                      value: value
-                                  });
-                              }
-                              $dg.datagrid('doFilter');
-                          }
-                      }
-                  },
-		   				{
-                      field: 'ShipDate',
-                      type: 'datebox',
-                      options: {
-                          onChange: function (value) {
-                              if (value == '') {
-                                  $dg.datagrid('removeFilterRule', 'ShipDate');
-                              } else {
-                                  $dg.datagrid('addFilterRule', {
-                                      field: 'ShipDate',
-                                      op: 'equal',
-                                      value: value
-                                  });
-                              }
-                              $dg.datagrid('doFilter');
-                          }
-                      }
-                  },
-		   				{
-                      field: 'ColseDate',
-                      type: 'datebox',
-                      options: {
-                          onChange: function (value) {
-                              if (value == '') {
-                                  $dg.datagrid('removeFilterRule', 'ColseDate');
-                              } else {
-                                  $dg.datagrid('addFilterRule', {
-                                      field: 'ColseDate',
-                                      op: 'equal',
-                                      value: value
-                                  });
-                              }
-                              $dg.datagrid('doFilter');
-                          }
-                      }
-                  },
-		   		   
-		   		   {
-				 field: 'CustomerId',
-				 type:'combobox',
-                 options:{
-                                valueField:'Id',
-                                textField:'AccountNumber',
-                                method:'get',
-                                url:'/Orders/GetCustomers',
-								onChange: function (value) {
-								if (value == '') {
-									$dg.datagrid('removeFilterRule', 'CustomerId');
-								} else {
-									$dg.datagrid('addFilterRule', {
-										field: 'CustomerId',
-									    op: 'equal',
-										value: value
-                                });
+        $(function () {
+
+            $dg.datagrid('enableFilter', [
+                         {
+                             field: 'OrderDate',
+                             type: 'datebox',
+                             options: {
+                                 onChange: function (value) {
+                                     if (value == '') {
+                                         $dg.datagrid('removeFilterRule', 'OrderDate');
+                                     } else {
+                                         $dg.datagrid('addFilterRule', {
+                                             field: 'OrderDate',
+                                             op: 'equal',
+                                             value: value
+                                         });
+                                     }
+                                     $dg.datagrid('doFilter');
+                                 }
+                             }
+                         },
+                         {
+                             field: 'AuditDate',
+                             type: 'datebox',
+                             options: {
+                                 onChange: function (value) {
+                                     if (value == '') {
+                                         $dg.datagrid('removeFilterRule', 'AuditDate');
+                                     } else {
+                                         $dg.datagrid('addFilterRule', {
+                                             field: 'AuditDate',
+                                             op: 'equal',
+                                             value: value
+                                         });
+                                     }
+                                     $dg.datagrid('doFilter');
+                                 }
+                             }
+                         },
+                         {
+                             field: 'PlanFinishDate',
+                             type: 'datebox',
+                             options: {
+                                 onChange: function (value) {
+                                     if (value == '') {
+                                         $dg.datagrid('removeFilterRule', 'PlanFinishDate');
+                                     } else {
+                                         $dg.datagrid('addFilterRule', {
+                                             field: 'PlanFinishDate',
+                                             op: 'equal',
+                                             value: value
+                                         });
+                                     }
+                                     $dg.datagrid('doFilter');
+                                 }
+                             }
+                         },
+                         {
+                             field: 'ActualFinishDate',
+                             type: 'datebox',
+                             options: {
+                                 onChange: function (value) {
+                                     if (value == '') {
+                                         $dg.datagrid('removeFilterRule', 'ActualFinishDate');
+                                     } else {
+                                         $dg.datagrid('addFilterRule', {
+                                             field: 'ActualFinishDate',
+                                             op: 'equal',
+                                             value: value
+                                         });
+                                     }
+                                     $dg.datagrid('doFilter');
+                                 }
+                             }
+                         },
+                         {
+                             field: 'ShipDate',
+                             type: 'datebox',
+                             options: {
+                                 onChange: function (value) {
+                                     if (value == '') {
+                                         $dg.datagrid('removeFilterRule', 'ShipDate');
+                                     } else {
+                                         $dg.datagrid('addFilterRule', {
+                                             field: 'ShipDate',
+                                             op: 'equal',
+                                             value: value
+                                         });
+                                     }
+                                     $dg.datagrid('doFilter');
+                                 }
+                             }
+                         },
+                         {
+                             field: 'ColseDate',
+                             type: 'datebox',
+                             options: {
+                                 onChange: function (value) {
+                                     if (value == '') {
+                                         $dg.datagrid('removeFilterRule', 'ColseDate');
+                                     } else {
+                                         $dg.datagrid('addFilterRule', {
+                                             field: 'ColseDate',
+                                             op: 'equal',
+                                             value: value
+                                         });
+                                     }
+                                     $dg.datagrid('doFilter');
+                                 }
+                             }
+                         },
+
+                    {
+                        field: 'CustomerId',
+                        type: 'combobox',
+                        options: {
+                            valueField: 'Id',
+                            textField: 'AccountNumber',
+                            method: 'get',
+                            url: '/Orders/GetCustomers',
+                            onChange: function (value) {
+                                if (value == '') {
+                                    $dg.datagrid('removeFilterRule', 'CustomerId');
+                                } else {
+                                    $dg.datagrid('addFilterRule', {
+                                        field: 'CustomerId',
+                                        op: 'equal',
+                                        value: value
+                                    });
+                                }
+                                $dg.datagrid('doFilter');
                             }
-                            $dg.datagrid('doFilter');
                         }
-					}
-		   },
-		   		   {
-				 field: 'ProjectTypeId',
-				 type:'combobox',
-                 options:{
-                                valueField:'Id',
-                                textField:'TypeName',
-                                method:'get',
-                                url:'/Orders/GetProjectTypes',
-								onChange: function (value) {
-								if (value == '') {
-									$dg.datagrid('removeFilterRule', 'ProjectTypeId');
-								} else {
-									$dg.datagrid('addFilterRule', {
-										field: 'ProjectTypeId',
-									    op: 'equal',
-										value: value
-                                });
+                    },
+                    {
+                        field: 'ProjectTypeId',
+                        type: 'combobox',
+                        options: {
+                            valueField: 'Id',
+                            textField: 'TypeName',
+                            method: 'get',
+                            url: '/Orders/GetProjectTypes',
+                            onChange: function (value) {
+                                if (value == '') {
+                                    $dg.datagrid('removeFilterRule', 'ProjectTypeId');
+                                } else {
+                                    $dg.datagrid('addFilterRule', {
+                                        field: 'ProjectTypeId',
+                                        op: 'equal',
+                                        value: value
+                                    });
+                                }
+                                $dg.datagrid('doFilter');
                             }
-                            $dg.datagrid('doFilter');
                         }
-					}
-		   },
-		   		   
-		   ]);
+                    },
+
+            ]);
         })
-     </script>
+    </script>
 }
 

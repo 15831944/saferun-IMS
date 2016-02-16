@@ -327,8 +327,8 @@
     <Compile Include="Repositories\BOMComponents\BOMComponentRepository.cs" />
     <Compile Include="Repositories\Customers\CustomerQuery.cs" />
     <Compile Include="Repositories\Customers\CustomerRepository.cs" />
-    <Compile Include="Repositories\DataTableImportMappings\DataTableImportMappingQuery.cs" />
-    <Compile Include="Repositories\DataTableImportMappings\DataTableImportMappingRepository.cs" />
+    <Compile Include="Repositories\DataTableImportMappings\MappingQuery.cs" />
+    <Compile Include="Repositories\DataTableImportMappings\MappingRepository.cs" />
     <Compile Include="Repositories\DefectCodes\DefectCodeQuery.cs" />
     <Compile Include="Repositories\DefectCodes\DefectCodeRepository.cs" />
     <Compile Include="Repositories\DefectTypes\DefectTypeQuery.cs" />
@@ -373,8 +373,8 @@
     <Compile Include="Services\BOMComponents\IBOMComponentService.cs" />
     <Compile Include="Services\Customers\CustomerService.cs" />
     <Compile Include="Services\Customers\ICustomerService.cs" />
-    <Compile Include="Services\DataTableImportMappings\DataTableImportMappingService.cs" />
-    <Compile Include="Services\DataTableImportMappings\IDataTableImportMappingService.cs" />
+    <Compile Include="Services\DataTableImportMappings\MappingService.cs" />
+    <Compile Include="Services\DataTableImportMappings\IMappingService.cs" />
     <Compile Include="Services\DefectCodes\DefectCodeService.cs" />
     <Compile Include="Services\DefectCodes\IDefectCodeService.cs" />
     <Compile Include="Services\DefectTypes\DefectTypeService.cs" />
