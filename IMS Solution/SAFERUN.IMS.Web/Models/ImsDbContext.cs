@@ -59,5 +59,7 @@ namespace SAFERUN.IMS.Web.Models
         public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.PurchasePlan> PurchasePlans { get; set; }
 
         public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.DataTableImportMapping> DataTableImportMappings { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.DefectTracking> DefectTrackings { get; set; }
     }
 }

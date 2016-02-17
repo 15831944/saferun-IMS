@@ -11,7 +11,9 @@
  *   messager
  * 
  */
-(function($){
+(function ($) {
+    
+
 	// var oldLoadDataMethod = $.fn.datagrid.methods.loadData;
 	// $.fn.datagrid.methods.loadData = function(jq, data){
 	// 	jq.each(function(){
@@ -505,3 +507,28 @@
 	////////////////////////////////
 	$.parser.plugins.push('edatagrid');
 })(jQuery);
+
+
+$.extend($.fn.datagrid.defaults.editors, {
+    combogrid: {
+        init: function (container, options) {
+            var input = $('<input type="text" class="datagrid-editable-input">').appendTo(container);
+            input.combogrid(options);
+            return input;
+        },
+        destroy: function (target) {
+            $(target).combogrid('destroy');
+        },
+        getValue: function (target) {
+            //console.log('getValue', $(target).combogrid('getValue'));
+            return $(target).combogrid('getValue');
+        },
+        setValue: function (target, value) {
+            //console.log('setValue', value);
+            $(target).combogrid('setValue', value);
+        },
+        resize: function (target, width) {
+            $(target).combogrid('resize', width);
+        }
+    }
+});

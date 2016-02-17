@@ -132,6 +132,10 @@ namespace SAFERUN.IMS.Web.App_Start
 
         container.RegisterType<IRepositoryAsync<DataTableImportMapping>, Repository<DataTableImportMapping>>();
         container.RegisterType<IDataTableImportMappingService, DataTableImportMappingService>();
+
+
+        container.RegisterType<IRepositoryAsync<DefectTracking>, Repository<DefectTracking>>();
+        container.RegisterType<IDefectTrackingService, DefectTrackingService>();
         
         }
     }
