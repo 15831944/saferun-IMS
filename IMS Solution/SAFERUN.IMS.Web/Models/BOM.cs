@@ -21,6 +21,8 @@ namespace SAFERUN.IMS.Web.Models
         public string ALTSku { get; set; }
         public string GraphSKU { get; set; }
         public string StockSKU { get; set; }
+        public string MadeType { get; set; }
+        public string SKUGroup { get; set; }
         public string Remark1 { get; set; }
         public string Remark2 { get; set; }
         public decimal ConsumeQty { get; set; }

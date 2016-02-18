@@ -47,6 +47,14 @@ namespace SAFERUN.IMS.Web.Models
         [Display(Name = "库存编号")]
         [MaxLength(30)]
         public string StockSKU { get; set; }
+   
+        [Display(Name = "生产方式(自制/外协/采购)")]
+        [MaxLength(20)]
+        public string MadeType { get; set; }
+
+        [Display(Name = "组别")]
+        [MaxLength(20)]
+        public string SKUGroup { get; set; }
 
         [Display(Name = "备注1")]
         [MaxLength(300)]

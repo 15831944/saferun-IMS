@@ -58,7 +58,7 @@ namespace SAFERUN.IMS.Web.Controllers
             			 
             var bomcomponents  = _bOMComponentService.Query(new BOMComponentQuery().Withfilter(filters)).Include(b => b.ParentComponent).Include(b => b.SKU).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
             
-                        var datarows = bomcomponents .Select(  n => new { ParentComponentDesignName = (n.ParentComponent==null?"": n.ParentComponent.DesignName) ,SKUSku = (n.SKU==null?"": n.SKU.Sku) , Id = n.Id , DesignName = n.DesignName , ComponentSKU = n.ComponentSKU , ALTSku = n.ALTSku , GraphSKU = n.GraphSKU , StockSKU = n.StockSKU , Remark1 = n.Remark1 , Remark2 = n.Remark2 , ConsumeQty = n.ConsumeQty , ConsumeTime = n.ConsumeTime , RejectRatio = n.RejectRatio , Deploy = n.Deploy , Locator = n.Locator , ProductionLine = n.ProductionLine , Status = n.Status , NoPur = n.NoPur , SKUId = n.SKUId , ParentComponentId = n.ParentComponentId }).ToList();
+                        var datarows = bomcomponents .Select(  n => new { ParentComponentDesignName = (n.ParentComponent==null?"": n.ParentComponent.ComponentSKU) ,SKUSku = (n.SKU==null?"": n.SKU.Sku) , Id = n.Id , DesignName = n.DesignName , ComponentSKU = n.ComponentSKU , ALTSku = n.ALTSku , GraphSKU = n.GraphSKU , StockSKU = n.StockSKU , Remark1 = n.Remark1 , Remark2 = n.Remark2 , ConsumeQty = n.ConsumeQty , ConsumeTime = n.ConsumeTime , RejectRatio = n.RejectRatio , Deploy = n.Deploy , Locator = n.Locator , ProductionLine = n.ProductionLine , Status = n.Status , NoPur = n.NoPur , SKUId = n.SKUId , ParentComponentId = n.ParentComponentId }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
@@ -97,7 +97,7 @@ namespace SAFERUN.IMS.Web.Controllers
         {
             var bomcomponentRepository = _unitOfWork.Repository<BOMComponent>();
             var data = bomcomponentRepository.Queryable().ToList();
-            var rows = data.Select(n => new { Id = n.Id, DesignName = n.DesignName });
+            var rows = data.Select(n => new { Id = n.Id, DesignName = n.ComponentSKU });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
 				public ActionResult GetSKUs()

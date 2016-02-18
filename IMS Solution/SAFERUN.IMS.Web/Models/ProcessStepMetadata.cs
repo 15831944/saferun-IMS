@@ -20,6 +20,18 @@ namespace SAFERUN.IMS.Web.Models
         [MaxLength(30)]
         public string Name { get; set; }
 
+        [Required(ErrorMessage = "Please enter : 工序节点")]
+        [Display(Name = "工序节点")]
+        [MaxLength(30)]
+        public string StepName { get; set; }
+
+        [Required(ErrorMessage = "Please enter : 耗时")]
+        [Display(Name = "耗时(H)")]
+        public decimal ElapsedTime { get; set; }
+
+        [Display(Name = "状态")]
+        public int Status { get; set; }
+
         [Required(ErrorMessage = "Please enter : 工序")]
         [Display(Name = "工序")]
         [Range(1, 100)]

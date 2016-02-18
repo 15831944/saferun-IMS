@@ -13,11 +13,16 @@ namespace SAFERUN.IMS.Web.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        [Index("IX_ProcessStep",IsUnique=true)]
+        [Index("IX_ProcessStep",IsUnique=true,Order=1)]
         public string Name { get; set; }
+        [Index("IX_ProcessStep", IsUnique = true, Order = 2)]
         public int Order { get; set; }
+        [Index("IX_ProcessStep", IsUnique = true, Order = 3)]
+        public string StepName { get; set; }
+        public decimal ElapsedTime { get; set; }
         public string Equipment { get; set; }
 
+        public int Status { get; set; }
         public string Description { get; set; }
 
 
