@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-
+using System.Data.Entity.SqlServer;
 using Repository.Pattern.Repositories;
 using Repository.Pattern.Ef6;
 using SAFERUN.IMS.Web.Models;
@@ -20,14 +20,14 @@ namespace SAFERUN.IMS.Web.Repositories
         public ProcessStepQuery WithAnySearch(string search)
         {
             if (!string.IsNullOrEmpty(search))
-                And( x =>  x.Name.Contains(search) || x.Equipment.Contains(search) || x.Description.Contains(search) );
+                And( x =>  x.Name.Contains(search) || x.StepName.Contains(search) || x.Equipment.Contains(search) || x.Description.Contains(search) );
             return this;
         }
 
 		public ProcessStepQuery WithPopupSearch(string search,string para="")
         {
             if (!string.IsNullOrEmpty(search))
-                And( x =>  x.Name.Contains(search) || x.Equipment.Contains(search) || x.Description.Contains(search) );
+                And( x =>  x.Name.Contains(search) || x.StepName.Contains(search) || x.Equipment.Contains(search) || x.Description.Contains(search) );
             return this;
         }
 
@@ -39,40 +39,73 @@ namespace SAFERUN.IMS.Web.Repositories
                {
                   
 					
-				    						if (rule.field == "Id")
+				    						if (rule.field == "Id" && !string.IsNullOrEmpty(rule.value))
 						{
-							And(x => x.Id == Convert.ToInt32(rule.value));
+							int val = Convert.ToInt32(rule.value);
+							And(x => x.Id == val);
 						}
 				   
-					 				
-											if (rule.field == "Name")
+					
+				    				
+											if (rule.field == "Name"  && !string.IsNullOrEmpty(rule.value))
 						{
 							And(x => x.Name.Contains(rule.value));
 						}
 				    
 				    
-					 				
 					
-				    						if (rule.field == "Order")
+				    				
+					
+				    						if (rule.field == "Order" && !string.IsNullOrEmpty(rule.value))
 						{
-							And(x => x.Order == Convert.ToInt32(rule.value));
+							int val = Convert.ToInt32(rule.value);
+							And(x => x.Order == val);
 						}
 				   
-					 				
-											if (rule.field == "Equipment")
+					
+				    				
+											if (rule.field == "StepName"  && !string.IsNullOrEmpty(rule.value))
+						{
+							And(x => x.StepName.Contains(rule.value));
+						}
+				    
+				    
+					
+				    				
+					
+				    						if (rule.field == "ElapsedTime" && !string.IsNullOrEmpty(rule.value))
+						{
+							int val = Convert.ToInt32(rule.value);
+							And(x => x.ElapsedTime == val);
+						}
+				   
+					
+				    				
+											if (rule.field == "Equipment"  && !string.IsNullOrEmpty(rule.value))
 						{
 							And(x => x.Equipment.Contains(rule.value));
 						}
 				    
 				    
-					 				
-											if (rule.field == "Description")
+					
+				    				
+					
+				    						if (rule.field == "Status" && !string.IsNullOrEmpty(rule.value))
+						{
+							int val = Convert.ToInt32(rule.value);
+							And(x => x.Status == val);
+						}
+				   
+					
+				    				
+											if (rule.field == "Description"  && !string.IsNullOrEmpty(rule.value))
 						{
 							And(x => x.Description.Contains(rule.value));
 						}
 				    
 				    
-					 									
+					
+				    									
                    
                }
            }

@@ -55,7 +55,7 @@ namespace SAFERUN.IMS.Web.Controllers
             int totalCount = 0;
             //int pagenum = offset / limit +1;
                         var processsteps  = _processStepService.Query(new ProcessStepQuery().Withfilter(filters)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
-                        var datarows = processsteps .Select(  n => new {  Id = n.Id , Name = n.Name , Order = n.Order , Equipment = n.Equipment , Description = n.Description }).ToList();
+                        var datarows = processsteps .Select(  n => new {  Id = n.Id , Name = n.Name , Order = n.Order , StepName = n.StepName , ElapsedTime = n.ElapsedTime , Equipment = n.Equipment , Status = n.Status , Description = n.Description }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
@@ -120,7 +120,7 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Order,Equipment,Description,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProcessStep processStep)
+        public ActionResult Create([Bind(Include = "Id,Name,Order,StepName,ElapsedTime,Equipment,Status,Description,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProcessStep processStep)
         {
             if (ModelState.IsValid)
             {
@@ -162,7 +162,7 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Order,Equipment,Description,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProcessStep processStep)
+        public ActionResult Edit([Bind(Include = "Id,Name,Order,StepName,ElapsedTime,Equipment,Status,Description,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProcessStep processStep)
         {
             if (ModelState.IsValid)
             {

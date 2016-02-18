@@ -1098,11 +1098,6 @@
     <Content Include="Views\Multicomponents\Edit.cshtml" />
     <Content Include="Views\Multicomponents\EditForm.cshtml" />
     <Content Include="Views\Multicomponents\_PopupSearch.cshtml" />
-    <Content Include="Views\ProcessSteps\Index.cshtml" />
-    <Content Include="Views\ProcessSteps\Create.cshtml" />
-    <Content Include="Views\ProcessSteps\Edit.cshtml" />
-    <Content Include="Views\ProcessSteps\EditForm.cshtml" />
-    <Content Include="Views\ProcessSteps\_PopupSearch.cshtml" />
     <Content Include="Views\Stations\Index.cshtml" />
     <Content Include="Views\Stations\Create.cshtml" />
     <Content Include="Views\Stations\Edit.cshtml" />
@@ -1192,6 +1187,11 @@
     <Content Include="Views\DefectTrackings\Edit.cshtml" />
     <Content Include="Views\DefectTrackings\EditForm.cshtml" />
     <Content Include="Views\DefectTrackings\_PopupSearch.cshtml" />
+    <Content Include="Views\ProcessSteps\Index.cshtml" />
+    <Content Include="Views\ProcessSteps\Create.cshtml" />
+    <Content Include="Views\ProcessSteps\Edit.cshtml" />
+    <Content Include="Views\ProcessSteps\EditForm.cshtml" />
+    <Content Include="Views\ProcessSteps\_PopupSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
