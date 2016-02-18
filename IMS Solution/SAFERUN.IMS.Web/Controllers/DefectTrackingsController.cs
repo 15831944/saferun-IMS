@@ -113,12 +113,14 @@ namespace SAFERUN.IMS.Web.Controllers
             var rows = data.Select(n => new { Id = n.Id, OrderKey = n.OrderKey, ProjectName = n.ProjectName, Status = n.Status });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult GetSKUs(int orderid=0)
+        public ActionResult GetSKUs(int orderid = 0,int page = 1, int rows = 10,string q="")
         {
-            var skuRepository = _unitOfWork.Repository<OrderDetail>();
-            var data = skuRepository.Queryable().Where(x => x.OrderId == orderid).ToList();
-            var rows = data.Select(n => new { Id = n.SKUId, Sku = n.ProductionSku });
-            return Json(rows, JsonRequestBehavior.AllowGet);
+            int totalCount = 0;
+            var skuRepository = _unitOfWork.Repository<ProductionPlan>();
+            var data = skuRepository.Query(new ProductionPlanQuery().WithOrderIdSku(orderid,q)).OrderBy(n => n.OrderBy(x=>x.ComponentSKU)).SelectPage(page, rows, out totalCount);
+            var datarows = data.Select(n => new { Id = n.SKUId, Sku = n.ComponentSKU, GraphSKU = n.GraphSKU, DesignName = n.DesignName, Locator = n.Locator });
+            var pagelist = new { total = totalCount, rows = datarows };
+            return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
 

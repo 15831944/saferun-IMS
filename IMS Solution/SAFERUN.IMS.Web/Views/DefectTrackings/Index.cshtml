@@ -70,8 +70,7 @@
                                                 required:true,
                                                 fitColumns:true,
                                                 columns:[[
-                                                     {field:'Id',title:'Id',width:50},
-						                            {field:'OrderKey',title:'订单号',width:100},
+                                                    {field:'OrderKey',title:'订单号',width:100},
 						                            {field:'ProjectName',title:'项目名称',width:120},
 						                            {field:'Status',title:'状态',width:60}
 					                                    ]],
@@ -89,7 +88,7 @@
 
                                                         var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'SKUId' });
 
-                                                        $(ed.target).combobox('reload','/DefectTrackings/GetSKUs?orderid=' + rowData.Id );
+                                                        $(ed.target).combogrid('grid').datagrid('reload','/DefectTrackings/GetSKUs?orderid=' + rowData.Id );
 
                                                 }
 
@@ -98,18 +97,30 @@
 
                                 <th data-options="field:'ProjectName',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.ProjectName)</th>
 
-                        <th data-options="field:'SKUId',width:100,
+                                <th data-options="field:'SKUId',width:100,
                         formatter:function(value,row){
                             return row.SKUSku;
                         },
                         editor:{
-                            type:'combobox',
-                            options:{
-                                valueField:'Id',
-                                textField:'Sku',
-                                method:'get',
-                                url:'/DefectTrackings/GetSKUs',
-                                required:false
+                             type:'combogrid',
+                                            options:{
+                                                idField:'Id',
+                                                panelWidth: 400,
+                                                textField:'Sku',
+                                                
+                                                url:'/DefectTrackings/GetSKUs',
+                                                required:true,
+                                                mode:'remote',
+                                                fitColumns:true,
+                                                pagination:true,
+                                                columns:[[
+						                            {field:'Sku',title:'Sku',width:100},
+						                            {field:'GraphSKU',title:'图纸',width:120},
+						                            {field:'DesignName',title:'名称',width:120},
+                                                    {field:'Locator',title:'处理工艺',width:120},
+					                                    ]],
+                                                onSelect:function(rowIndex, rowData) {
+                                                }
                             }
                         }">@Html.DisplayNameFor(model => model.SKUId)</th>
 

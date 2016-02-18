@@ -31,6 +31,25 @@ namespace SAFERUN.IMS.Web.Repositories
                 And( x =>  x.OrderKey.Contains(search) || x.DesignName.Contains(search) || x.ComponentSKU.Contains(search) || x.ALTSku.Contains(search) || x.GraphSKU.Contains(search) || x.StockSKU.Contains(search) || x.Deploy.Contains(search) || x.Locator.Contains(search) || x.ProductionLine.Contains(search) || x.OrderPlanDate.ToString().Contains(search) || x.ActualFinishDate.ToString().Contains(search) || x.Remark.Contains(search) );
             return this;
         }
+       
+        public ProductionPlanQuery WithOrderIdSku(int orderid=0, string p = "")
+        {
+            if ( orderid>0)
+                And(x=>x.OrderId==orderid);
+            if (!string.IsNullOrEmpty(p))
+            {
+                int skuid=0;
+                if (int.TryParse(p, out skuid))
+                {
+                    And(x => x.SKUId == skuid );
+                }
+                else
+                {
+                    And(x => x.ComponentSKU.Contains(p));
+                }
+            }
+            return this;
+        }
 
 		public ProductionPlanQuery Withfilter(IEnumerable<filterRule> filters)
         {
