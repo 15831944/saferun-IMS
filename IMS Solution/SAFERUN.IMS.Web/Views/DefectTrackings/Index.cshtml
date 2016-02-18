@@ -107,7 +107,7 @@
                                                 idField:'Id',
                                                 panelWidth: 400,
                                                 textField:'Sku',
-                                                
+
                                                 url:'/DefectTrackings/GetSKUs',
                                                 required:true,
                                                 mode:'remote',
@@ -120,6 +120,10 @@
                                                     {field:'Locator',title:'处理工艺',width:120},
 					                                    ]],
                                                 onSelect:function(rowIndex, rowData) {
+                                                     var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'GraphSKU' });
+                                                     $(ed.target).textbox('setValue',rowData.GraphSKU);
+                                                     var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'Locator' });
+                                                     $(ed.target).textbox('setValue',rowData.Locator);
                                                 }
                             }
                         }">@Html.DisplayNameFor(model => model.SKUId)</th>
