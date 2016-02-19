@@ -19,14 +19,14 @@ namespace SAFERUN.IMS.Web.Services
     public interface IBOMComponentService:IService<BOMComponent>
     {
 
-                  IEnumerable<BOMComponent> GetBySKUId(int  skuid);
+                  IEnumerable<BOMComponent> GetByProductionProcessId(int  productionprocessid);
+                 IEnumerable<BOMComponent> GetBySKUId(int  skuid);
                  IEnumerable<BOMComponent> GetByParentComponentId(int  parentcomponentid);
         
                  IEnumerable<BOMComponent>   GetComponentsByParentComponentId (int parentcomponentid);
-
-                 void ImportFormExcel(DataTable datatable);
          
          
  
+		void ImportDataTable(DataTable datatable);
 	}
 }

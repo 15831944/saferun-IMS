@@ -22,49 +22,58 @@ namespace SAFERUN.IMS.Web.Controllers
 {
     public class BOMComponentsController : Controller
     {
-        
+
         //Please RegisterType UnityConfig.cs
         //container.RegisterType<IRepositoryAsync<BOMComponent>, Repository<BOMComponent>>();
         //container.RegisterType<IBOMComponentService, BOMComponentService>();
-        
+
         //private ImsDbContext db = new ImsDbContext();
-        private readonly IBOMComponentService  _bOMComponentService;
+        private readonly IBOMComponentService _bOMComponentService;
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public BOMComponentsController (IBOMComponentService  bOMComponentService, IUnitOfWorkAsync unitOfWork)
+        public BOMComponentsController(IBOMComponentService bOMComponentService, IUnitOfWorkAsync unitOfWork)
         {
-            _bOMComponentService  = bOMComponentService;
+            _bOMComponentService = bOMComponentService;
             _unitOfWork = unitOfWork;
         }
 
         // GET: BOMComponents/Index
         public ActionResult Index()
         {
-            
-            //var bomcomponents  = _bOMComponentService.Queryable().Include(b => b.ParentComponent).Include(b => b.SKU).AsQueryable();
-            
-             //return View(bomcomponents);
-			 return View();
+
+            //var bomcomponents  = _bOMComponentService.Queryable().Include(b => b.ParentComponent).Include(b => b.ProductionProcess).Include(b => b.SKU).AsQueryable();
+
+            //return View(bomcomponents);
+            return View();
         }
 
         // Get :BOMComponents/PageList
         // For Index View Boostrap-Table load  data 
         [HttpGet]
-        public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
+        public ActionResult GetData(int page = 1, int rows = 10, int id=0,string sort = "Id", string order = "asc", string filterRules = "")
         {
-			var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
+            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
             //int pagenum = offset / limit +1;
-            			 
-            var bomcomponents  = _bOMComponentService.Query(new BOMComponentQuery().Withfilter(filters)).Include(b => b.ParentComponent).Include(b => b.SKU).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
+           
+            if (id == 0) {
+                var bomcomponents = _bOMComponentService.Query(new BOMComponentQuery().WithId(id,filters)).Include(b => b.ParentComponent).Include(b => b.ProductionProcess).Include(b => b.SKU).OrderBy(n => n.OrderBy(sort, order)).SelectPage(page, rows, out totalCount); ;
             
-                        var datarows = bomcomponents .Select(  n => new { ParentComponentDesignName = (n.ParentComponent==null?"": n.ParentComponent.ComponentSKU) ,SKUSku = (n.SKU==null?"": n.SKU.Sku) , Id = n.Id , DesignName = n.DesignName , ComponentSKU = n.ComponentSKU , ALTSku = n.ALTSku , GraphSKU = n.GraphSKU , StockSKU = n.StockSKU , Remark1 = n.Remark1 , Remark2 = n.Remark2 , ConsumeQty = n.ConsumeQty , ConsumeTime = n.ConsumeTime , RejectRatio = n.RejectRatio , Deploy = n.Deploy , Locator = n.Locator , ProductionLine = n.ProductionLine , Status = n.Status , NoPur = n.NoPur , SKUId = n.SKUId , ParentComponentId = n.ParentComponentId }).ToList();
+                var datarows = bomcomponents.Select(n => new { state = "closed", _parentId = n.ParentComponentId, ParentComponentComponentSKU = (n.ParentComponent == null ? "" : n.ParentComponent.ComponentSKU), ProductionProcessName = (n.ProductionProcess == null ? "" : n.ProductionProcess.Name), SKUSku = (n.SKU == null ? "" : n.SKU.Sku), Id = n.Id, ComponentSKU = n.ComponentSKU, DesignName = n.DesignName, ALTSku = n.ALTSku, GraphSKU = n.GraphSKU, StockSKU = n.StockSKU, MadeType = n.MadeType, SKUGroup = n.SKUGroup, Remark1 = n.Remark1, Remark2 = n.Remark2, ConsumeQty = n.ConsumeQty, ConsumeTime = n.ConsumeTime, RejectRatio = n.RejectRatio, Deploy = n.Deploy, Locator = n.Locator, ProductionLine = n.ProductionLine, ProductionProcessId = n.ProductionProcessId, Version = n.Version, Status = n.Status, NoPur = n.NoPur, FinishedSKU = n.FinishedSKU, SKUId = n.SKUId, ParentComponentId = n.ParentComponentId }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var bomcomponents = _bOMComponentService.Query(new BOMComponentQuery().WithId(id, filters)).Include(b => b.ParentComponent).Include(b => b.ProductionProcess).Include(b => b.SKU).Include(b => b.Components).OrderBy(n => n.OrderBy(sort, order)).Select().ToList();
+                var datarows = bomcomponents.Select(n => new { state = (n.Components.Any()==true?"closed":"open"), _parentId = n.ParentComponentId, ParentComponentComponentSKU = (n.ParentComponent == null ? "" : n.ParentComponent.ComponentSKU), ProductionProcessName = (n.ProductionProcess == null ? "" : n.ProductionProcess.Name), SKUSku = (n.SKU == null ? "" : n.SKU.Sku), Id = n.Id, ComponentSKU = n.ComponentSKU, DesignName = n.DesignName, ALTSku = n.ALTSku, GraphSKU = n.GraphSKU, StockSKU = n.StockSKU, MadeType = n.MadeType, SKUGroup = n.SKUGroup, Remark1 = n.Remark1, Remark2 = n.Remark2, ConsumeQty = n.ConsumeQty, ConsumeTime = n.ConsumeTime, RejectRatio = n.RejectRatio, Deploy = n.Deploy, Locator = n.Locator, ProductionLine = n.ProductionLine, ProductionProcessId = n.ProductionProcessId, Version = n.Version, Status = n.Status, NoPur = n.NoPur, FinishedSKU = n.FinishedSKU, SKUId = n.SKUId, ParentComponentId = n.ParentComponentId }).ToList();
+                //var pagelist = new { total = totalCount, rows = datarows };
+                return Json(datarows, JsonRequestBehavior.AllowGet);
+            }
         }
 
-		[HttpPost]
-		public ActionResult SaveData(BOMComponentChangeViewModel bomcomponents)
+        [HttpPost]
+        public ActionResult SaveData(BOMComponentChangeViewModel bomcomponents)
         {
             if (bomcomponents.updated != null)
             {
@@ -77,8 +86,7 @@ namespace SAFERUN.IMS.Web.Controllers
             {
                 foreach (var deleted in bomcomponents.deleted)
                 {
-
-                    _bOMComponentService.Delete(deleted.Id);
+                    _bOMComponentService.Delete(deleted);
                 }
             }
             if (bomcomponents.inserted != null)
@@ -90,26 +98,33 @@ namespace SAFERUN.IMS.Web.Controllers
             }
             _unitOfWork.SaveChanges();
 
-            return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
 
-				public ActionResult GetBOMComponents()
+        public ActionResult GetBOMComponents()
         {
             var bomcomponentRepository = _unitOfWork.Repository<BOMComponent>();
             var data = bomcomponentRepository.Queryable().ToList();
-            var rows = data.Select(n => new { Id = n.Id, DesignName = n.ComponentSKU });
+            var rows = data.Select(n => new { Id = n.Id, ComponentSKU = n.ComponentSKU });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-				public ActionResult GetSKUs()
+        public ActionResult GetProductionProcesses()
+        {
+            var productionprocessRepository = _unitOfWork.Repository<ProductionProcess>();
+            var data = productionprocessRepository.Queryable().ToList();
+            var rows = data.Select(n => new { Id = n.Id, Name = n.Name });
+            return Json(rows, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetSKUs()
         {
             var skuRepository = _unitOfWork.Repository<SKU>();
             var data = skuRepository.Queryable().ToList();
             var rows = data.Select(n => new { Id = n.Id, Sku = n.Sku });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-		
-		
-       
+
+
+
         // GET: BOMComponents/Details/5
         public ActionResult Details(int? id)
         {
@@ -124,7 +139,7 @@ namespace SAFERUN.IMS.Web.Controllers
             }
             return View(bOMComponent);
         }
-        
+
 
         // GET: BOMComponents/Create
         public ActionResult Create()
@@ -132,7 +147,9 @@ namespace SAFERUN.IMS.Web.Controllers
             BOMComponent bOMComponent = new BOMComponent();
             //set default value
             var bomcomponentRepository = _unitOfWork.Repository<BOMComponent>();
-            ViewBag.ParentComponentId = new SelectList(bomcomponentRepository.Queryable(), "Id", "DesignName");
+            ViewBag.ParentComponentId = new SelectList(bomcomponentRepository.Queryable(), "Id", "ComponentSKU");
+            var productionprocessRepository = _unitOfWork.Repository<ProductionProcess>();
+            ViewBag.ProductionProcessId = new SelectList(productionprocessRepository.Queryable(), "Id", "Name");
             var skuRepository = _unitOfWork.Repository<SKU>();
             ViewBag.SKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku");
             return View(bOMComponent);
@@ -142,18 +159,12 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Components,ParentComponent,SKU,Id,DesignName,ComponentSKU,ALTSku,GraphSKU,StockSKU,Remark1,Remark2,ConsumeQty,ConsumeTime,RejectRatio,Deploy,Locator,ProductionLine,Status,NoPur,DesignPricture1,DesignPrictureURL1,DesignPricture2,DesignPrictureURL2,SKUId,ParentComponentId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] BOMComponent bOMComponent)
+        public ActionResult Create([Bind(Include = "Components,ParentComponent,ProductionProcess,SKU,Id,ComponentSKU,DesignName,ALTSku,GraphSKU,StockSKU,MadeType,SKUGroup,Remark1,Remark2,ConsumeQty,ConsumeTime,RejectRatio,Deploy,Locator,ProductionLine,ProductionProcessId,Version,Status,NoPur,FinishedSKU,DesignPricture1,DesignPrictureURL1,DesignPricture2,DesignPrictureURL2,SKUId,ParentComponentId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] BOMComponent bOMComponent)
         {
             if (ModelState.IsValid)
             {
-                             bOMComponent.ObjectState = ObjectState.Added;   
-                                foreach (var item in bOMComponent.Components)
-                {
-					item.ParentComponentId = bOMComponent.Id ;
-                    item.ObjectState = ObjectState.Added;
-                }
-                                _bOMComponentService.InsertOrUpdateGraph(bOMComponent);
-                            _unitOfWork.SaveChanges();
+                _bOMComponentService.Insert(bOMComponent);
+                _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -163,12 +174,14 @@ namespace SAFERUN.IMS.Web.Controllers
             }
 
             var bomcomponentRepository = _unitOfWork.Repository<BOMComponent>();
-            ViewBag.ParentComponentId = new SelectList(bomcomponentRepository.Queryable(), "Id", "DesignName", bOMComponent.ParentComponentId);
+            ViewBag.ParentComponentId = new SelectList(bomcomponentRepository.Queryable(), "Id", "ComponentSKU", bOMComponent.ParentComponentId);
+            var productionprocessRepository = _unitOfWork.Repository<ProductionProcess>();
+            ViewBag.ProductionProcessId = new SelectList(productionprocessRepository.Queryable(), "Id", "Name", bOMComponent.ProductionProcessId);
             var skuRepository = _unitOfWork.Repository<SKU>();
             ViewBag.SKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku", bOMComponent.SKUId);
             if (Request.IsAjaxRequest())
             {
-                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
@@ -188,7 +201,9 @@ namespace SAFERUN.IMS.Web.Controllers
                 return HttpNotFound();
             }
             var bomcomponentRepository = _unitOfWork.Repository<BOMComponent>();
-            ViewBag.ParentComponentId = new SelectList(bomcomponentRepository.Queryable(), "Id", "DesignName", bOMComponent.ParentComponentId);
+            ViewBag.ParentComponentId = new SelectList(bomcomponentRepository.Queryable(), "Id", "ComponentSKU", bOMComponent.ParentComponentId);
+            var productionprocessRepository = _unitOfWork.Repository<ProductionProcess>();
+            ViewBag.ProductionProcessId = new SelectList(productionprocessRepository.Queryable(), "Id", "Name", bOMComponent.ProductionProcessId);
             var skuRepository = _unitOfWork.Repository<SKU>();
             ViewBag.SKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku", bOMComponent.SKUId);
             return View(bOMComponent);
@@ -198,23 +213,13 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Components,ParentComponent,SKU,Id,DesignName,ComponentSKU,ALTSku,GraphSKU,StockSKU,Remark1,Remark2,ConsumeQty,ConsumeTime,RejectRatio,Deploy,Locator,ProductionLine,Status,NoPur,DesignPricture1,DesignPrictureURL1,DesignPricture2,DesignPrictureURL2,SKUId,ParentComponentId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] BOMComponent bOMComponent)
+        public ActionResult Edit([Bind(Include = "Components,ParentComponent,ProductionProcess,SKU,Id,ComponentSKU,DesignName,ALTSku,GraphSKU,StockSKU,MadeType,SKUGroup,Remark1,Remark2,ConsumeQty,ConsumeTime,RejectRatio,Deploy,Locator,ProductionLine,ProductionProcessId,Version,Status,NoPur,FinishedSKU,DesignPricture1,DesignPrictureURL1,DesignPricture2,DesignPrictureURL2,SKUId,ParentComponentId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] BOMComponent bOMComponent)
         {
             if (ModelState.IsValid)
             {
                 bOMComponent.ObjectState = ObjectState.Modified;
-                                                foreach (var item in bOMComponent.Components)
-                {
-					item.ParentComponentId = bOMComponent.Id ;
-                    //set ObjectState with conditions
-                    if(item.Id <= 0)
-                        item.ObjectState = ObjectState.Added;
-                    else
-                        item.ObjectState = ObjectState.Modified;
-                }
-                      
-                _bOMComponentService.InsertOrUpdateGraph(bOMComponent);
-                                
+                _bOMComponentService.Update(bOMComponent);
+
                 _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
@@ -224,12 +229,14 @@ namespace SAFERUN.IMS.Web.Controllers
                 return RedirectToAction("Index");
             }
             var bomcomponentRepository = _unitOfWork.Repository<BOMComponent>();
-            ViewBag.ParentComponentId = new SelectList(bomcomponentRepository.Queryable(), "Id", "DesignName", bOMComponent.ParentComponentId);
+            ViewBag.ParentComponentId = new SelectList(bomcomponentRepository.Queryable(), "Id", "ComponentSKU", bOMComponent.ParentComponentId);
+            var productionprocessRepository = _unitOfWork.Repository<ProductionProcess>();
+            ViewBag.ProductionProcessId = new SelectList(productionprocessRepository.Queryable(), "Id", "Name", bOMComponent.ProductionProcessId);
             var skuRepository = _unitOfWork.Repository<SKU>();
             ViewBag.SKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku", bOMComponent.SKUId);
             if (Request.IsAjaxRequest())
             {
-                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
@@ -256,95 +263,21 @@ namespace SAFERUN.IMS.Web.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            BOMComponent bOMComponent =  _bOMComponentService.Find(id);
-             _bOMComponentService.Delete(bOMComponent);
-            _unitOfWork.SaveChanges();
-           if (Request.IsAjaxRequest())
-                {
-                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
-                }
-            DisplaySuccessMessage("Has delete a BOMComponent record");
-            return RedirectToAction("Index");
-        }
-
-
-        // Get Detail Row By Id For Edit
-        // Get : BOMComponents/EditBOMComponent/:id
-        [HttpGet]
-        public ActionResult EditBOMComponent(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var bomcomponentRepository = _unitOfWork.Repository<BOMComponent>();
-            var bomcomponent = bomcomponentRepository.Find(id);
-
-                               
-                        var skuRepository = _unitOfWork.Repository<SKU>();             
-            
-            if (bomcomponent == null)
-            {
-                            ViewBag.ParentComponentId = new SelectList(bomcomponentRepository.Queryable(), "Id", "DesignName" );
-                            ViewBag.SKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku" );
-                            
-                //return HttpNotFound();
-                return PartialView("_BOMComponentEditForm", new BOMComponent());
-            }
-            else
-            {
-                            ViewBag.ParentComponentId = new SelectList(bomcomponentRepository.Queryable(), "Id", "DesignName" , bomcomponent.ParentComponentId );  
-                            ViewBag.SKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku" , bomcomponent.SKUId );  
-                             
-            }
-            return PartialView("_BOMComponentEditForm",  bomcomponent);
-
-        }
-        
-        // Get Create Row By Id For Edit
-        // Get : BOMComponents/CreateBOMComponent
-        [HttpGet]
-        public ActionResult CreateBOMComponent()
-        {
-                        var bomcomponentRepository = _unitOfWork.Repository<BOMComponent>();    
-              ViewBag.ParentComponentId = new SelectList(bomcomponentRepository.Queryable(), "Id", "DesignName" );
-                        var skuRepository = _unitOfWork.Repository<SKU>();    
-              ViewBag.SKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku" );
-                      return PartialView("_BOMComponentEditForm");
-
-        }
-
-        // Post Delete Detail Row By Id
-        // Get : BOMComponents/DeleteBOMComponent/:id
-        [HttpPost,ActionName("DeleteBOMComponent")]
-        public ActionResult DeleteBOMComponentConfirmed(int  id)
-        {
-            var bomcomponentRepository = _unitOfWork.Repository<BOMComponent>();
-            bomcomponentRepository.Delete(id);
+            BOMComponent bOMComponent = _bOMComponentService.Find(id);
+            _bOMComponentService.Delete(bOMComponent);
             _unitOfWork.SaveChanges();
             if (Request.IsAjaxRequest())
             {
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
-            DisplaySuccessMessage("Has delete a Order record");
+            DisplaySuccessMessage("Has delete a BOMComponent record");
             return RedirectToAction("Index");
         }
 
-       
 
-        // Get : BOMComponents/GetComponentsByParentComponentId/:id
-        [HttpGet]
-        public ActionResult GetComponentsByParentComponentId(int id)
-        {
-            var components = _bOMComponentService.GetComponentsByParentComponentId(id);
-            if (Request.IsAjaxRequest())
-            {
-                return Json(components.Select( n => new { ParentComponentDesignName = (n.ParentComponent==null?"": n.ParentComponent.DesignName) ,SKUSku = (n.SKU==null?"": n.SKU.Sku) , Id = n.Id , DesignName = n.DesignName , ComponentSKU = n.ComponentSKU , ALTSku = n.ALTSku , GraphSKU = n.GraphSKU , StockSKU = n.StockSKU , Remark1 = n.Remark1 , Remark2 = n.Remark2 , ConsumeQty = n.ConsumeQty , ConsumeTime = n.ConsumeTime , RejectRatio = n.RejectRatio , Deploy = n.Deploy , Locator = n.Locator , ProductionLine = n.ProductionLine , Status = n.Status , NoPur = n.NoPur , SKUId = n.SKUId , ParentComponentId = n.ParentComponentId }),JsonRequestBehavior.AllowGet);
-            }  
-            return View(components); 
 
-        }
- 
+
+
 
         private void DisplaySuccessMessage(string msgText)
         {

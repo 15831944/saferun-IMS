@@ -84,6 +84,8 @@ namespace SAFERUN.IMS.Web.App_Start
 
             container.RegisterType<IRepositoryAsync<Multicomponent>, Repository<Multicomponent>>();
             container.RegisterType<IMulticomponentService, MulticomponentService>();
+            container.RegisterType<IRepositoryAsync<ProductionProcess>, Repository<ProductionProcess>>();
+            container.RegisterType<IProductionProcessService, ProductionProcessService>();
             container.RegisterType<IRepositoryAsync<ProcessStep>, Repository<ProcessStep>>();
             container.RegisterType<IProcessStepService, ProcessStepService>();
             container.RegisterType<IRepositoryAsync<Station>, Repository<Station>>();

@@ -63,6 +63,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Reflection.Context" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -195,9 +196,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountManageController.cs" />
     <Compile Include="Controllers\BaseCodesController.cs" />
-    <Compile Include="Controllers\BOMComponentsController.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Controllers\BOMComponentsController.cs" />
     <Compile Include="Controllers\ButtonAttribute.cs" />
     <Compile Include="Controllers\CustomersController.cs">
       <SubType>Code</SubType>
@@ -229,6 +228,7 @@
     <Compile Include="Controllers\ProcessNodesController.cs" />
     <Compile Include="Controllers\ProcessStepsController.cs" />
     <Compile Include="Controllers\ProductionPlansController.cs" />
+    <Compile Include="Controllers\ProductionProcessesController.cs" />
     <Compile Include="Controllers\ProjectNodesController.cs" />
     <Compile Include="Controllers\ProjectTypesController.cs" />
     <Compile Include="Controllers\PurchasePlansController.cs">
@@ -242,33 +242,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201602131041260_dd.cs" />
-    <Compile Include="Migrations\201602131041260_dd.Designer.cs">
-      <DependentUpon>201602131041260_dd.cs</DependentUpon>
+    <Compile Include="Migrations\201602190315504_dddd.cs" />
+    <Compile Include="Migrations\201602190315504_dddd.Designer.cs">
+      <DependentUpon>201602190315504_dddd.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201602131044442_ddd.cs" />
-    <Compile Include="Migrations\201602131044442_ddd.Designer.cs">
-      <DependentUpon>201602131044442_ddd.cs</DependentUpon>
+    <Compile Include="Migrations\201602190430579_d.cs" />
+    <Compile Include="Migrations\201602190430579_d.Designer.cs">
+      <DependentUpon>201602190430579_d.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201602151125037_dd1.cs" />
-    <Compile Include="Migrations\201602151125037_dd1.Designer.cs">
-      <DependentUpon>201602151125037_dd1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602160038380_test.cs" />
-    <Compile Include="Migrations\201602160038380_test.Designer.cs">
-      <DependentUpon>201602160038380_test.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602170307129_ddd1.cs" />
-    <Compile Include="Migrations\201602170307129_ddd1.Designer.cs">
-      <DependentUpon>201602170307129_ddd1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602180654584_d.cs" />
-    <Compile Include="Migrations\201602180654584_d.Designer.cs">
-      <DependentUpon>201602180654584_d.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602180758013_dd2.cs" />
-    <Compile Include="Migrations\201602180758013_dd2.Designer.cs">
-      <DependentUpon>201602180758013_dd2.cs</DependentUpon>
+    <Compile Include="Migrations\201602190523180_ddd.cs" />
+    <Compile Include="Migrations\201602190523180_ddd.Designer.cs">
+      <DependentUpon>201602190523180_ddd.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -323,6 +307,7 @@
     <Compile Include="Models\ProcessStepMetadata.cs" />
     <Compile Include="Models\ProductionPlan.cs" />
     <Compile Include="Models\ProductionPlanMetadata.cs" />
+    <Compile Include="Models\ProductionProcessMetadata.cs" />
     <Compile Include="Models\ProjectNode.cs" />
     <Compile Include="Models\ProjectNodeMetadata.cs" />
     <Compile Include="Models\ProjectTypeMetadata.cs" />
@@ -372,6 +357,8 @@
     <Compile Include="Repositories\ProcessSteps\ProcessStepRepository.cs" />
     <Compile Include="Repositories\ProductionPlans\ProductionPlanQuery.cs" />
     <Compile Include="Repositories\ProductionPlans\ProductionPlanRepository.cs" />
+    <Compile Include="Repositories\ProductionProcesses\ProductionProcessQuery.cs" />
+    <Compile Include="Repositories\ProductionProcesses\ProductionProcessRepository.cs" />
     <Compile Include="Repositories\ProjectNodes\ProjectNodeQuery.cs" />
     <Compile Include="Repositories\ProjectNodes\ProjectNodeRepository.cs" />
     <Compile Include="Repositories\ProjectTypes\ProjectTypeQuery.cs" />
@@ -420,6 +407,8 @@
     <Compile Include="Services\ProcessSteps\ProcessStepService.cs" />
     <Compile Include="Services\ProductionPlans\IProductionPlanService.cs" />
     <Compile Include="Services\ProductionPlans\ProductionPlanService.cs" />
+    <Compile Include="Services\ProductionProcesses\IProductionProcessService.cs" />
+    <Compile Include="Services\ProductionProcesses\ProductionProcessService.cs" />
     <Compile Include="Services\ProjectNodes\IProjectNodeService.cs" />
     <Compile Include="Services\ProjectNodes\ProjectNodeService.cs" />
     <Compile Include="Services\ProjectTypes\IProjectTypeService.cs" />
@@ -1147,12 +1136,12 @@
     <Content Include="Views\SKUs\Edit.cshtml" />
     <Content Include="Views\SKUs\EditForm.cshtml" />
     <Content Include="Views\SKUs\_PopupSearch.cshtml" />
-    <Content Include="Views\BOMComponents\Index.cshtml" />
-    <Content Include="Views\BOMComponents\Create.cshtml" />
-    <Content Include="Views\BOMComponents\Edit.cshtml" />
-    <Content Include="Views\BOMComponents\EditForm.cshtml" />
-    <Content Include="Views\BOMComponents\_PopupSearch.cshtml" />
-    <Content Include="Views\BOMComponents\_BOMComponentEditForm.cshtml" />
+    <Content Include="Views\BOMComponents1\Index.cshtml" />
+    <Content Include="Views\BOMComponents1\Create.cshtml" />
+    <Content Include="Views\BOMComponents1\Edit.cshtml" />
+    <Content Include="Views\BOMComponents1\EditForm.cshtml" />
+    <Content Include="Views\BOMComponents1\_PopupSearch.cshtml" />
+    <Content Include="Views\BOMComponents1\_BOMComponentEditForm.cshtml" />
     <Content Include="Scripts\uploadify\check-exists.php" />
     <Content Include="Scripts\uploadify\index.php" />
     <Content Include="Scripts\uploadify\uploadify.php" />
@@ -1187,11 +1176,22 @@
     <Content Include="Views\DefectTrackings\Edit.cshtml" />
     <Content Include="Views\DefectTrackings\EditForm.cshtml" />
     <Content Include="Views\DefectTrackings\_PopupSearch.cshtml" />
+    <Content Include="Views\ProductionProcesses\Index.cshtml" />
+    <Content Include="Views\ProductionProcesses\Create.cshtml" />
+    <Content Include="Views\ProductionProcesses\Edit.cshtml" />
+    <Content Include="Views\ProductionProcesses\EditForm.cshtml" />
+    <Content Include="Views\ProductionProcesses\_PopupSearch.cshtml" />
     <Content Include="Views\ProcessSteps\Index.cshtml" />
     <Content Include="Views\ProcessSteps\Create.cshtml" />
     <Content Include="Views\ProcessSteps\Edit.cshtml" />
     <Content Include="Views\ProcessSteps\EditForm.cshtml" />
     <Content Include="Views\ProcessSteps\_PopupSearch.cshtml" />
+    <Content Include="Views\BOMComponents\Index.cshtml" />
+    <Content Include="Views\BOMComponents\Create.cshtml" />
+    <Content Include="Views\BOMComponents\Edit.cshtml" />
+    <Content Include="Views\BOMComponents\EditForm.cshtml" />
+    <Content Include="Views\BOMComponents\_PopupSearch.cshtml" />
+    <Content Include="Views\BOMComponents\_BOMComponentEditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1220,26 +1220,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201602131041260_dd.resx">
-      <DependentUpon>201602131041260_dd.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201602190315504_dddd.resx">
+      <DependentUpon>201602190315504_dddd.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602131044442_ddd.resx">
-      <DependentUpon>201602131044442_ddd.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201602190430579_d.resx">
+      <DependentUpon>201602190430579_d.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602151125037_dd1.resx">
-      <DependentUpon>201602151125037_dd1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602160038380_test.resx">
-      <DependentUpon>201602160038380_test.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602170307129_ddd1.resx">
-      <DependentUpon>201602170307129_ddd1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602180654584_d.resx">
-      <DependentUpon>201602180654584_d.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602180758013_dd2.resx">
-      <DependentUpon>201602180758013_dd2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201602190523180_ddd.resx">
+      <DependentUpon>201602190523180_ddd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -20,14 +20,14 @@ namespace SAFERUN.IMS.Web.Repositories
         public ProcessStepQuery WithAnySearch(string search)
         {
             if (!string.IsNullOrEmpty(search))
-                And( x =>  x.Name.Contains(search) || x.StepName.Contains(search) || x.Equipment.Contains(search) || x.Description.Contains(search) );
+                And( x =>  x.StepName.Contains(search) || x.Equipment.Contains(search) || x.Description.Contains(search) );
             return this;
         }
 
 		public ProcessStepQuery WithPopupSearch(string search,string para="")
         {
             if (!string.IsNullOrEmpty(search))
-                And( x =>  x.Name.Contains(search) || x.StepName.Contains(search) || x.Equipment.Contains(search) || x.Description.Contains(search) );
+                And( x =>  x.StepName.Contains(search) || x.Equipment.Contains(search) || x.Description.Contains(search) );
             return this;
         }
 
@@ -47,9 +47,9 @@ namespace SAFERUN.IMS.Web.Repositories
 				   
 					
 				    				
-											if (rule.field == "Name"  && !string.IsNullOrEmpty(rule.value))
+											if (rule.field == "StepName"  && !string.IsNullOrEmpty(rule.value))
 						{
-							And(x => x.Name.Contains(rule.value));
+							And(x => x.StepName.Contains(rule.value));
 						}
 				    
 				    
@@ -62,14 +62,6 @@ namespace SAFERUN.IMS.Web.Repositories
 							And(x => x.Order == val);
 						}
 				   
-					
-				    				
-											if (rule.field == "StepName"  && !string.IsNullOrEmpty(rule.value))
-						{
-							And(x => x.StepName.Contains(rule.value));
-						}
-				    
-				    
 					
 				    				
 					
@@ -104,6 +96,15 @@ namespace SAFERUN.IMS.Web.Repositories
 						}
 				    
 				    
+					
+				    				
+					
+				    						if (rule.field == "ProductionProcessId" && !string.IsNullOrEmpty(rule.value))
+						{
+							int val = Convert.ToInt32(rule.value);
+							And(x => x.ProductionProcessId == val);
+						}
+				   
 					
 				    									
                    

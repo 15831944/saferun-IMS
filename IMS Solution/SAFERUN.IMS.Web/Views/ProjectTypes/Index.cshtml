@@ -43,25 +43,27 @@
  
                     <table id="projecttypes_datagrid" class="easyui-datagrid" title="项目类型 DataGrid" style="width:auto;height:auto"
                            data-options="
-                 rownumbers:true,
-
-                remoteFilter: true,
-                singleSelect: true,
-                toolbar: '#projecttypes_toolbar',
-                url: '/ProjectTypes/GetData',
-                method: 'get',
-                onClickCell: onClickCell,
-                pagination: 'true'
-                   ">
+                                rownumbers:true,
+                                idField:'Id',
+                            sortName:'Id',
+                            sortorder:'asc',
+                           remotefilter: true,
+                           singleselect: true,
+                           toolbar :'#projecttypes_toolbar' ,
+                           url: '/ProjectTypes/GetData' ,
+                           method: 'get' ,
+                           onclickcell: 'onclickcell',
+                           pagination :true
+                           ">
                         <thead>
                             <tr>
                                 @*<th data-options="field:'ck',checkbox:true"></th>*@
                                 <th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>
 
-                                <th data-options="field:'TypeName',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.TypeName)</th>
+                                <th data-options="field:'TypeName',width:140,editor:{type:'textbox',options:{required:false} },sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.TypeName)</th>
 
 
-                                <th data-options="field:'Model',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Model)</th>
+                                <th data-options="field:'Model',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true">@Html.DisplayNameFor(model => model.Model)</th>
 
 
                                 <th data-options="field:'Version',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Version)</th>
@@ -73,10 +75,10 @@
                                 <th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Description)</th>
 
 
-                                <th data-options="field:'StartDate',width:160,align:'right',editor:{type:'datetimebox',options:{}}">@Html.DisplayNameFor(model => model.StartDate)</th>
+                                <th data-options="field:'StartDate',width:160,align:'right',editor:{type:'datetimebox',options:{}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.StartDate)</th>
 
 
-                                <th data-options="field:'ExpiryDate',width:160,align:'right',editor:{type:'datetimebox',options:{}}">@Html.DisplayNameFor(model => model.ExpiryDate)</th>
+                                <th data-options="field:'ExpiryDate',width:160,align:'right',editor:{type:'datetimebox',options:{}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ExpiryDate)</th>
 
 
                             </tr>

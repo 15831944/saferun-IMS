@@ -19,7 +19,8 @@ namespace SAFERUN.IMS.Web.Services
     public interface IProcessStepService:IService<ProcessStep>
     {
 
-         
+                  IEnumerable<ProcessStep> GetByProductionProcessId(int  productionprocessid);
+        
          
  
 		void ImportDataTable(DataTable datatable);

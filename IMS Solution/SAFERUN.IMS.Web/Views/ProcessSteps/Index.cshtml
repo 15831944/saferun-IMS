@@ -7,7 +7,7 @@
 
 
 @{
-    ViewBag.Title = "生产工序维护";
+    ViewBag.Title = "工序步骤维护";
 }
 
 
@@ -15,7 +15,7 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-
+                <h5>工序步骤维护 Data</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -41,7 +41,7 @@
                 <div class="table-responsive">
            
  
-       <table id="processsteps_datagrid" class="easyui-datagrid" title="生产工序维护 DataGrid" style="width:auto;height:auto"
+       <table id="processsteps_datagrid" class="easyui-datagrid" title="工序步骤维护 DataGrid" style="width:auto;height:auto"
                    data-options="
                  rownumbers:true,
                  
@@ -57,14 +57,25 @@
                     <tr>
                         @*<th data-options="field:'ck',checkbox:true"></th>*@
         			<th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>
+                        <th data-options="field:'ProductionProcessId',width:100,
+                        formatter:function(value,row){
+                            return row.ProductionProcessName;
+                        },
+                        editor:{
+                            type:'combobox',
+                            options:{
+                                valueField:'Id',
+                                textField:'Name',
+                                method:'get',
+                                url:'/ProcessSteps/GetProductionProcesses',
+                                required:false
+                            }
+                        }">@Html.DisplayNameFor(model => model.ProductionProcessId)</th>
                 
-				     <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Name)</th>
+				     <th data-options="field:'StepName',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.StepName)</th>
 		
                 
 				     <th data-options="field:'Order',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Order)</th>
-		
-                
-				     <th data-options="field:'StepName',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.StepName)</th>
 		
                 
 				     <th data-options="field:'ElapsedTime',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.ElapsedTime)</th>
@@ -78,6 +89,9 @@
                 
 				     <th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Description)</th>
 		
+                			
+
+           
                
     </tr>
     </thead>
@@ -123,12 +137,12 @@
                             'fileTypeExts': '*.xlsx',
                             'swf': '/scripts/uploadify/uploadify.swf',
                             'uploader': '/FileUpload/Upload',
-                            'formData': { 'fileType': 'ProcessStep' },
                             'buttonText': '选择EXCEL',
 							'uploadLimit' : 1,
                             'displayData': 'speed',
-                            width: 120,
-                            successTimeout: 100000,
+							'formData': { 'modelType': 'ProcessStep' },
+                            'width': 120,
+                            'successTimeout': 100000,
                             'onUploadComplete': function (file) {
                                 $('#alert1').hide('normal');
                                 $('#alert2').show('normal');
@@ -178,6 +192,14 @@
         function endEditing() {
             if (editIndex == undefined) { return true }
             if ($dg.datagrid('validateRow', editIndex)) {
+
+				                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'ProductionProcessId' });
+                var productionprocessname = $(ed.target).combobox('getText');
+                var productionprocessid = $(ed.target).combobox('getValue');
+               
+                $dg.datagrid('getRows')[editIndex]['ProductionProcessName'] =  productionprocessname;
+                $dg.datagrid('getRows')[editIndex]['ProductionProcessId'] = productionprocessid;
+ 
 
 								$dg.datagrid('endEdit', editIndex);
                 editIndex = undefined;
@@ -233,7 +255,7 @@
                     if (updated.length) {
                         effectRow.updated = updated;
                     }
-                    console.log(JSON.stringify(effectRow));
+                    //console.log(JSON.stringify(effectRow));
                     $.post("/ProcessSteps/SaveData", effectRow, function (rsp) {
                         console.log(rsp);
                         if (rsp.Success) {
@@ -265,6 +287,28 @@
 		  
            $dg.datagrid('enableFilter',[
 		   		   
+		   		   {
+				 field: 'ProductionProcessId',
+				 type:'combobox',
+                 options:{
+                                valueField:'Id',
+                                textField:'Name',
+                                method:'get',
+                                url:'/ProcessSteps/GetProductionProcesses',
+								onChange: function (value) {
+								if (value == '') {
+									$dg.datagrid('removeFilterRule', 'ProductionProcessId');
+								} else {
+									$dg.datagrid('addFilterRule', {
+										field: 'ProductionProcessId',
+									    op: 'equal',
+										value: value
+                                });
+                            }
+                            $dg.datagrid('doFilter');
+                        }
+					}
+		   },
 		   		   
 		   ]);
         })

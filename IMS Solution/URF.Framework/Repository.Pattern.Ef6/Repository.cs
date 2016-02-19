@@ -203,6 +203,7 @@ namespace Repository.Pattern.Ef6
             SyncObjectGraph(entity);
             _entitesChecked = null;
             _dbSet.Attach(entity);
+            //SyncObjectGraph(entity);
         }
 
         // tracking of all processed entities in the object graph when calling SyncObjectGraph

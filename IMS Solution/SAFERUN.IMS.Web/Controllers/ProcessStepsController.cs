@@ -41,9 +41,10 @@ namespace SAFERUN.IMS.Web.Controllers
         public ActionResult Index()
         {
             
-            //var processsteps  = _processStepService.Queryable().AsQueryable();
-            //return View(processsteps  );
-			return View();
+            //var processsteps  = _processStepService.Queryable().Include(p => p.ProductionProcess).AsQueryable();
+            
+             //return View(processsteps);
+			 return View();
         }
 
         // Get :ProcessSteps/PageList
@@ -54,8 +55,10 @@ namespace SAFERUN.IMS.Web.Controllers
 			var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
             //int pagenum = offset / limit +1;
-                        var processsteps  = _processStepService.Query(new ProcessStepQuery().Withfilter(filters)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
-                        var datarows = processsteps .Select(  n => new {  Id = n.Id , Name = n.Name , Order = n.Order , StepName = n.StepName , ElapsedTime = n.ElapsedTime , Equipment = n.Equipment , Status = n.Status , Description = n.Description }).ToList();
+            			 
+            var processsteps  = _processStepService.Query(new ProcessStepQuery().Withfilter(filters)).Include(p => p.ProductionProcess).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
+            
+                        var datarows = processsteps .Select(  n => new { ProductionProcessName = (n.ProductionProcess==null?"": n.ProductionProcess.Name) , Id = n.Id , StepName = n.StepName , Order = n.Order , ElapsedTime = n.ElapsedTime , Equipment = n.Equipment , Status = n.Status , Description = n.Description , ProductionProcessId = n.ProductionProcessId }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
@@ -89,6 +92,13 @@ namespace SAFERUN.IMS.Web.Controllers
             return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
         }
 
+				public ActionResult GetProductionProcesses()
+        {
+            var productionprocessRepository = _unitOfWork.Repository<ProductionProcess>();
+            var data = productionprocessRepository.Queryable().ToList();
+            var rows = data.Select(n => new { Id = n.Id, Name = n.Name });
+            return Json(rows, JsonRequestBehavior.AllowGet);
+        }
 		
 		
        
@@ -113,6 +123,8 @@ namespace SAFERUN.IMS.Web.Controllers
         {
             ProcessStep processStep = new ProcessStep();
             //set default value
+            var productionprocessRepository = _unitOfWork.Repository<ProductionProcess>();
+            ViewBag.ProductionProcessId = new SelectList(productionprocessRepository.Queryable(), "Id", "Name");
             return View(processStep);
         }
 
@@ -120,7 +132,7 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Order,StepName,ElapsedTime,Equipment,Status,Description,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProcessStep processStep)
+        public ActionResult Create([Bind(Include = "ProductionProcess,Id,StepName,Order,ElapsedTime,Equipment,Status,Description,ProductionProcessId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProcessStep processStep)
         {
             if (ModelState.IsValid)
             {
@@ -134,6 +146,8 @@ namespace SAFERUN.IMS.Web.Controllers
                 return RedirectToAction("Index");
             }
 
+            var productionprocessRepository = _unitOfWork.Repository<ProductionProcess>();
+            ViewBag.ProductionProcessId = new SelectList(productionprocessRepository.Queryable(), "Id", "Name", processStep.ProductionProcessId);
             if (Request.IsAjaxRequest())
             {
                 var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
@@ -155,6 +169,8 @@ namespace SAFERUN.IMS.Web.Controllers
             {
                 return HttpNotFound();
             }
+            var productionprocessRepository = _unitOfWork.Repository<ProductionProcess>();
+            ViewBag.ProductionProcessId = new SelectList(productionprocessRepository.Queryable(), "Id", "Name", processStep.ProductionProcessId);
             return View(processStep);
         }
 
@@ -162,7 +178,7 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Order,StepName,ElapsedTime,Equipment,Status,Description,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProcessStep processStep)
+        public ActionResult Edit([Bind(Include = "ProductionProcess,Id,StepName,Order,ElapsedTime,Equipment,Status,Description,ProductionProcessId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProcessStep processStep)
         {
             if (ModelState.IsValid)
             {
@@ -177,6 +193,8 @@ namespace SAFERUN.IMS.Web.Controllers
                 DisplaySuccessMessage("Has update a ProcessStep record");
                 return RedirectToAction("Index");
             }
+            var productionprocessRepository = _unitOfWork.Repository<ProductionProcess>();
+            ViewBag.ProductionProcessId = new SelectList(productionprocessRepository.Queryable(), "Id", "Name", processStep.ProductionProcessId);
             if (Request.IsAjaxRequest())
             {
                 var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));

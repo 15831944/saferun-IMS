@@ -18,6 +18,15 @@ namespace SAFERUN.IMS.Web.Repositories
   public static class ProcessStepRepository  
     {
  
+                 public static IEnumerable<ProcessStep> GetByProductionProcessId(this IRepositoryAsync<ProcessStep> repository, int productionprocessid)
+         {
+             var query= repository
+                .Queryable()
+                .Where(x => x.ProductionProcessId==productionprocessid);
+             return query;
+
+         }
+             
         
          
 	}

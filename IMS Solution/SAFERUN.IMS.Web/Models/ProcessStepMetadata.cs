@@ -15,11 +15,7 @@ namespace SAFERUN.IMS.Web.Models
         [Display(Name = "Id")]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Please enter : 工序名称")]
-        [Display(Name = "工序名称")]
-        [MaxLength(30)]
-        public string Name { get; set; }
-
+       
         [Required(ErrorMessage = "Please enter : 工序节点")]
         [Display(Name = "工序节点")]
         [MaxLength(30)]
@@ -33,7 +29,7 @@ namespace SAFERUN.IMS.Web.Models
         public int Status { get; set; }
 
         [Required(ErrorMessage = "Please enter : 工序")]
-        [Display(Name = "工序")]
+        [Display(Name = "次序")]
         [Range(1, 100)]
         public int Order { get; set; }
 

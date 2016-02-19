@@ -91,6 +91,14 @@ namespace SAFERUN.IMS.Web.Models
         [Display(Name = "发料")]
         public bool NoPur { get; set; }
 
+        [Display(Name = "生产工序")]
+        public int ProductionProcessId { get; set; }
+
+        [Display(Name = "生产工序")]
+        public  ProductionProcess ProductionProcess { get; set; }
+        [Display(Name = "版本号")]
+        public int Version { get; set; }
+
         [Display(Name = "设计图纸文件1")]
         public byte[] DesignPricture1 { get; set; }
 

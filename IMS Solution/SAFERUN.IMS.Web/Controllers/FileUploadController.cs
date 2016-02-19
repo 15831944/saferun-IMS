@@ -16,18 +16,19 @@ namespace SAFERUN.IMS.Web.Controllers
         private readonly ISKUService  _sKUService;
         private readonly IBOMComponentService _iBOMComponentService;
         private readonly IUnitOfWorkAsync _unitOfWork;
-
-        public FileUploadController(ISKUService sKUService, IBOMComponentService iBOMComponentService,IUnitOfWorkAsync unitOfWork)
+        private readonly IProcessStepService _setpservice;
+        public FileUploadController(IProcessStepService setpservice,ISKUService sKUService, IBOMComponentService iBOMComponentService, IUnitOfWorkAsync unitOfWork)
         {
             _iBOMComponentService = iBOMComponentService;
             _sKUService  = sKUService;
             _unitOfWork = unitOfWork;
+            _setpservice = setpservice;
         }
         //回单文件上传 文件名格式 回单+_+日期+_原始文件
         [HttpPost]
         public ActionResult Upload(HttpPostedFileBase Filedata)
         {
-            string fileType = "";
+            string modelType = "";
             //string date = "";
             //string filename = "";
             //string Lastfilename = "";
@@ -40,20 +41,25 @@ namespace SAFERUN.IMS.Web.Controllers
                 {
                     return this.HttpNotFound();
                 }
-                fileType = this.Request.Form["fileType"];
+                modelType = this.Request.Form["modelType"];
                 //date = this.Request.Form["date"];
                 //filename = this.Request.Form["filename"];
                 //Lastfilename = this.Request.Form["Lastfilename"];
                 DataTable datatable =  ExcelHelper.GetDataTableFromExcel(Filedata.InputStream);
-                if (fileType == "SKU")
+                if (modelType == "SKU")
                 {
                     _sKUService.ImportDataTable(datatable);
                     _unitOfWork.SaveChanges();
                 }
-                if (fileType == "BOM")
+                if (modelType == "BOMComponent")
                 {
-                    _iBOMComponentService.ImportFormExcel(datatable);
+                    _iBOMComponentService.ImportDataTable(datatable);
                     _unitOfWork.SaveChanges();
+                }
+                if (modelType == "ProcessStep") {
+                    _setpservice.ImportDataTable(datatable);
+                    _unitOfWork.SaveChanges();
+
                 }
                
                 string uploadfilename = System.IO.Path.GetFileName(Filedata.FileName);

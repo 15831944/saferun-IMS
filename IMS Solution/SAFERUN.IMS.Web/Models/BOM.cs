@@ -16,8 +16,10 @@ namespace SAFERUN.IMS.Web.Models
         }
         [Key]
         public int Id { get; set; }
-        public string DesignName { get; set; }
+
         public string ComponentSKU { get; set; }
+        public string DesignName { get; set; }
+        
         public string ALTSku { get; set; }
         public string GraphSKU { get; set; }
         public string StockSKU { get; set; }
@@ -35,6 +37,12 @@ namespace SAFERUN.IMS.Web.Models
         public string Locator { get; set; }
 
         public string ProductionLine { get; set; }
+
+        public int? ProductionProcessId { get; set; }
+
+        [ForeignKey("ProductionProcessId")]
+        public virtual ProductionProcess ProductionProcess { get; set; }
+        public int Version { get; set; }
 
         public int Status { get; set; }
 

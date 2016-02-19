@@ -61,5 +61,7 @@ namespace SAFERUN.IMS.Web.Models
         public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.DataTableImportMapping> DataTableImportMappings { get; set; }
 
         public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.DefectTracking> DefectTrackings { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.ProductionProcess> ProductionProcesses { get; set; }
     }
 }

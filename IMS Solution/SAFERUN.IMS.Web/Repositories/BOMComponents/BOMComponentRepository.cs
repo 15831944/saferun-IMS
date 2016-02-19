@@ -18,6 +18,15 @@ namespace SAFERUN.IMS.Web.Repositories
   public static class BOMComponentRepository  
     {
  
+                 public static IEnumerable<BOMComponent> GetByProductionProcessId(this IRepositoryAsync<BOMComponent> repository, int productionprocessid)
+         {
+             var query= repository
+                .Queryable()
+                .Where(x => x.ProductionProcessId==productionprocessid);
+             return query;
+
+         }
+             
                  public static IEnumerable<BOMComponent> GetBySKUId(this IRepositoryAsync<BOMComponent> repository, int skuid)
          {
              var query= repository
@@ -40,7 +49,7 @@ namespace SAFERUN.IMS.Web.Repositories
                 public static IEnumerable<BOMComponent>   GetComponentsByParentComponentId (this IRepositoryAsync<BOMComponent> repository,int parentcomponentid)
         {
 			var bomcomponentRepository = repository.GetRepository<BOMComponent>(); 
-            return bomcomponentRepository.Queryable().Include(x => x.ParentComponent).Include(x => x.SKU).Where(n => n.ParentComponentId == parentcomponentid);
+            return bomcomponentRepository.Queryable().Include(x => x.ParentComponent).Include(x => x.ProductionProcess).Include(x => x.SKU).Where(n => n.ParentComponentId == parentcomponentid);
         }
          
 	}
