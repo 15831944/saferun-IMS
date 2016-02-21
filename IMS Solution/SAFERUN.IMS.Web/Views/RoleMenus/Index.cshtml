@@ -68,19 +68,19 @@
                             </div>
                             <div class="panel-body">
                                 
-                                <table id="menu-tree" title="Client Side Pagination" style="width:auto;height:auto"
+                                <table id="menu-tree" class="easyui-treegrid" title="菜单列表" style="width:auto;height:auto"
                                        data-options="
                                             iconCls: 'icon-ok',
                                             rownumbers: true,
                                             animate: true,
-                                         singleSelect: false,
+                                            singleSelect: false,
                                             fitColumns: true,
                                             url: '/RoleMenus/GetMenuList',
                                             method: 'get',
                                             idField: 'Id',
                                             treeField: 'Title',
                                             pagination: false,
-                                           checkOnSelect: false
+                                            checkOnSelect: false
                                             ">
                                     <thead>
                                         <tr>
@@ -120,7 +120,7 @@
                     $(function () {
                         $('#savebutton').attr('disabled', true);
                        
-                            $('#menu-tree').treegrid();
+                            //$('#menu-tree').treegrid();
                      
 
                         $('.list-group-item').click(function () {

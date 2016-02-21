@@ -41,9 +41,10 @@ namespace SAFERUN.IMS.Web.Controllers
         public ActionResult Index()
         {
             
-            //var departments  = _departmentService.Queryable().AsQueryable();
-            //return View(departments  );
-			return View();
+            //var departments  = _departmentService.Queryable().Include(d => d.ParentDepartment).AsQueryable();
+            
+             //return View(departments);
+			 return View();
         }
 
         // Get :Departments/PageList
@@ -54,8 +55,10 @@ namespace SAFERUN.IMS.Web.Controllers
 			var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
             //int pagenum = offset / limit +1;
-                        var departments  = _departmentService.Query(new DepartmentQuery().Withfilter(filters)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
-                        var datarows = departments .Select(  n => new {  Id = n.Id , Name = n.Name , Description = n.Description }).ToList();
+            			 
+            var departments  = _departmentService.Query(new DepartmentQuery().Withfilter(filters)).Include(d => d.ParentDepartment).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
+            
+                        var datarows = departments .Select(  n => new { ParentDepartmentName = (n.ParentDepartment==null?"": n.ParentDepartment.Name) , Id = n.Id , Name = n.Name , Description = n.Description , ParentDepartmentId = n.ParentDepartmentId }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
@@ -89,6 +92,13 @@ namespace SAFERUN.IMS.Web.Controllers
             return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
         }
 
+				public ActionResult GetDepartments()
+        {
+            var departmentRepository = _unitOfWork.Repository<Department>();
+            var data = departmentRepository.Queryable().ToList();
+            var rows = data.Select(n => new { Id = n.Id, Name = n.Name });
+            return Json(rows, JsonRequestBehavior.AllowGet);
+        }
 		
 		
        
@@ -113,6 +123,8 @@ namespace SAFERUN.IMS.Web.Controllers
         {
             Department department = new Department();
             //set default value
+            var departmentRepository = _unitOfWork.Repository<Department>();
+            ViewBag.ParentDepartmentId = new SelectList(departmentRepository.Queryable(), "Id", "Name");
             return View(department);
         }
 
@@ -120,7 +132,7 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description")] Department department)
+        public ActionResult Create([Bind(Include = "Departments,ParentDepartment,Id,Name,Description,ParentDepartmentId")] Department department)
         {
             if (ModelState.IsValid)
             {
@@ -134,6 +146,8 @@ namespace SAFERUN.IMS.Web.Controllers
                 return RedirectToAction("Index");
             }
 
+            var departmentRepository = _unitOfWork.Repository<Department>();
+            ViewBag.ParentDepartmentId = new SelectList(departmentRepository.Queryable(), "Id", "Name", department.ParentDepartmentId);
             if (Request.IsAjaxRequest())
             {
                 var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
@@ -155,6 +169,8 @@ namespace SAFERUN.IMS.Web.Controllers
             {
                 return HttpNotFound();
             }
+            var departmentRepository = _unitOfWork.Repository<Department>();
+            ViewBag.ParentDepartmentId = new SelectList(departmentRepository.Queryable(), "Id", "Name", department.ParentDepartmentId);
             return View(department);
         }
 
@@ -162,7 +178,7 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description")] Department department)
+        public ActionResult Edit([Bind(Include = "Departments,ParentDepartment,Id,Name,Description,ParentDepartmentId")] Department department)
         {
             if (ModelState.IsValid)
             {
@@ -177,6 +193,8 @@ namespace SAFERUN.IMS.Web.Controllers
                 DisplaySuccessMessage("Has update a Department record");
                 return RedirectToAction("Index");
             }
+            var departmentRepository = _unitOfWork.Repository<Department>();
+            ViewBag.ParentDepartmentId = new SelectList(departmentRepository.Queryable(), "Id", "Name", department.ParentDepartmentId);
             if (Request.IsAjaxRequest())
             {
                 var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));

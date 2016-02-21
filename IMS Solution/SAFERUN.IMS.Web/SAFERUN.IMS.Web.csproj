@@ -254,6 +254,18 @@
     <Compile Include="Migrations\201602190523180_ddd.Designer.cs">
       <DependentUpon>201602190523180_ddd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602201221031_department.cs" />
+    <Compile Include="Migrations\201602201221031_department.Designer.cs">
+      <DependentUpon>201602201221031_department.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602210802358_up.cs" />
+    <Compile Include="Migrations\201602210802358_up.Designer.cs">
+      <DependentUpon>201602210802358_up.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602210815293_dd.cs" />
+    <Compile Include="Migrations\201602210815293_dd.Designer.cs">
+      <DependentUpon>201602210815293_dd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
@@ -1111,11 +1123,6 @@
     <Content Include="Views\Messages\_ToMyMesssage.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Shared\_LoginViewLayout.cshtml" />
-    <Content Include="Views\Departments\Index.cshtml" />
-    <Content Include="Views\Departments\Create.cshtml" />
-    <Content Include="Views\Departments\Edit.cshtml" />
-    <Content Include="Views\Departments\EditForm.cshtml" />
-    <Content Include="Views\Departments\_PopupSearch.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
     <Content Include="Views\Employees\Create.cshtml" />
     <Content Include="Views\Employees\Edit.cshtml" />
@@ -1192,6 +1199,12 @@
     <Content Include="Views\BOMComponents\EditForm.cshtml" />
     <Content Include="Views\BOMComponents\_PopupSearch.cshtml" />
     <Content Include="Views\BOMComponents\_BOMComponentEditForm.cshtml" />
+    <Content Include="Views\Departments\Index.cshtml" />
+    <Content Include="Views\Departments\Create.cshtml" />
+    <Content Include="Views\Departments\Edit.cshtml" />
+    <Content Include="Views\Departments\EditForm.cshtml" />
+    <Content Include="Views\Departments\_PopupSearch.cshtml" />
+    <Content Include="Views\Departments\_DepartmentEditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1228,6 +1241,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602190523180_ddd.resx">
       <DependentUpon>201602190523180_ddd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602201221031_department.resx">
+      <DependentUpon>201602201221031_department.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602210802358_up.resx">
+      <DependentUpon>201602210802358_up.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602210815293_dd.resx">
+      <DependentUpon>201602210815293_dd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

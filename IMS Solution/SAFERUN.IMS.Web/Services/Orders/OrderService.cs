@@ -24,7 +24,8 @@ namespace SAFERUN.IMS.Web.Services
         private readonly IRepositoryAsync<BOMComponent> _bomrepository;
         private readonly IProductionPlanService _productionplanservice;
         private readonly IRepositoryAsync<OrderDetail> _orderdetailrepository;
-        public OrderService(IRepositoryAsync<OrderDetail> orderdetailrepository,IRepositoryAsync<Order> repository, IRepositoryAsync<ProjectNode> projectnoderepository, IOrderAuditPlanService auditplanService, IRepositoryAsync<BOMComponent> bomrepository, IProductionPlanService productionplanservice)
+        private readonly IPurchasePlanService _purchaseservice;
+        public OrderService(IPurchasePlanService purchaseservice,IRepositoryAsync<OrderDetail> orderdetailrepository,IRepositoryAsync<Order> repository, IRepositoryAsync<ProjectNode> projectnoderepository, IOrderAuditPlanService auditplanService, IRepositoryAsync<BOMComponent> bomrepository, IProductionPlanService productionplanservice)
             : base(repository)
         {
             _repository = repository;
@@ -33,6 +34,7 @@ namespace SAFERUN.IMS.Web.Services
             _bomrepository = bomrepository;
             _productionplanservice = productionplanservice;
             _orderdetailrepository = orderdetailrepository;
+            _purchaseservice = purchaseservice;
         }
 
         public IEnumerable<Order> GetByCustomerId(int customerid)
@@ -117,6 +119,53 @@ namespace SAFERUN.IMS.Web.Services
                         plan.StockSKU = component.StockSKU;
                         list.Add(plan);
                         _productionplanservice.Insert(plan);
+                    }
+                }
+
+
+                return list;
+            }
+        }
+
+        public IEnumerable<PurchasePlan> GeneratePurchasePlan(int orderId)
+        {
+            List<PurchasePlan> list = new List<PurchasePlan>();
+            var order = this.Find(orderId);
+            list = _purchaseservice.Queryable().Where(x => x.OrderId == orderId).ToList();
+            if (list.Count > 0)
+            {
+                return list;
+            }
+            else
+            {
+                var orderdetails = _orderdetailrepository.Queryable().Where(x => x.OrderId == orderId).ToList();
+                foreach (var item in orderdetails)
+                {
+                    var bomlist = _bomrepository.Queryable().Include(x=>x.ParentComponent).Include(s=>s.SKU).Where(x => x.FinishedSKU == item.ProductionSku).ToList();
+                    foreach (var component in bomlist)
+                    {
+                        PurchasePlan purchase = new PurchasePlan();
+                        purchase.OrderId = orderId;
+                        purchase.OrderKey = order.OrderKey;
+                        purchase.BomComponentId = component.Id;
+                        purchase.ComponentSKU = component.ComponentSKU;
+                        purchase.ConsumeQty = component.ConsumeQty;
+                        purchase.Deploy = component.Deploy;
+                        purchase.DesignName = component.DesignName;
+                        purchase.GraphSKU = component.GraphSKU;
+                        purchase.Locator = component.Locator;
+                        purchase.OrderPlanDate = order.OrderDate;
+                        purchase.ParentBomComponentId = component.ParentComponentId;
+                        //purchase.ProductionLine = component.ProductionLine;
+                        purchase.Brand = component.SKU.Brand;
+
+                        purchase.RejectRatio = component.RejectRatio;
+                        purchase.Remark = component.Remark1;
+                        purchase.RequirementQty = item.Qty * component.ConsumeQty;
+                        purchase.SKUId = component.SKUId;
+                        purchase.StockSKU = component.StockSKU;
+                        list.Add(purchase);
+                        this._purchaseservice.Insert(purchase);
                     }
                 }
 

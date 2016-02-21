@@ -46,6 +46,12 @@ namespace SAFERUN.IMS.Web.Models
         public virtual Order Order { get; set; }
 
 
+        [ScaffoldColumn(false)]
+        public int BomComponentId { get; set; }
+        [ScaffoldColumn(false)]
+        public int? ParentBomComponentId { get; set; }
+
+
 
         #region add
 

@@ -24,6 +24,9 @@ namespace SAFERUN.IMS.Web.Models
         [MaxLength(50)]
         public string Description { get; set; }
 
+        [Display(Name = "上级部门")]
+        public int? ParentDepartmentId { get; set; }
+
     }
 
 

@@ -70,6 +70,7 @@ namespace SAFERUN.IMS.Web.Services
                 menu.Description = item.Controller + "/" + item.Action;
                 menu.Title = item.Controller.Replace("Controller", "") + "/" + item.Action;
                 menu.Url = "/" + item.Controller.Replace("Controller", "") + "/" + item.Action;
+                menu.IsEnabled = true;
                 if (!this.Queryable().Where(x => x.Url == menu.Url).Any())
                 {
                     this.Insert(menu);
