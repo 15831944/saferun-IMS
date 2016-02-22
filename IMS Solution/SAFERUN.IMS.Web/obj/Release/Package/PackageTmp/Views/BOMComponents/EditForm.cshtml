@@ -1,0 +1,189 @@
+﻿﻿
+
+
+@model SAFERUN.IMS.Web.Models.BOMComponent
+
+
+ @*@Html.HiddenFor(model => model.Id)*@
+
+
+
+    <div class="row">
+         
+
+        			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.ComponentSKU,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.ComponentSKU, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ComponentSKU,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.DesignName,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.DesignName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.DesignName,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.ALTSku,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.ALTSku, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ALTSku,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.GraphSKU,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.GraphSKU, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.GraphSKU,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.StockSKU,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.StockSKU, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.StockSKU,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.MadeType,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.MadeType, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.MadeType,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.SKUGroup,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.SKUGroup, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.SKUGroup,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.Remark1,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.Remark1, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Remark1,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.Remark2,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.Remark2, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Remark2,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.ConsumeQty,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.ConsumeQty, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ConsumeQty,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.ConsumeTime,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.ConsumeTime, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ConsumeTime,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.RejectRatio,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.RejectRatio, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.RejectRatio,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.Deploy,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.Deploy, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Deploy,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.Locator,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.Locator, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Locator,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.ProductionLine,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.ProductionLine, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ProductionLine,"" , new { @class = "text-danger" })
+            
+			        </div>
+     					<div class="form-group col-lg-3 col-md-3 col-sm-3">
+		    		 
+				@Html.LabelFor(model => model.ProductionProcessId,   htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.ProductionProcessId, ViewBag.ProductionProcessId as List<SelectListItem>,"---Select---", htmlAttributes: new { @class = "form-control" }) 
+                @Html.ValidationMessageFor(model => model.ProductionProcessId,"" , new { @class = "text-danger" })
+           
+			        </div>
+      			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.Version,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.Version, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Version,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.Status,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Status,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.NoPur,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.NoPur, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.NoPur,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.FinishedSKU,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.FinishedSKU, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.FinishedSKU,"" , new { @class = "text-danger" })
+            
+			        </div>
+     					<div class="form-group col-lg-3 col-md-3 col-sm-3">
+		    		 
+				@Html.LabelFor(model => model.SKUId,   htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.SKUId, ViewBag.SKUId as List<SelectListItem>,"---Select---", htmlAttributes: new { @class = "form-control" }) 
+                @Html.ValidationMessageFor(model => model.SKUId,"" , new { @class = "text-danger" })
+           
+			        </div>
+      					<div class="form-group col-lg-3 col-md-3 col-sm-3">
+		    		 
+				@Html.LabelFor(model => model.ParentComponentId,   htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.ParentComponentId, ViewBag.ParentComponentId as List<SelectListItem>,"---Select---", htmlAttributes: new { @class = "form-control" }) 
+                @Html.ValidationMessageFor(model => model.ParentComponentId,"" , new { @class = "text-danger" })
+           
+			        </div>
+       
+    </div>
+ 				 
+		<!-- output all Scaffold = false Hiden field -->
+					@Html.HiddenFor(model => model.DesignPricture1)
+					@Html.HiddenFor(model => model.DesignPrictureURL1)
+					@Html.HiddenFor(model => model.DesignPricture2)
+					@Html.HiddenFor(model => model.DesignPrictureURL2)
+					@Html.HiddenFor(model => model.CreatedUserId)
+					@Html.HiddenFor(model => model.CreatedDateTime)
+					@Html.HiddenFor(model => model.LastEditUserId)
+					@Html.HiddenFor(model => model.LastEditDateTime)
+				<!--end output all Scaffold = false Hiden field -->
+		   
+
+ 
+
+
+  
+
+ 
+

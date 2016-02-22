@@ -1,0 +1,386 @@
+﻿@model IEnumerable<SAFERUN.IMS.Web.Models.SKU>
+
+
+
+
+@{
+    ViewBag.Title = "物料主数据维护";
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+             
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="table_data_tables.html#">Config option 1</a>
+                        </li>
+                        <li>
+                            <a href="table_data_tables.html#">Config option 2</a>
+                        </li>
+                    </ul>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+
+                <div class="table-responsive">
+                    <table id="skus_datagrid" class="easyui-datagrid" title="物料主数据 DataGrid" style="width:auto;height:auto"
+                           data-options="
+                rownumbers:true,
+                remoteFilter: true,
+                singleSelect: true,
+                toolbar: '#skus_toolbar',
+                url: '/SKUs/GetData',
+                method: 'get',
+                onClickCell: onClickCell,
+                pagination: 'true'
+                   ">
+                        <thead>
+                            <tr>
+                                @*<th data-options="field:'ck',checkbox:true"></th>*@
+                                <th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>
+
+                                <th data-options="field:'Sku',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.Sku)</th>
+
+
+                                <th data-options="field:'ALTSku',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.ALTSku)</th>
+
+
+                                <th data-options="field:'ManufacturerSku',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.ManufacturerSku)</th>
+
+
+
+
+
+                                <th data-options="field:'MadeType',width:140,editor:{ type:'combobox'
+                                            ,options:{
+                                                panelHeight: 'auto',
+                                                 data: [ { value: '自制', text: '自制' },{ value: '外协', text: '外协' }, { value: '采购', text: '采购' } ],
+                                                required:true} } ">@Html.DisplayNameFor(model => model.MadeType)</th>
+                                                <th data-options="field:'Model',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Model)</th>
+
+
+                                                <th data-options="field:'CLASS',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.CLASS)</th>
+
+
+                                                <th data-options="field:'SKUGroup'
+                                        ,width:140
+                                        ,editor:{ type:'combobox'
+                                            ,options:{
+                                                panelHeight: 'auto',
+                                                data: [ { value: '成品', text: '成品' },{ value: '部套', text: '部套' }, { value: '零件', text: '零件' } ],
+                                                required:true}
+                                            } ">@Html.DisplayNameFor(model => model.SKUGroup)</th>
+
+                                            <th data-options="field:'STDUOM',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.STDUOM)</th>
+
+
+                                            <th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Description)</th>
+
+
+                                            <th data-options="field:'Brand',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Brand)</th>
+
+
+                                            <th data-options="field:'PackKey',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.PackKey)</th>
+
+
+                                            <th data-options="field:'QCLOC',width:120,editor:'textbox' ">@Html.DisplayNameFor(model => model.QCLOC)</th>
+
+
+                                            <th data-options="field:'QCLOCOUT',width:120,editor:'textbox' ">@Html.DisplayNameFor(model => model.QCLOCOUT)</th>
+
+
+                                            <th data-options="field:'Active',width:120,editor:'textbox' ">@Html.DisplayNameFor(model => model.Active)</th>
+
+
+                                            <th data-options="field:'Price',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Price)</th>
+
+
+                                            <th data-options="field:'Cost',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Cost)</th>
+
+
+                                            <th data-options="field:'STDGrossWGT',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.STDGrossWGT)</th>
+
+
+                                            <th data-options="field:'STDNetWGT',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.STDNetWGT)</th>
+
+
+                                            <th data-options="field:'STDCube',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.STDCube)</th>
+
+
+                                            <th data-options="field:'SUSR1',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.SUSR1)</th>
+
+
+                                            <th data-options="field:'SUSR2',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.SUSR2)</th>
+
+
+                                            <th data-options="field:'SUSR3',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.SUSR3)</th>
+
+
+                                            <th data-options="field:'SUSR4',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.SUSR4)</th>
+
+
+                                            <th data-options="field:'SUSR5',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.SUSR5)</th>
+
+
+                                        </tr>
+                                    </thead>
+
+
+                                </table>
+                                <div id="skus_toolbar" style="height:auto">
+                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">Append</a>
+                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
+                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
+                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
+                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
+                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<div id="importwindow"  class="easyui-window" title="Excel 导入"   data-options="modal:true,collapsible:false,minimizable:false,maximizable:false,closed:true,iconCls:'icon-paperclip'" style="width:500px;height:260px;padding:10px;">
+     
+    <p><input type="file" name="file_upload" id="file_upload" /></p>
+    <div id="alert1" class="alert alert-success">
+        <button class="close" data-dismiss="alert" type="button">&times;</button>上传成功，开始执行导入。
+        
+    </div>
+    <div id="alert2" class="alert alert-info">
+        <button class="close" data-dismiss="alert" type="button">&times;</button>正在执行导入程序，请耐心等待。
+         
+    </div>
+</div>
+
+
+            @section Scripts {
+                <script type="text/javascript">
+                    $(function () {
+                        $('#alert1').hide('normal');
+                        $('#alert2').hide('normal');
+                        $("#file_upload").uploadify({
+                            'height': 30,
+                            'fileTypeDesc': 'Excel 2010 Files',
+                            'fileTypeExts': '*.xlsx',
+                            'swf': '/scripts/uploadify/uploadify.swf',
+                            'uploader': '/FileUpload/Upload',
+                            'buttonText': '选择EXCEL',
+                            'displayData': 'speed',
+                            'width': 120,
+                            'successTimeout': 100000,
+                            'formData': { 'modelType': 'SKU' },
+                            'onUploadComplete': function (file) {
+                                $('#alert1').hide('normal');
+                                $('#alert2').show('normal');
+                            },
+                            'onFallback' : function() {
+                                $.messager.progress('close');
+                                $.messager.alert('导入错误', '导入错误，请重试！<br>', 'error');
+                                $('#file_upload').uploadify('destroy')
+                            },
+                            'onUploadStart': function () {
+                                $.messager.progress({ title: '正在处理请耐心等待！' });
+                                $('#alert1').show('normal');
+                                $('#alert2').hide('normal');
+                            },
+                            'onUploadError': function (file, errorCode, errorMsg, errorString) {
+                                $.messager.progress('close');
+                                $.messager.alert('导入错误', '导入错误，请修改后再倒入！<br>' + errorMsg, 'error');
+                                $('#file_upload').uploadify('destroy')
+                            },
+                            'onUploadSuccess': function (file, data, response) {
+                                $.messager.progress('close');
+                                console.log(file, data, response);
+                                $('#alert1').hide('normal');
+                                $('#alert2').hide('normal');
+                                $('#w').window('close');
+                                var data = $.parseJSON(data);
+                                console.log(data);
+                                if (data.success == "false") {
+                                    $.messager.alert('导入错误', '导入错误，请修改后再倒入！<br>' + data.message, 'error');
+                                } else {
+                                    $.messager.alert('导入完成', '导入完成，请修改后再倒入！<br>', 'info');
+                                }
+                                //alert('The file ' + file.name + ' was successfully uploaded with a response of ' + response + ':' + data);
+                                
+                            }
+                        });
+
+                    })
+
+                    function importexcel() {
+                        $('#importwindow').window('open');
+                    }
+
+                    var $dg = $('#skus_datagrid');
+                    var editIndex = undefined;
+                    function endEditing() {
+                        if (editIndex == undefined) { return true }
+                        if ($dg.datagrid('validateRow', editIndex)) {
+
+                            $dg.datagrid('endEdit', editIndex);
+                            editIndex = undefined;
+
+
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                    function onClickCell(index, field) {
+                        if (editIndex != index) {
+                            if (endEditing()) {
+                                $dg.datagrid('selectRow', index)
+                                        .datagrid('beginEdit', index);
+                                var ed = $dg.datagrid('getEditor', { index: index, field: field });
+                                if (ed) {
+                                    ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+                                }
+                                editIndex = index;
+                            } else {
+                                $dg.datagrid('selectRow', editIndex);
+                            }
+                        }
+                    }
+                    function append() {
+                        if (endEditing()) {
+                            $dg.datagrid('appendRow', { status: 'P' });
+                            editIndex = $dg.datagrid('getRows').length - 1;
+                            $dg.datagrid('selectRow', editIndex)
+                                    .datagrid('beginEdit', editIndex);
+                        }
+                    }
+                    function removeit() {
+                        if (editIndex == undefined) { return }
+                        $dg.datagrid('cancelEdit', editIndex)
+                                .datagrid('deleteRow', editIndex);
+                        editIndex = undefined;
+                    }
+                    function accept() {
+                        if (endEditing()) {
+                            if ($dg.datagrid('getChanges').length) {
+                                var inserted = $dg.datagrid('getChanges', "inserted");
+                                var deleted = $dg.datagrid('getChanges', "deleted");
+                                var updated = $dg.datagrid('getChanges', "updated");
+                                var effectRow = new Object();
+                                if (inserted.length) {
+                                    effectRow.inserted = inserted;
+                                }
+                                if (deleted.length) {
+                                    effectRow.deleted = deleted;
+                                }
+                                if (updated.length) {
+                                    effectRow.updated = updated;
+                                }
+                                console.log(JSON.stringify(effectRow));
+                                $.post("/SKUs/SaveData", effectRow, function (rsp) {
+                                    console.log(rsp);
+                                    if (rsp.Success) {
+                                        $.messager.alert("提示", "提交成功！");
+                                        $dg.datagrid('acceptChanges');
+                                    }
+                                }, "JSON").error(function () {
+                                    $.messager.alert("错误", "提交错误了！", 'error');
+
+                                });
+
+                            }
+
+                            $dg.datagrid('acceptChanges');
+                        }
+                    }
+                    function reject() {
+                        $dg.datagrid('rejectChanges');
+                        editIndex = undefined;
+                    }
+                    function getChanges() {
+                        var rows = $dg.datagrid('getChanges');
+                        alert(rows.length + ' rows are changed!');
+                    }
+
+
+                    $(function () {
+
+                        $dg.datagrid('enableFilter', [
+                                     {
+                                         field: 'SUSR5',
+                                         type: 'datebox',
+                                         options: {
+                                             onChange: function (value) {
+                                                 if (value == '') {
+                                                     $dg.datagrid('removeFilterRule', 'SUSR5');
+                                                 } else {
+                                                     $dg.datagrid('addFilterRule', {
+                                                         field: 'SUSR5',
+                                                         op: 'equal',
+                                                         value: value
+                                                     });
+                                                 }
+                                                 $dg.datagrid('doFilter');
+                                             }
+                                         }
+                                     },
+
+
+                                     {
+                                         field: 'MadeType',
+                                         type: 'combobox',
+                                         options: {
+                                             panelHeight: 'auto',
+                                             data: [{ value: '', text: 'All' }, { value: '自制', text: '自制' }, { value: '外协', text: '外协' }, { value: '采购', text: '采购' }],
+                                             onChange: function (value) {
+                                                 if (value == '') {
+                                                     $dg.datagrid('removeFilterRule', 'MadeType');
+                                                 } else {
+                                                     $dg.datagrid('addFilterRule', {
+                                                         field: 'MadeType',
+                                                         op: 'equal',
+                                                         value: value
+                                                     });
+                                                 }
+                                                 $dg.datagrid('doFilter');
+                                             }
+                                         }
+                                     },
+                                     {
+                                         field: 'SKUGroup',
+                                         type: 'combobox',
+                                         options: {
+                                             panelHeight: 'auto',
+                                             data: [{ value: '', text: 'ALL' },{ value: '成品', text: '成品' }, { value: '部套', text: '部套' }, { value: '零件', text: '零件' }],
+                                             onChange: function (value) {
+                                                 if (value == '') {
+                                                     $dg.datagrid('removeFilterRule', 'SKUGroup');
+                                                 } else {
+                                                     $dg.datagrid('addFilterRule', {
+                                                         field: 'SKUGroup',
+                                                         op: 'equal',
+                                                         value: value
+                                                     });
+                                                 }
+                                                 $dg.datagrid('doFilter');
+                                             }
+                                         }
+                                     }
+
+                        ]);
+                    })
+                </script>
+            }
+

@@ -1,0 +1,74 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    
+
+    <ul class="nav navbar-nav pull-right">
+        
+        @Html.Action("GetMyMessage","Messages",new{user =  User.Identity.Name})
+        <li class="dropdown settings hidden-xs">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <span aria-hidden="true" class="se7en-gear"></span>
+                <div class="sr-only">
+                    设置
+                </div>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="settings-link blue" href="javascript:chooseStyle('none', 30)"><span></span>蓝色</a>
+                </li>
+                <li>
+                    <a class="settings-link green" href="javascript:chooseStyle('green-theme', 30)"><span></span>绿色</a>
+                </li>
+                <li>
+                    <a class="settings-link orange" href="javascript:chooseStyle('orange-theme', 30)"><span></span>橘黄色</a>
+                </li>
+                <li>
+                    <a class="settings-link magenta" href="javascript:chooseStyle('magenta-theme', 30)"><span></span>品红</a>
+                </li>
+                <li>
+                    <a class="settings-link gray" href="javascript:chooseStyle('gray-theme', 30)"><span></span>灰色</a>
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown user hidden-xs">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                @User.Identity.GetUserName() <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="#">
+                        <i class="icon-user"></i>我的账户
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-gear"></i>账户设置
+                    </a>
+                </li>
+                
+ 
+                
+                <li>
+                   
+                
+                    <a href="/Account/Login"> <i class="icon-off"></i> Log off</a> 
+                      </li>
+                  
+
+              
+            </ul>
+        </li>
+    </ul>
+    
+
+    
+     
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

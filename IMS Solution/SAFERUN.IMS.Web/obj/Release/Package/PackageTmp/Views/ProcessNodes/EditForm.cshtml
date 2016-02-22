@@ -1,0 +1,71 @@
+﻿﻿
+
+
+@model SAFERUN.IMS.Web.Models.ProcessNode
+
+
+ @*@Html.HiddenFor(model => model.Id)*@
+
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Order,   htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Order, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Order,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name,   htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MachineModel,   htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                                @Html.EditorFor(model => model.MachineModel, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.MachineModel,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Node,   htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Node, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Node,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description,   htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+
+				 
+		<!-- output all Scaffold = false Hiden field -->
+					@Html.HiddenFor(model => model.CreatedUserId)
+					@Html.HiddenFor(model => model.CreatedDateTime)
+					@Html.HiddenFor(model => model.LastEditUserId)
+					@Html.HiddenFor(model => model.LastEditDateTime)
+				<!--end output all Scaffold = false Hiden field -->
+		   
+
+ 
+
+
+  
+
+ 
+

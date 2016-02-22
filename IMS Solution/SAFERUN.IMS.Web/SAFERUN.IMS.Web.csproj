@@ -891,6 +891,7 @@
     <Content Include="font\se7en.ttf" />
     <Content Include="font\se7en.woff" />
     <Content Include="images\Thumbs.db" />
+    <None Include="Properties\PublishProfiles\website.pubxml" />
     <None Include="Scripts\jquery-1.11.3.intellisense.js" />
     <Content Include="Scripts\easyloader.js" />
     <Content Include="Scripts\img\uploadify-cancel.png" />

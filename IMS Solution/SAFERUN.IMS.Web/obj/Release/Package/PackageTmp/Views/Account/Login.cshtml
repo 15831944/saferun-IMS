@@ -1,0 +1,32 @@
+﻿@using SAFERUN.IMS.Web.Models
+@model LoginViewModel
+@{
+    Layout = "~/Views/Shared/_LoginViewLayout.cshtml";
+    ViewBag.Title = "Log in";
+}
+
+<div class="login-container">
+    <a href="./"><img width="100" height="30" src="~/images/logo-login@2x.png" /></a>
+    <form action="/Account/Login" method="post">
+        <div class="form-group">
+            <input class="form-control" id="Email" name="Email" placeholder="用户名/邮箱地址" type="text">
+        </div>
+        <div class="form-group">
+            <input class="form-control" id="Password" name="Password"  placeholder="密码" type="password"><input type="submit" value="&#xf054;">
+        </div>
+        <div class="form-options clearfix">
+
+            <div class="text-left">
+                <label class="checkbox"><input type="checkbox" id="RememberMe" name="RememberMe"><span>自动登录</span></label>
+            </div>
+        </div>
+    </form>
+     
+    <p class="signup">
+        还没有账号？<a href="/Account/Register">立即注册</a>
+    </p>
+</div>
+ 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

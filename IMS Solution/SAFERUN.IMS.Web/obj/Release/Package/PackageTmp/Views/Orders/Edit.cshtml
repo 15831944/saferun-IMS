@@ -1,0 +1,143 @@
+﻿
+
+
+@model SAFERUN.IMS.Web.Models.Order
+
+@{
+    ViewBag.Title = "Orders | Edit"  ;
+}
+
+
+
+
+<div class="row">
+            <div class="col-md-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Orders form<small> edit Orders</small></h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#">Config option 1</a>
+                                </li>
+                                <li><a href="">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                       
+
+@using (Html.BeginForm())
+{
+    @*@Html.AntiForgeryToken()*@
+    		<div class="form-horizontal">
+	 
+ 
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+ 
+    
+        @Html.Partial("EditForm")
+ 
+		<div class="row">
+        <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                        <button class="btn btn-white" type="reset">Cancel</button>
+                                        <button class="btn btn-primary" type="submit">Save</button>
+                                    </div>
+                                </div>
+	    </div>
+
+		 		</div>
+		}
+ </div>
+        </div>
+    </div>
+</div>
+
+ 
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+	
+    		var orderid = 0;
+		var ObjectState = "Modified";   
+                                 
+             var $orderdetailsdatagrid = $('#orderdetails_datagrid');
+                        $(document).ready(function () {
+				orderid = $('#Id', 'form').val();
+                $('form').submit(function () {
+					if (!$('form').valid())
+						return false;
+                    //var token = $('[name=__RequestVerificationToken]').val();
+                    //var serializedForm = $(this).serialize();
+                    var actionurl = $(this).attr('action');
+                    						if (!orderdetails_endEditing())
+								return false;                                         
+                        var orderdetails = $orderdetailsdatagrid.datagrid('getChanges');
+                                         
+                     var newitem = {
+						
+
+                                                        ActualFinishDate: $('#ActualFinishDate', 'form').val(),
+                                                        AuditDate: $('#AuditDate', 'form').val(),
+                                                        AuditResult: $('#AuditResult', 'form').val(),
+                                                        ColseDate: $('#ColseDate', 'form').val(),
+                        								//primaryKey   
+								Id: orderid,
+                                                        OrderDate: $('#OrderDate', 'form').val(),
+                        								//detailTables
+                                OrderDetails: orderdetails ,
+                                                        OrderKey: $('#OrderKey', 'form').val(),
+                                                        PlanFinishDate: $('#PlanFinishDate', 'form').val(),
+                                                        ProjectName: $('#ProjectName', 'form').val(),
+                                                        Remark: $('#Remark', 'form').val(),
+                                                        Sales: $('#Sales', 'form').val(),
+                                                        ShipDate: $('#ShipDate', 'form').val(),
+                                                        Status: $('#Status', 'form').val(),
+                        								CustomerId: $('#CustomerId :selected','form').val(),
+														ProjectTypeId: $('#ProjectTypeId :selected','form').val(),
+						                                CreatedDateTime: $('#CreatedDateTime', 'form').val(),
+                                                        CreatedUserId: $('#CreatedUserId', 'form').val(),
+                                                        LastEditDateTime: $('#LastEditDateTime', 'form').val(),
+                                                        LastEditUserId: $('#LastEditUserId', 'form').val(),
+                                                ObjectState:ObjectState 
+                    };
+                    $.ajax({
+                        url: actionurl,
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(newitem),
+                        success: function (result) {
+                            if (result.success) {
+                                self.location = "/Orders/Index";
+                            } else {
+                                alert(result.err);
+                            }
+                            
+                        },
+                        error: function (result) {
+                            console.log(result.statusText + result.responseText);
+                            alert(result.statusText + result.responseText);
+                        }
+                    });
+                    return false;
+                    
+
+                });
+            });
+      
+      </script>
+
+}
