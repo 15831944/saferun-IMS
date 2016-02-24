@@ -280,6 +280,10 @@
     <Compile Include="Migrations\201602230121506_job.Designer.cs">
       <DependentUpon>201602230121506_job.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602241351334_station.cs" />
+    <Compile Include="Migrations\201602241351334_station.Designer.cs">
+      <DependentUpon>201602241351334_station.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
@@ -917,6 +921,7 @@
     <Content Include="font\se7en.ttf" />
     <Content Include="font\se7en.woff" />
     <Content Include="images\Thumbs.db" />
+    <Content Include="javascripts\jquery.animateNumber.js" />
     <None Include="Properties\PublishProfiles\website.pubxml" />
     <None Include="Scripts\jquery-1.11.3.intellisense.js" />
     <Content Include="Scripts\easyloader.js" />
@@ -1126,11 +1131,6 @@
     <Content Include="Views\Multicomponents\Edit.cshtml" />
     <Content Include="Views\Multicomponents\EditForm.cshtml" />
     <Content Include="Views\Multicomponents\_PopupSearch.cshtml" />
-    <Content Include="Views\Stations\Index.cshtml" />
-    <Content Include="Views\Stations\Create.cshtml" />
-    <Content Include="Views\Stations\Edit.cshtml" />
-    <Content Include="Views\Stations\EditForm.cshtml" />
-    <Content Include="Views\Stations\_PopupSearch.cshtml" />
     <Content Include="Views\DefectTypes\Index.cshtml" />
     <Content Include="Views\DefectTypes\Create.cshtml" />
     <Content Include="Views\DefectTypes\Edit.cshtml" />
@@ -1242,6 +1242,11 @@
     <Content Include="Views\RepairJobs\Edit.cshtml" />
     <Content Include="Views\RepairJobs\EditForm.cshtml" />
     <Content Include="Views\RepairJobs\_PopupSearch.cshtml" />
+    <Content Include="Views\Stations\Index.cshtml" />
+    <Content Include="Views\Stations\Create.cshtml" />
+    <Content Include="Views\Stations\Edit.cshtml" />
+    <Content Include="Views\Stations\EditForm.cshtml" />
+    <Content Include="Views\Stations\_PopupSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1296,6 +1301,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602230121506_job.resx">
       <DependentUpon>201602230121506_job.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602241351334_station.resx">
+      <DependentUpon>201602241351334_station.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

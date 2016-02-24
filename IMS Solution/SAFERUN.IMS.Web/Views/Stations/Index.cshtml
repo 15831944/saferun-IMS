@@ -7,7 +7,7 @@
 
 
 @{
-    ViewBag.Title = "Stations";
+    ViewBag.Title = "机台工位维护";
 }
 
 
@@ -15,7 +15,7 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Stations Data</h5>
+                <h5>机台工位维护 Data</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -41,10 +41,12 @@
                 <div class="table-responsive">
            
  
-       <table id="stations_datagrid" class="easyui-datagrid" title="Stations DataGrid" style="width:auto;height:auto"
+       <table id="stations_datagrid" class="easyui-datagrid" title="机台工位维护 DataGrid" style="width:auto;height:auto"
                    data-options="
                  rownumbers:true,
-                 
+                 idField:'Id',
+                 sortName:'Id',
+                 sortorder:'asc',
                 remoteFilter: true,
                 singleSelect: true,
                 toolbar: '#stations_toolbar',
@@ -56,15 +58,24 @@
                 <thead>
                     <tr>
                         @*<th data-options="field:'ck',checkbox:true"></th>*@
-        			<th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>
+        			<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>
                 
-				     <th data-options="field:'StationNo',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.StationNo)</th>
+				     <th data-options="field:'StationNo',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.StationNo)</th>
 		
                 
-				     <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Name)</th>
+				     <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Name)</th>
 		
                 
-				     <th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Description)</th>
+				     <th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Description)</th>
+		
+                
+				     <th data-options="field:'StandardElapsedTime',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.StandardElapsedTime)</th>
+		
+                
+				     <th data-options="field:'WorkingTime',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.WorkingTime)</th>
+		
+                
+				     <th data-options="field:'Status',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Status)</th>
 		
                
     </tr>
@@ -78,6 +89,7 @@
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
             </div>
 				</div>
 
@@ -85,8 +97,81 @@
         </div>
     </div>
 </div>
+<div id="importwindow" class="easyui-window" title="Excel 导入"   data-options="modal:true,collapsible:false,minimizable:false,maximizable:false,closed:true,iconCls:'icon-paperclip'" style="width:500px;height:260px;padding:10px;">
+     
+    <p><input type="file" name="file_upload" id="file_upload" /></p>
+    <div id="alert1" class="alert alert-success">
+        <button class="close" data-dismiss="alert" type="button">&times;</button>上传成功，开始执行导入。
+        
+    </div>
+    <div id="alert2" class="alert alert-info">
+        <button class="close" data-dismiss="alert" type="button">&times;</button>正在执行导入程序，请耐心等待。
+         
+    </div>
+</div>
+
 @section Scripts {
     <script type="text/javascript">
+
+			 $(function () {
+                        $('#alert1').hide('normal');
+                        $('#alert2').hide('normal');
+                        $("#file_upload").uploadify({
+                            'height': 30,
+                            'fileTypeDesc': 'Excel 2010 Files',
+                            'fileTypeExts': '*.xlsx',
+                            'swf': '/scripts/uploadify/uploadify.swf',
+                            'uploader': '/FileUpload/Upload',
+                            'buttonText': '选择EXCEL',
+							'uploadLimit' : 1,
+                            'displayData': 'speed',
+							'formData': { 'modelType': 'Station' },
+                            'width': 120,
+                            'successTimeout': 100000,
+                            'onUploadComplete': function (file) {
+                                $('#alert1').hide('normal');
+                                $('#alert2').show('normal');
+                            },
+                            'onFallback' : function() {
+                                $.messager.progress('close');
+                                $.messager.alert('导入错误', '导入错误，请重试！<br>', 'error');
+                                $('#file_upload').uploadify('cancel')
+                            },
+                            'onUploadStart': function () {
+                                $.messager.progress({ title: '正在处理请耐心等待！' });
+                                $('#alert1').show('normal');
+                                $('#alert2').hide('normal');
+                            },
+                            'onUploadError': function (file, errorCode, errorMsg, errorString) {
+                                $.messager.progress('close');
+                                $.messager.alert('导入错误', '导入错误，请修改后再倒入！<br>' + errorMsg, 'error');
+                                $('#file_upload').uploadify('cancel')
+                            },
+                            'onUploadSuccess': function (file, data, response) {
+                                $.messager.progress('close');
+                                //console.log(file, data, response);
+                                $('#alert1').hide('normal');
+                                $('#alert2').hide('normal');
+                                $('#w').window('close');
+                                var data = $.parseJSON(data);
+                                console.log(data);
+                                if (data.success == "false") {
+                                    $.messager.alert('导入错误', '导入错误，请修改后再倒入！<br>' + data.message, 'error');
+                                } else {
+                                    $.messager.alert('导入完成', '导入完成！<br>', 'info');
+									$dg.datagrid('reload');
+                                }
+                                //alert('The file ' + file.name + ' was successfully uploaded with a response of ' + response + ':' + data);
+                                
+                            }
+                        });
+
+                    })
+
+                    function importexcel() {
+                        $('#importwindow').window('open');
+                    }
+
          var $dg = $('#stations_datagrid');
 		 var editIndex = undefined;
         function endEditing() {
@@ -147,12 +232,13 @@
                     if (updated.length) {
                         effectRow.updated = updated;
                     }
-                    console.log(JSON.stringify(effectRow));
+                    //console.log(JSON.stringify(effectRow));
                     $.post("/Stations/SaveData", effectRow, function (rsp) {
                         console.log(rsp);
                         if (rsp.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
+							$dg.datagrid('reload');
                         }
                     }, "JSON").error(function () {
                         $.messager.alert("错误", "提交错误了！",'error');
@@ -176,7 +262,10 @@
 
 		 $(function () {
 		  
-           $dg.datagrid('enableFilter');
+           $dg.datagrid('enableFilter',[
+		   		   
+		   		   
+		   ]);
         })
      </script>
 }

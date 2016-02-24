@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-
+using System.Data.Entity.SqlServer;
 using Repository.Pattern.Repositories;
 using Repository.Pattern.Ef6;
 using SAFERUN.IMS.Web.Models;
@@ -39,33 +39,65 @@ namespace SAFERUN.IMS.Web.Repositories
                {
                   
 					
-				    						if (rule.field == "Id")
+				    						if (rule.field == "Id" && !string.IsNullOrEmpty(rule.value))
 						{
-							And(x => x.Id == Convert.ToInt32(rule.value));
+							int val = Convert.ToInt32(rule.value);
+							And(x => x.Id == val);
 						}
 				   
-					 				
-											if (rule.field == "StationNo")
+					
+				    				
+											if (rule.field == "StationNo"  && !string.IsNullOrEmpty(rule.value))
 						{
 							And(x => x.StationNo.Contains(rule.value));
 						}
 				    
 				    
-					 				
-											if (rule.field == "Name")
+					
+				    				
+											if (rule.field == "Name"  && !string.IsNullOrEmpty(rule.value))
 						{
 							And(x => x.Name.Contains(rule.value));
 						}
 				    
 				    
-					 				
-											if (rule.field == "Description")
+					
+				    				
+											if (rule.field == "Description"  && !string.IsNullOrEmpty(rule.value))
 						{
 							And(x => x.Description.Contains(rule.value));
 						}
 				    
 				    
-					 									
+					
+				    				
+					
+				    						if (rule.field == "StandardElapsedTime" && !string.IsNullOrEmpty(rule.value))
+						{
+							int val = Convert.ToInt32(rule.value);
+							And(x => x.StandardElapsedTime == val);
+						}
+				   
+					
+				    				
+					
+				    						if (rule.field == "WorkingTime" && !string.IsNullOrEmpty(rule.value))
+						{
+							int val = Convert.ToInt32(rule.value);
+							And(x => x.WorkingTime == val);
+						}
+				   
+					
+				    				
+					
+				    						if (rule.field == "Status" && !string.IsNullOrEmpty(rule.value))
+						{
+							int val = Convert.ToInt32(rule.value);
+							And(x => x.Status == val);
+						}
+				   
+					
+				    									
                    
                }
            }

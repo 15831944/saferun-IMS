@@ -178,7 +178,7 @@
 
     $(".pie-chart1").easyPieChart({
       size: 200,
-      lineWidth: 12,
+      lineWidth: 16,
       lineCap: "square",
       barColor: "#81e970",
       animate: 800,
@@ -186,7 +186,7 @@
     });
     $(".pie-chart2").easyPieChart({
       size: 200,
-      lineWidth: 12,
+      lineWidth: 16,
       lineCap: "square",
       barColor: "#f46f50",
       animate: 800,
@@ -775,7 +775,7 @@
           ],
           xkey: "period",
           ykeys: ["iphone", "ipad", "itouch"],
-          labels: ["iPhone", "iPad", "iPod Touch"],
+          labels: ["计划开工数", "实际完成数", "工单任务数"],
           hideHover: "auto",
           lineWidth: 2,
           pointSize: 4,

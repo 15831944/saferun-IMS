@@ -55,7 +55,7 @@ namespace SAFERUN.IMS.Web.Controllers
             int totalCount = 0;
             //int pagenum = offset / limit +1;
                         var stations  = _stationService.Query(new StationQuery().Withfilter(filters)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
-                        var datarows = stations .Select(  n => new {  Id = n.Id , StationNo = n.StationNo , Name = n.Name , Description = n.Description }).ToList();
+                        var datarows = stations .Select(  n => new {  Id = n.Id , StationNo = n.StationNo , Name = n.Name , Description = n.Description , StandardElapsedTime = n.StandardElapsedTime , WorkingTime = n.WorkingTime , Status = n.Status }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
@@ -120,7 +120,7 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,StationNo,Name,Description,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] Station station)
+        public ActionResult Create([Bind(Include = "Id,StationNo,Name,Description,StandardElapsedTime,WorkingTime,Status,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] Station station)
         {
             if (ModelState.IsValid)
             {
@@ -162,7 +162,7 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,StationNo,Name,Description,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] Station station)
+        public ActionResult Edit([Bind(Include = "Id,StationNo,Name,Description,StandardElapsedTime,WorkingTime,Status,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] Station station)
         {
             if (ModelState.IsValid)
             {

@@ -26,7 +26,16 @@ namespace SAFERUN.IMS.Web.Models
         public string Name { get; set; }
 
         [Display(Name = "描述")]
+        [MaxLength(200)]
         public string Description { get; set; }
+
+        [Display(Name = "标准单位耗时(H)")]
+        public decimal StandardElapsedTime { get; set; }
+        [Display(Name = "工作时长(H)")]
+        public decimal WorkingTime { get; set; }
+         [Display(Name = "状态")]
+        public int Status { get; set; }
+
 
         [Display(Name = "CreatedUserId")]
         public string CreatedUserId { get; set; }
