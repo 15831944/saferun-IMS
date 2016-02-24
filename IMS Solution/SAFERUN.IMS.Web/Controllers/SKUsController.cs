@@ -55,7 +55,7 @@ namespace SAFERUN.IMS.Web.Controllers
             int totalCount = 0;
             //int pagenum = offset / limit +1;
                         var skus  = _sKUService.Query(new SKUQuery().Withfilter(filters)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
-                        var datarows = skus .Select(  n => new {  Id = n.Id , Sku = n.Sku , ALTSku = n.ALTSku , ManufacturerSku = n.ManufacturerSku , Model = n.Model , CLASS = n.CLASS , SKUGroup = n.SKUGroup , MadeType = n.MadeType , STDUOM = n.STDUOM , Description = n.Description , Brand = n.Brand , PackKey = n.PackKey , QCLOC = n.QCLOC , QCLOCOUT = n.QCLOCOUT , Active = n.Active , Price = n.Price , Cost = n.Cost , STDGrossWGT = n.STDGrossWGT , STDNetWGT = n.STDNetWGT , STDCube = n.STDCube , SUSR1 = n.SUSR1 , SUSR2 = n.SUSR2 , SUSR3 = n.SUSR3 , SUSR4 = n.SUSR4 , SUSR5 = n.SUSR5 }).ToList();
+                        var datarows = skus .Select(  n => new {  Id = n.Id , Sku = n.Sku , ProductName=n.ProductName, ALTSku = n.ALTSku , ManufacturerSku = n.ManufacturerSku , Model = n.Model , CLASS = n.CLASS , SKUGroup = n.SKUGroup , MadeType = n.MadeType , STDUOM = n.STDUOM , Description = n.Description , Brand = n.Brand , PackKey = n.PackKey , QCLOC = n.QCLOC , QCLOCOUT = n.QCLOCOUT , Active = n.Active , Price = n.Price , Cost = n.Cost , STDGrossWGT = n.STDGrossWGT , STDNetWGT = n.STDNetWGT , STDCube = n.STDCube , SUSR1 = n.SUSR1 , SUSR2 = n.SUSR2 , SUSR3 = n.SUSR3 , SUSR4 = n.SUSR4 , SUSR5 = n.SUSR5 }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }

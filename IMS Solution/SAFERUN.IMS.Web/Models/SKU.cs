@@ -15,6 +15,7 @@ namespace SAFERUN.IMS.Web.Models
         [Required]
         [Index("IX_SKU",IsUnique=true)]
         public string Sku { get; set; }
+        public string ProductName { get; set; }
         public string ALTSku { get; set; }
         public string ManufacturerSku { get; set; }
         public string Model { get; set; }

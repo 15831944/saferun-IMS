@@ -19,7 +19,9 @@ namespace SAFERUN.IMS.Web.Models
         [Display(Name = "Sku")]
         [MaxLength(30)]
         public string Sku { get; set; }
-
+        [Display(Name = "品名")]
+        [MaxLength(50)]
+        public string ProductName { get; set; }
         [Display(Name = "替代料")]
         [MaxLength(30)]
         public string ALTSku { get; set; }

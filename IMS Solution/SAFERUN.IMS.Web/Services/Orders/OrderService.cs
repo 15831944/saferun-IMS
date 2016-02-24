@@ -96,7 +96,9 @@ namespace SAFERUN.IMS.Web.Services
                 var orderdetails = _orderdetailrepository.Queryable().Where(x => x.OrderId == orderId).ToList();
                 foreach (var item in orderdetails)
                 {
-                    var bomlist = _bomrepository.Queryable().Where(x => x.FinishedSKU == item.ProductionSku).ToList();
+                    string[] madeTypes=new string[]{"自制","外协"};
+
+                    var bomlist = _bomrepository.Queryable().Where(x => x.FinishedSKU == item.ProductionSku &&  madeTypes.Contains( x.MadeType)).ToList();
                     foreach (var component in bomlist)
                     {
                         ProductionPlan plan = new ProductionPlan();
@@ -141,7 +143,7 @@ namespace SAFERUN.IMS.Web.Services
                 var orderdetails = _orderdetailrepository.Queryable().Where(x => x.OrderId == orderId).ToList();
                 foreach (var item in orderdetails)
                 {
-                    var bomlist = _bomrepository.Queryable().Include(x=>x.ParentComponent).Include(s=>s.SKU).Where(x => x.FinishedSKU == item.ProductionSku).ToList();
+                    var bomlist = _bomrepository.Queryable().Include(x=>x.ParentComponent).Include(s=>s.SKU).Where(x => x.FinishedSKU == item.ProductionSku && x.MadeType=="外购").ToList();
                     foreach (var component in bomlist)
                     {
                         PurchasePlan purchase = new PurchasePlan();

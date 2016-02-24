@@ -15,7 +15,7 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>BaseCodes Data</h5>
+                 
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -45,7 +45,8 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="panel-body">
-                                <ul class="list-group">
+                                <ul class="easyui-datalist" data-options="onSelect:onClickRow
+                                    " title="Role&Users DataList" lines="true" style="width:auto;height:auto">
                                     @foreach (var item in ViewBag.Roles)
                                     {
                                         <li class="list-group-item">
@@ -115,8 +116,10 @@
                     function formatcheckbox(val, row) {
                         return "<input type=\"checkbox\"  name=\"op\"   value=false >";
                     }
-
-                    
+                    function onClickRow(index,row)
+                    {
+                        console.log(index, row);
+                    }
                     $(function () {
                         $('#savebutton').attr('disabled', true);
                        

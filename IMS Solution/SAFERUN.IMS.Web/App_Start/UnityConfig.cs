@@ -138,6 +138,14 @@ namespace SAFERUN.IMS.Web.App_Start
 
         container.RegisterType<IRepositoryAsync<DefectTracking>, Repository<DefectTracking>>();
         container.RegisterType<IDefectTrackingService, DefectTrackingService>();
+
+
+
+        container.RegisterType<IRepositoryAsync<ProductionTask>, Repository<ProductionTask>>();
+        container.RegisterType<IProductionTaskService, ProductionTaskService>();
+
+        container.RegisterType<IRepositoryAsync<RepairJob>, Repository<RepairJob>>();
+        container.RegisterType<IRepairJobService, RepairJobService>();
         
         }
     }

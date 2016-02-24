@@ -229,11 +229,13 @@
     <Compile Include="Controllers\ProcessStepsController.cs" />
     <Compile Include="Controllers\ProductionPlansController.cs" />
     <Compile Include="Controllers\ProductionProcessesController.cs" />
+    <Compile Include="Controllers\ProductionTasksController.cs" />
     <Compile Include="Controllers\ProjectNodesController.cs" />
     <Compile Include="Controllers\ProjectTypesController.cs" />
     <Compile Include="Controllers\PurchasePlansController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\RepairJobsController.cs" />
     <Compile Include="Controllers\RoleMenusController.cs" />
     <Compile Include="Controllers\SKUsController.cs" />
     <Compile Include="Controllers\StationsController.cs" />
@@ -265,6 +267,18 @@
     <Compile Include="Migrations\201602210815293_dd.cs" />
     <Compile Include="Migrations\201602210815293_dd.Designer.cs">
       <DependentUpon>201602210815293_dd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602222317160_test.cs" />
+    <Compile Include="Migrations\201602222317160_test.Designer.cs">
+      <DependentUpon>201602222317160_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602230102005_task.cs" />
+    <Compile Include="Migrations\201602230102005_task.Designer.cs">
+      <DependentUpon>201602230102005_task.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602230121506_job.cs" />
+    <Compile Include="Migrations\201602230121506_job.Designer.cs">
+      <DependentUpon>201602230121506_job.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -320,11 +334,15 @@
     <Compile Include="Models\ProductionPlan.cs" />
     <Compile Include="Models\ProductionPlanMetadata.cs" />
     <Compile Include="Models\ProductionProcessMetadata.cs" />
+    <Compile Include="Models\ProductionTask.cs" />
+    <Compile Include="Models\ProductionTaskMetadata.cs" />
     <Compile Include="Models\ProjectNode.cs" />
     <Compile Include="Models\ProjectNodeMetadata.cs" />
     <Compile Include="Models\ProjectTypeMetadata.cs" />
     <Compile Include="Models\PurchasePlan.cs" />
     <Compile Include="Models\PurchasePlanMetadata.cs" />
+    <Compile Include="Models\RepairJob.cs" />
+    <Compile Include="Models\RepairJobMetadata.cs" />
     <Compile Include="Models\RoleMenu.cs" />
     <Compile Include="Models\RoleMenuMetadata.cs" />
     <Compile Include="Models\RoleMenuViewModel.cs" />
@@ -371,12 +389,16 @@
     <Compile Include="Repositories\ProductionPlans\ProductionPlanRepository.cs" />
     <Compile Include="Repositories\ProductionProcesses\ProductionProcessQuery.cs" />
     <Compile Include="Repositories\ProductionProcesses\ProductionProcessRepository.cs" />
+    <Compile Include="Repositories\ProductionTasks\ProductionTaskQuery.cs" />
+    <Compile Include="Repositories\ProductionTasks\ProductionTaskRepository.cs" />
     <Compile Include="Repositories\ProjectNodes\ProjectNodeQuery.cs" />
     <Compile Include="Repositories\ProjectNodes\ProjectNodeRepository.cs" />
     <Compile Include="Repositories\ProjectTypes\ProjectTypeQuery.cs" />
     <Compile Include="Repositories\ProjectTypes\ProjectTypeRepository.cs" />
     <Compile Include="Repositories\PurchasePlans\PurchasePlanQuery.cs" />
     <Compile Include="Repositories\PurchasePlans\PurchasePlanRepository.cs" />
+    <Compile Include="Repositories\RepairJobs\RepairJobQuery.cs" />
+    <Compile Include="Repositories\RepairJobs\RepairJobRepository.cs" />
     <Compile Include="Repositories\RoleMenus\RoleMenuQuery.cs" />
     <Compile Include="Repositories\RoleMenus\RoleMenuRepository.cs" />
     <Compile Include="Repositories\SKUs\SKUQuery.cs" />
@@ -421,12 +443,16 @@
     <Compile Include="Services\ProductionPlans\ProductionPlanService.cs" />
     <Compile Include="Services\ProductionProcesses\IProductionProcessService.cs" />
     <Compile Include="Services\ProductionProcesses\ProductionProcessService.cs" />
+    <Compile Include="Services\ProductionTasks\IProductionTaskService.cs" />
+    <Compile Include="Services\ProductionTasks\ProductionTaskService.cs" />
     <Compile Include="Services\ProjectNodes\IProjectNodeService.cs" />
     <Compile Include="Services\ProjectNodes\ProjectNodeService.cs" />
     <Compile Include="Services\ProjectTypes\IProjectTypeService.cs" />
     <Compile Include="Services\ProjectTypes\ProjectTypeService.cs" />
     <Compile Include="Services\PurchasePlans\IPurchasePlanService.cs" />
     <Compile Include="Services\PurchasePlans\PurchasePlanService.cs" />
+    <Compile Include="Services\RepairJobs\IRepairJobService.cs" />
+    <Compile Include="Services\RepairJobs\RepairJobService.cs" />
     <Compile Include="Services\RoleMenus\IRoleMenuService.cs" />
     <Compile Include="Services\RoleMenus\RoleMenuService.cs" />
     <Compile Include="Services\SKUs\ISKUService.cs" />
@@ -1206,6 +1232,16 @@
     <Content Include="Views\Departments\EditForm.cshtml" />
     <Content Include="Views\Departments\_PopupSearch.cshtml" />
     <Content Include="Views\Departments\_DepartmentEditForm.cshtml" />
+    <Content Include="Views\ProductionTasks\Index.cshtml" />
+    <Content Include="Views\ProductionTasks\Create.cshtml" />
+    <Content Include="Views\ProductionTasks\Edit.cshtml" />
+    <Content Include="Views\ProductionTasks\EditForm.cshtml" />
+    <Content Include="Views\ProductionTasks\_PopupSearch.cshtml" />
+    <Content Include="Views\RepairJobs\Index.cshtml" />
+    <Content Include="Views\RepairJobs\Create.cshtml" />
+    <Content Include="Views\RepairJobs\Edit.cshtml" />
+    <Content Include="Views\RepairJobs\EditForm.cshtml" />
+    <Content Include="Views\RepairJobs\_PopupSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1251,6 +1287,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602210815293_dd.resx">
       <DependentUpon>201602210815293_dd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602222317160_test.resx">
+      <DependentUpon>201602222317160_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602230102005_task.resx">
+      <DependentUpon>201602230102005_task.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602230121506_job.resx">
+      <DependentUpon>201602230121506_job.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
