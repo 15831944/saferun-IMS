@@ -24,10 +24,16 @@ namespace SAFERUN.IMS.Web.Models
         [Display(Name = "工位名称")]
         [MaxLength(20)]
         public string Name { get; set; }
+        [Display(Name = "设备名称")]
+        [MaxLength(50)]
+        public string Equipment { get; set; }
 
         [Display(Name = "描述")]
         [MaxLength(200)]
         public string Description { get; set; }
+
+        [Display(Name = "机台数量")]
+        public int EquipmentNumber { get; set; }
 
         [Display(Name = "标准单位耗时(H)")]
         public decimal StandardElapsedTime { get; set; }

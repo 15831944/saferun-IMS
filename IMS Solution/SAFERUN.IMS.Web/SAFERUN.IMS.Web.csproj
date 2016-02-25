@@ -284,6 +284,14 @@
     <Compile Include="Migrations\201602241351334_station.Designer.cs">
       <DependentUpon>201602241351334_station.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602250200288_update.cs" />
+    <Compile Include="Migrations\201602250200288_update.Designer.cs">
+      <DependentUpon>201602250200288_update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602250254149_update1.cs" />
+    <Compile Include="Migrations\201602250254149_update1.Designer.cs">
+      <DependentUpon>201602250254149_update1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
@@ -1304,6 +1312,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602241351334_station.resx">
       <DependentUpon>201602241351334_station.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602250200288_update.resx">
+      <DependentUpon>201602250200288_update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602250254149_update1.resx">
+      <DependentUpon>201602250254149_update1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

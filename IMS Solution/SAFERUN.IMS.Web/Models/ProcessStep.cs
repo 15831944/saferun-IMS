@@ -57,10 +57,15 @@ namespace SAFERUN.IMS.Web.Models
         [Index("IX_ProcessStep", IsUnique = true, Order = 2)]
         public string StepName { get; set; }
 
-    
         public int Order { get; set; }
-        
+
+        public int? StationId { get; set; }
+        [ForeignKey("StationId")]
+        public virtual Station Station { get; set; }
+
         public decimal ElapsedTime { get; set; }
+
+
         public string Equipment { get; set; }
 
         public int Status { get; set; }

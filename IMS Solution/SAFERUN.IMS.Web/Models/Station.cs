@@ -17,7 +17,9 @@ namespace SAFERUN.IMS.Web.Models
         public string StationNo { get; set; }
         [Required]
         public string Name { get; set; }
+        public string Equipment { get; set; }
         public string Description { get; set; }
+        public int EquipmentNumber { get; set; }
 
         public decimal StandardElapsedTime { get; set; }
 

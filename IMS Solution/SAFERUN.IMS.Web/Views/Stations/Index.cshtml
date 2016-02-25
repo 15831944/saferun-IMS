@@ -7,7 +7,7 @@
 
 
 @{
-    ViewBag.Title = "机台工位维护";
+    ViewBag.Title = "加工机台维护";
 }
 
 
@@ -15,7 +15,7 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>机台工位维护 Data</h5>
+                <h5>加工机台维护 Data</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -41,7 +41,7 @@
                 <div class="table-responsive">
            
  
-       <table id="stations_datagrid" class="easyui-datagrid" title="机台工位维护 DataGrid" style="width:auto;height:auto"
+       <table id="stations_datagrid" class="easyui-datagrid" title="加工机台维护 DataGrid" style="width:auto;height:auto"
                    data-options="
                  rownumbers:true,
                  idField:'Id',
@@ -66,7 +66,13 @@
 				     <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Name)</th>
 		
                 
+				     <th data-options="field:'Equipment',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Equipment)</th>
+		
+                
 				     <th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Description)</th>
+		
+                
+				     <th data-options="field:'EquipmentNumber',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.EquipmentNumber)</th>
 		
                 
 				     <th data-options="field:'StandardElapsedTime',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.StandardElapsedTime)</th>

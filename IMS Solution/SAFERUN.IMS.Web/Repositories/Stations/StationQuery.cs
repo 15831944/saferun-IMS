@@ -20,14 +20,14 @@ namespace SAFERUN.IMS.Web.Repositories
         public StationQuery WithAnySearch(string search)
         {
             if (!string.IsNullOrEmpty(search))
-                And( x =>  x.StationNo.Contains(search) || x.Name.Contains(search) || x.Description.Contains(search) );
+                And( x =>  x.StationNo.Contains(search) || x.Name.Contains(search) || x.Equipment.Contains(search) || x.Description.Contains(search) );
             return this;
         }
 
 		public StationQuery WithPopupSearch(string search,string para="")
         {
             if (!string.IsNullOrEmpty(search))
-                And( x =>  x.StationNo.Contains(search) || x.Name.Contains(search) || x.Description.Contains(search) );
+                And( x =>  x.StationNo.Contains(search) || x.Name.Contains(search) || x.Equipment.Contains(search) || x.Description.Contains(search) );
             return this;
         }
 
@@ -63,12 +63,29 @@ namespace SAFERUN.IMS.Web.Repositories
 				    
 					
 				    				
+											if (rule.field == "Equipment"  && !string.IsNullOrEmpty(rule.value))
+						{
+							And(x => x.Equipment.Contains(rule.value));
+						}
+				    
+				    
+					
+				    				
 											if (rule.field == "Description"  && !string.IsNullOrEmpty(rule.value))
 						{
 							And(x => x.Description.Contains(rule.value));
 						}
 				    
 				    
+					
+				    				
+					
+				    						if (rule.field == "EquipmentNumber" && !string.IsNullOrEmpty(rule.value))
+						{
+							int val = Convert.ToInt32(rule.value);
+							And(x => x.EquipmentNumber == val);
+						}
+				   
 					
 				    				
 					
