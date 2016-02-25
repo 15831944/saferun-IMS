@@ -41,7 +41,7 @@ namespace SAFERUN.IMS.Web.Controllers
         public ActionResult Index()
         {
             
-            //var processsteps  = _processStepService.Queryable().Include(p => p.ProductionProcess).AsQueryable();
+            //var processsteps  = _processStepService.Queryable().Include(p => p.ProductionProcess).Include(p => p.Station).AsQueryable();
             
              //return View(processsteps);
 			 return View();
@@ -56,9 +56,9 @@ namespace SAFERUN.IMS.Web.Controllers
             int totalCount = 0;
             //int pagenum = offset / limit +1;
             			 
-            var processsteps  = _processStepService.Query(new ProcessStepQuery().Withfilter(filters)).Include(p => p.ProductionProcess).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
+            var processsteps  = _processStepService.Query(new ProcessStepQuery().Withfilter(filters)).Include(p => p.ProductionProcess).Include(p => p.Station).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
             
-                        var datarows = processsteps .Select(  n => new { ProductionProcessName = (n.ProductionProcess==null?"": n.ProductionProcess.Name) , Id = n.Id , StepName = n.StepName , Order = n.Order , ElapsedTime = n.ElapsedTime , Equipment = n.Equipment , Status = n.Status , Description = n.Description , ProductionProcessId = n.ProductionProcessId }).ToList();
+                        var datarows = processsteps .Select(  n => new { ProductionProcessName = (n.ProductionProcess==null?"": n.ProductionProcess.Name) ,StationStationNo = (n.Station==null?"": n.Station.StationNo) , Id = n.Id , StepName = n.StepName , Order = n.Order , StationId = n.StationId , ElapsedTime = n.ElapsedTime , Equipment = n.Equipment , Status = n.Status , Description = n.Description , ProductionProcessId = n.ProductionProcessId }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
@@ -99,6 +99,13 @@ namespace SAFERUN.IMS.Web.Controllers
             var rows = data.Select(n => new { Id = n.Id, Name = n.Name });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
+				public ActionResult GetStations()
+        {
+            var stationRepository = _unitOfWork.Repository<Station>();
+            var data = stationRepository.Queryable().ToList();
+            var rows = data.Select(n => new { Id = n.Id, StationNo = n.StationNo });
+            return Json(rows, JsonRequestBehavior.AllowGet);
+        }
 		
 		
        
@@ -125,6 +132,8 @@ namespace SAFERUN.IMS.Web.Controllers
             //set default value
             var productionprocessRepository = _unitOfWork.Repository<ProductionProcess>();
             ViewBag.ProductionProcessId = new SelectList(productionprocessRepository.Queryable(), "Id", "Name");
+            var stationRepository = _unitOfWork.Repository<Station>();
+            ViewBag.StationId = new SelectList(stationRepository.Queryable(), "Id", "StationNo");
             return View(processStep);
         }
 
@@ -132,7 +141,7 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductionProcess,Id,StepName,Order,ElapsedTime,Equipment,Status,Description,ProductionProcessId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProcessStep processStep)
+        public ActionResult Create([Bind(Include = "ProductionProcess,Station,Id,StepName,Order,StationId,ElapsedTime,Equipment,Status,Description,ProductionProcessId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProcessStep processStep)
         {
             if (ModelState.IsValid)
             {
@@ -148,6 +157,8 @@ namespace SAFERUN.IMS.Web.Controllers
 
             var productionprocessRepository = _unitOfWork.Repository<ProductionProcess>();
             ViewBag.ProductionProcessId = new SelectList(productionprocessRepository.Queryable(), "Id", "Name", processStep.ProductionProcessId);
+            var stationRepository = _unitOfWork.Repository<Station>();
+            ViewBag.StationId = new SelectList(stationRepository.Queryable(), "Id", "StationNo", processStep.StationId);
             if (Request.IsAjaxRequest())
             {
                 var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
@@ -171,6 +182,8 @@ namespace SAFERUN.IMS.Web.Controllers
             }
             var productionprocessRepository = _unitOfWork.Repository<ProductionProcess>();
             ViewBag.ProductionProcessId = new SelectList(productionprocessRepository.Queryable(), "Id", "Name", processStep.ProductionProcessId);
+            var stationRepository = _unitOfWork.Repository<Station>();
+            ViewBag.StationId = new SelectList(stationRepository.Queryable(), "Id", "StationNo", processStep.StationId);
             return View(processStep);
         }
 
@@ -178,7 +191,7 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductionProcess,Id,StepName,Order,ElapsedTime,Equipment,Status,Description,ProductionProcessId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProcessStep processStep)
+        public ActionResult Edit([Bind(Include = "ProductionProcess,Station,Id,StepName,Order,StationId,ElapsedTime,Equipment,Status,Description,ProductionProcessId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProcessStep processStep)
         {
             if (ModelState.IsValid)
             {
@@ -195,6 +208,8 @@ namespace SAFERUN.IMS.Web.Controllers
             }
             var productionprocessRepository = _unitOfWork.Repository<ProductionProcess>();
             ViewBag.ProductionProcessId = new SelectList(productionprocessRepository.Queryable(), "Id", "Name", processStep.ProductionProcessId);
+            var stationRepository = _unitOfWork.Repository<Station>();
+            ViewBag.StationId = new SelectList(stationRepository.Queryable(), "Id", "StationNo", processStep.StationId);
             if (Request.IsAjaxRequest())
             {
                 var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));

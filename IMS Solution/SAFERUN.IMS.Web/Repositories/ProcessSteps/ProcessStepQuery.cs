@@ -65,6 +65,15 @@ namespace SAFERUN.IMS.Web.Repositories
 					
 				    				
 					
+				    						if (rule.field == "StationId" && !string.IsNullOrEmpty(rule.value))
+						{
+							int val = Convert.ToInt32(rule.value);
+							And(x => x.StationId == val);
+						}
+				   
+					
+				    				
+					
 				    						if (rule.field == "ElapsedTime" && !string.IsNullOrEmpty(rule.value))
 						{
 							int val = Convert.ToInt32(rule.value);

@@ -1223,11 +1223,6 @@
     <Content Include="Views\ProductionProcesses\Edit.cshtml" />
     <Content Include="Views\ProductionProcesses\EditForm.cshtml" />
     <Content Include="Views\ProductionProcesses\_PopupSearch.cshtml" />
-    <Content Include="Views\ProcessSteps\Index.cshtml" />
-    <Content Include="Views\ProcessSteps\Create.cshtml" />
-    <Content Include="Views\ProcessSteps\Edit.cshtml" />
-    <Content Include="Views\ProcessSteps\EditForm.cshtml" />
-    <Content Include="Views\ProcessSteps\_PopupSearch.cshtml" />
     <Content Include="Views\BOMComponents\Index.cshtml" />
     <Content Include="Views\BOMComponents\Create.cshtml" />
     <Content Include="Views\BOMComponents\Edit.cshtml" />
@@ -1255,6 +1250,11 @@
     <Content Include="Views\Stations\Edit.cshtml" />
     <Content Include="Views\Stations\EditForm.cshtml" />
     <Content Include="Views\Stations\_PopupSearch.cshtml" />
+    <Content Include="Views\ProcessSteps\Index.cshtml" />
+    <Content Include="Views\ProcessSteps\Create.cshtml" />
+    <Content Include="Views\ProcessSteps\Edit.cshtml" />
+    <Content Include="Views\ProcessSteps\EditForm.cshtml" />
+    <Content Include="Views\ProcessSteps\_PopupSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
