@@ -17,12 +17,14 @@ namespace SAFERUN.IMS.Web.Controllers
         private readonly IBOMComponentService _iBOMComponentService;
         private readonly IUnitOfWorkAsync _unitOfWork;
         private readonly IProcessStepService _setpservice;
-        public FileUploadController(IProcessStepService setpservice,ISKUService sKUService, IBOMComponentService iBOMComponentService, IUnitOfWorkAsync unitOfWork)
+        private readonly IStationService _stationservice;
+        public FileUploadController(IStationService stationservice,IProcessStepService setpservice,ISKUService sKUService, IBOMComponentService iBOMComponentService, IUnitOfWorkAsync unitOfWork)
         {
             _iBOMComponentService = iBOMComponentService;
             _sKUService  = sKUService;
             _unitOfWork = unitOfWork;
             _setpservice = setpservice;
+            _stationservice = stationservice;
         }
         //回单文件上传 文件名格式 回单+_+日期+_原始文件
         [HttpPost]
@@ -58,6 +60,12 @@ namespace SAFERUN.IMS.Web.Controllers
                 }
                 if (modelType == "ProcessStep") {
                     _setpservice.ImportDataTable(datatable);
+                    _unitOfWork.SaveChanges();
+
+                }
+                if (modelType == "Station")
+                {
+                    _stationservice.ImportDataTable(datatable);
                     _unitOfWork.SaveChanges();
 
                 }
