@@ -96,6 +96,15 @@ namespace SAFERUN.IMS.Web.Repositories
 				    
 					
 				    				
+					
+				    						if (rule.field == "ProductionQty" && !string.IsNullOrEmpty(rule.value))
+						{
+							int val = Convert.ToInt32(rule.value);
+							And(x => x.ProductionQty == val);
+						}
+				   
+					
+				    				
 											if (rule.field == "ProcessName"  && !string.IsNullOrEmpty(rule.value))
 						{
 							And(x => x.ProcessName.Contains(rule.value));

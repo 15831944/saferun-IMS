@@ -27,6 +27,15 @@ namespace SAFERUN.IMS.Web.Repositories
 
          }
              
+                 public static IEnumerable<ProductionPlan> GetByProductionProcessId(this IRepositoryAsync<ProductionPlan> repository, int productionprocessid)
+         {
+             var query= repository
+                .Queryable()
+                .Where(x => x.ProductionProcessId==productionprocessid);
+             return query;
+
+         }
+             
                  public static IEnumerable<ProductionPlan> GetByOrderId(this IRepositoryAsync<ProductionPlan> repository, int orderid)
          {
              var query= repository

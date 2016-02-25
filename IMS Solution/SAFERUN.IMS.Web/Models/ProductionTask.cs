@@ -21,6 +21,7 @@ namespace SAFERUN.IMS.Web.Models
         public string ComponentSKU { get; set; }
         public string ALTSku { get; set; }
         public string GraphSKU { get; set; }
+        public decimal ProductionQty { get; set; }
         public string ProcessName { get; set; }
         public int ProcessOrder { get; set; }
         public string ProcessSetp { get; set; }

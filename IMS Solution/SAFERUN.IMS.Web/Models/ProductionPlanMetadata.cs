@@ -72,7 +72,11 @@ namespace SAFERUN.IMS.Web.Models
         [Display(Name = "装配位置")]
         [MaxLength(50)]
         public string Deploy { get; set; }
+        [Display(Name = "生产工序")]
+        public int? ProductionProcessId { get; set; }
 
+        [Display(Name = "生产工序")]
+        public virtual ProductionProcess ProductionProcess { get; set; }
         [Display(Name = "表面处理")]
         [MaxLength(50)]
         public string Locator { get; set; }
@@ -83,8 +87,15 @@ namespace SAFERUN.IMS.Web.Models
 
         [Display(Name = "订单计划日期")]
         public DateTime OrderPlanDate { get; set; }
-
-        [Display(Name = "设计完成日期")]
+        [Display(Name = "计划开始日期")]
+        public DateTime? PlanedStartDate { get; set; }
+        [Display(Name = "计划完成日期")]
+        public DateTime? PlanedCompletedDate { get; set; }
+        [Display(Name = "实际开始日期")]
+        public DateTime? ActualStartDate { get; set; }
+        [Display(Name = "实际完成日期")]
+        public DateTime? ActualCompletedDate { get; set; }
+        [Display(Name = "实际完成日期")]
         public DateTime ActualFinishDate { get; set; }
 
         [Display(Name = "备注")]

@@ -22,29 +22,29 @@ namespace SAFERUN.IMS.Web.Controllers
 {
     public class ProductionPlansController : Controller
     {
-        
+
         //Please RegisterType UnityConfig.cs
         //container.RegisterType<IRepositoryAsync<ProductionPlan>, Repository<ProductionPlan>>();
         //container.RegisterType<IProductionPlanService, ProductionPlanService>();
-        
+
         //private ImsDbContext db = new ImsDbContext();
-        private readonly IProductionPlanService  _productionPlanService;
+        private readonly IProductionPlanService _productionPlanService;
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public ProductionPlansController (IProductionPlanService  productionPlanService, IUnitOfWorkAsync unitOfWork)
+        public ProductionPlansController(IProductionPlanService productionPlanService, IUnitOfWorkAsync unitOfWork)
         {
-            _productionPlanService  = productionPlanService;
+            _productionPlanService = productionPlanService;
             _unitOfWork = unitOfWork;
         }
 
         // GET: ProductionPlans/Index
         public ActionResult Index()
         {
-            
-            //var productionplans  = _productionPlanService.Queryable().Include(p => p.Order).Include(p => p.SKU).AsQueryable();
-            
-             //return View(productionplans);
-			 return View();
+
+            //var productionplans  = _productionPlanService.Queryable().Include(p => p.Order).Include(p => p.ProductionProcess).Include(p => p.SKU).AsQueryable();
+
+            //return View(productionplans);
+            return View();
         }
 
         // Get :ProductionPlans/PageList
@@ -52,19 +52,19 @@ namespace SAFERUN.IMS.Web.Controllers
         [HttpGet]
         public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
-			var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
+            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
             //int pagenum = offset / limit +1;
-            			 
-            var productionplans  = _productionPlanService.Query(new ProductionPlanQuery().Withfilter(filters)).Include(p => p.Order).Include(p => p.SKU).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
-            
-                        var datarows = productionplans .Select(  n => new { OrderOrderKey = (n.Order==null?"": n.Order.OrderKey) ,SKUSku = (n.SKU==null?"": n.SKU.Sku) , Id = n.Id , OrderKey = n.OrderKey , SKUId = n.SKUId , DesignName = n.DesignName , ComponentSKU = n.ComponentSKU , ALTSku = n.ALTSku , GraphSKU = n.GraphSKU , StockSKU = n.StockSKU , Status = n.Status , ConsumeQty = n.ConsumeQty , RequirementQty = n.RequirementQty , RejectRatio = n.RejectRatio , Deploy = n.Deploy , Locator = n.Locator , ProductionLine = n.ProductionLine , OrderPlanDate = n.OrderPlanDate , ActualFinishDate = n.ActualFinishDate , Remark = n.Remark , OrderId = n.OrderId }).ToList();
+
+            var productionplans = _productionPlanService.Query(new ProductionPlanQuery().Withfilter(filters)).Include(p => p.Order).Include(p => p.ProductionProcess).Include(p => p.SKU).OrderBy(n => n.OrderBy(sort, order)).SelectPage(page, rows, out totalCount);
+
+            var datarows = productionplans.Select(n => new { OrderOrderKey = (n.Order == null ? "" : n.Order.OrderKey), ProductionProcessName = (n.ProductionProcess == null ? "" : n.ProductionProcess.Name), SKUSku = (n.SKU == null ? "" : n.SKU.Sku), Id = n.Id, OrderKey = n.OrderKey, SKUId = n.SKUId, DesignName = n.DesignName, ComponentSKU = n.ComponentSKU, ALTSku = n.ALTSku, GraphSKU = n.GraphSKU, StockSKU = n.StockSKU, SKUGroup = n.SKUGroup, MadeType = n.MadeType, Status = n.Status, ConsumeQty = n.ConsumeQty, RequirementQty = n.RequirementQty, RejectRatio = n.RejectRatio, Deploy = n.Deploy, ProductionProcessId = n.ProductionProcessId, Locator = n.Locator, ProductionLine = n.ProductionLine, OrderPlanDate = n.OrderPlanDate, PlanedStartDate = n.PlanedStartDate, PlanedCompletedDate = n.PlanedCompletedDate, ActualStartDate = n.ActualStartDate, ActualCompletedDate = n.ActualCompletedDate, ActualFinishDate = n.ActualFinishDate, Remark = n.Remark, OrderId = n.OrderId }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
-		[HttpPost]
-		public ActionResult SaveData(ProductionPlanChangeViewModel productionplans)
+        [HttpPost]
+        public ActionResult SaveData(ProductionPlanChangeViewModel productionplans)
         {
             if (productionplans.updated != null)
             {
@@ -89,26 +89,33 @@ namespace SAFERUN.IMS.Web.Controllers
             }
             _unitOfWork.SaveChanges();
 
-            return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
 
-				public ActionResult GetOrders()
+        public ActionResult GetOrders()
         {
             var orderRepository = _unitOfWork.Repository<Order>();
             var data = orderRepository.Queryable().ToList();
             var rows = data.Select(n => new { Id = n.Id, OrderKey = n.OrderKey });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-				public ActionResult GetSKUs()
+        public ActionResult GetProductionProcesses()
+        {
+            var productionprocessRepository = _unitOfWork.Repository<ProductionProcess>();
+            var data = productionprocessRepository.Queryable().ToList();
+            var rows = data.Select(n => new { Id = n.Id, Name = n.Name });
+            return Json(rows, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetSKUs()
         {
             var skuRepository = _unitOfWork.Repository<SKU>();
             var data = skuRepository.Queryable().ToList();
             var rows = data.Select(n => new { Id = n.Id, Sku = n.Sku });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-		
-		
-       
+
+
+
         // GET: ProductionPlans/Details/5
         public ActionResult Details(int? id)
         {
@@ -123,7 +130,7 @@ namespace SAFERUN.IMS.Web.Controllers
             }
             return View(productionPlan);
         }
-        
+
 
         // GET: ProductionPlans/Create
         public ActionResult Create()
@@ -132,6 +139,8 @@ namespace SAFERUN.IMS.Web.Controllers
             //set default value
             var orderRepository = _unitOfWork.Repository<Order>();
             ViewBag.OrderId = new SelectList(orderRepository.Queryable(), "Id", "OrderKey");
+            var productionprocessRepository = _unitOfWork.Repository<ProductionProcess>();
+            ViewBag.ProductionProcessId = new SelectList(productionprocessRepository.Queryable(), "Id", "Name");
             var skuRepository = _unitOfWork.Repository<SKU>();
             ViewBag.SKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku");
             return View(productionPlan);
@@ -141,12 +150,12 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Order,SKU,Id,OrderKey,SKUId,DesignName,ComponentSKU,ALTSku,GraphSKU,StockSKU,Status,ConsumeQty,RequirementQty,RejectRatio,Deploy,Locator,ProductionLine,OrderPlanDate,ActualFinishDate,Remark,OrderId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProductionPlan productionPlan)
+        public ActionResult Create([Bind(Include = "Order,ProductionProcess,SKU,Id,OrderKey,SKUId,DesignName,ComponentSKU,ALTSku,GraphSKU,StockSKU,SKUGroup,MadeType,Status,ConsumeQty,RequirementQty,RejectRatio,Deploy,ProductionProcessId,Locator,ProductionLine,OrderPlanDate,PlanedStartDate,PlanedCompletedDate,ActualStartDate,ActualCompletedDate,ActualFinishDate,Remark,OrderId,BomComponentId,ParentBomComponentId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProductionPlan productionPlan)
         {
             if (ModelState.IsValid)
             {
-             				_productionPlanService.Insert(productionPlan);
-                           _unitOfWork.SaveChanges();
+                _productionPlanService.Insert(productionPlan);
+                _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -157,11 +166,13 @@ namespace SAFERUN.IMS.Web.Controllers
 
             var orderRepository = _unitOfWork.Repository<Order>();
             ViewBag.OrderId = new SelectList(orderRepository.Queryable(), "Id", "OrderKey", productionPlan.OrderId);
+            var productionprocessRepository = _unitOfWork.Repository<ProductionProcess>();
+            ViewBag.ProductionProcessId = new SelectList(productionprocessRepository.Queryable(), "Id", "Name", productionPlan.ProductionProcessId);
             var skuRepository = _unitOfWork.Repository<SKU>();
             ViewBag.SKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku", productionPlan.SKUId);
             if (Request.IsAjaxRequest())
             {
-                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
@@ -182,6 +193,8 @@ namespace SAFERUN.IMS.Web.Controllers
             }
             var orderRepository = _unitOfWork.Repository<Order>();
             ViewBag.OrderId = new SelectList(orderRepository.Queryable(), "Id", "OrderKey", productionPlan.OrderId);
+            var productionprocessRepository = _unitOfWork.Repository<ProductionProcess>();
+            ViewBag.ProductionProcessId = new SelectList(productionprocessRepository.Queryable(), "Id", "Name", productionPlan.ProductionProcessId);
             var skuRepository = _unitOfWork.Repository<SKU>();
             ViewBag.SKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku", productionPlan.SKUId);
             return View(productionPlan);
@@ -191,13 +204,13 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Order,SKU,Id,OrderKey,SKUId,DesignName,ComponentSKU,ALTSku,GraphSKU,StockSKU,Status,ConsumeQty,RequirementQty,RejectRatio,Deploy,Locator,ProductionLine,OrderPlanDate,ActualFinishDate,Remark,OrderId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProductionPlan productionPlan)
+        public ActionResult Edit([Bind(Include = "Order,ProductionProcess,SKU,Id,OrderKey,SKUId,DesignName,ComponentSKU,ALTSku,GraphSKU,StockSKU,SKUGroup,MadeType,Status,ConsumeQty,RequirementQty,RejectRatio,Deploy,ProductionProcessId,Locator,ProductionLine,OrderPlanDate,PlanedStartDate,PlanedCompletedDate,ActualStartDate,ActualCompletedDate,ActualFinishDate,Remark,OrderId,BomComponentId,ParentBomComponentId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProductionPlan productionPlan)
         {
             if (ModelState.IsValid)
             {
                 productionPlan.ObjectState = ObjectState.Modified;
-                				_productionPlanService.Update(productionPlan);
-                                
+                _productionPlanService.Update(productionPlan);
+
                 _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
@@ -208,11 +221,13 @@ namespace SAFERUN.IMS.Web.Controllers
             }
             var orderRepository = _unitOfWork.Repository<Order>();
             ViewBag.OrderId = new SelectList(orderRepository.Queryable(), "Id", "OrderKey", productionPlan.OrderId);
+            var productionprocessRepository = _unitOfWork.Repository<ProductionProcess>();
+            ViewBag.ProductionProcessId = new SelectList(productionprocessRepository.Queryable(), "Id", "Name", productionPlan.ProductionProcessId);
             var skuRepository = _unitOfWork.Repository<SKU>();
             ViewBag.SKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku", productionPlan.SKUId);
             if (Request.IsAjaxRequest())
             {
-                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
@@ -239,21 +254,28 @@ namespace SAFERUN.IMS.Web.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ProductionPlan productionPlan =  _productionPlanService.Find(id);
-             _productionPlanService.Delete(productionPlan);
+            ProductionPlan productionPlan = _productionPlanService.Find(id);
+            _productionPlanService.Delete(productionPlan);
             _unitOfWork.SaveChanges();
-           if (Request.IsAjaxRequest())
-                {
-                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
-                }
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
             DisplaySuccessMessage("Has delete a ProductionPlan record");
             return RedirectToAction("Index");
         }
 
 
-       
 
- 
+        [HttpPost]
+        public ActionResult GenerateTask(int[] plansid)
+        {
+
+            var list = _productionPlanService.GenerateProductionTask(plansid);
+            _unitOfWork.SaveChanges();
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
+
 
         private void DisplaySuccessMessage(string msgText)
         {

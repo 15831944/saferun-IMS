@@ -54,8 +54,8 @@
                             <tr>
                                 @*<th data-options="field:'ck',checkbox:true"></th>*@
                                 <th data-options="field:'_operate1',width:80,align:'center',formatter:formatOper">操作</th>
-                                <th data-options="field:'_operate2',width:80,align:'center',formatter:formatAction1">评审</th>
-                                <th data-options="field:'_operate3',width:80,align:'center',formatter:formatAction2">生产计划</th>
+                                <th data-options="field:'_operate2',width:120,align:'center',formatter:formatAction1">评审计划</th>
+                                <th data-options="field:'_operate3',width:120,align:'center',formatter:formatAction2">生成采购计划</th>
                                 <th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.OrderKey)</th>
 
 
@@ -148,13 +148,13 @@
         var editIndex = undefined;
         function formatOper(val, row, index) {
             //console.log(val, row, index);
-            return '<a  class="easyui-linkbutton" href="/Orders/Edit/' + row.Id + '" >修改</a>';
+            return '<a  class="easyui-linkbutton" href="/Orders/Edit/' + row.Id + '" >编辑明细</a>';
         }
         function formatAction1(val, row, index) {
             return '<a   class="easyui-linkbutton" href="javascript:void(0)" onclick="generateAudit(' + row.Id + ')" >生成评审计划</a>'
         }
         function formatAction2(val, row, index) {
-            return '<a   class="easyui-linkbutton" href="javascript:void(0)" onclick="generateProductPlan(' + row.Id + ')" >生成生产计划</a>'
+            return '<a   class="easyui-linkbutton" href="javascript:void(0)" onclick="generateProductPlan(' + row.Id + ')" >生成生产采购计划</a>'
         }
         function generateAudit(id) {
             $.messager.progress({ title: '正在处理请耐心等待！' });
@@ -209,6 +209,11 @@
             }
         }
         function onClickCell(index, field) {
+            var _operates = ["_operate1", "_operate2", "_operate3", "_operate4"]
+            if ($.inArray(field, _operates) >= 0) {
+                return;
+            }
+
             if (editIndex != index) {
                 if (endEditing()) {
                     $dg.datagrid('selectRow', index)

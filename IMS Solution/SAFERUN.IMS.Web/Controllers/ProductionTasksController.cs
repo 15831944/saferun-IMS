@@ -58,7 +58,7 @@ namespace SAFERUN.IMS.Web.Controllers
             			 
             var productiontasks  = _productionTaskService.Query(new ProductionTaskQuery().Withfilter(filters)).Include(p => p.Order).Include(p => p.SKU).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
             
-                        var datarows = productiontasks .Select(  n => new { OrderOrderKey = (n.Order==null?"": n.Order.OrderKey) ,SKUSku = (n.SKU==null?"": n.SKU.Sku) , Id = n.Id , OrderKey = n.OrderKey , SKUId = n.SKUId , DesignName = n.DesignName , ComponentSKU = n.ComponentSKU , ALTSku = n.ALTSku , GraphSKU = n.GraphSKU , ProcessName = n.ProcessName , ProcessOrder = n.ProcessOrder , ProcessSetp = n.ProcessSetp , AltElapsedTime = n.AltElapsedTime , ProductionLine = n.ProductionLine , Equipment = n.Equipment , OrderPlanDate = n.OrderPlanDate , Owner = n.Owner , PlanStartDateTime = n.PlanStartDateTime , PlanCompletedDateTime = n.PlanCompletedDateTime , ActualStartDateTime = n.ActualStartDateTime , ActualCompletedDateTime = n.ActualCompletedDateTime , ActualElapsedTime = n.ActualElapsedTime , Status = n.Status , Issue = n.Issue , Remark = n.Remark , OrderId = n.OrderId }).ToList();
+                        var datarows = productiontasks .Select(  n => new { OrderOrderKey = (n.Order==null?"": n.Order.OrderKey) ,SKUSku = (n.SKU==null?"": n.SKU.Sku) , Id = n.Id , OrderKey = n.OrderKey , SKUId = n.SKUId , DesignName = n.DesignName , ComponentSKU = n.ComponentSKU , ALTSku = n.ALTSku , GraphSKU = n.GraphSKU , ProductionQty = n.ProductionQty , ProcessName = n.ProcessName , ProcessOrder = n.ProcessOrder , ProcessSetp = n.ProcessSetp , AltElapsedTime = n.AltElapsedTime , ProductionLine = n.ProductionLine , Equipment = n.Equipment , OrderPlanDate = n.OrderPlanDate , Owner = n.Owner , PlanStartDateTime = n.PlanStartDateTime , PlanCompletedDateTime = n.PlanCompletedDateTime , ActualStartDateTime = n.ActualStartDateTime , ActualCompletedDateTime = n.ActualCompletedDateTime , ActualElapsedTime = n.ActualElapsedTime , Status = n.Status , Issue = n.Issue , Remark = n.Remark , OrderId = n.OrderId }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
@@ -141,7 +141,7 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Order,SKU,Id,OrderKey,SKUId,DesignName,ComponentSKU,ALTSku,GraphSKU,ProcessName,ProcessOrder,ProcessSetp,AltElapsedTime,ProductionLine,Equipment,OrderPlanDate,Owner,PlanStartDateTime,PlanCompletedDateTime,ActualStartDateTime,ActualCompletedDateTime,ActualElapsedTime,Status,Issue,Remark,OrderId,BomComponentId,ParentBomComponentId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProductionTask productionTask)
+        public ActionResult Create([Bind(Include = "Order,SKU,Id,OrderKey,SKUId,DesignName,ComponentSKU,ALTSku,GraphSKU,ProductionQty,ProcessName,ProcessOrder,ProcessSetp,AltElapsedTime,ProductionLine,Equipment,OrderPlanDate,Owner,PlanStartDateTime,PlanCompletedDateTime,ActualStartDateTime,ActualCompletedDateTime,ActualElapsedTime,Status,Issue,Remark,OrderId,BomComponentId,ParentBomComponentId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProductionTask productionTask)
         {
             if (ModelState.IsValid)
             {
@@ -191,7 +191,7 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Order,SKU,Id,OrderKey,SKUId,DesignName,ComponentSKU,ALTSku,GraphSKU,ProcessName,ProcessOrder,ProcessSetp,AltElapsedTime,ProductionLine,Equipment,OrderPlanDate,Owner,PlanStartDateTime,PlanCompletedDateTime,ActualStartDateTime,ActualCompletedDateTime,ActualElapsedTime,Status,Issue,Remark,OrderId,BomComponentId,ParentBomComponentId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProductionTask productionTask)
+        public ActionResult Edit([Bind(Include = "Order,SKU,Id,OrderKey,SKUId,DesignName,ComponentSKU,ALTSku,GraphSKU,ProductionQty,ProcessName,ProcessOrder,ProcessSetp,AltElapsedTime,ProductionLine,Equipment,OrderPlanDate,Owner,PlanStartDateTime,PlanCompletedDateTime,ActualStartDateTime,ActualCompletedDateTime,ActualElapsedTime,Status,Issue,Remark,OrderId,BomComponentId,ParentBomComponentId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProductionTask productionTask)
         {
             if (ModelState.IsValid)
             {

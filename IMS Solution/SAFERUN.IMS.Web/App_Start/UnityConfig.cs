@@ -146,6 +146,13 @@ namespace SAFERUN.IMS.Web.App_Start
 
         container.RegisterType<IRepositoryAsync<RepairJob>, Repository<RepairJob>>();
         container.RegisterType<IRepairJobService, RepairJobService>();
+
+
+
+
+         container.RegisterType<IRepositoryAsync<Supplier>, Repository<Supplier>>();
+        container.RegisterType<ISupplierService, SupplierService>();
+        
         
         }
     }

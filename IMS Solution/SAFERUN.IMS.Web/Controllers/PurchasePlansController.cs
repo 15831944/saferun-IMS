@@ -58,7 +58,7 @@ namespace SAFERUN.IMS.Web.Controllers
             			 
             var purchaseplans  = _purchasePlanService.Query(new PurchasePlanQuery().Withfilter(filters)).Include(p => p.Order).Include(p => p.SKU).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
             
-                        var datarows = purchaseplans .Select(  n => new { OrderOrderKey = (n.Order==null?"": n.Order.OrderKey) ,SKUSku = (n.SKU==null?"": n.SKU.Sku) , Id = n.Id , OrderKey = n.OrderKey , SKUId = n.SKUId , DesignName = n.DesignName , ComponentSKU = n.ComponentSKU , ALTSku = n.ALTSku , GraphSKU = n.GraphSKU , StockSKU = n.StockSKU , Status = n.Status , ConsumeQty = n.ConsumeQty , RequirementQty = n.RequirementQty , RejectRatio = n.RejectRatio , Deploy = n.Deploy , Locator = n.Locator , Brand = n.Brand , Supplier = n.Supplier , OrderPlanDate = n.OrderPlanDate , PlanDeliveryDate = n.PlanDeliveryDate , ActualDeliveryDate = n.ActualDeliveryDate , Remark = n.Remark , OrderId = n.OrderId }).ToList();
+                        var datarows = purchaseplans .Select(  n => new { OrderOrderKey = (n.Order==null?"": n.Order.OrderKey) ,SKUSku = (n.SKU==null?"": n.SKU.Sku) , Id = n.Id , OrderKey = n.OrderKey , SKUId = n.SKUId , DesignName = n.DesignName , ComponentSKU = n.ComponentSKU , ALTSku = n.ALTSku , GraphSKU = n.GraphSKU , StockSKU = n.StockSKU , Status = n.Status , ConsumeQty = n.ConsumeQty , RequirementQty = n.RequirementQty , RejectRatio = n.RejectRatio , Deploy = n.Deploy , Locator = n.Locator , Brand = n.Brand , Supplier = n.Supplier , OrderPlanDate = n.OrderPlanDate , PlanedStartDate = n.PlanedStartDate , ActualStartDate = n.ActualStartDate , PlanDeliveryDate = n.PlanDeliveryDate , ActualDeliveryDate = n.ActualDeliveryDate , Remark = n.Remark , OrderId = n.OrderId }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
@@ -141,7 +141,7 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Order,SKU,Id,OrderKey,SKUId,DesignName,ComponentSKU,ALTSku,GraphSKU,StockSKU,Status,ConsumeQty,RequirementQty,RejectRatio,Deploy,Locator,Brand,Supplier,OrderPlanDate,PlanDeliveryDate,ActualDeliveryDate,Remark,OrderId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] PurchasePlan purchasePlan)
+        public ActionResult Create([Bind(Include = "Order,SKU,Id,OrderKey,SKUId,DesignName,ComponentSKU,ALTSku,GraphSKU,StockSKU,Status,ConsumeQty,RequirementQty,RejectRatio,Deploy,Locator,Brand,Supplier,OrderPlanDate,PlanedStartDate,ActualStartDate,PlanDeliveryDate,ActualDeliveryDate,Remark,OrderId,BomComponentId,ParentBomComponentId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] PurchasePlan purchasePlan)
         {
             if (ModelState.IsValid)
             {
@@ -191,7 +191,7 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Order,SKU,Id,OrderKey,SKUId,DesignName,ComponentSKU,ALTSku,GraphSKU,StockSKU,Status,ConsumeQty,RequirementQty,RejectRatio,Deploy,Locator,Brand,Supplier,OrderPlanDate,PlanDeliveryDate,ActualDeliveryDate,Remark,OrderId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] PurchasePlan purchasePlan)
+        public ActionResult Edit([Bind(Include = "Order,SKU,Id,OrderKey,SKUId,DesignName,ComponentSKU,ALTSku,GraphSKU,StockSKU,Status,ConsumeQty,RequirementQty,RejectRatio,Deploy,Locator,Brand,Supplier,OrderPlanDate,PlanedStartDate,ActualStartDate,PlanDeliveryDate,ActualDeliveryDate,Remark,OrderId,BomComponentId,ParentBomComponentId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] PurchasePlan purchasePlan)
         {
             if (ModelState.IsValid)
             {

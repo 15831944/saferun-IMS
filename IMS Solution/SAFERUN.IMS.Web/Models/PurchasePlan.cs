@@ -35,8 +35,10 @@ namespace SAFERUN.IMS.Web.Models
         public string Brand { get; set; }
         public string Supplier { get; set; }
         public DateTime OrderPlanDate { get; set; }
+        public DateTime? PlanedStartDate { get; set; }
+        public DateTime? ActualStartDate { get; set; }
         public DateTime PlanDeliveryDate { get; set; }
-
+        
         public DateTime? ActualDeliveryDate { get; set; }
 
         public string Remark { get; set; }

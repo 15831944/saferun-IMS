@@ -102,6 +102,7 @@ namespace SAFERUN.IMS.Web.Services
                     foreach (var component in bomlist)
                     {
                         ProductionPlan plan = new ProductionPlan();
+                        plan.ProductionProcessId = component.ProductionProcessId;
                         plan.OrderId = orderId;
                         plan.OrderKey = order.OrderKey;
                         plan.BomComponentId = component.Id;

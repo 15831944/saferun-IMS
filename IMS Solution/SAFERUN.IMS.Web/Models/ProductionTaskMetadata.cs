@@ -44,14 +44,14 @@ namespace SAFERUN.IMS.Web.Models
         [MaxLength(30)]
         public string GraphSKU { get; set; }
 
-        [Display(Name = "处理工艺")]
+        [Display(Name = "处理工序")]
         [MaxLength(50)]
         public string ProcessName { get; set; }
 
-        [Display(Name = "工艺次序")]
+        [Display(Name = "工序顺序")]
         public int ProcessOrder { get; set; }
 
-        [Display(Name = "处理步骤")]
+        [Display(Name = "工序名称")]
         [MaxLength(50)]
         public string ProcessSetp { get; set; }
 
@@ -90,6 +90,9 @@ namespace SAFERUN.IMS.Web.Models
 
         [Display(Name = "状态")]
         public int Status { get; set; }
+
+        [Display(Name = "生产数量")]
+        public decimal ProductionQty { get; set; }
 
         [Display(Name = "异常")]
         [MaxLength(200)]

@@ -33,11 +33,18 @@ namespace SAFERUN.IMS.Web.Models
         public decimal RejectRatio { get; set; }
 
         public string Deploy { get; set; }
+        public int? ProductionProcessId { get; set; }
 
+        [ForeignKey("ProductionProcessId")]
+        public virtual ProductionProcess ProductionProcess { get; set; }
         public string Locator { get; set; }
 
         public string ProductionLine { get; set; }
         public DateTime OrderPlanDate { get; set; }
+        public DateTime? PlanedStartDate { get; set; }
+        public DateTime? PlanedCompletedDate { get; set; }
+        public DateTime? ActualStartDate { get; set; }
+        public DateTime? ActualCompletedDate { get; set; }
         public DateTime? ActualFinishDate { get; set; }
 
         public string Remark { get; set; }
