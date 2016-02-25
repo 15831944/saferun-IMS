@@ -253,3 +253,9 @@ D:\萨驰华辰项目\saferun-IMS\IMS Solution\SAFERUN.IMS.Web\obj\Debug\SAFERUN
 D:\萨驰华辰项目\saferun-IMS\IMS Solution\SAFERUN.IMS.Web\obj\Debug\SAFERUN.IMS.Web.Migrations.up11.resources
 D:\萨驰华辰项目\saferun-IMS\IMS Solution\SAFERUN.IMS.Web\obj\Debug\SAFERUN.IMS.Web.Migrations.q.resources
 D:\萨驰华辰项目\saferun-IMS\IMS Solution\SAFERUN.IMS.Web\obj\Debug\SAFERUN.IMS.Web.Migrations.s.resources
+D:\萨驰项目\SourceCode\saferun-IMS\IMS Solution\SAFERUN.IMS.Web\obj\Debug\SAFERUN.IMS.Web.Migrations.update.resources
+D:\萨驰项目\SourceCode\saferun-IMS\IMS Solution\SAFERUN.IMS.Web\obj\Debug\SAFERUN.IMS.Web.Migrations.update1.resources
+D:\萨驰项目\SourceCode\saferun-IMS\IMS Solution\SAFERUN.IMS.Web\obj\Debug\SAFERUN.IMS.Web.Migrations.up1.resources
+D:\萨驰项目\SourceCode\saferun-IMS\IMS Solution\SAFERUN.IMS.Web\obj\Debug\SAFERUN.IMS.Web.Migrations.up11.resources
+D:\萨驰项目\SourceCode\saferun-IMS\IMS Solution\SAFERUN.IMS.Web\obj\Debug\SAFERUN.IMS.Web.Migrations.q.resources
+D:\萨驰项目\SourceCode\saferun-IMS\IMS Solution\SAFERUN.IMS.Web\obj\Debug\SAFERUN.IMS.Web.Migrations.s.resources
