@@ -1178,12 +1178,6 @@
     <Content Include="Views\SKUs\Edit.cshtml" />
     <Content Include="Views\SKUs\EditForm.cshtml" />
     <Content Include="Views\SKUs\_PopupSearch.cshtml" />
-    <Content Include="Views\BOMComponents1\Index.cshtml" />
-    <Content Include="Views\BOMComponents1\Create.cshtml" />
-    <Content Include="Views\BOMComponents1\Edit.cshtml" />
-    <Content Include="Views\BOMComponents1\EditForm.cshtml" />
-    <Content Include="Views\BOMComponents1\_PopupSearch.cshtml" />
-    <Content Include="Views\BOMComponents1\_BOMComponentEditForm.cshtml" />
     <Content Include="Scripts\uploadify\check-exists.php" />
     <Content Include="Scripts\uploadify\index.php" />
     <Content Include="Scripts\uploadify\uploadify.php" />
