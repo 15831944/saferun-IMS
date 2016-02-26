@@ -69,11 +69,12 @@
                                 <th data-options="field:'Version',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Version)</th>
 
 
-                                <th data-options="field:'Status',width:100,align:'right',editor:{ type:'combobox'
-                                            ,options:{
-                                                panelHeight: 'auto',
-                                                 data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
-                                                required:true} }  ,formatter:statusformatter">@Html.DisplayNameFor(model => model.Status)</th>
+                                <th data-options="field:'Status',width:100,align:'right',
+                                                 editor:{ type:'combobox',
+                                                 options:{
+                                                    panelHeight: 'auto',
+                                                    data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
+                                                    required:true } }  ,formatter:statusformatter">@Html.DisplayNameFor(model => model.Status)</th>
 
 
                                                 <th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Description)</th>
