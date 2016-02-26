@@ -52,7 +52,7 @@
                            toolbar :'#projecttypes_toolbar' ,
                            url: '/ProjectTypes/GetData' ,
                            method: 'get' ,
-                           onclickcell: 'onclickcell',
+                           onClickCell: onClickCell,
                            pagination :true
                            ">
                         <thead>
@@ -69,23 +69,27 @@
                                 <th data-options="field:'Version',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Version)</th>
 
 
-                                <th data-options="field:'Status',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Status)</th>
+                                <th data-options="field:'Status',width:100,align:'right',editor:{ type:'combobox'
+                                            ,options:{
+                                                panelHeight: 'auto',
+                                                 data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
+                                                required:true} }  ,formatter:statusformatter">@Html.DisplayNameFor(model => model.Status)</th>
 
 
-                                <th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Description)</th>
+                                                <th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Description)</th>
 
 
-                                <th data-options="field:'StartDate',width:160,align:'right',editor:{type:'datetimebox',options:{}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.StartDate)</th>
+                                                <th data-options="field:'StartDate',width:160,align:'right',editor:{type:'datetimebox',options:{}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.StartDate)</th>
 
 
-                                <th data-options="field:'ExpiryDate',width:160,align:'right',editor:{type:'datetimebox',options:{}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ExpiryDate)</th>
+                                                <th data-options="field:'ExpiryDate',width:160,align:'right',editor:{type:'datetimebox',options:{}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ExpiryDate)</th>
 
 
-                            </tr>
-                        </thead>
+                                            </tr>
+                                        </thead>
 
 
-                    </table>
+                                    </table>
 	<div id="projecttypes_toolbar" style="height:auto">
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
@@ -117,6 +121,7 @@
             }
         }
         function onClickCell(index, field) {
+            console.log(index);
             if (editIndex != index) {
                 if (endEditing()) {
                     $dg.datagrid('selectRow', index)

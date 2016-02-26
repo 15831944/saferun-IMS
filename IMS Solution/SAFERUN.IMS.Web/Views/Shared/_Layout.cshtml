@@ -295,6 +295,16 @@
                         </div>
                     </div>
                     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        function statusformatter(value, row, index) {
+  
+            if (value == 0) {
+                return '启用';
+            } else {
+                return '禁用';
+            }
+        }
+    </script>
     
 </body>
 </html>
