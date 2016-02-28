@@ -69,5 +69,7 @@ namespace SAFERUN.IMS.Web.Models
         public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.RepairJob> RepairJobs { get; set; }
 
         public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.Supplier> Suppliers { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.AssemblyPlan> AssemblyPlans { get; set; }
     }
 }

@@ -25,7 +25,8 @@ namespace SAFERUN.IMS.Web.Services
         private readonly IProductionPlanService _productionplanservice;
         private readonly IRepositoryAsync<OrderDetail> _orderdetailrepository;
         private readonly IPurchasePlanService _purchaseservice;
-        public OrderService(IPurchasePlanService purchaseservice,IRepositoryAsync<OrderDetail> orderdetailrepository,IRepositoryAsync<Order> repository, IRepositoryAsync<ProjectNode> projectnoderepository, IOrderAuditPlanService auditplanService, IRepositoryAsync<BOMComponent> bomrepository, IProductionPlanService productionplanservice)
+        private readonly IAssemblyPlanService _assemblyservice;
+        public OrderService(IAssemblyPlanService assemblyservice,IPurchasePlanService purchaseservice,IRepositoryAsync<OrderDetail> orderdetailrepository,IRepositoryAsync<Order> repository, IRepositoryAsync<ProjectNode> projectnoderepository, IOrderAuditPlanService auditplanService, IRepositoryAsync<BOMComponent> bomrepository, IProductionPlanService productionplanservice)
             : base(repository)
         {
             _repository = repository;
@@ -35,6 +36,7 @@ namespace SAFERUN.IMS.Web.Services
             _productionplanservice = productionplanservice;
             _orderdetailrepository = orderdetailrepository;
             _purchaseservice = purchaseservice;
+            _assemblyservice = assemblyservice;
         }
 
         public IEnumerable<Order> GetByCustomerId(int customerid)
@@ -175,6 +177,45 @@ namespace SAFERUN.IMS.Web.Services
 
                 return list;
             }
+        }
+
+
+        public IEnumerable<AssemblyPlan> GenerateAssemblyPlan(int orderId)
+        {
+            List<AssemblyPlan> list = new List<AssemblyPlan>();
+            list = this._assemblyservice.Queryable().Where(x => x.OrderId == orderId).ToList();
+            if (list.Count > 0)
+            {
+                return list;
+            }
+            else
+            {
+                var orderdetails = _orderdetailrepository.Queryable().Include(x=>x.Order).Where(x => x.OrderId == orderId).ToList();
+                foreach (var item in orderdetails)
+                {
+                    var bomlist = _bomrepository.Queryable().Include(s => s.SKU).Where(x => x.FinishedSKU == item.ProductionSku && x.SKU.SKUGroup=="部套").ToList();
+                    foreach (var component in bomlist)
+                    {
+                        AssemblyPlan plan = new AssemblyPlan();
+                        plan.OrderId = item.OrderId;
+                        plan.OrderKey = item.OrderKey;
+                        plan.OrderDate = item.Order.OrderDate;
+                        plan.RequirementDate = item.Order.PlanFinishDate;
+                        plan.ComponentSKU = component.ComponentSKU;
+                        plan.BomComponentId = component.Id;
+                        plan.ParentBomComponentId = component.ParentComponentId;
+                        plan.FinishedSKU = component.FinishedSKU;
+                        plan.DesignName = component.DesignName;
+                        plan.SKUId = component.SKUId;
+                        list.Add(plan);
+                    }
+                }
+                this._assemblyservice.InsertRange(list);
+            }
+
+
+
+            return list;
         }
     }
 }

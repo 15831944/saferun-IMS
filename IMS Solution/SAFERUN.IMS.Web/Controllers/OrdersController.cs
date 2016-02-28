@@ -358,6 +358,13 @@ namespace SAFERUN.IMS.Web.Controllers
             return View(orderdetails);
 
         }
+        [HttpPost]
+        public ActionResult GenerateAssemblyPlan(int id)
+        {
+            var assplan = _orderService.GenerateAssemblyPlan(id);
+            _unitOfWork.SaveChanges();
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public ActionResult GenerateAuditPlan(int id)

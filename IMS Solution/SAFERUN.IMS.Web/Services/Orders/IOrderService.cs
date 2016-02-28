@@ -1,8 +1,8 @@
 ﻿
 
-     
- 
- 
+
+
+
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -15,17 +15,19 @@ using SAFERUN.IMS.Web.Repositories;
 
 namespace SAFERUN.IMS.Web.Services
 {
-    public interface IOrderService:IService<Order>
+    public interface IOrderService : IService<Order>
     {
 
-                  IEnumerable<Order> GetByCustomerId(int  customerid);
-                 IEnumerable<Order> GetByProjectTypeId(int  projecttypeid);
-        
-                 IEnumerable<OrderDetail>   GetOrderDetailsByOrderId (int orderid);
+        IEnumerable<Order> GetByCustomerId(int customerid);
+        IEnumerable<Order> GetByProjectTypeId(int projecttypeid);
 
-                 IEnumerable<OrderAuditPlan> GenerateAuditPlan(int orderId);
-                 IEnumerable<ProductionPlan> GenerateProductionPlan(int orderId);
-                 IEnumerable<PurchasePlan> GeneratePurchasePlan(int orderId);
- 
-	}
+        IEnumerable<OrderDetail> GetOrderDetailsByOrderId(int orderid);
+
+        IEnumerable<OrderAuditPlan> GenerateAuditPlan(int orderId);
+        IEnumerable<ProductionPlan> GenerateProductionPlan(int orderId);
+        IEnumerable<PurchasePlan> GeneratePurchasePlan(int orderId);
+
+        IEnumerable<AssemblyPlan> GenerateAssemblyPlan(int orderId);
+
+    }
 }

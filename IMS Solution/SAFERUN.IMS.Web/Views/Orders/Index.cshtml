@@ -55,7 +55,9 @@
                                 @*<th data-options="field:'ck',checkbox:true"></th>*@
                                 <th data-options="field:'_operate1',width:80,align:'center',formatter:formatOper">操作</th>
                                 <th data-options="field:'_operate2',width:120,align:'center',formatter:formatAction1">评审计划</th>
-                                <th data-options="field:'_operate3',width:120,align:'center',formatter:formatAction2">生成采购计划</th>
+                                <th data-options="field:'_operate3',width:120,align:'center',formatter:formatAction2">部套计划</th>
+                                <th data-options="field:'_operate4',width:120,align:'center',formatter:formatAction3">生产计划</th>
+                                <th data-options="field:'_operate5',width:120,align:'center',formatter:formatAction4">外购计划</th>
                                 <th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.OrderKey)</th>
 
 
@@ -154,7 +156,24 @@
             return '<a   class="easyui-linkbutton" href="javascript:void(0)" onclick="generateAudit(' + row.Id + ')" >生成评审计划</a>'
         }
         function formatAction2(val, row, index) {
-            return '<a   class="easyui-linkbutton" href="javascript:void(0)" onclick="generateProductPlan(' + row.Id + ')" >生成生产采购计划</a>'
+            return '<a   class="easyui-linkbutton" href="javascript:void(0)" onclick="generateAssemblyPlan(' + row.Id + ')" >生成部套计划</a>'
+        }
+        function formatAction3(val, row, index) {
+            return '<a   class="easyui-linkbutton" href="javascript:void(0)" onclick="generateProductPlan(' + row.Id + ')" >生成生产计划</a>'
+        }
+        function formatAction4(val, row, index) {
+            return '<a   class="easyui-linkbutton" href="javascript:void(0)" onclick="generateProductPlan(' + row.Id + ')" >生成外购计划</a>'
+        }
+        function generateAssemblyPlan(id) {
+            $.messager.progress({ title: '正在处理请耐心等待！' });
+            $.post('/Orders/GenerateAssemblyPlan/' + id, function (data, textStatus, jqXHR) {
+                //console.log(data);
+                $.messager.progress('close');
+                $.messager.alert("提示", "部套计划生成完成！", 'info', function () {
+                    $(location).attr('href', '/AssemblyPlans');
+                });
+
+            });
         }
         function generateAudit(id) {
             $.messager.progress({ title: '正在处理请耐心等待！' });

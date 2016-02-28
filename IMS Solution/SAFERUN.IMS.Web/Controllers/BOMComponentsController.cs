@@ -72,6 +72,20 @@ namespace SAFERUN.IMS.Web.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult GridData(int page = 1, int rows = 10, int id = 0, string sort = "Id", string order = "asc", string filterRules = "")
+        {
+            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
+            int totalCount = 0;
+            //int pagenum = offset / limit +1;
+          
+                var bomcomponents = _bOMComponentService.Query(new BOMComponentQuery().Withfilter(filters)).Include(b => b.ParentComponent).Include(b => b.ProductionProcess).Include(b => b.SKU).OrderBy(n => n.OrderBy(sort, order)).SelectPage(page, rows, out totalCount); 
+                var datarows = bomcomponents.Select(n => new {   _parentId = n.ParentComponentId, ParentComponentComponentSKU = (n.ParentComponent == null ? "" : n.ParentComponent.ComponentSKU), ProductionProcessName = (n.ProductionProcess == null ? "" : n.ProductionProcess.Name), SKUSku = (n.SKU == null ? "" : n.SKU.Sku), Id = n.Id, ComponentSKU = n.ComponentSKU, DesignName = n.DesignName, ALTSku = n.ALTSku, GraphSKU = n.GraphSKU, StockSKU = n.StockSKU, MadeType = n.MadeType, SKUGroup = n.SKUGroup, Remark1 = n.Remark1, Remark2 = n.Remark2, ConsumeQty = n.ConsumeQty, ConsumeTime = n.ConsumeTime, RejectRatio = n.RejectRatio, Deploy = n.Deploy, Locator = n.Locator, ProductionLine = n.ProductionLine, ProductionProcessId = n.ProductionProcessId, Version = n.Version, Status = n.Status, NoPur = n.NoPur, FinishedSKU = n.FinishedSKU, SKUId = n.SKUId, ParentComponentId = n.ParentComponentId }).ToList();
+                var pagelist = new { total = totalCount, rows = datarows };
+                return Json(pagelist, JsonRequestBehavior.AllowGet);
+            
+        }
+
         [HttpPost]
         public ActionResult SaveData(BOMComponentChangeViewModel bomcomponents)
         {
