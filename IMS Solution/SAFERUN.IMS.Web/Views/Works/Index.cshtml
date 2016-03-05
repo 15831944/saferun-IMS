@@ -1,0 +1,1081 @@
+﻿@model IEnumerable<SAFERUN.IMS.Web.Models.Work>
+
+
+
+
+@{
+    ViewBag.Title = "生产任务单";
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="table_data_tables.html#">Config option 1</a>
+                        </li>
+                        <li>
+                            <a href="table_data_tables.html#">Config option 2</a>
+                        </li>
+                    </ul>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+
+                <div class="table-responsive">
+
+
+                    <table id="works_datagrid" class="easyui-datagrid" title="生产任务单 DataGrid" style="width:auto;height:400px"
+                           data-options="
+                           collapsible:true,
+                 rownumbers:true,
+                 idField:'Id',
+                 sortName:'Id',
+                 sortorder:'asc',
+                remoteFilter: true,
+                singleSelect: true,
+                toolbar: '#works_toolbar',
+                url: '/Works/GetData',
+                method: 'get',
+                onClickCell: onClickCell,
+                onSelect:onSelect,
+                pagination: 'true'
+                   ">
+                        <thead>
+                            <tr>
+                                <th data-options="field:'_ck',checkbox:true"></th>
+                                @*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
+
+                                <th data-options="field:'WorkNo',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.WorkNo)</th>
+
+                                <th data-options="field:'WorkTypeId',width:100,sortable:true,resizable:true,
+                                    formatter:function(value,row){
+                                            return row.WorkTypeName;
+                                        },
+                                    editor:{
+                            type:'combobox',
+                            options:{
+                                valueField:'Id',
+                                textField:'Name',
+                                method:'get',
+                                url:'/Works/GetWorkTypes',
+                                required:true
+                            }
+                        }">@Html.DisplayNameFor(model => model.WorkTypeId)</th>
+
+
+
+                        @*<th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.OrderKey)</th>*@
+
+                        <th data-options="field:'OrderId',width:100,
+                                            formatter:function(value,row){
+                                                    return row.OrderOrderKey;
+                                            },
+                                            editor:{
+                                            type:'combogrid',
+                                            options:{
+                                                idField:'Id',
+                                                panelWidth: 300,
+                                                textField:'OrderKey',
+                                                method:'get',
+                                                url:'/Works/GetOrders',
+                                                required:true,
+                                                fitColumns:true,
+                                                columns:[[
+                                                    {field:'OrderKey',title:'订单号',width:100},
+						                            {field:'ProjectName',title:'项目名称',width:120},
+						                            {field:'Status',title:'状态',width:60}
+					                                    ]],
+                                                onSelect:function(rowIndex, rowData) {
+
+	                                                    var gridOpts = $dg.datagrid('options');
+	                                                    var ed = $dg.datagrid('getEditor',{index:editIndex,field:'OrderId'});
+                                                        $(ed.target).combogrid('setValue',rowData.OrderKey);
+                                                        $dg.datagrid('getRows')[editIndex]['OrderOrderKey'] = rowData.OrderKey;
+                                                        $dg.datagrid('getRows')[editIndex]['OrderKey'] = rowData.OrderKey;
+                                                        $dg.datagrid('getRows')[editIndex]['OrderId'] = rowData.Id;
+                                                        $dg.datagrid('getRows')[editIndex]['OrderProjectName'] = rowData.ProjectName;
+                                                        var ed = $dg.datagrid('getEditor',{index:editIndex,field:'OrderProjectName'});
+
+                                                        $(ed.target).textbox('setValue',rowData.ProjectName);
+
+
+
+                                                }
+
+                                            }
+                                    }">@Html.DisplayNameFor(model => model.OrderId)</th>
+
+                                    <th data-options="field:'OrderProjectName',width:160, editor:{type:'textbox',options:{required:false} } ,sortable:false,resizable:false ">项目名称</th>
+
+                                    <th data-options="field:'PO',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.PO)</th>
+
+
+                                    <th data-options="field:'User',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.User)</th>
+
+
+                                    <th data-options="field:'WorkDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.WorkDate)</th>
+
+
+                                    <th data-options="field:'Status',width:100,align:'right',
+                                                 editor:{ type:'combobox',
+                                                 options:{
+                                                    panelHeight: 'auto',
+                                                    data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
+                                                    required:true } }  ,formatter:statusformatter">@Html.DisplayNameFor(model => model.Status)</th>
+
+
+                                                    <th data-options="field:'Review',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Review)</th>
+
+
+                                                    <th data-options="field:'ProductionConfirm',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ProductionConfirm)</th>
+
+
+                                                    <th data-options="field:'OutsourceConfirm',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.OutsourceConfirm)</th>
+
+
+                                                    <th data-options="field:'AssembleConfirm',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.AssembleConfirm)</th>
+
+
+                                                    <th data-options="field:'PurchaseConfirm',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.PurchaseConfirm)</th>
+
+
+                                                    <th data-options="field:'ReviewDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ReviewDate)</th>
+
+
+                                                    <th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Remark)</th>
+
+
+                                                </tr>
+                                            </thead>
+
+
+                                        </table>
+                                        <div id="works_toolbar" style="height:auto">
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">Append</a>
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
+                                            @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>*@
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+                                        </div>
+                                    </div>
+
+                                    <div id="tt" class="easyui-tabs" style="width:auto;height:400px;">
+                                        <div title="生产任务单明细" style="padding:10px;">
+                                            <div class="table-responsive">
+
+
+                                                <table id="workdetails_datagrid" class="easyui-datagrid" title="生产任务单明细 DataGrid" style="width:auto;height:300px"
+                                                       data-options="
+                 rownumbers:true,
+                 idField:'Id',
+                 sortName:'Id',
+                 sortorder:'asc',
+                remoteFilter: true,
+                singleSelect: true,
+                toolbar: '#workdetails_toolbar',
+                url: '/WorkDetails/GetData',
+                method: 'get',
+
+                pagination: 'true'
+                   ">
+                                                    <thead>
+                                                        <tr>
+                                                            @*<th data-options="field:'ck',checkbox:true"></th>*@
+                                                            @*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
+
+                                                            <th data-options="field:'WorkNo',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.WorkNo)</th>
+
+                                                            @*<th data-options="field:'WorkId',width:100,sortable:true,resizable:true,
+                                                                formatter:function(value,row){
+                                                                    return row.WorkWorkNo;
+                                                                },
+                                                                editor:{
+                                                                    type:'combobox',
+                                                                    options:{
+                                                                        valueField:'Id',
+                                                                        textField:'WorkNo',
+                                                                        method:'get',
+                                                                        url:'/WorkDetails/GetWorks',
+                                                                        required:true
+                                                                    }
+                                                                }">@Html.DisplayNameFor(model => model.WorkId)</th>*@
+
+
+                                                            <th data-options="field:'ParentSKUId',width:100,sortable:true,resizable:true,
+                        formatter:function(value,row){
+                            return row.ParentSKUSku;
+                        },
+                        editor:{
+                            type:'combobox',
+                            options:{
+                                valueField:'Id',
+                                textField:'Sku',
+                                method:'get',
+                                url:'/WorkDetails/GetSKUs',
+                                required:true
+                            }
+                        }">部套编码</th>
+
+                                                            <th data-options="field:'ParentSKUProductName',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">部套名称</th>
+
+                                                            <th data-options="field:'ComponentSKUId',width:100,sortable:true,resizable:true,
+                        formatter:function(value,row){
+                            return row.ComponentSKUSku;
+                        },
+                        editor:{
+                            type:'combobox',
+                            options:{
+                                valueField:'Id',
+                                textField:'Sku',
+                                method:'get',
+                                url:'/WorkDetails/GetSKUs',
+                                required:true
+                            }
+                        }">组件编码</th>
+                                                            <th data-options="field:'ComponentSKUProductName',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">组件名称</th>
+
+
+                                                            <th data-options="field:'GraphSKU',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">图纸编号</th>
+
+
+                                                            <th data-options="field:'GraphVer',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">图纸版本号</th>
+
+
+                                                            <th data-options="field:'ConsumeQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">BOM单位用量</th>
+
+
+                                                            <th data-options="field:'StockQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">库存量</th>
+
+
+                                                            <th data-options="field:'RequirementQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">订单需求量</th>
+
+
+                                                            <th data-options="field:'Brand',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">品牌</th>
+
+
+                                                            <th data-options="field:'Process',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">表面处理</th>
+
+
+                                                            <th data-options="field:'Responsibility',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">物料责任单位</th>
+
+
+                                                            <th data-options="field:'AltOrderProdctionDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">订单生产计划日期</th>
+
+
+                                                            <th data-options="field:'AltProdctionDate1',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">毛坯件计划生产日期</th>
+
+
+                                                            <th data-options="field:'ActualProdctionDate1',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">毛坯件确认完成日期</th>
+
+
+                                                            <th data-options="field:'AltProdctionDate2',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">精加工计划生产日期</th>
+
+
+                                                            <th data-options="field:'ActualProdctionDate2',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">精加工确认完成日期</th>
+
+
+                                                            <th data-options="field:'AltProdctionDate3',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">表面处理/入库计划日期</th>
+
+
+                                                            <th data-options="field:'ActualProdctionDate3',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">表面处理/入库确认日期</th>
+
+
+                                                            <th data-options="field:'AltProdctionDate4',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">装配计划日期</th>
+
+
+                                                            <th data-options="field:'ActualProdctionDate4',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">装配确认完成日期</th>
+
+
+                                                            @*<th data-options="field:'AltProdctionDate5',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">备用</th>*@
+
+
+                                                            @*<th data-options="field:'ActualProdctionDate5',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">备用</th>*@
+
+
+                                                            <th data-options="field:'ConfirmUser',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">确认人</th>
+
+
+                                                            <th data-options="field:'Remark1',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">备注1</th>
+
+
+                                                            <th data-options="field:'Remark2',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">备注2</th>
+
+
+                                                        </tr>
+                                                    </thead>
+
+
+                                                </table>
+                                                <div id="workdetails_toolbar" style="height:auto">
+                                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="workdetails_append()">Append</a>
+                                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="workdetails_removeit()">Remove</a>
+                                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="workdetails_accept()">Accept</a>
+                                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="workdetails_reject()">Reject</a>
+                                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cog',plain:true" onclick="workdetails_bomimportexcel()">BOM 导入</a>
+                                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="workdetails_importexcel()">EXCEL 导入</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="importwindow" class="easyui-window" title="Excel 导入" data-options="modal:true,collapsible:false,minimizable:false,maximizable:false,closed:true,iconCls:'icon-paperclip'" style="width:500px;height:260px;padding:10px;">
+
+                        <p><input type="file" name="file_upload" id="file_upload" /></p>
+                        <div id="alert1" class="alert alert-success">
+                            <button class="close" data-dismiss="alert" type="button">&times;</button>上传成功，开始执行导入。
+
+                        </div>
+                        <div id="alert2" class="alert alert-info">
+                            <button class="close" data-dismiss="alert" type="button">&times;</button>正在执行导入程序，请耐心等待。
+
+                        </div>
+                    </div>
+                    <div id="bomimportwindow" class="easyui-window" title="从BOM中选择导入" data-options="modal:true,closed:true,iconCls:'icon-cog'" style="width:700px;height:500px;padding:10px;">
+                        <div class="table-responsive">
+                            <table id="orderdetails_datagrid" class="easyui-datagrid" title="订单明细 DataGrid" style="width:auto;height:200px"
+                                   data-options="
+                 rownumbers:true,
+                remoteFilter: true,
+                singleSelect: true,
+                toolbar: '#orderdetails_toolbar',
+                url: '/OrderDetails/GetData',
+                method: 'get',
+               
+                pagination: 'true'
+                   ">
+                                <thead>
+                                    <tr>
+                                        <th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ">订单号</th>
+                        <th data-options="field:'LineNumber',width:140,editor:{type:'textbox',options:{required:false} } ">行号</th>
+                        <th data-options="field:'ContractNum',width:140,editor:{type:'textbox',options:{required:false} } ">合同号</th>
+                        <th data-options="field:'ProductionSku',width:140,editor:{type:'textbox',options:{required:false} } ">产品代码</th>
+                        <th data-options="field:'Model',width:140,editor:{type:'textbox',options:{required:false} } ">型号</th>
+                        <th data-options="field:'Qty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">数量</th>
+                        <th data-options="field:'UOM',width:140,editor:{type:'textbox',options:{required:false} } ">单位</th>
+                        <th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } ">备注</th>
+                        </tr>
+                        </thead>
+
+
+                        </table>
+                        </div>
+                     </div>
+
+                    @section Scripts {
+                        <script type="text/javascript">
+
+                            function workdetails_bomimportexcel() {
+                                $('#bomimportwindow').window('open');
+                            }
+
+                            $(function () {
+                                $('#alert1').hide('normal');
+                                $('#alert2').hide('normal');
+                                $("#file_upload").uploadify({
+                                    'height': 30,
+                                    'fileTypeDesc': 'Excel 2010 Files',
+                                    'fileTypeExts': '*.xlsx',
+                                    'swf': '/scripts/uploadify/uploadify.swf',
+                                    'uploader': '/FileUpload/Upload',
+                                    'buttonText': '选择EXCEL',
+                                    'uploadLimit': 1,
+                                    'displayData': 'speed',
+                                    'formData': { 'modelType': 'Work' },
+                                    'width': 120,
+                                    'successTimeout': 100000,
+                                    'onUploadComplete': function (file) {
+                                        $('#alert1').hide('normal');
+                                        $('#alert2').show('normal');
+                                    },
+                                    'onFallback': function () {
+                                        $.messager.progress('close');
+                                        $.messager.alert('导入错误', '导入错误，请重试！<br>', 'error');
+                                        $('#file_upload').uploadify('cancel')
+                                    },
+                                    'onUploadStart': function () {
+                                        $.messager.progress({ title: '正在处理请耐心等待！' });
+                                        $('#alert1').show('normal');
+                                        $('#alert2').hide('normal');
+                                    },
+                                    'onUploadError': function (file, errorCode, errorMsg, errorString) {
+                                        $.messager.progress('close');
+                                        $.messager.alert('导入错误', '导入错误，请修改后再倒入！<br>' + errorMsg, 'error');
+                                        $('#file_upload').uploadify('cancel')
+                                    },
+                                    'onUploadSuccess': function (file, data, response) {
+                                        $.messager.progress('close');
+                                        //console.log(file, data, response);
+                                        $('#alert1').hide('normal');
+                                        $('#alert2').hide('normal');
+                                        $('#w').window('close');
+                                        var data = $.parseJSON(data);
+                                        console.log(data);
+                                        if (data.success == "false") {
+                                            $.messager.alert('导入错误', '导入错误，请修改后再倒入！<br>' + data.message, 'error');
+                                        } else {
+                                            $.messager.alert('导入完成', '导入完成！<br>', 'info');
+                                            $dg.datagrid('reload');
+                                        }
+                                        //alert('The file ' + file.name + ' was successfully uploaded with a response of ' + response + ':' + data);
+
+                                    }
+                                });
+
+                            })
+
+                            function importexcel() {
+                                $('#importwindow').window('open');
+                            }
+
+                            var $dg = $('#works_datagrid');
+                            var editIndex = undefined;
+                            function endEditing() {
+                                if (editIndex == undefined) { return true }
+                                if ($dg.datagrid('validateRow', editIndex)) {
+
+                                    var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'OrderId' });
+                                    var orderorderkey = $(ed.target).combobox('getText');
+                                    var orderid = $(ed.target).combobox('getValue');
+
+                                    $dg.datagrid('getRows')[editIndex]['OrderOrderKey'] = orderorderkey;
+                                    $dg.datagrid('getRows')[editIndex]['OrderId'] = orderid;
+
+
+                                    var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'WorkTypeId' });
+                                    var worktypename = $(ed.target).combobox('getText');
+                                    var worktypeid = $(ed.target).combobox('getValue');
+
+                                    $dg.datagrid('getRows')[editIndex]['WorkTypeName'] = worktypename;
+                                    $dg.datagrid('getRows')[editIndex]['WorkTypeId'] = worktypeid;
+
+
+                                    $dg.datagrid('endEdit', editIndex);
+                                    editIndex = undefined;
+
+
+                                    return true;
+                                } else {
+                                    return false;
+                                }
+                            }
+                            function onClickCell(index, field) {
+                                var _operates = ["_operate1", "_operate2", "_operate3", "_ck"]
+                                if ($.inArray(field, _operates) >= 0) {
+                                    return;
+                                }
+                                if (editIndex != index) {
+                                    if (endEditing()) {
+                                        $dg.datagrid('selectRow', index)
+                                                .datagrid('beginEdit', index);
+                                        var ed = $dg.datagrid('getEditor', { index: index, field: field });
+                                        if (ed) {
+                                            ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+                                        }
+                                        editIndex = index;
+                                    } else {
+                                        $dg.datagrid('selectRow', editIndex);
+                                    }
+                                }
+                            }
+                            function append() {
+                                if (endEditing()) {
+                                    $dg.datagrid('appendRow', { Status: 0 });
+                                    editIndex = $dg.datagrid('getRows').length - 1;
+                                    $dg.datagrid('selectRow', editIndex)
+                                            .datagrid('beginEdit', editIndex);
+                                }
+                            }
+                            function removeit() {
+                                if (editIndex == undefined) { return }
+                                $dg.datagrid('cancelEdit', editIndex)
+                                        .datagrid('deleteRow', editIndex);
+                                editIndex = undefined;
+                            }
+                            function accept() {
+                                if (endEditing()) {
+                                    if ($dg.datagrid('getChanges').length) {
+                                        var inserted = $dg.datagrid('getChanges', "inserted");
+                                        var deleted = $dg.datagrid('getChanges', "deleted");
+                                        var updated = $dg.datagrid('getChanges', "updated");
+                                        var effectRow = new Object();
+                                        if (inserted.length) {
+                                            effectRow.inserted = inserted;
+                                        }
+                                        if (deleted.length) {
+                                            effectRow.deleted = deleted;
+                                        }
+                                        if (updated.length) {
+                                            effectRow.updated = updated;
+                                        }
+                                        //console.log(JSON.stringify(effectRow));
+                                        $.post("/Works/SaveData", effectRow, function (rsp) {
+                                            console.log(rsp);
+                                            if (rsp.Success) {
+                                                $.messager.alert("提示", "提交成功！");
+                                                $dg.datagrid('acceptChanges');
+                                                $dg.datagrid('reload');
+                                            }
+                                        }, "JSON").error(function () {
+                                            $.messager.alert("错误", "提交错误了！", 'error');
+
+                                        });
+
+                                    }
+
+                                    $dg.datagrid('acceptChanges');
+                                }
+                            }
+                            function reject() {
+                                $dg.datagrid('rejectChanges');
+                                editIndex = undefined;
+                            }
+                            function getChanges() {
+                                var rows = $dg.datagrid('getChanges');
+                                alert(rows.length + ' rows are changed!');
+                            }
+
+
+                            $(function () {
+
+                                $dg.datagrid('enableFilter', [
+                                             {
+                                                 field: 'Status',
+                                                 type: 'combobox',
+                                                 options: {
+                                                     panelHeight: 'auto',
+                                                     data: [{ value: '', text: 'All' }, { value: '0', text: '启用' }, { value: '1', text: '禁用' }],
+                                                     onChange: function (value) {
+                                                         if (value == '') {
+                                                             $dg.datagrid('removeFilterRule', 'Status');
+                                                         } else {
+                                                             $dg.datagrid('addFilterRule', {
+                                                                 field: 'Status',
+                                                                 op: 'equal',
+                                                                 value: value
+                                                             });
+                                                         }
+                                                         $dg.datagrid('doFilter');
+                                                     }
+                                                 }
+                                             },
+
+                                             {
+                                                 field: 'WorkDate',
+                                                 type: 'datebox',
+                                                 options: {
+                                                     onChange: function (value) {
+                                                         if (value == '') {
+                                                             $dg.datagrid('removeFilterRule', 'WorkDate');
+                                                         } else {
+                                                             $dg.datagrid('addFilterRule', {
+                                                                 field: 'WorkDate',
+                                                                 op: 'equal',
+                                                                 value: value
+                                                             });
+                                                         }
+                                                         $dg.datagrid('doFilter');
+                                                     }
+                                                 }
+                                             },
+                                             {
+                                                 field: 'ReviewDate',
+                                                 type: 'datebox',
+                                                 options: {
+                                                     onChange: function (value) {
+                                                         if (value == '') {
+                                                             $dg.datagrid('removeFilterRule', 'ReviewDate');
+                                                         } else {
+                                                             $dg.datagrid('addFilterRule', {
+                                                                 field: 'ReviewDate',
+                                                                 op: 'equal',
+                                                                 value: value
+                                                             });
+                                                         }
+                                                         $dg.datagrid('doFilter');
+                                                     }
+                                                 }
+                                             },
+
+                                        {
+                                            field: 'WorkTypeId',
+                                            type: 'combobox',
+                                            options: {
+                                                valueField: 'Id',
+                                                textField: 'Name',
+                                                method: 'get',
+                                                url: '/Works/GetWorkTypes',
+                                                onChange: function (value) {
+                                                    if (value == '') {
+                                                        $dg.datagrid('removeFilterRule', 'WorkTypeId');
+                                                    } else {
+                                                        $dg.datagrid('addFilterRule', {
+                                                            field: 'WorkTypeId',
+                                                            op: 'equal',
+                                                            value: value
+                                                        });
+                                                    }
+                                                    $dg.datagrid('doFilter');
+                                                }
+                                            }
+                                        },
+                                        {
+                                            field: 'OrderId',
+                                            type: 'combobox',
+                                            options: {
+                                                valueField: 'Id',
+                                                textField: 'OrderKey',
+                                                method: 'get',
+                                                url: '/Works/GetOrders',
+                                                onChange: function (value) {
+                                                    if (value == '') {
+                                                        $dg.datagrid('removeFilterRule', 'OrderId');
+                                                    } else {
+                                                        $dg.datagrid('addFilterRule', {
+                                                            field: 'OrderId',
+                                                            op: 'equal',
+                                                            value: value
+                                                        });
+                                                    }
+                                                    $dg.datagrid('doFilter');
+                                                }
+                                            }
+                                        },
+
+                                ]);
+                            })
+
+                            function onSelect(index, row) {
+                                //console.log(index, row);
+
+                                filterByWorkId(row.Id);
+                            }
+
+
+                            //------------------------------------------------------------------------------
+                            //workdetails_grid
+                            //------------------------------------------------------------------------------
+                            var $workdetailsgrid = $('#workdetails_datagrid')
+                            var workdetails_editIndex = undefined;
+                            function workdetails_endEditing() {
+                                if (workdetails_editIndex == undefined) { return true }
+                                if ($workdetailsgrid.datagrid('validateRow', workdetails_editIndex)) {
+
+                                    var ed = $workdetailsgrid.datagrid('getEditor', { index: workdetails_editIndex, field: 'ComponentSKUId' });
+                                    var componentskusku = $(ed.target).combobox('getText');
+                                    var componentskuid = $(ed.target).combobox('getValue');
+
+                                    $workdetailsgrid.datagrid('getRows')[workdetails_editIndex]['ComponentSKUSku'] = componentskusku;
+                                    $workdetailsgrid.datagrid('getRows')[workdetails_editIndex]['ComponentSKUId'] = componentskuid;
+
+
+                                    var ed = $workdetailsgrid.datagrid('getEditor', { index: workdetails_editIndex, field: 'ParentSKUId' });
+                                    var parentskusku = $(ed.target).combobox('getText');
+                                    var parentskuid = $(ed.target).combobox('getValue');
+
+                                    $workdetailsgrid.datagrid('getRows')[workdetails_editIndex]['ParentSKUSku'] = parentskusku;
+                                    $workdetailsgrid.datagrid('getRows')[workdetails_editIndex]['ParentSKUId'] = parentskuid;
+
+
+                                    //var ed = $workdetailsgrid.datagrid('getEditor', { index: workdetails_editIndex, field: 'WorkId' });
+                                    //var workworkno = $(ed.target).combobox('getText');
+                                    //var workid = $(ed.target).combobox('getValue');
+
+                                    //$workdetailsgrid.datagrid('getRows')[workdetails_editIndex]['WorkWorkNo'] = workworkno;
+                                    //$workdetailsgrid.datagrid('getRows')[workdetails_editIndex]['WorkId'] = workid;
+
+
+                                    $workdetailsgrid.datagrid('endEdit', workdetails_editIndex);
+                                    workdetails_editIndex = undefined;
+
+
+                                    return true;
+                                } else {
+                                    return false;
+                                }
+                            }
+                            function workdetails_onClickCell(index, field) {
+                                if (workdetails_editIndex != index) {
+                                    if (workdetails_endEditing()) {
+                                        $workdetailsgrid.datagrid('selectRow', index)
+                                                .datagrid('beginEdit', index);
+                                        var ed = $workdetailsgrid.datagrid('getEditor', { index: index, field: field });
+                                        if (ed) {
+                                            ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+                                        }
+                                        workdetails_editIndex = index;
+                                    } else {
+                                        $workdetailsgrid.datagrid('selectRow', workdetails_editIndex);
+                                    }
+                                }
+                            }
+                            function workdetails_append() {
+                                if (workdetails_endEditing()) {
+                                    var currentwork = $dg.datagrid('getSelected');
+                                    //console.log(currentwork);
+                                    $workdetailsgrid.datagrid('appendRow', { OrderKey: currentwork.OrderKey, WorkNo: currentwork.WorkNo,WorkId:currentwork.Id});
+                                    workdetails_editIndex = $workdetailsgrid.datagrid('getRows').length - 1;
+                                    $workdetailsgrid.datagrid('selectRow', workdetails_editIndex)
+                                            .datagrid('beginEdit', workdetails_editIndex);
+                                }
+                            }
+                            function workdetails_removeit() {
+                                if (workdetails_editIndex == undefined) { return }
+                                $workdetailsgrid.datagrid('cancelEdit', workdetails_editIndex)
+                                        .datagrid('deleteRow', workdetails_editIndex);
+                                workdetails_editIndex = undefined;
+                            }
+                            function workdetails_accept() {
+                                if (workdetails_endEditing()) {
+                                    if ($workdetailsgrid.datagrid('getChanges').length) {
+                                        var inserted = $workdetailsgrid.datagrid('getChanges', "inserted");
+                                        var deleted = $workdetailsgrid.datagrid('getChanges', "deleted");
+                                        var updated = $workdetailsgrid.datagrid('getChanges', "updated");
+                                        var effectRow = new Object();
+                                        if (inserted.length) {
+                                            effectRow.inserted = inserted;
+                                        }
+                                        if (deleted.length) {
+                                            effectRow.deleted = deleted;
+                                        }
+                                        if (updated.length) {
+                                            effectRow.updated = updated;
+                                        }
+                                        //console.log(JSON.stringify(effectRow));
+                                        $.post("/WorkDetails/SaveData", effectRow, function (rsp) {
+                                            console.log(rsp);
+                                            if (rsp.Success) {
+                                                $.messager.alert("提示", "提交成功！");
+                                                $workdetailsgrid.datagrid('acceptChanges');
+                                                $workdetailsgrid.datagrid('reload');
+                                            }
+                                        }, "JSON").error(function () {
+                                            $.messager.alert("错误", "提交错误了！", 'error');
+
+                                        });
+
+                                    }
+
+                                    $workdetailsgrid.datagrid('acceptChanges');
+                                }
+                            }
+                            function workdetails_reject() {
+                                $workdetailsgrid.datagrid('rejectChanges');
+                                workdetails_editIndex = undefined;
+                            }
+                            function workdetails_getChanges() {
+                                var rows = $workdetailsgrid.datagrid('getChanges');
+                                alert(rows.length + ' rows are changed!');
+                            }
+                            $(function () {
+
+                                $workdetailsgrid.datagrid('enableFilter', [
+
+		   				{
+		   				    field: 'AltOrderProdctionDate',
+		   				    type: 'datebox',
+		   				    options: {
+		   				        onChange: function (value) {
+		   				            if (value == '') {
+		   				                $dg.datagrid('removeFilterRule', 'AltOrderProdctionDate');
+		   				            } else {
+		   				                $dg.datagrid('addFilterRule', {
+		   				                    field: 'AltOrderProdctionDate',
+		   				                    op: 'equal',
+		   				                    value: value
+		   				                });
+		   				            }
+		   				            $dg.datagrid('doFilter');
+		   				        }
+		   				    }
+		   				},
+		   				{
+		   				    field: 'AltProdctionDate1',
+		   				    type: 'datebox',
+		   				    options: {
+		   				        onChange: function (value) {
+		   				            if (value == '') {
+		   				                $dg.datagrid('removeFilterRule', 'AltProdctionDate1');
+		   				            } else {
+		   				                $dg.datagrid('addFilterRule', {
+		   				                    field: 'AltProdctionDate1',
+		   				                    op: 'equal',
+		   				                    value: value
+		   				                });
+		   				            }
+		   				            $dg.datagrid('doFilter');
+		   				        }
+		   				    }
+		   				},
+		   				{
+		   				    field: 'ActualProdctionDate1',
+		   				    type: 'datebox',
+		   				    options: {
+		   				        onChange: function (value) {
+		   				            if (value == '') {
+		   				                $dg.datagrid('removeFilterRule', 'ActualProdctionDate1');
+		   				            } else {
+		   				                $dg.datagrid('addFilterRule', {
+		   				                    field: 'ActualProdctionDate1',
+		   				                    op: 'equal',
+		   				                    value: value
+		   				                });
+		   				            }
+		   				            $dg.datagrid('doFilter');
+		   				        }
+		   				    }
+		   				},
+		   				{
+		   				    field: 'AltProdctionDate2',
+		   				    type: 'datebox',
+		   				    options: {
+		   				        onChange: function (value) {
+		   				            if (value == '') {
+		   				                $dg.datagrid('removeFilterRule', 'AltProdctionDate2');
+		   				            } else {
+		   				                $dg.datagrid('addFilterRule', {
+		   				                    field: 'AltProdctionDate2',
+		   				                    op: 'equal',
+		   				                    value: value
+		   				                });
+		   				            }
+		   				            $dg.datagrid('doFilter');
+		   				        }
+		   				    }
+		   				},
+		   				{
+		   				    field: 'ActualProdctionDate2',
+		   				    type: 'datebox',
+		   				    options: {
+		   				        onChange: function (value) {
+		   				            if (value == '') {
+		   				                $dg.datagrid('removeFilterRule', 'ActualProdctionDate2');
+		   				            } else {
+		   				                $dg.datagrid('addFilterRule', {
+		   				                    field: 'ActualProdctionDate2',
+		   				                    op: 'equal',
+		   				                    value: value
+		   				                });
+		   				            }
+		   				            $dg.datagrid('doFilter');
+		   				        }
+		   				    }
+		   				},
+		   				{
+		   				    field: 'AltProdctionDate3',
+		   				    type: 'datebox',
+		   				    options: {
+		   				        onChange: function (value) {
+		   				            if (value == '') {
+		   				                $dg.datagrid('removeFilterRule', 'AltProdctionDate3');
+		   				            } else {
+		   				                $dg.datagrid('addFilterRule', {
+		   				                    field: 'AltProdctionDate3',
+		   				                    op: 'equal',
+		   				                    value: value
+		   				                });
+		   				            }
+		   				            $dg.datagrid('doFilter');
+		   				        }
+		   				    }
+		   				},
+		   				{
+		   				    field: 'ActualProdctionDate3',
+		   				    type: 'datebox',
+		   				    options: {
+		   				        onChange: function (value) {
+		   				            if (value == '') {
+		   				                $dg.datagrid('removeFilterRule', 'ActualProdctionDate3');
+		   				            } else {
+		   				                $dg.datagrid('addFilterRule', {
+		   				                    field: 'ActualProdctionDate3',
+		   				                    op: 'equal',
+		   				                    value: value
+		   				                });
+		   				            }
+		   				            $dg.datagrid('doFilter');
+		   				        }
+		   				    }
+		   				},
+		   				{
+		   				    field: 'AltProdctionDate4',
+		   				    type: 'datebox',
+		   				    options: {
+		   				        onChange: function (value) {
+		   				            if (value == '') {
+		   				                $dg.datagrid('removeFilterRule', 'AltProdctionDate4');
+		   				            } else {
+		   				                $dg.datagrid('addFilterRule', {
+		   				                    field: 'AltProdctionDate4',
+		   				                    op: 'equal',
+		   				                    value: value
+		   				                });
+		   				            }
+		   				            $dg.datagrid('doFilter');
+		   				        }
+		   				    }
+		   				},
+		   				{
+		   				    field: 'ActualProdctionDate4',
+		   				    type: 'datebox',
+		   				    options: {
+		   				        onChange: function (value) {
+		   				            if (value == '') {
+		   				                $dg.datagrid('removeFilterRule', 'ActualProdctionDate4');
+		   				            } else {
+		   				                $dg.datagrid('addFilterRule', {
+		   				                    field: 'ActualProdctionDate4',
+		   				                    op: 'equal',
+		   				                    value: value
+		   				                });
+		   				            }
+		   				            $dg.datagrid('doFilter');
+		   				        }
+		   				    }
+		   				},
+		   				{
+		   				    field: 'AltProdctionDate5',
+		   				    type: 'datebox',
+		   				    options: {
+		   				        onChange: function (value) {
+		   				            if (value == '') {
+		   				                $dg.datagrid('removeFilterRule', 'AltProdctionDate5');
+		   				            } else {
+		   				                $dg.datagrid('addFilterRule', {
+		   				                    field: 'AltProdctionDate5',
+		   				                    op: 'equal',
+		   				                    value: value
+		   				                });
+		   				            }
+		   				            $dg.datagrid('doFilter');
+		   				        }
+		   				    }
+		   				},
+		   				{
+		   				    field: 'ActualProdctionDate5',
+		   				    type: 'datebox',
+		   				    options: {
+		   				        onChange: function (value) {
+		   				            if (value == '') {
+		   				                $dg.datagrid('removeFilterRule', 'ActualProdctionDate5');
+		   				            } else {
+		   				                $dg.datagrid('addFilterRule', {
+		   				                    field: 'ActualProdctionDate5',
+		   				                    op: 'equal',
+		   				                    value: value
+		   				                });
+		   				            }
+		   				            $dg.datagrid('doFilter');
+		   				        }
+		   				    }
+		   				},
+
+		   		   {
+		   		       field: 'WorkId',
+		   		       type: 'combobox',
+		   		       options: {
+		   		           valueField: 'Id',
+		   		           textField: 'WorkNo',
+		   		           method: 'get',
+		   		           url: '/WorkDetails/GetWorks',
+		   		           onChange: function (value) {
+		   		               if (value == '') {
+		   		                   $dg.datagrid('removeFilterRule', 'WorkId');
+		   		               } else {
+		   		                   $dg.datagrid('addFilterRule', {
+		   		                       field: 'WorkId',
+		   		                       op: 'equal',
+		   		                       value: value
+		   		                   });
+		   		               }
+		   		               $dg.datagrid('doFilter');
+		   		           }
+		   		       }
+		   		   },
+		   		   {
+		   		       field: 'ParentSKUId',
+		   		       type: 'combobox',
+		   		       options: {
+		   		           valueField: 'Id',
+		   		           textField: 'Sku',
+		   		           method: 'get',
+		   		           url: '/WorkDetails/GetSKUs',
+		   		           onChange: function (value) {
+		   		               if (value == '') {
+		   		                   $dg.datagrid('removeFilterRule', 'ParentSKUId');
+		   		               } else {
+		   		                   $dg.datagrid('addFilterRule', {
+		   		                       field: 'ParentSKUId',
+		   		                       op: 'equal',
+		   		                       value: value
+		   		                   });
+		   		               }
+		   		               $dg.datagrid('doFilter');
+		   		           }
+		   		       }
+		   		   },
+		   		   {
+		   		       field: 'ComponentSKUId',
+		   		       type: 'combobox',
+		   		       options: {
+		   		           valueField: 'Id',
+		   		           textField: 'Sku',
+		   		           method: 'get',
+		   		           url: '/WorkDetails/GetSKUs',
+		   		           onChange: function (value) {
+		   		               if (value == '') {
+		   		                   $dg.datagrid('removeFilterRule', 'ComponentSKUId');
+		   		               } else {
+		   		                   $dg.datagrid('addFilterRule', {
+		   		                       field: 'ComponentSKUId',
+		   		                       op: 'equal',
+		   		                       value: value
+		   		                   });
+		   		               }
+		   		               $dg.datagrid('doFilter');
+		   		           }
+		   		       }
+		   		   },
+
+                                ]);
+
+
+                                filterByWorkId(-1);
+                            });
+
+                            function filterByWorkId(workid) {
+                                var value = workid;
+                                if (value == '') {
+                                    $workdetailsgrid.datagrid('removeFilterRule', 'WorkId');
+                                } else {
+                                    $workdetailsgrid.datagrid('addFilterRule', {
+                                        field: 'WorkId',
+                                        op: 'equal',
+                                        value: value
+                                    });
+                                }
+                                $workdetailsgrid.datagrid('doFilter');
+
+                            }
+
+                        </script>
+                    }
+

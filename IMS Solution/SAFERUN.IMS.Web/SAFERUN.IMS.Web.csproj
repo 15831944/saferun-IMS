@@ -239,6 +239,9 @@
     <Compile Include="Controllers\SKUsController.cs" />
     <Compile Include="Controllers\StationsController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
+    <Compile Include="Controllers\WorkDetailsController.cs" />
+    <Compile Include="Controllers\WorksController.cs" />
+    <Compile Include="Controllers\WorkTypesController.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Extensions\LinqOrderByColumnsNameExtensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -311,6 +314,10 @@
     <Compile Include="Migrations\201602261345044_ass.cs" />
     <Compile Include="Migrations\201602261345044_ass.Designer.cs">
       <DependentUpon>201602261345044_ass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603041452324_w.cs" />
+    <Compile Include="Migrations\201603041452324_w.Designer.cs">
+      <DependentUpon>201603041452324_w.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -386,6 +393,12 @@
     <Compile Include="Models\Station.cs" />
     <Compile Include="Models\StationMetadata.cs" />
     <Compile Include="Models\SupplierMetadata.cs" />
+    <Compile Include="Models\WorkDetail.cs" />
+    <Compile Include="Models\WorkDetailMetadata.cs" />
+    <Compile Include="Models\WorkMetadata.cs" />
+    <Compile Include="Models\WorkOrder.cs" />
+    <Compile Include="Models\WorkType.cs" />
+    <Compile Include="Models\WorkTypeMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AssemblyPlans\AssemblyPlanQuery.cs" />
     <Compile Include="Repositories\AssemblyPlans\AssemblyPlanRepository.cs" />
@@ -445,6 +458,12 @@
     <Compile Include="Repositories\Stations\StationRepository.cs" />
     <Compile Include="Repositories\Suppliers\SupplierQuery.cs" />
     <Compile Include="Repositories\Suppliers\SupplierRepository.cs" />
+    <Compile Include="Repositories\WorkDetails\WorkDetailQuery.cs" />
+    <Compile Include="Repositories\WorkDetails\WorkDetailRepository.cs" />
+    <Compile Include="Repositories\Works\WorkQuery.cs" />
+    <Compile Include="Repositories\Works\WorkRepository.cs" />
+    <Compile Include="Repositories\WorkTypes\WorkTypeQuery.cs" />
+    <Compile Include="Repositories\WorkTypes\WorkTypeRepository.cs" />
     <Compile Include="Services\AssemblyPlans\AssemblyPlanService.cs" />
     <Compile Include="Services\AssemblyPlans\IAssemblyPlanService.cs" />
     <Compile Include="Services\BaseCodes\BaseCodeService.cs" />
@@ -503,6 +522,12 @@
     <Compile Include="Services\Stations\StationService.cs" />
     <Compile Include="Services\Suppliers\ISupplierService.cs" />
     <Compile Include="Services\Suppliers\SupplierService.cs" />
+    <Compile Include="Services\WorkDetails\IWorkDetailService.cs" />
+    <Compile Include="Services\WorkDetails\WorkDetailService.cs" />
+    <Compile Include="Services\Works\IWorkService.cs" />
+    <Compile Include="Services\Works\WorkService.cs" />
+    <Compile Include="Services\WorkTypes\IWorkTypeService.cs" />
+    <Compile Include="Services\WorkTypes\WorkTypeService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utility\ExcelHelper.cs" />
   </ItemGroup>
@@ -1293,6 +1318,22 @@
     <Content Include="Views\AssemblyPlans\_PopupSearch.cshtml" />
     <Content Include="Views\BOMComponents\IndexCopy.cshtml" />
     <Content Include="Views\BOMComponents\Index2.cshtml" />
+    <Content Include="Views\WorkDetails\Index.cshtml" />
+    <Content Include="Views\WorkDetails\Create.cshtml" />
+    <Content Include="Views\WorkDetails\Edit.cshtml" />
+    <Content Include="Views\WorkDetails\EditForm.cshtml" />
+    <Content Include="Views\WorkDetails\_PopupSearch.cshtml" />
+    <Content Include="Views\Works\Index.cshtml" />
+    <Content Include="Views\Works\Create.cshtml" />
+    <Content Include="Views\Works\Edit.cshtml" />
+    <Content Include="Views\Works\EditForm.cshtml" />
+    <Content Include="Views\Works\_PopupSearch.cshtml" />
+    <Content Include="Views\Works\_WorkDetailEditForm.cshtml" />
+    <Content Include="Views\WorkTypes\Index.cshtml" />
+    <Content Include="Views\WorkTypes\Create.cshtml" />
+    <Content Include="Views\WorkTypes\Edit.cshtml" />
+    <Content Include="Views\WorkTypes\EditForm.cshtml" />
+    <Content Include="Views\WorkTypes\_PopupSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1371,6 +1412,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602261345044_ass.resx">
       <DependentUpon>201602261345044_ass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603041452324_w.resx">
+      <DependentUpon>201603041452324_w.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

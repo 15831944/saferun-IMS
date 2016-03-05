@@ -70,8 +70,8 @@
                                                 required:true
                                         }
                                     }">@Html.DisplayNameFor(model => model.OrderId)</th>
-                                 @*<th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.OrderKey)</th>*@
-                                <th rowspan="2" data-options="field:'SKUId',width:100,sortable:true,resizable:true,
+                                    @*<th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.OrderKey)</th>*@
+                                    <th rowspan="2" data-options="field:'SKUId',width:100,sortable:true,resizable:true,
                                             formatter:function(value,row){
                                                 return row.SKUSku;
                                             },
@@ -88,8 +88,8 @@
                                 <th rowspan="2" data-options="field:'DesignName',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.DesignName)</th>
                                 @*<th data-options="field:'ComponentSKU',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ComponentSKU)</th>*@
                                 <th rowspan="2" data-options="field:'FinishedSKU',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.FinishedSKU)</th>
-                                <th rowspan="2" data-options="field:'OrderDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.OrderDate)</th>
-                                <th rowspan="2" data-options="field:'RequirementDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.RequirementDate)</th>
+                                <th rowspan="2" data-options="field:'OrderDate',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.OrderDate)</th>
+                                <th rowspan="2" data-options="field:'RequirementDate',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.RequirementDate)</th>
                                 <th colspan="2" width="320" align="center">设计</th>
                                 <th colspan="2" width="320" align="center">外购件</th>
                                 <th colspan="2" width="320" align="center">外协件</th>
@@ -106,58 +106,22 @@
                                                     panelHeight: 'auto',
                                                     data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
                                                     required:true } }  ,formatter:statusformatter">@Html.DisplayNameFor(model => model.Status)</th>
-
-                               
-                            </tr>
-                            <tr>
-<th data-options="field:'ResolveDate1',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ResolveDate1)</th>
-
-
-                        <th data-options="field:'ActualReleaseDate1',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ActualReleaseDate1)</th>
-                         
-                         
-
-                        <th data-options="field:'SetPlanDate2',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.SetPlanDate2)</th>
-
-
-                        <th data-options="field:'PutawayDate2',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.PutawayDate2)</th>
-
-
-                        <th data-options="field:'SetPlanDate3',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.SetPlanDate3)</th>
-
-
-                        <th data-options="field:'PutawayDate3',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.PutawayDate3)</th>
-
-
-                        <th data-options="field:'SetPlanDate4',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.SetPlanDate4)</th>
-
-
-                        <th data-options="field:'PutawayDate4',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.PutawayDate4)</th>
-
-
-                        <th data-options="field:'SetPlanDate5',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.SetPlanDate5)</th>
-
-
-                        <th data-options="field:'DeliveryDate5',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.DeliveryDate5)</th>
-
-
-                        <th data-options="field:'PutawayDate5',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.PutawayDate5)</th>
-
-
-                        <th data-options="field:'SetPlanDate6',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.SetPlanDate6)</th>
-
-
-                        <th data-options="field:'ActualStartDate6',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ActualStartDate6)</th>
-
-
-                        <th data-options="field:'ActualCompletedDate6',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ActualCompletedDate6)</th>
-
-
-                       
-
-
-
-
+                                                </tr>
+                                                <tr>
+                                                    <th data-options="field:'ResolveDate1',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ResolveDate1)</th>
+                                                    <th data-options="field:'ActualReleaseDate1',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ActualReleaseDate1)</th>
+                                                    <th data-options="field:'SetPlanDate2',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.SetPlanDate2)</th>
+                                                    <th data-options="field:'PutawayDate2',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.PutawayDate2)</th>
+                                                    <th data-options="field:'SetPlanDate3',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.SetPlanDate3)</th>
+                                                    <th data-options="field:'PutawayDate3',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.PutawayDate3)</th>
+                                                    <th data-options="field:'SetPlanDate4',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.SetPlanDate4)</th>
+                                                    <th data-options="field:'PutawayDate4',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.PutawayDate4)</th>
+                                                    <th data-options="field:'SetPlanDate5',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.SetPlanDate5)</th>
+                                                    <th data-options="field:'DeliveryDate5',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.DeliveryDate5)</th>
+                                                    <th data-options="field:'PutawayDate5',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.PutawayDate5)</th>
+                                                    <th data-options="field:'SetPlanDate6',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.SetPlanDate6)</th>
+                                                    <th data-options="field:'ActualStartDate6',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ActualStartDate6)</th>
+                                                    <th data-options="field:'ActualCompletedDate6',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ActualCompletedDate6)</th>
                                                 </tr>
                                             </thead>
 

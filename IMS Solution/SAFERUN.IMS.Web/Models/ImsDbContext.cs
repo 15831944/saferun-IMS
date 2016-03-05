@@ -71,5 +71,11 @@ namespace SAFERUN.IMS.Web.Models
         public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.Supplier> Suppliers { get; set; }
 
         public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.AssemblyPlan> AssemblyPlans { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.Work> Works { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.WorkType> WorkTypes { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.WorkDetail> WorkDetails { get; set; }
     }
 }

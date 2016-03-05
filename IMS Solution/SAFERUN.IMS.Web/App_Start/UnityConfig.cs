@@ -152,6 +152,15 @@ namespace SAFERUN.IMS.Web.App_Start
 
         container.RegisterType<IRepositoryAsync<AssemblyPlan>, Repository<AssemblyPlan>>();
         container.RegisterType<IAssemblyPlanService, AssemblyPlanService>();
+
+        container.RegisterType<IRepositoryAsync<Work>, Repository<Work>>();
+        container.RegisterType<IWorkService, WorkService>();
+
+            container.RegisterType<IRepositoryAsync<WorkDetail>, Repository<WorkDetail>>();
+        container.RegisterType<IWorkDetailService, WorkDetailService>();
+
+        container.RegisterType<IRepositoryAsync<WorkType>, Repository<WorkType>>();
+        container.RegisterType<IWorkTypeService, WorkTypeService>();
         }
     }
 }
