@@ -187,6 +187,7 @@
                  sortorder:'asc',
                 remoteFilter: true,
                 singleSelect: true,
+                onClickCell:workdetails_onClickCell,
                 toolbar: '#workdetails_toolbar',
                 url: '/WorkDetails/GetData',
                 method: 'get',
@@ -201,19 +202,19 @@
                                                             <th data-options="field:'WorkNo',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.WorkNo)</th>
 
                                                             @*<th data-options="field:'WorkId',width:100,sortable:true,resizable:true,
-                                                                formatter:function(value,row){
-                                                                    return row.WorkWorkNo;
-                                                                },
-                                                                editor:{
-                                                                    type:'combobox',
-                                                                    options:{
-                                                                        valueField:'Id',
-                                                                        textField:'WorkNo',
-                                                                        method:'get',
-                                                                        url:'/WorkDetails/GetWorks',
-                                                                        required:true
-                                                                    }
-                                                                }">@Html.DisplayNameFor(model => model.WorkId)</th>*@
+                    formatter:function(value,row){
+                        return row.WorkWorkNo;
+                    },
+                    editor:{
+                        type:'combobox',
+                        options:{
+                            valueField:'Id',
+                            textField:'WorkNo',
+                            method:'get',
+                            url:'/WorkDetails/GetWorks',
+                            required:true
+                        }
+                    }">@Html.DisplayNameFor(model => model.WorkId)</th>*@
 
 
                                                             <th data-options="field:'ParentSKUId',width:100,sortable:true,resizable:true,
@@ -1344,6 +1345,9 @@
                                 console.log(viewmodel);
                                 $.post('/Works/GenerateWorkDetail', { viewmodel: viewmodel }, function (data, textStatus, jqXHR) {
                                     console.log(data);
+                                    $('#bomimportwindow').window('close');
+                                    $workdetailsgrid.datagrid('reload');
+
                                 });
 
 

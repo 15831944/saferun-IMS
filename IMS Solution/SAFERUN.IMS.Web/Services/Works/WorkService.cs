@@ -112,7 +112,12 @@ namespace SAFERUN.IMS.Web.Services
                 item.Remark2 = bom.Remark2;
                 item.RequirementQty = orderdetail.Qty * bom.ConsumeQty;
                 item.StockQty = 0;
-                list.Add(item);
+
+                var exists = _workdetailservice.Queryable().Where(x => x.WorkId == work.Id && x.ComponentSKUId == bom.SKUId && x.ParentSKUId == bom.ParentComponent.SKUId).Any();
+                if (!exists)
+                {
+                    list.Add(item);
+                }
             }
             this._workdetailservice.InsertRange(list);
         }
