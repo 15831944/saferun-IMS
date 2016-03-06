@@ -395,6 +395,7 @@
     <Compile Include="Models\SupplierMetadata.cs" />
     <Compile Include="Models\WorkDetail.cs" />
     <Compile Include="Models\WorkDetailMetadata.cs" />
+    <Compile Include="Models\WorkGeneratorViewModel.cs" />
     <Compile Include="Models\WorkMetadata.cs" />
     <Compile Include="Models\WorkOrder.cs" />
     <Compile Include="Models\WorkType.cs" />

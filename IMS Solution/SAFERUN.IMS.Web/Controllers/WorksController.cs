@@ -22,29 +22,29 @@ namespace SAFERUN.IMS.Web.Controllers
 {
     public class WorksController : Controller
     {
-        
+
         //Please RegisterType UnityConfig.cs
         //container.RegisterType<IRepositoryAsync<Work>, Repository<Work>>();
         //container.RegisterType<IWorkService, WorkService>();
-        
+
         //private ImsDbContext db = new ImsDbContext();
-        private readonly IWorkService  _workService;
+        private readonly IWorkService _workService;
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public WorksController (IWorkService  workService, IUnitOfWorkAsync unitOfWork)
+        public WorksController(IWorkService workService, IUnitOfWorkAsync unitOfWork)
         {
-            _workService  = workService;
+            _workService = workService;
             _unitOfWork = unitOfWork;
         }
 
         // GET: Works/Index
         public ActionResult Index()
         {
-            
+
             //var works  = _workService.Queryable().Include(w => w.Order).Include(w => w.WorkType).AsQueryable();
-            
-             //return View(works);
-			 return View();
+
+            //return View(works);
+            return View();
         }
 
         // Get :Works/PageList
@@ -52,19 +52,19 @@ namespace SAFERUN.IMS.Web.Controllers
         [HttpGet]
         public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
-			var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
+            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
             //int pagenum = offset / limit +1;
-            			 
-            var works  = _workService.Query(new WorkQuery().Withfilter(filters)).Include(w => w.Order).Include(w => w.WorkType).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
+
+            var works = _workService.Query(new WorkQuery().Withfilter(filters)).Include(w => w.Order).Include(w => w.WorkType).OrderBy(n => n.OrderBy(sort, order)).SelectPage(page, rows, out totalCount);
 
             var datarows = works.Select(n => new { OrderProjectName = (n.Order == null ? "" : n.Order.ProjectName), OrderOrderKey = (n.Order == null ? "" : n.Order.OrderKey), WorkTypeName = (n.WorkType == null ? "" : n.WorkType.Name), Id = n.Id, WorkNo = n.WorkNo, WorkTypeId = n.WorkTypeId, OrderKey = n.OrderKey, OrderId = n.OrderId, PO = n.PO, User = n.User, WorkDate = n.WorkDate, Status = n.Status, Review = n.Review, ProductionConfirm = n.ProductionConfirm, OutsourceConfirm = n.OutsourceConfirm, AssembleConfirm = n.AssembleConfirm, PurchaseConfirm = n.PurchaseConfirm, ReviewDate = n.ReviewDate, Remark = n.Remark }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
-		[HttpPost]
-		public ActionResult SaveData(WorkChangeViewModel works)
+        [HttpPost]
+        public ActionResult SaveData(WorkChangeViewModel works)
         {
             if (works.updated != null)
             {
@@ -89,7 +89,7 @@ namespace SAFERUN.IMS.Web.Controllers
             }
             _unitOfWork.SaveChanges();
 
-            return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetOrders()
@@ -99,31 +99,31 @@ namespace SAFERUN.IMS.Web.Controllers
             var rows = data.Select(n => new { Id = n.Id, OrderKey = n.OrderKey, ProjectName = n.ProjectName, Status = n.Status });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-				public ActionResult GetWorkTypes()
+        public ActionResult GetWorkTypes()
         {
             var worktypeRepository = _unitOfWork.Repository<WorkType>();
             var data = worktypeRepository.Queryable().ToList();
             var rows = data.Select(n => new { Id = n.Id, Name = n.Name });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-		
-				public ActionResult GetSKUs()
+
+        public ActionResult GetSKUs()
         {
             var skuRepository = _unitOfWork.Repository<SKU>();
             var data = skuRepository.Queryable().ToList();
             var rows = data.Select(n => new { Id = n.Id, Sku = n.Sku });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-			 
-				public ActionResult GetWorks()
+
+        public ActionResult GetWorks()
         {
             var workRepository = _unitOfWork.Repository<Work>();
             var data = workRepository.Queryable().ToList();
             var rows = data.Select(n => new { Id = n.Id, WorkNo = n.WorkNo });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-		
-       
+
+
         // GET: Works/Details/5
         public ActionResult Details(int? id)
         {
@@ -138,7 +138,7 @@ namespace SAFERUN.IMS.Web.Controllers
             }
             return View(work);
         }
-        
+
 
         // GET: Works/Create
         public ActionResult Create()
@@ -160,14 +160,14 @@ namespace SAFERUN.IMS.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                             work.ObjectState = ObjectState.Added;   
-                                foreach (var item in work.WorkDetails)
+                work.ObjectState = ObjectState.Added;
+                foreach (var item in work.WorkDetails)
                 {
-					item.WorkId = work.Id ;
+                    item.WorkId = work.Id;
                     item.ObjectState = ObjectState.Added;
                 }
-                                _workService.InsertOrUpdateGraph(work);
-                            _unitOfWork.SaveChanges();
+                _workService.InsertOrUpdateGraph(work);
+                _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -182,7 +182,7 @@ namespace SAFERUN.IMS.Web.Controllers
             ViewBag.WorkTypeId = new SelectList(worktypeRepository.Queryable(), "Id", "Name", work.WorkTypeId);
             if (Request.IsAjaxRequest())
             {
-                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
@@ -217,18 +217,18 @@ namespace SAFERUN.IMS.Web.Controllers
             if (ModelState.IsValid)
             {
                 work.ObjectState = ObjectState.Modified;
-                                                foreach (var item in work.WorkDetails)
+                foreach (var item in work.WorkDetails)
                 {
-					item.WorkId = work.Id ;
+                    item.WorkId = work.Id;
                     //set ObjectState with conditions
-                    if(item.Id <= 0)
+                    if (item.Id <= 0)
                         item.ObjectState = ObjectState.Added;
                     else
                         item.ObjectState = ObjectState.Modified;
                 }
-                      
+
                 _workService.InsertOrUpdateGraph(work);
-                                
+
                 _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
@@ -243,7 +243,7 @@ namespace SAFERUN.IMS.Web.Controllers
             ViewBag.WorkTypeId = new SelectList(worktypeRepository.Queryable(), "Id", "Name", work.WorkTypeId);
             if (Request.IsAjaxRequest())
             {
-                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
@@ -270,13 +270,13 @@ namespace SAFERUN.IMS.Web.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Work work =  _workService.Find(id);
-             _workService.Delete(work);
+            Work work = _workService.Find(id);
+            _workService.Delete(work);
             _unitOfWork.SaveChanges();
-           if (Request.IsAjaxRequest())
-                {
-                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
-                }
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
             DisplaySuccessMessage("Has delete a Work record");
             return RedirectToAction("Index");
         }
@@ -294,49 +294,49 @@ namespace SAFERUN.IMS.Web.Controllers
             var workdetailRepository = _unitOfWork.Repository<WorkDetail>();
             var workdetail = workdetailRepository.Find(id);
 
-                        var skuRepository = _unitOfWork.Repository<SKU>();             
-                        //var skuRepository = _unitOfWork.Repository<SKU>();             
-                        var workRepository = _unitOfWork.Repository<Work>();             
-            
+            var skuRepository = _unitOfWork.Repository<SKU>();
+            //var skuRepository = _unitOfWork.Repository<SKU>();             
+            var workRepository = _unitOfWork.Repository<Work>();
+
             if (workdetail == null)
             {
-                            ViewBag.ComponentSKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku" );
-                            ViewBag.ParentSKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku" );
-                            ViewBag.WorkId = new SelectList(workRepository.Queryable(), "Id", "WorkNo" );
-                            
+                ViewBag.ComponentSKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku");
+                ViewBag.ParentSKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku");
+                ViewBag.WorkId = new SelectList(workRepository.Queryable(), "Id", "WorkNo");
+
                 //return HttpNotFound();
                 return PartialView("_WorkDetailEditForm", new WorkDetail());
             }
             else
             {
-                            ViewBag.ComponentSKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku" , workdetail.ComponentSKUId );  
-                            ViewBag.ParentSKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku" , workdetail.ParentSKUId );  
-                            ViewBag.WorkId = new SelectList(workRepository.Queryable(), "Id", "WorkNo" , workdetail.WorkId );  
-                             
+                ViewBag.ComponentSKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku", workdetail.ComponentSKUId);
+                ViewBag.ParentSKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku", workdetail.ParentSKUId);
+                ViewBag.WorkId = new SelectList(workRepository.Queryable(), "Id", "WorkNo", workdetail.WorkId);
+
             }
-            return PartialView("_WorkDetailEditForm",  workdetail);
+            return PartialView("_WorkDetailEditForm", workdetail);
 
         }
-        
+
         // Get Create Row By Id For Edit
         // Get : Works/CreateWorkDetail
         [HttpGet]
         public ActionResult CreateWorkDetail()
         {
-                        var skuRepository = _unitOfWork.Repository<SKU>();    
-              ViewBag.ComponentSKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku" );
-                        //var skuRepository = _unitOfWork.Repository<SKU>();    
-              ViewBag.ParentSKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku" );
-                        var workRepository = _unitOfWork.Repository<Work>();    
-              ViewBag.WorkId = new SelectList(workRepository.Queryable(), "Id", "WorkNo" );
-                      return PartialView("_WorkDetailEditForm");
+            var skuRepository = _unitOfWork.Repository<SKU>();
+            ViewBag.ComponentSKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku");
+            //var skuRepository = _unitOfWork.Repository<SKU>();    
+            ViewBag.ParentSKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku");
+            var workRepository = _unitOfWork.Repository<Work>();
+            ViewBag.WorkId = new SelectList(workRepository.Queryable(), "Id", "WorkNo");
+            return PartialView("_WorkDetailEditForm");
 
         }
 
         // Post Delete Detail Row By Id
         // Get : Works/DeleteWorkDetail/:id
-        [HttpPost,ActionName("DeleteWorkDetail")]
-        public ActionResult DeleteWorkDetailConfirmed(int  id)
+        [HttpPost, ActionName("DeleteWorkDetail")]
+        public ActionResult DeleteWorkDetailConfirmed(int id)
         {
             var workdetailRepository = _unitOfWork.Repository<WorkDetail>();
             workdetailRepository.Delete(id);
@@ -349,7 +349,7 @@ namespace SAFERUN.IMS.Web.Controllers
             return RedirectToAction("Index");
         }
 
-       
+
 
         // Get : Works/GetWorkDetailsByWorkId/:id
         [HttpGet]
@@ -358,12 +358,19 @@ namespace SAFERUN.IMS.Web.Controllers
             var workdetails = _workService.GetWorkDetailsByWorkId(id);
             if (Request.IsAjaxRequest())
             {
-                return Json(workdetails.Select( n => new { ComponentSKUSku = (n.ComponentSKU==null?"": n.ComponentSKU.Sku) ,ParentSKUSku = (n.ParentSKU==null?"": n.ParentSKU.Sku) ,WorkWorkNo = (n.Work==null?"": n.Work.WorkNo) , Id = n.Id , WorkNo = n.WorkNo , WorkId = n.WorkId , ParentSKUId = n.ParentSKUId , ComponentSKUId = n.ComponentSKUId , GraphSKU = n.GraphSKU , GraphVer = n.GraphVer , ConsumeQty = n.ConsumeQty , StockQty = n.StockQty , RequirementQty = n.RequirementQty , Brand = n.Brand , Process = n.Process , Responsibility = n.Responsibility , AltOrderProdctionDate = n.AltOrderProdctionDate , AltProdctionDate1 = n.AltProdctionDate1 , ActualProdctionDate1 = n.ActualProdctionDate1 , AltProdctionDate2 = n.AltProdctionDate2 , ActualProdctionDate2 = n.ActualProdctionDate2 , AltProdctionDate3 = n.AltProdctionDate3 , ActualProdctionDate3 = n.ActualProdctionDate3 , AltProdctionDate4 = n.AltProdctionDate4 , ActualProdctionDate4 = n.ActualProdctionDate4 , AltProdctionDate5 = n.AltProdctionDate5 , ActualProdctionDate5 = n.ActualProdctionDate5 , ConfirmUser = n.ConfirmUser , Remark1 = n.Remark1 , Remark2 = n.Remark2 }),JsonRequestBehavior.AllowGet);
-            }  
-            return View(workdetails); 
+                return Json(workdetails.Select(n => new { ComponentSKUSku = (n.ComponentSKU == null ? "" : n.ComponentSKU.Sku), ParentSKUSku = (n.ParentSKU == null ? "" : n.ParentSKU.Sku), WorkWorkNo = (n.Work == null ? "" : n.Work.WorkNo), Id = n.Id, WorkNo = n.WorkNo, WorkId = n.WorkId, ParentSKUId = n.ParentSKUId, ComponentSKUId = n.ComponentSKUId, GraphSKU = n.GraphSKU, GraphVer = n.GraphVer, ConsumeQty = n.ConsumeQty, StockQty = n.StockQty, RequirementQty = n.RequirementQty, Brand = n.Brand, Process = n.Process, Responsibility = n.Responsibility, AltOrderProdctionDate = n.AltOrderProdctionDate, AltProdctionDate1 = n.AltProdctionDate1, ActualProdctionDate1 = n.ActualProdctionDate1, AltProdctionDate2 = n.AltProdctionDate2, ActualProdctionDate2 = n.ActualProdctionDate2, AltProdctionDate3 = n.AltProdctionDate3, ActualProdctionDate3 = n.ActualProdctionDate3, AltProdctionDate4 = n.AltProdctionDate4, ActualProdctionDate4 = n.ActualProdctionDate4, AltProdctionDate5 = n.AltProdctionDate5, ActualProdctionDate5 = n.ActualProdctionDate5, ConfirmUser = n.ConfirmUser, Remark1 = n.Remark1, Remark2 = n.Remark2 }), JsonRequestBehavior.AllowGet);
+            }
+            return View(workdetails);
 
         }
- 
+        
+        [HttpPost]
+        public ActionResult GenerateWorkDetail(WorkGeneratorViewModel viewmodel)
+        {
+            _workService.GenerateWorkDetail(viewmodel);
+            _unitOfWork.SaveChanges();
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
 
         private void DisplaySuccessMessage(string msgText)
         {

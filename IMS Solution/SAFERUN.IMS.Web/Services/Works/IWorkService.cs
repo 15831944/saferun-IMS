@@ -27,5 +27,7 @@ namespace SAFERUN.IMS.Web.Services
          
  
 		void ImportDataTable(DataTable datatable);
+
+        void GenerateWorkDetail(WorkGeneratorViewModel viewmodel);
 	}
 }
