@@ -337,7 +337,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="importwindow" class="easyui-window" title="Excel 导入" data-options="modal:true,collapsible:false,minimizable:false,maximizable:false,closed:true,iconCls:'icon-paperclip'" style="width:500px;height:260px;padding:10px;">
+                    <div id="importwindow" class="easyui-window" title="Excel 导入" data-options="modal:true,collapsible:false,minimizable:false,maximizable:false,closed:true,iconCls:'icon-paperclip'" style="width:600px;height:260px;padding:10px;">
 
                         <p><input type="file" name="file_upload" id="file_upload" /></p>
                         <div id="alert1" class="alert alert-success">
@@ -349,42 +349,159 @@
 
                         </div>
                     </div>
-                    <div id="bomimportwindow" class="easyui-window" title="从BOM中选择导入" data-options="modal:true,closed:true,iconCls:'icon-cog'" style="width:700px;height:500px;padding:10px;">
+                    <div id="bomimportwindow" class="easyui-window" title="从BOM中选择导入" data-options="modal:true,closed:true,iconCls:'icon-cog'" style="width:75%;height:500px;padding:10px;">
                         <div class="table-responsive">
-                            <table id="orderdetails_datagrid" class="easyui-datagrid" title="订单明细 DataGrid" style="width:auto;height:200px"
+                            <table id="orderdetails_datagrid" class="easyui-datagrid" title="订单明细 DataGrid" style="width:auto;height:160px"
                                    data-options="
                  rownumbers:true,
                 remoteFilter: true,
                 singleSelect: true,
                 toolbar: '#orderdetails_toolbar',
-                url: '/OrderDetails/GetData',
+                url: '/OrderDetails/GetDataWithOrderId?orderid=-1',
                 method: 'get',
-               
-                pagination: 'true'
+                onSelect:orderdetailsOnSelect,
+                pagination: 'true',
+                onLoadSuccess:function(data){
+                                   
+                                   if(data.rows.length>0){
+                                    $('#orderdetails_datagrid').datagrid('selectRow',0)
+                                   }
+                                 }
+
                    ">
                                 <thead>
                                     <tr>
                                         <th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ">订单号</th>
-                        <th data-options="field:'LineNumber',width:140,editor:{type:'textbox',options:{required:false} } ">行号</th>
-                        <th data-options="field:'ContractNum',width:140,editor:{type:'textbox',options:{required:false} } ">合同号</th>
-                        <th data-options="field:'ProductionSku',width:140,editor:{type:'textbox',options:{required:false} } ">产品代码</th>
-                        <th data-options="field:'Model',width:140,editor:{type:'textbox',options:{required:false} } ">型号</th>
-                        <th data-options="field:'Qty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">数量</th>
-                        <th data-options="field:'UOM',width:140,editor:{type:'textbox',options:{required:false} } ">单位</th>
-                        <th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } ">备注</th>
-                        </tr>
-                        </thead>
+                                        <th data-options="field:'LineNumber',width:140,editor:{type:'textbox',options:{required:false} } ">行号</th>
+                                        <th data-options="field:'ContractNum',width:140,editor:{type:'textbox',options:{required:false} } ">合同号</th>
+                                        <th data-options="field:'ProductionSku',width:140,editor:{type:'textbox',options:{required:false} } ">产品代码</th>
+                                        <th data-options="field:'Model',width:140,editor:{type:'textbox',options:{required:false} } ">型号</th>
+                                        <th data-options="field:'Qty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">数量</th>
+                                        <th data-options="field:'UOM',width:140,editor:{type:'textbox',options:{required:false} } ">单位</th>
+                                        <th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } ">备注</th>
+                                    </tr>
+                                </thead>
+
+
+                            </table>
+                        </div>
+
+                        <table id="bomcomponents_datagrid" class="easyui-datagrid" title="BOM DataGrid" style="width:auto;height:auto"
+                               data-options="
+                               pageSize:10,
+                 rownumbers:true,
+                 idField:'Id',
+                 sortName:'Id',
+                 sortorder:'asc',
+                remoteFilter: true,
+                singleSelect: false,
+                checkOnSelect:true,
+                toolbar: '#bomcomponents_gridtoolbar',
+                url: '/BOMComponents/GridData',
+                method: 'get',
+                
+                pagination: 'true'
+                   ">
+                            <thead>
+                                <tr>
+
+                                    <th data-options="field:'ck',checkbox:true"></th>
+                                    <th data-options="field:'ParentComponentId',width:120,sortable:true,resizable:true,
+                        formatter:function(value,row){
+                            return row.ParentComponentComponentSKU;
+                        },
+                        editor:{
+                            type:'combobox',
+                            options:{
+                                valueField:'Id',
+                                textField:'ComponentSKU',
+                                method:'get',
+                                url:'/BOMComponents/GetBOMComponents',
+                                required:true
+                            }
+                        }">部套编号</th>
+                                    <th data-options="field:'SKUId',width:130,sortable:true,resizable:true,
+                        formatter:function(value,row){
+                            return row.SKUSku;
+                        },
+                        editor:{
+                            type:'combobox',
+                            options:{
+                                valueField:'Id',
+                                textField:'Sku',
+                                method:'get',
+                                url:'/BOMComponents/GetSKUs',
+                                required:true
+                            }
+                        }">零件编号</th>
+                                    <th data-options="field:'DesignName',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">
+                                        名称
+                                    </th>
+                                    <th data-options="field:'GraphSKU',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">图纸编号</th>
+                                    <th data-options="field:'MadeType',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">生产方式</th>
+                                    <th data-options="field:'SKUGroup',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">物料类型</th>
+                                    <th data-options="field:'Remark1',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">备注</th>
+                                    <th data-options="field:'ConsumeQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">单位耗用</th>
+                                    <th data-options="field:'Deploy',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">装配位置</th>
+                                    <th data-options="field:'ProductionProcessId',width:100,sortable:true,resizable:true,
+                        formatter:function(value,row){
+                            return row.ProductionProcessName;
+                        },
+                        editor:{
+                            type:'combobox',
+                            options:{
+                                valueField:'Id',
+                                textField:'Name',
+                                method:'get',
+                                url:'/BOMComponents/GetProductionProcesses',
+                                required:true
+                            }
+                        }">加工工艺</th>
+
+
+
+                                    <th data-options="field:'Version',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">版本号</th>
+
+
+                                    <th data-options="field:'Status',width:100,align:'right',
+                                                 editor:{ type:'combobox',
+                                                 options:{
+                                                    panelHeight: 'auto',
+                                                    data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
+                                                    required:true } }  ,formatter:statusformatter">状态</th>
+
+
+
+
+
+                                    <th data-options="field:'FinishedSKU',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">成品编码</th>
+
+
+
+
+                                </tr>
+                            </thead>
 
 
                         </table>
+
+
+                        <div style="text-align:center;padding:5px">
+                            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="impworkfrombom()">导入选中的记录</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#bomcomponents_datagrid').datagrid('unselectAll')">清除</a>
                         </div>
-                     </div>
+
+                    </div>
 
                     @section Scripts {
                         <script type="text/javascript">
 
                             function workdetails_bomimportexcel() {
-                                $('#bomimportwindow').window('open');
+                                var row = $dg.datagrid('getSelected');
+                                if (row != null) {
+                                    $('#orderdetails_datagrid').datagrid('reload', '/OrderDetails/GetDataWithOrderId?orderid=' + row.OrderId);
+                                    $('#bomimportwindow').window('open');
+                                }
                             }
 
                             $(function () {
@@ -731,7 +848,7 @@
                                 if (workdetails_endEditing()) {
                                     var currentwork = $dg.datagrid('getSelected');
                                     //console.log(currentwork);
-                                    $workdetailsgrid.datagrid('appendRow', { OrderKey: currentwork.OrderKey, WorkNo: currentwork.WorkNo,WorkId:currentwork.Id});
+                                    $workdetailsgrid.datagrid('appendRow', { OrderKey: currentwork.OrderKey, WorkNo: currentwork.WorkNo, WorkId: currentwork.Id });
                                     workdetails_editIndex = $workdetailsgrid.datagrid('getRows').length - 1;
                                     $workdetailsgrid.datagrid('selectRow', workdetails_editIndex)
                                             .datagrid('beginEdit', workdetails_editIndex);
@@ -795,15 +912,15 @@
 		   				    options: {
 		   				        onChange: function (value) {
 		   				            if (value == '') {
-		   				                $dg.datagrid('removeFilterRule', 'AltOrderProdctionDate');
+		   				                $workdetailsgrid.datagrid('removeFilterRule', 'AltOrderProdctionDate');
 		   				            } else {
-		   				                $dg.datagrid('addFilterRule', {
+		   				                $workdetailsgrid.datagrid('addFilterRule', {
 		   				                    field: 'AltOrderProdctionDate',
 		   				                    op: 'equal',
 		   				                    value: value
 		   				                });
 		   				            }
-		   				            $dg.datagrid('doFilter');
+		   				            $workdetailsgrid.datagrid('doFilter');
 		   				        }
 		   				    }
 		   				},
@@ -813,15 +930,15 @@
 		   				    options: {
 		   				        onChange: function (value) {
 		   				            if (value == '') {
-		   				                $dg.datagrid('removeFilterRule', 'AltProdctionDate1');
+		   				                $workdetailsgrid.datagrid('removeFilterRule', 'AltProdctionDate1');
 		   				            } else {
-		   				                $dg.datagrid('addFilterRule', {
+		   				                $workdetailsgrid.datagrid('addFilterRule', {
 		   				                    field: 'AltProdctionDate1',
 		   				                    op: 'equal',
 		   				                    value: value
 		   				                });
 		   				            }
-		   				            $dg.datagrid('doFilter');
+		   				            $workdetailsgrid.datagrid('doFilter');
 		   				        }
 		   				    }
 		   				},
@@ -831,15 +948,15 @@
 		   				    options: {
 		   				        onChange: function (value) {
 		   				            if (value == '') {
-		   				                $dg.datagrid('removeFilterRule', 'ActualProdctionDate1');
+		   				                $workdetailsgrid.datagrid('removeFilterRule', 'ActualProdctionDate1');
 		   				            } else {
-		   				                $dg.datagrid('addFilterRule', {
+		   				                $workdetailsgrid.datagrid('addFilterRule', {
 		   				                    field: 'ActualProdctionDate1',
 		   				                    op: 'equal',
 		   				                    value: value
 		   				                });
 		   				            }
-		   				            $dg.datagrid('doFilter');
+		   				            $workdetailsgrid.datagrid('doFilter');
 		   				        }
 		   				    }
 		   				},
@@ -849,15 +966,15 @@
 		   				    options: {
 		   				        onChange: function (value) {
 		   				            if (value == '') {
-		   				                $dg.datagrid('removeFilterRule', 'AltProdctionDate2');
+		   				                $workdetailsgrid.datagrid('removeFilterRule', 'AltProdctionDate2');
 		   				            } else {
-		   				                $dg.datagrid('addFilterRule', {
+		   				                $workdetailsgrid.datagrid('addFilterRule', {
 		   				                    field: 'AltProdctionDate2',
 		   				                    op: 'equal',
 		   				                    value: value
 		   				                });
 		   				            }
-		   				            $dg.datagrid('doFilter');
+		   				            $workdetailsgrid.datagrid('doFilter');
 		   				        }
 		   				    }
 		   				},
@@ -867,15 +984,15 @@
 		   				    options: {
 		   				        onChange: function (value) {
 		   				            if (value == '') {
-		   				                $dg.datagrid('removeFilterRule', 'ActualProdctionDate2');
+		   				                $workdetailsgrid.datagrid('removeFilterRule', 'ActualProdctionDate2');
 		   				            } else {
-		   				                $dg.datagrid('addFilterRule', {
+		   				                $workdetailsgrid.datagrid('addFilterRule', {
 		   				                    field: 'ActualProdctionDate2',
 		   				                    op: 'equal',
 		   				                    value: value
 		   				                });
 		   				            }
-		   				            $dg.datagrid('doFilter');
+		   				            $workdetailsgrid.datagrid('doFilter');
 		   				        }
 		   				    }
 		   				},
@@ -885,15 +1002,15 @@
 		   				    options: {
 		   				        onChange: function (value) {
 		   				            if (value == '') {
-		   				                $dg.datagrid('removeFilterRule', 'AltProdctionDate3');
+		   				                $workdetailsgrid.datagrid('removeFilterRule', 'AltProdctionDate3');
 		   				            } else {
-		   				                $dg.datagrid('addFilterRule', {
+		   				                $workdetailsgrid.datagrid('addFilterRule', {
 		   				                    field: 'AltProdctionDate3',
 		   				                    op: 'equal',
 		   				                    value: value
 		   				                });
 		   				            }
-		   				            $dg.datagrid('doFilter');
+		   				            $workdetailsgrid.datagrid('doFilter');
 		   				        }
 		   				    }
 		   				},
@@ -903,15 +1020,15 @@
 		   				    options: {
 		   				        onChange: function (value) {
 		   				            if (value == '') {
-		   				                $dg.datagrid('removeFilterRule', 'ActualProdctionDate3');
+		   				                $workdetailsgrid.datagrid('removeFilterRule', 'ActualProdctionDate3');
 		   				            } else {
-		   				                $dg.datagrid('addFilterRule', {
+		   				                $workdetailsgrid.datagrid('addFilterRule', {
 		   				                    field: 'ActualProdctionDate3',
 		   				                    op: 'equal',
 		   				                    value: value
 		   				                });
 		   				            }
-		   				            $dg.datagrid('doFilter');
+		   				            $workdetailsgrid.datagrid('doFilter');
 		   				        }
 		   				    }
 		   				},
@@ -921,15 +1038,15 @@
 		   				    options: {
 		   				        onChange: function (value) {
 		   				            if (value == '') {
-		   				                $dg.datagrid('removeFilterRule', 'AltProdctionDate4');
+		   				                $workdetailsgrid.datagrid('removeFilterRule', 'AltProdctionDate4');
 		   				            } else {
-		   				                $dg.datagrid('addFilterRule', {
+		   				                $workdetailsgrid.datagrid('addFilterRule', {
 		   				                    field: 'AltProdctionDate4',
 		   				                    op: 'equal',
 		   				                    value: value
 		   				                });
 		   				            }
-		   				            $dg.datagrid('doFilter');
+		   				            $workdetailsgrid.datagrid('doFilter');
 		   				        }
 		   				    }
 		   				},
@@ -939,15 +1056,15 @@
 		   				    options: {
 		   				        onChange: function (value) {
 		   				            if (value == '') {
-		   				                $dg.datagrid('removeFilterRule', 'ActualProdctionDate4');
+		   				                $workdetailsgrid.datagrid('removeFilterRule', 'ActualProdctionDate4');
 		   				            } else {
-		   				                $dg.datagrid('addFilterRule', {
+		   				                $workdetailsgrid.datagrid('addFilterRule', {
 		   				                    field: 'ActualProdctionDate4',
 		   				                    op: 'equal',
 		   				                    value: value
 		   				                });
 		   				            }
-		   				            $dg.datagrid('doFilter');
+		   				            $workdetailsgrid.datagrid('doFilter');
 		   				        }
 		   				    }
 		   				},
@@ -957,15 +1074,15 @@
 		   				    options: {
 		   				        onChange: function (value) {
 		   				            if (value == '') {
-		   				                $dg.datagrid('removeFilterRule', 'AltProdctionDate5');
+		   				                $workdetailsgrid.datagrid('removeFilterRule', 'AltProdctionDate5');
 		   				            } else {
-		   				                $dg.datagrid('addFilterRule', {
+		   				                $workdetailsgrid.datagrid('addFilterRule', {
 		   				                    field: 'AltProdctionDate5',
 		   				                    op: 'equal',
 		   				                    value: value
 		   				                });
 		   				            }
-		   				            $dg.datagrid('doFilter');
+		   				            $workdetailsgrid.datagrid('doFilter');
 		   				        }
 		   				    }
 		   				},
@@ -975,15 +1092,15 @@
 		   				    options: {
 		   				        onChange: function (value) {
 		   				            if (value == '') {
-		   				                $dg.datagrid('removeFilterRule', 'ActualProdctionDate5');
+		   				                $workdetailsgrid.datagrid('removeFilterRule', 'ActualProdctionDate5');
 		   				            } else {
-		   				                $dg.datagrid('addFilterRule', {
+		   				                $workdetailsgrid.datagrid('addFilterRule', {
 		   				                    field: 'ActualProdctionDate5',
 		   				                    op: 'equal',
 		   				                    value: value
 		   				                });
 		   				            }
-		   				            $dg.datagrid('doFilter');
+		   				            $workdetailsgrid.datagrid('doFilter');
 		   				        }
 		   				    }
 		   				},
@@ -998,15 +1115,15 @@
 		   		           url: '/WorkDetails/GetWorks',
 		   		           onChange: function (value) {
 		   		               if (value == '') {
-		   		                   $dg.datagrid('removeFilterRule', 'WorkId');
+		   		                   $workdetailsgrid.datagrid('removeFilterRule', 'WorkId');
 		   		               } else {
-		   		                   $dg.datagrid('addFilterRule', {
+		   		                   $workdetailsgrid.datagrid('addFilterRule', {
 		   		                       field: 'WorkId',
 		   		                       op: 'equal',
 		   		                       value: value
 		   		                   });
 		   		               }
-		   		               $dg.datagrid('doFilter');
+		   		               $workdetailsgrid.datagrid('doFilter');
 		   		           }
 		   		       }
 		   		   },
@@ -1020,15 +1137,15 @@
 		   		           url: '/WorkDetails/GetSKUs',
 		   		           onChange: function (value) {
 		   		               if (value == '') {
-		   		                   $dg.datagrid('removeFilterRule', 'ParentSKUId');
+		   		                   $workdetailsgrid.datagrid('removeFilterRule', 'ParentSKUId');
 		   		               } else {
-		   		                   $dg.datagrid('addFilterRule', {
+		   		                   $workdetailsgrid.datagrid('addFilterRule', {
 		   		                       field: 'ParentSKUId',
 		   		                       op: 'equal',
 		   		                       value: value
 		   		                   });
 		   		               }
-		   		               $dg.datagrid('doFilter');
+		   		               $workdetailsgrid.datagrid('doFilter');
 		   		           }
 		   		       }
 		   		   },
@@ -1042,15 +1159,15 @@
 		   		           url: '/WorkDetails/GetSKUs',
 		   		           onChange: function (value) {
 		   		               if (value == '') {
-		   		                   $dg.datagrid('removeFilterRule', 'ComponentSKUId');
+		   		                   $workdetailsgrid.datagrid('removeFilterRule', 'ComponentSKUId');
 		   		               } else {
-		   		                   $dg.datagrid('addFilterRule', {
+		   		                   $workdetailsgrid.datagrid('addFilterRule', {
 		   		                       field: 'ComponentSKUId',
 		   		                       op: 'equal',
 		   		                       value: value
 		   		                   });
 		   		               }
-		   		               $dg.datagrid('doFilter');
+		   		               $workdetailsgrid.datagrid('doFilter');
 		   		           }
 		   		       }
 		   		   },
@@ -1075,7 +1192,134 @@
                                 $workdetailsgrid.datagrid('doFilter');
 
                             }
+                            //-----------------------------------------------------
+                            //orderdetail select
+                            //-----------------------------------------------------
+                            function orderdetailsOnSelect(index, row) {
+                                //console.log(row);
+                                filterWithFinishedSKU(row.ProductionSku);
+                            }
 
+                            //------------------------------------------
+                            //bomcomponents_datagrid
+                            //------------------------------------------
+
+                            function filterWithFinishedSKU(finishedsku) {
+                                var value = finishedsku;
+                                if (value == '') {
+                                    $bomdatagrid.datagrid('removeFilterRule', 'FinishedSKU');
+                                } else {
+                                    $bomdatagrid.datagrid('addFilterRule', {
+                                        field: 'FinishedSKU',
+                                        op: 'equal',
+                                        value: value
+                                    });
+
+                                    $bomdatagrid.datagrid('addFilterRule', {
+                                        field: 'SKUGroup',
+                                        op: 'equal',
+                                        value: '零件'
+                                    });
+                                }
+
+                                $bomdatagrid.datagrid('doFilter');
+                            }
+
+                            var $bomdatagrid = $('#bomcomponents_datagrid');
+                            $(function () {
+
+                                $bomdatagrid.datagrid('enableFilter', [
+                                             {
+                                                 field: 'Status',
+                                                 type: 'combobox',
+                                                 options: {
+                                                     panelHeight: 'auto',
+                                                     data: [{ value: '', text: 'All' }, { value: '0', text: '启用' }, { value: '1', text: '禁用' }],
+                                                     onChange: function (value) {
+                                                         if (value == '') {
+                                                             $dg.datagrid('removeFilterRule', 'Status');
+                                                         } else {
+                                                             $dg.datagrid('addFilterRule', {
+                                                                 field: 'Status',
+                                                                 op: 'equal',
+                                                                 value: value
+                                                             });
+                                                         }
+                                                         $bomdatagrid.datagrid('doFilter');
+                                                     }
+                                                 }
+                                             },
+
+
+                                        {
+                                            field: 'ProductionProcessId',
+                                            type: 'combobox',
+                                            options: {
+                                                valueField: 'Id',
+                                                textField: 'Name',
+                                                method: 'get',
+                                                url: '/BOMComponents/GetProductionProcesses',
+                                                onChange: function (value) {
+                                                    if (value == '') {
+                                                        $dg.datagrid('removeFilterRule', 'ProductionProcessId');
+                                                    } else {
+                                                        $dg.datagrid('addFilterRule', {
+                                                            field: 'ProductionProcessId',
+                                                            op: 'equal',
+                                                            value: value
+                                                        });
+                                                    }
+                                                    $bomdatagrid.datagrid('doFilter');
+                                                }
+                                            }
+                                        },
+                                        {
+                                            field: 'SKUId',
+                                            type: 'combobox',
+                                            options: {
+                                                valueField: 'Id',
+                                                textField: 'Sku',
+                                                method: 'get',
+                                                url: '/BOMComponents/GetSKUs',
+                                                onChange: function (value) {
+                                                    if (value == '') {
+                                                        $bomdatagrid.datagrid('removeFilterRule', 'SKUId');
+                                                    } else {
+                                                        $bomdatagrid.datagrid('addFilterRule', {
+                                                            field: 'SKUId',
+                                                            op: 'equal',
+                                                            value: value
+                                                        });
+                                                    }
+                                                    $bomdatagrid.datagrid('doFilter');
+                                                }
+                                            }
+                                        },
+                                        {
+                                            field: 'ParentComponentId',
+                                            type: 'combobox',
+                                            options: {
+                                                valueField: 'Id',
+                                                textField: 'ComponentSKU',
+                                                method: 'get',
+                                                url: '/BOMComponents/GetBOMComponents',
+                                                onChange: function (value) {
+                                                    if (value == '') {
+                                                        $bomdatagrid.datagrid('removeFilterRule', 'ParentComponentId');
+                                                    } else {
+                                                        $bomdatagrid.datagrid('addFilterRule', {
+                                                            field: 'ParentComponentId',
+                                                            op: 'equal',
+                                                            value: value
+                                                        });
+                                                    }
+                                                    $bomdatagrid.datagrid('doFilter');
+                                                }
+                                            }
+                                        },
+
+                                ]);
+                            })
                         </script>
                     }
 

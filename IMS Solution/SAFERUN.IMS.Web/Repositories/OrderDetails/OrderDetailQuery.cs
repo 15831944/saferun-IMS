@@ -30,7 +30,11 @@ namespace SAFERUN.IMS.Web.Repositories
                 And( x =>  x.OrderKey.Contains(search) || x.LineNumber.Contains(search) || x.ContractNum.Contains(search) || x.ProductionSku.Contains(search) || x.Model.Contains(search) || x.UOM.Contains(search) || x.Remark.Contains(search) );
             return this;
         }
-
+        public OrderDetailQuery WithOrderId(int orderId)
+        {
+            And(x => x.OrderId == orderId);
+            return this;
+        }
 		public OrderDetailQuery Withfilter(IEnumerable<filterRule> filters)
         {
            if (filters != null)

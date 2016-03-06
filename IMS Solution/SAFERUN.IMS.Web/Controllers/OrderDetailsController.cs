@@ -63,6 +63,20 @@ namespace SAFERUN.IMS.Web.Controllers
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public ActionResult GetDataWithOrderId(int orderid=0,int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
+        {
+            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
+            int totalCount = 0;
+            //int pagenum = offset / limit +1;
+
+            var orderdetails = _orderDetailService.Query(new OrderDetailQuery().WithOrderId(orderid)).Include(o => o.Order).Include(o => o.SKU).OrderBy(n => n.OrderBy(sort, order)).SelectPage(page, rows, out totalCount);
+
+            var datarows = orderdetails.Select(n => new { OrderOrderKey = (n.Order == null ? "" : n.Order.OrderKey), SKUSku = (n.SKU == null ? "" : n.SKU.Sku), Id = n.Id, OrderKey = n.OrderKey, OrderId = n.OrderId, LineNumber = n.LineNumber, ContractNum = n.ContractNum, SKUId = n.SKUId, ProductionSku = n.ProductionSku, Model = n.Model, Qty = n.Qty, UOM = n.UOM, Price = n.Price, SubTotal = n.SubTotal, Remark = n.Remark, Status = n.Status }).ToList();
+            var pagelist = new { total = totalCount, rows = datarows };
+            return Json(pagelist, JsonRequestBehavior.AllowGet);
+        }
+
 		[HttpPost]
 		public ActionResult SaveData(OrderDetailChangeViewModel orderdetails)
         {
