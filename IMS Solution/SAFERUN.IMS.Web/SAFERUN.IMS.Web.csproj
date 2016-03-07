@@ -230,12 +230,15 @@
     <Compile Include="Controllers\ProcessStepsController.cs" />
     <Compile Include="Controllers\ProductionPlansController.cs" />
     <Compile Include="Controllers\ProductionProcessesController.cs" />
+    <Compile Include="Controllers\ProductionSchedulesController.cs" />
     <Compile Include="Controllers\ProductionTasksController.cs" />
     <Compile Include="Controllers\ProjectNodesController.cs" />
     <Compile Include="Controllers\ProjectTypesController.cs" />
     <Compile Include="Controllers\PurchasePlansController.cs" />
     <Compile Include="Controllers\RepairJobsController.cs" />
     <Compile Include="Controllers\RoleMenusController.cs" />
+    <Compile Include="Controllers\ScheduleDetailsController.cs" />
+    <Compile Include="Controllers\ShiftsController.cs" />
     <Compile Include="Controllers\SKUsController.cs" />
     <Compile Include="Controllers\StationsController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
@@ -333,8 +336,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\ProductionSchedule.cs" />
+    <Compile Include="Models\ProductionScheduleMetadata.cs" />
     <Compile Include="Models\ScheduleDetail.cs" />
+    <Compile Include="Models\ScheduleDetailMetadata.cs" />
     <Compile Include="Models\Shift.cs" />
+    <Compile Include="Models\ShiftMetadata.cs" />
     <Compile Include="Models\Supplier.cs" />
     <Compile Include="Models\Customer.cs">
       <SubType>Code</SubType>
@@ -444,6 +450,8 @@
     <Compile Include="Repositories\ProductionPlans\ProductionPlanRepository.cs" />
     <Compile Include="Repositories\ProductionProcesses\ProductionProcessQuery.cs" />
     <Compile Include="Repositories\ProductionProcesses\ProductionProcessRepository.cs" />
+    <Compile Include="Repositories\ProductionSchedules\ProductionScheduleQuery.cs" />
+    <Compile Include="Repositories\ProductionSchedules\ProductionScheduleRepository.cs" />
     <Compile Include="Repositories\ProductionTasks\ProductionTaskQuery.cs" />
     <Compile Include="Repositories\ProductionTasks\ProductionTaskRepository.cs" />
     <Compile Include="Repositories\ProjectNodes\ProjectNodeQuery.cs" />
@@ -456,6 +464,10 @@
     <Compile Include="Repositories\RepairJobs\RepairJobRepository.cs" />
     <Compile Include="Repositories\RoleMenus\RoleMenuQuery.cs" />
     <Compile Include="Repositories\RoleMenus\RoleMenuRepository.cs" />
+    <Compile Include="Repositories\ScheduleDetails\ScheduleDetailQuery.cs" />
+    <Compile Include="Repositories\ScheduleDetails\ScheduleDetailRepository.cs" />
+    <Compile Include="Repositories\Shifts\ShiftQuery.cs" />
+    <Compile Include="Repositories\Shifts\ShiftRepository.cs" />
     <Compile Include="Repositories\SKUs\SKUQuery.cs" />
     <Compile Include="Repositories\SKUs\SKURepository.cs" />
     <Compile Include="Repositories\Stations\StationQuery.cs" />
@@ -508,6 +520,8 @@
     <Compile Include="Services\ProductionPlans\ProductionPlanService.cs" />
     <Compile Include="Services\ProductionProcesses\IProductionProcessService.cs" />
     <Compile Include="Services\ProductionProcesses\ProductionProcessService.cs" />
+    <Compile Include="Services\ProductionSchedules\IProductionScheduleService.cs" />
+    <Compile Include="Services\ProductionSchedules\ProductionScheduleService.cs" />
     <Compile Include="Services\ProductionTasks\IProductionTaskService.cs" />
     <Compile Include="Services\ProductionTasks\ProductionTaskService.cs" />
     <Compile Include="Services\ProjectNodes\IProjectNodeService.cs" />
@@ -520,6 +534,10 @@
     <Compile Include="Services\RepairJobs\RepairJobService.cs" />
     <Compile Include="Services\RoleMenus\IRoleMenuService.cs" />
     <Compile Include="Services\RoleMenus\RoleMenuService.cs" />
+    <Compile Include="Services\ScheduleDetails\IScheduleDetailService.cs" />
+    <Compile Include="Services\ScheduleDetails\ScheduleDetailService.cs" />
+    <Compile Include="Services\Shifts\IShiftService.cs" />
+    <Compile Include="Services\Shifts\ShiftService.cs" />
     <Compile Include="Services\SKUs\ISKUService.cs" />
     <Compile Include="Services\SKUs\SKUService.cs" />
     <Compile Include="Services\Stations\IStationService.cs" />
@@ -1338,6 +1356,22 @@
     <Content Include="Views\WorkTypes\Edit.cshtml" />
     <Content Include="Views\WorkTypes\EditForm.cshtml" />
     <Content Include="Views\WorkTypes\_PopupSearch.cshtml" />
+    <Content Include="Views\Shifts\Index.cshtml" />
+    <Content Include="Views\Shifts\Create.cshtml" />
+    <Content Include="Views\Shifts\Edit.cshtml" />
+    <Content Include="Views\Shifts\EditForm.cshtml" />
+    <Content Include="Views\Shifts\_PopupSearch.cshtml" />
+    <Content Include="Views\ScheduleDetails\Index.cshtml" />
+    <Content Include="Views\ScheduleDetails\Create.cshtml" />
+    <Content Include="Views\ScheduleDetails\Edit.cshtml" />
+    <Content Include="Views\ScheduleDetails\EditForm.cshtml" />
+    <Content Include="Views\ScheduleDetails\_PopupSearch.cshtml" />
+    <Content Include="Views\ProductionSchedules\Index.cshtml" />
+    <Content Include="Views\ProductionSchedules\Create.cshtml" />
+    <Content Include="Views\ProductionSchedules\Edit.cshtml" />
+    <Content Include="Views\ProductionSchedules\EditForm.cshtml" />
+    <Content Include="Views\ProductionSchedules\_PopupSearch.cshtml" />
+    <Content Include="Views\ProductionSchedules\_ScheduleDetailEditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -77,5 +77,11 @@ namespace SAFERUN.IMS.Web.Models
         public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.WorkType> WorkTypes { get; set; }
 
         public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.WorkDetail> WorkDetails { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.Shift> Shifts { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.ScheduleDetail> ScheduleDetails { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.ProductionSchedule> ProductionSchedules { get; set; }
     }
 }

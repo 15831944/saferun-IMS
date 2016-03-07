@@ -10,6 +10,10 @@ namespace SAFERUN.IMS.Web.Models
 {
     public partial class ProductionSchedule:Entity
     {
+        public ProductionSchedule()
+        {
+            ScheduleDetails = new HashSet<ScheduleDetail>();
+        }
         [Key]
         public int Id { get; set; }
         [Required]
@@ -35,7 +39,7 @@ namespace SAFERUN.IMS.Web.Models
         public virtual Customer Customer { get; set; }
 
 
-
+        public virtual ICollection<ScheduleDetail> ScheduleDetails { get; set; }
 
 
 
