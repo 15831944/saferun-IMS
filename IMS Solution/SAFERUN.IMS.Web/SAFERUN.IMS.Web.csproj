@@ -332,6 +332,9 @@
     <Compile Include="Models\BOMComponentMetadata.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\ProductionSchedule.cs" />
+    <Compile Include="Models\ScheduleDetail.cs" />
+    <Compile Include="Models\Shift.cs" />
     <Compile Include="Models\Supplier.cs" />
     <Compile Include="Models\Customer.cs">
       <SubType>Code</SubType>
