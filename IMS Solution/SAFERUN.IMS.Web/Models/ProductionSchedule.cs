@@ -19,6 +19,7 @@ namespace SAFERUN.IMS.Web.Models
         [Required]
         [Index("IX_ProductionSchedule",IsUnique=true)]
         public string ScheduleNo { get; set; }
+
         public int WorkId { get; set; }
         [ForeignKey("WorkId")]
         public virtual Work Work { get; set; }
