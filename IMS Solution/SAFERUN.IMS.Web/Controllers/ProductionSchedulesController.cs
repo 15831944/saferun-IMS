@@ -22,29 +22,29 @@ namespace SAFERUN.IMS.Web.Controllers
 {
     public class ProductionSchedulesController : Controller
     {
-        
+
         //Please RegisterType UnityConfig.cs
         //container.RegisterType<IRepositoryAsync<ProductionSchedule>, Repository<ProductionSchedule>>();
         //container.RegisterType<IProductionScheduleService, ProductionScheduleService>();
-        
+
         //private ImsDbContext db = new ImsDbContext();
-        private readonly IProductionScheduleService  _productionScheduleService;
+        private readonly IProductionScheduleService _productionScheduleService;
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public ProductionSchedulesController (IProductionScheduleService  productionScheduleService, IUnitOfWorkAsync unitOfWork)
+        public ProductionSchedulesController(IProductionScheduleService productionScheduleService, IUnitOfWorkAsync unitOfWork)
         {
-            _productionScheduleService  = productionScheduleService;
+            _productionScheduleService = productionScheduleService;
             _unitOfWork = unitOfWork;
         }
 
         // GET: ProductionSchedules/Index
         public ActionResult Index()
         {
-            
+
             //var productionschedules  = _productionScheduleService.Queryable().Include(p => p.Customer).Include(p => p.Work).AsQueryable();
-            
-             //return View(productionschedules);
-			 return View();
+
+            //return View(productionschedules);
+            return View();
         }
 
         // Get :ProductionSchedules/PageList
@@ -52,19 +52,19 @@ namespace SAFERUN.IMS.Web.Controllers
         [HttpGet]
         public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
-			var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
+            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
             //int pagenum = offset / limit +1;
-            			 
-            var productionschedules  = _productionScheduleService.Query(new ProductionScheduleQuery().Withfilter(filters)).Include(p => p.Customer).Include(p => p.Work).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
-            
-                        var datarows = productionschedules .Select(  n => new { WorkWorkNo = (n.Work==null?"": n.Work.WorkNo) , Id = n.Id , ScheduleNo = n.ScheduleNo , WorkId = n.WorkId , OrderKey = n.OrderKey , OrderDate = n.OrderDate , BeginDate = n.BeginDate , CompletedDate = n.CompletedDate , Ower = n.Ower , ScheduleDate = n.ScheduleDate , Status = n.Status , Remark = n.Remark }).ToList();
+
+            var productionschedules = _productionScheduleService.Query(new ProductionScheduleQuery().Withfilter(filters)).Include(p => p.Customer).Include(p => p.Work).Include(p => p.Work.Order).OrderBy(n => n.OrderBy(sort, order)).SelectPage(page, rows, out totalCount);
+
+            var datarows = productionschedules.Select(n => new { OrderId=n.OrderId, ProjectName = n.Work.Order.ProjectName, WorkWorkNo = (n.Work == null ? "" : n.Work.WorkNo), Id = n.Id, ScheduleNo = n.ScheduleNo, WorkId = n.WorkId, OrderKey = n.OrderKey, OrderDate = n.OrderDate, BeginDate = n.BeginDate, CompletedDate = n.CompletedDate, Ower = n.Ower, ScheduleDate = n.ScheduleDate, Status = n.Status, Remark = n.Remark }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
-		[HttpPost]
-		public ActionResult SaveData(ProductionScheduleChangeViewModel productionschedules)
+        [HttpPost]
+        public ActionResult SaveData(ProductionScheduleChangeViewModel productionschedules)
         {
             if (productionschedules.updated != null)
             {
@@ -89,26 +89,26 @@ namespace SAFERUN.IMS.Web.Controllers
             }
             _unitOfWork.SaveChanges();
 
-            return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
 
-				public ActionResult GetCustomers()
+        public ActionResult GetCustomers()
         {
             var customerRepository = _unitOfWork.Repository<Customer>();
             var data = customerRepository.Queryable().ToList();
             var rows = data.Select(n => new { Id = n.Id, AccountNumber = n.AccountNumber });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-				public ActionResult GetWorks()
+        public ActionResult GetWorks()
         {
             var workRepository = _unitOfWork.Repository<Work>();
-            var data = workRepository.Queryable().ToList();
-            var rows = data.Select(n => new { Id = n.Id, WorkNo = n.WorkNo });
+            var data = workRepository.Queryable().Include(x=>x.Order).Include(x=>x.WorkType).ToList();
+            var rows = data.Select(n => new { Id = n.Id,WorkType = n.WorkType.Name, WorkNo = n.WorkNo,OrderId=n.OrderId,CustomerId=n.Order.CustomerId, OrderKey = n.OrderKey, ProjectName = n.Order.ProjectName, OrderDate = n.Order.OrderDate, Status = n.Status });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-		
-		
-       
+
+
+
         // GET: ProductionSchedules/Details/5
         public ActionResult Details(int? id)
         {
@@ -123,7 +123,7 @@ namespace SAFERUN.IMS.Web.Controllers
             }
             return View(productionSchedule);
         }
-        
+
 
         // GET: ProductionSchedules/Create
         public ActionResult Create()
@@ -145,8 +145,8 @@ namespace SAFERUN.IMS.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-             				_productionScheduleService.Insert(productionSchedule);
-                           _unitOfWork.SaveChanges();
+                _productionScheduleService.Insert(productionSchedule);
+                _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -161,7 +161,7 @@ namespace SAFERUN.IMS.Web.Controllers
             ViewBag.WorkId = new SelectList(workRepository.Queryable(), "Id", "WorkNo", productionSchedule.WorkId);
             if (Request.IsAjaxRequest())
             {
-                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
@@ -196,8 +196,8 @@ namespace SAFERUN.IMS.Web.Controllers
             if (ModelState.IsValid)
             {
                 productionSchedule.ObjectState = ObjectState.Modified;
-                				_productionScheduleService.Update(productionSchedule);
-                                
+                _productionScheduleService.Update(productionSchedule);
+
                 _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
@@ -212,7 +212,7 @@ namespace SAFERUN.IMS.Web.Controllers
             ViewBag.WorkId = new SelectList(workRepository.Queryable(), "Id", "WorkNo", productionSchedule.WorkId);
             if (Request.IsAjaxRequest())
             {
-                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
@@ -239,21 +239,21 @@ namespace SAFERUN.IMS.Web.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ProductionSchedule productionSchedule =  _productionScheduleService.Find(id);
-             _productionScheduleService.Delete(productionSchedule);
+            ProductionSchedule productionSchedule = _productionScheduleService.Find(id);
+            _productionScheduleService.Delete(productionSchedule);
             _unitOfWork.SaveChanges();
-           if (Request.IsAjaxRequest())
-                {
-                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
-                }
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
             DisplaySuccessMessage("Has delete a ProductionSchedule record");
             return RedirectToAction("Index");
         }
 
 
-       
 
- 
+
+
 
         private void DisplaySuccessMessage(string msgText)
         {

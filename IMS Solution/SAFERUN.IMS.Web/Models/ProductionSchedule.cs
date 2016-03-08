@@ -40,6 +40,12 @@ namespace SAFERUN.IMS.Web.Models
         [ScaffoldColumn(false)]
         public virtual Customer Customer { get; set; }
 
+        [ScaffoldColumn(false)]
+        public int OrderId { get; set; }
+        [ScaffoldColumn(false)]
+        [ForeignKey("OrderId")]
+        public virtual Order Order { get; set; }
+
 
         public virtual ICollection<ScheduleDetail> ScheduleDetails { get; set; }
 

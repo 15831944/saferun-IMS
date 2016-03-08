@@ -334,6 +334,10 @@
     <Compile Include="Migrations\201603080108044_add-status33.Designer.cs">
       <DependentUpon>201603080108044_add-status33.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603080811027_sss.cs" />
+    <Compile Include="Migrations\201603080811027_sss.Designer.cs">
+      <DependentUpon>201603080811027_sss.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
@@ -1474,6 +1478,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603080108044_add-status33.resx">
       <DependentUpon>201603080108044_add-status33.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603080811027_sss.resx">
+      <DependentUpon>201603080811027_sss.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

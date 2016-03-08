@@ -1,7 +1,4 @@
-﻿
-
-
-@model IEnumerable<SAFERUN.IMS.Web.Models.ProductionSchedule>
+﻿@model IEnumerable<SAFERUN.IMS.Web.Models.ProductionSchedule>
 
 
 
@@ -15,7 +12,7 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-               
+
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -39,10 +36,10 @@
             <div class="ibox-content">
 
                 <div class="table-responsive">
-           
- 
-       <table id="productionschedules_datagrid" class="easyui-datagrid" title="精加工生产排程 DataGrid" style="width:auto;height:auto"
-                   data-options="
+
+
+                    <table id="productionschedules_datagrid" class="easyui-datagrid" title="精加工生产排程 DataGrid" style="width:auto;height:auto"
+                           data-options="
                  rownumbers:true,
                  idField:'Id',
                  sortName:'Id',
@@ -55,54 +52,83 @@
                 onClickCell: onClickCell,
                 pagination: 'true'
                    ">
-                <thead>
-                    <tr>
-                        @*<th data-options="field:'ck',checkbox:true"></th>*@
-        			<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>
-                
-				     <th data-options="field:'ScheduleNo',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ScheduleNo)</th>
-		
-                			<th data-options="field:'WorkId',width:100,sortable:true,resizable:true, 
+                        <thead>
+                            <tr>
+                                <th data-options="field:'ck',checkbox:true"></th>
+                                @*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
+
+                                <th data-options="field:'ScheduleNo',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ScheduleNo)</th>
+
+                                <th data-options="field:'WorkId',width:100,sortable:true,resizable:true,
                         formatter:function(value,row){
                             return row.WorkWorkNo;
                         },
                         editor:{
-                            type:'combobox',
+                            type:'combogrid',
                             options:{
-                                valueField:'Id',
+                                idField:'Id',
+                                panelWidth: 450,
                                 textField:'WorkNo',
                                 method:'get',
                                 url:'/ProductionSchedules/GetWorks',
-                                required:true
+                                required:true,
+                                fitColumns:true,
+                                columns:[[          {field:'WorkNo',title:'工作任务单号',width:120},
+                                                    {field:'WorkType',title:'工作单类型',width:100},
+                                                    {field:'OrderKey',title:'订单号',width:100},
+						                            {field:'ProjectName',title:'项目名称',width:120},
+                                                    {field:'OrderDate',title:'订单日期',width:120,formatter:dateformatter},
+						                            {field:'Status',title:'状态',width:60}
+					                    ]],
+                               onSelect:function(rowIndex, rowData) {
+
+	                                                    var gridOpts = $dg.datagrid('options');
+	                                                    var ed = $dg.datagrid('getEditor',{index:editIndex,field:'OrderKey'});
+                                                        $(ed.target).textbox('setValue',rowData.OrderKey);
+
+                                                        $dg.datagrid('getRows')[editIndex]['OrderOrderKey'] = rowData.OrderKey;
+                                                        $dg.datagrid('getRows')[editIndex]['OrderKey'] = rowData.OrderKey;
+                                                        $dg.datagrid('getRows')[editIndex]['OrderId'] = rowData.OrderId;
+                                                        $dg.datagrid('getRows')[editIndex]['ProjectName'] = rowData.ProjectName;
+                                                        $dg.datagrid('getRows')[editIndex]['CustomerId'] = rowData.CustomerId;
+
+                                                        var ed = $dg.datagrid('getEditor',{index:editIndex,field:'ProjectName'});
+                                                        $(ed.target).textbox('setValue',rowData.ProjectName);
+
+                                                        var ed = $dg.datagrid('getEditor',{index:editIndex,field:'OrderDate'});
+                                                        $(ed.target).datebox('setValue',rowData.ProjectName);
+
+
+                                                }
                             }
                         }">@Html.DisplayNameFor(model => model.WorkId)</th>
 
-           
-                
-				     <th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.OrderKey)</th>
-		
-                
-				     <th data-options="field:'OrderDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.OrderDate)</th>
-		
-                
-				     <th data-options="field:'BeginDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.BeginDate)</th>
-		
-                
-				     <th data-options="field:'CompletedDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.CompletedDate)</th>
-		
-                
-				     <th data-options="field:'Ower',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Ower)</th>
-		
-                
-				     <th data-options="field:'ScheduleDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ScheduleDate)</th>
-		
-                
+
+
+                        <th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.OrderKey)</th>
+                        <th data-options="field:'ProjectName',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">项目名称</th>
+
+                        <th data-options="field:'OrderDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.OrderDate)</th>
+
+
+                        <th data-options="field:'BeginDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.BeginDate)</th>
+
+
+                        <th data-options="field:'CompletedDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.CompletedDate)</th>
+
+
+                        <th data-options="field:'Ower',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Ower)</th>
+
+
+                        <th data-options="field:'ScheduleDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ScheduleDate)</th>
+
+
                         <th data-options="field:'Status',width:100,align:'right',
                                                  editor:{ type:'combobox',
                                                  options:{
                                                     panelHeight: 'auto',
                                                     data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
-                                                    required:true } 
+                                                    required:true }
                                                  },
                                                  formatter: function(value,row,index){
 				                                        if (value == 0) {
@@ -111,331 +137,496 @@
                                                             return '禁用';
                                                         }
 			                                     }">@Html.DisplayNameFor(model => model.Status)</th>
-		
-                
-				     <th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Remark)</th>
-		
-               
-    </tr>
-    </thead>
- 
-
-</table>
-	<div id="productionschedules_toolbar" style="height:auto">
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
-				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
-            </div>
-				</div>
-
-            </div>
-        </div>
-    </div>
-</div>
-<div id="importwindow" class="easyui-window" title="Excel 导入"   data-options="modal:true,collapsible:false,minimizable:false,maximizable:false,closed:true,iconCls:'icon-paperclip'" style="width:500px;height:260px;padding:10px;">
-     
-    <p><input type="file" name="file_upload" id="file_upload" /></p>
-    <div id="alert1" class="alert alert-success">
-        <button class="close" data-dismiss="alert" type="button">&times;</button>上传成功，开始执行导入。
-        
-    </div>
-    <div id="alert2" class="alert alert-info">
-        <button class="close" data-dismiss="alert" type="button">&times;</button>正在执行导入程序，请耐心等待。
-         
-    </div>
-</div>
-
-@section Scripts {
-    <script type="text/javascript">
-
-			 $(function () {
-                        $('#alert1').hide('normal');
-                        $('#alert2').hide('normal');
-                        $("#file_upload").uploadify({
-                            'height': 30,
-                            'fileTypeDesc': 'Excel 2010 Files',
-                            'fileTypeExts': '*.xlsx',
-                            'swf': '/scripts/uploadify/uploadify.swf',
-                            'uploader': '/FileUpload/Upload',
-                            'buttonText': '选择EXCEL',
-							'uploadLimit' : 1,
-                            'displayData': 'speed',
-							'formData': { 'modelType': 'ProductionSchedule' },
-                            'width': 120,
-                            'successTimeout': 100000,
-                            'onUploadComplete': function (file) {
-                                $('#alert1').hide('normal');
-                                $('#alert2').show('normal');
-                            },
-                            'onFallback' : function() {
-                                $.messager.progress('close');
-                                $.messager.alert('导入错误', '导入错误，请重试！<br>', 'error');
-                                $('#file_upload').uploadify('cancel')
-                            },
-                            'onUploadStart': function () {
-                                $.messager.progress({ title: '正在处理请耐心等待！' });
-                                $('#alert1').show('normal');
-                                $('#alert2').hide('normal');
-                            },
-                            'onUploadError': function (file, errorCode, errorMsg, errorString) {
-                                $.messager.progress('close');
-                                $.messager.alert('导入错误', '导入错误，请修改后再倒入！<br>' + errorMsg, 'error');
-                                $('#file_upload').uploadify('cancel')
-                            },
-                            'onUploadSuccess': function (file, data, response) {
-                                $.messager.progress('close');
-                                //console.log(file, data, response);
-                                $('#alert1').hide('normal');
-                                $('#alert2').hide('normal');
-                                $('#w').window('close');
-                                var data = $.parseJSON(data);
-                                console.log(data);
-                                if (data.success == "false") {
-                                    $.messager.alert('导入错误', '导入错误，请修改后再倒入！<br>' + data.message, 'error');
-                                } else {
-                                    $.messager.alert('导入完成', '导入完成！<br>', 'info');
-									$dg.datagrid('reload');
-                                }
-                                //alert('The file ' + file.name + ' was successfully uploaded with a response of ' + response + ':' + data);
-                                
-                            }
-                        });
-
-                    })
-
-                    function importexcel() {
-                        $('#importwindow').window('open');
-                    }
-
-         var $dg = $('#productionschedules_datagrid');
-		 var editIndex = undefined;
-        function endEditing() {
-            if (editIndex == undefined) { return true }
-            if ($dg.datagrid('validateRow', editIndex)) {
-
-				                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'CustomerId' });
-                var customeraccountnumber = $(ed.target).combobox('getText');
-                var customerid = $(ed.target).combobox('getValue');
-               
-                $dg.datagrid('getRows')[editIndex]['CustomerAccountNumber'] =  customeraccountnumber;
-                $dg.datagrid('getRows')[editIndex]['CustomerId'] = customerid;
- 
-
-				                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'WorkId' });
-                var workworkno = $(ed.target).combobox('getText');
-                var workid = $(ed.target).combobox('getValue');
-               
-                $dg.datagrid('getRows')[editIndex]['WorkWorkNo'] =  workworkno;
-                $dg.datagrid('getRows')[editIndex]['WorkId'] = workid;
- 
-
-								$dg.datagrid('endEdit', editIndex);
-                editIndex = undefined;
-
-                
-                return true;
-            } else {
-                return false;
-            }
-        }
-        function onClickCell(index, field) {
-            if (editIndex != index) {
-                if (endEditing()) {
-                    $dg.datagrid('selectRow', index)
-                            .datagrid('beginEdit', index);
-                    var ed = $dg.datagrid('getEditor', { index: index, field: field });
-                    if (ed) {
-                        ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
-                    }
-                    editIndex = index;
-                } else {
-                    $dg.datagrid('selectRow', editIndex);
-                }
-            }
-        }
-        function append() {
-            if (endEditing()) {
-                $dg.datagrid('appendRow', { Status: 0 });
-                editIndex = $dg.datagrid('getRows').length - 1;
-                $dg.datagrid('selectRow', editIndex)
-                        .datagrid('beginEdit', editIndex);
-            }
-        }
-        function removeit() {
-            if (editIndex == undefined) { return }
-            $dg.datagrid('cancelEdit', editIndex)
-                    .datagrid('deleteRow', editIndex);
-            editIndex = undefined;
-        }
-        function accept() {
-            if (endEditing()) {
-                if ($dg.datagrid('getChanges').length) {
-                    var inserted = $dg.datagrid('getChanges', "inserted");
-                    var deleted = $dg.datagrid('getChanges', "deleted");
-                    var updated = $dg.datagrid('getChanges', "updated");
-                    var effectRow = new Object();
-                    if (inserted.length) {
-                        effectRow.inserted = inserted;
-                    }
-                    if (deleted.length) {
-                        effectRow.deleted = deleted;
-                    }
-                    if (updated.length) {
-                        effectRow.updated = updated;
-                    }
-                    //console.log(JSON.stringify(effectRow));
-                    $.post("/ProductionSchedules/SaveData", effectRow, function (rsp) {
-                        console.log(rsp);
-                        if (rsp.Success) {
-                            $.messager.alert("提示", "提交成功！");
-                            $dg.datagrid('acceptChanges');
-							$dg.datagrid('reload');
-                        }
-                    }, "JSON").error(function () {
-                        $.messager.alert("错误", "提交错误了！",'error');
-                      
-                    });
-              
-                }
-
-                $dg.datagrid('acceptChanges');
-            }
-        }
-        function reject() {
-            $dg.datagrid('rejectChanges');
-            editIndex = undefined;
-        }
-        function getChanges() {
-            var rows = $dg.datagrid('getChanges');
-            alert(rows.length + ' rows are changed!');
-        }
 
 
-		 $(function () {
-		  
-           $dg.datagrid('enableFilter',[
-		   				{
-                      field: 'Status',
-                      type: 'combobox',
-                      options: {
-						   panelHeight: 'auto',
-                           data: [{ value: '', text: 'All' }, { value: '0', text: '启用' }, { value: '1', text: '禁用' }],
-                           onChange: function (value) {
-                              if (value == '') {
-                                  $dg.datagrid('removeFilterRule', 'Status');
-                              } else {
-                                  $dg.datagrid('addFilterRule', {
-                                      field: 'Status',
-                                      op: 'equal',
-                                      value: value
-                                  });
-                              }
-                              $dg.datagrid('doFilter');
-                          }
-                      }
-                  },
-		   
-		   				{
-                      field: 'OrderDate',
-                      type: 'datebox',
-                      options: {
-                          onChange: function (value) {
-                              if (value == '') {
-                                  $dg.datagrid('removeFilterRule', 'OrderDate');
-                              } else {
-                                  $dg.datagrid('addFilterRule', {
-                                      field: 'OrderDate',
-                                      op: 'equal',
-                                      value: value
-                                  });
-                              }
-                              $dg.datagrid('doFilter');
-                          }
-                      }
-                  },
-		   				{
-                      field: 'BeginDate',
-                      type: 'datebox',
-                      options: {
-                          onChange: function (value) {
-                              if (value == '') {
-                                  $dg.datagrid('removeFilterRule', 'BeginDate');
-                              } else {
-                                  $dg.datagrid('addFilterRule', {
-                                      field: 'BeginDate',
-                                      op: 'equal',
-                                      value: value
-                                  });
-                              }
-                              $dg.datagrid('doFilter');
-                          }
-                      }
-                  },
-		   				{
-                      field: 'CompletedDate',
-                      type: 'datebox',
-                      options: {
-                          onChange: function (value) {
-                              if (value == '') {
-                                  $dg.datagrid('removeFilterRule', 'CompletedDate');
-                              } else {
-                                  $dg.datagrid('addFilterRule', {
-                                      field: 'CompletedDate',
-                                      op: 'equal',
-                                      value: value
-                                  });
-                              }
-                              $dg.datagrid('doFilter');
-                          }
-                      }
-                  },
-		   				{
-                      field: 'ScheduleDate',
-                      type: 'datebox',
-                      options: {
-                          onChange: function (value) {
-                              if (value == '') {
-                                  $dg.datagrid('removeFilterRule', 'ScheduleDate');
-                              } else {
-                                  $dg.datagrid('addFilterRule', {
-                                      field: 'ScheduleDate',
-                                      op: 'equal',
-                                      value: value
-                                  });
-                              }
-                              $dg.datagrid('doFilter');
-                          }
-                      }
-                  },
-		   		   
-		   		   {
-				 field: 'WorkId',
-				 type:'combobox',
-                 options:{
+                                                <th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Remark)</th>
+
+
+                                            </tr>
+                                        </thead>
+
+
+                                    </table>
+                                    <div id="productionschedules_toolbar" style="height:auto">
+                                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">Append</a>
+                                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
+                                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
+                                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
+                                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
+                                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+                                    </div>
+                                </div>
+
+
+                                <div id="detailtabs" class="easyui-tabs" style="width:auto;height:400px;">
+                                    <div title="排程作业单明细" style="padding:10px;">
+                                        <div class="table-responsive">
+                                            <table id="scheduledetails_datagrid" class="easyui-datagrid" title="生产排程明细 DataGrid" style="width:auto;height:auto"
+                                                   data-options="
+                 rownumbers:tr              
+                 idField:'Id',
+                 sortName:'Id',
+                 sortorder:'asc',
+                remoteFilter: true,
+                singleSelect: true,
+                toolbar: '#scheduledetails_toolbar',
+                url: '/ScheduleDetails/GetData',
+                method: 'get',
+                onClickCell: onClickCell,
+                pagination: 'true'
+                   ">
+                                                <thead>
+                                                    <tr>
+                                                        @*<th data-options="field:'ck',checkbox:true"></th>*@
+                                                        @*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
+
+                                                        <th data-options="field:'ScheduleNo',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ScheduleNo)</th>
+                                                        @*<th data-options="field:'WorkNo',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.WorkNo)</th>*@
+                                                        <th data-options="field:'ParentSKUId',width:100,sortable:true,resizable:true,
+                                                            formatter:function(value,row){
+                                                                return row.ParentSKUSku;
+                                                            },
+                                                            editor:{
+                                                                type:'combobox',
+                                                                 options:{
+                                                                     valueField:'Id',
+                                                                     textField:'Sku',
+                                                                     method:'get',
+                                                                     url:'/ScheduleDetails/GetSKUs',
+                                                                     required:true
+                                                                 }
+                                                             }">部套号</th>
+
+
+                                                        <th data-options="field:'ComponentSKUId',width:100,sortable:true,resizable:true,
+                                                             formatter:function(value,row){
+                                                                 return row.ComponentSKUSku;
+                                                             },
+                                                             editor:{
+                                                                 type:'combobox',
+                                                                 options:{
+                                                                     valueField:'Id',
+                                                                     textField:'Sku',
+                                                                     method:'get',
+                                                                     url:'/ScheduleDetails/GetSKUs',
+                                                                     required:true
+                                                                 }
+                                                             }">零件号</th>
+                                        <th data-options="field:'GraphSKU',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">图纸编号 </th>
+                                        <th data-options="field:'GraphVer',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">图纸版本号</th>
+                                        @*<th data-options="field:'ConsumeQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ConsumeQty)</th>*@
+                                        <th data-options="field:'StockQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@*@Html.DisplayNameFor(model => model.StockQty)*@</th>
+                                        <th data-options="field:'RequirementQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">需求数量</th>
+                                        <th data-options="field:'ScheduleProductionQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">排程生产量</th>
+                                        <th data-options="field:'ActualProductionQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">实际生产量</th>
+                                        <th data-options="field:'StationId',width:100,sortable:true,resizable:true,
+                                            formatter:function(value,row){
+                                                return row.StationStationNo;
+                                            },
+                                            editor:{
+                                                type:'combobox',
+                                                options:{
+                                                    valueField:'Id',
+                                                    textField:'StationNo',
+                                                    method:'get',
+                                                    url:'/ScheduleDetails/GetStations',
+                                                required:true
+                                            }
+                                            }">机台</th>
+                                        <th data-options="field:'ShiftId',width:100,sortable:true,resizable:true,
+                                            formatter:function(value,row){
+                                                return row.ShiftName;
+                                            },
+                                            editor:{
+                                                type:'combobox',
+                                            options:{
+                                                valueField:'Id',
+                                                textField:'Name',
+                                                method:'get',
+                                                url:'/ScheduleDetails/GetShifts',
+                                                required:true
+                                            }
+                                        }">班别</th>
+
+
+
+                                        <th data-options="field:'Operator',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Operator)</th>
+
+
+                                        <th data-options="field:'Status',width:100,align:'right',
+                                                 editor:{ type:'combobox',
+                                                 options:{
+                                                    panelHeight: 'auto',
+                                                    data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
+                                                    required:true } }  ,formatter:statusformatter">@Html.DisplayNameFor(model => model.Status)</th>
+
+
+                                                    <th data-options="field:'AltProdctionDate1',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.AltProdctionDate1)</th>
+
+
+                                                    <th data-options="field:'ActualProdctionDate1',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ActualProdctionDate1)</th>
+
+
+                                                    <th data-options="field:'AltProdctionDate2',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.AltProdctionDate2)</th>
+
+
+                                                    <th data-options="field:'ActualProdctionDate2',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ActualProdctionDate2)</th>
+
+
+                                                    <th data-options="field:'AltProdctionDate3',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.AltProdctionDate3)</th>
+
+
+                                                    <th data-options="field:'ActualProdctionDate3',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ActualProdctionDate3)</th>
+
+
+                                                    <th data-options="field:'AltConsumeTime',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.AltConsumeTime)</th>
+
+
+                                                    <th data-options="field:'ActualConsumeTime',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ActualConsumeTime)</th>
+
+
+                                                    <th data-options="field:'Remark1',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Remark1)</th>
+
+
+                                                    <th data-options="field:'Remark2',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Remark2)</th>
+
+                                                    <th data-options="field:'ProductionScheduleId',width:100,sortable:true,resizable:true,
+                        formatter:function(value,row){
+                            return row.ProductionScheduleScheduleNo;
+                        },
+                        editor:{
+                            type:'combobox',
+                            options:{
                                 valueField:'Id',
-                                textField:'WorkNo',
+                                textField:'ScheduleNo',
                                 method:'get',
-                                url:'/ProductionSchedules/GetWorks',
-								onChange: function (value) {
-								if (value == '') {
-									$dg.datagrid('removeFilterRule', 'WorkId');
-								} else {
-									$dg.datagrid('addFilterRule', {
-										field: 'WorkId',
-									    op: 'equal',
-										value: value
-                                });
+                                url:'/ScheduleDetails/GetProductionSchedules',
+                                required:true
                             }
-                            $dg.datagrid('doFilter');
+                        }">@Html.DisplayNameFor(model => model.ProductionScheduleId)</th>
+
+
+
+                                        </tr>
+                                        </thead>
+
+
+                                        </table>
+                                        <div id="scheduledetails_toolbar" style="height:auto">
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+                                        </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="importwindow" class="easyui-window" title="Excel 导入" data-options="modal:true,collapsible:false,minimizable:false,maximizable:false,closed:true,iconCls:'icon-paperclip'" style="width:500px;height:260px;padding:10px;">
+
+                    <p><input type="file" name="file_upload" id="file_upload" /></p>
+                    <div id="alert1" class="alert alert-success">
+                        <button class="close" data-dismiss="alert" type="button">&times;</button>上传成功，开始执行导入。
+
+                    </div>
+                    <div id="alert2" class="alert alert-info">
+                        <button class="close" data-dismiss="alert" type="button">&times;</button>正在执行导入程序，请耐心等待。
+
+                    </div>
+                </div>
+
+                @section Scripts {
+                    <script type="text/javascript">
+
+                        $(function () {
+                            $('#alert1').hide('normal');
+                            $('#alert2').hide('normal');
+                            $("#file_upload").uploadify({
+                                'height': 30,
+                                'fileTypeDesc': 'Excel 2010 Files',
+                                'fileTypeExts': '*.xlsx',
+                                'swf': '/scripts/uploadify/uploadify.swf',
+                                'uploader': '/FileUpload/Upload',
+                                'buttonText': '选择EXCEL',
+                                'uploadLimit': 1,
+                                'displayData': 'speed',
+                                'formData': { 'modelType': 'ProductionSchedule' },
+                                'width': 120,
+                                'successTimeout': 100000,
+                                'onUploadComplete': function (file) {
+                                    $('#alert1').hide('normal');
+                                    $('#alert2').show('normal');
+                                },
+                                'onFallback': function () {
+                                    $.messager.progress('close');
+                                    $.messager.alert('导入错误', '导入错误，请重试！<br>', 'error');
+                                    $('#file_upload').uploadify('cancel')
+                                },
+                                'onUploadStart': function () {
+                                    $.messager.progress({ title: '正在处理请耐心等待！' });
+                                    $('#alert1').show('normal');
+                                    $('#alert2').hide('normal');
+                                },
+                                'onUploadError': function (file, errorCode, errorMsg, errorString) {
+                                    $.messager.progress('close');
+                                    $.messager.alert('导入错误', '导入错误，请修改后再倒入！<br>' + errorMsg, 'error');
+                                    $('#file_upload').uploadify('cancel')
+                                },
+                                'onUploadSuccess': function (file, data, response) {
+                                    $.messager.progress('close');
+                                    //console.log(file, data, response);
+                                    $('#alert1').hide('normal');
+                                    $('#alert2').hide('normal');
+                                    $('#importwindow').window('close');
+                                    var data = $.parseJSON(data);
+                                    console.log(data);
+                                    if (data.success == "false") {
+                                        $.messager.alert('导入错误', '导入错误，请修改后再倒入！<br>' + data.message, 'error');
+                                    } else {
+                                        $.messager.alert('导入完成', '导入完成！<br>', 'info');
+                                        $dg.datagrid('reload');
+                                    }
+                                    //alert('The file ' + file.name + ' was successfully uploaded with a response of ' + response + ':' + data);
+
+                                }
+                            });
+
+                        })
+                        function importexcel() {
+                            $('#importwindow').window('open');
                         }
-					}
-		   },
-		   		   
-		   ]);
-        })
-     </script>
-}
+
+                        var $dg = $('#productionschedules_datagrid');
+                        var editIndex = undefined;
+                        function endEditing() {
+                            if (editIndex == undefined) { return true }
+                            if ($dg.datagrid('validateRow', editIndex)) {
+
+
+
+
+                                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'WorkId' });
+                                var workworkno = $(ed.target).combobox('getText');
+                                var workid = $(ed.target).combobox('getValue');
+
+                                $dg.datagrid('getRows')[editIndex]['WorkWorkNo'] = workworkno;
+                                $dg.datagrid('getRows')[editIndex]['WorkId'] = workid;
+
+
+                                $dg.datagrid('endEdit', editIndex);
+                                editIndex = undefined;
+
+
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
+                        function onClickCell(index, field) {
+                            var _operates = ["_operate1", "_operate2", "_operate3", "ck"]
+                            if ($.inArray(field, _operates) >= 0) {
+                                return;
+                            }
+                            if (editIndex != index) {
+                                if (endEditing()) {
+                                    $dg.datagrid('selectRow', index)
+                                            .datagrid('beginEdit', index);
+                                    var ed = $dg.datagrid('getEditor', { index: index, field: field });
+                                    if (ed) {
+                                        ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+                                    }
+                                    editIndex = index;
+                                } else {
+                                    $dg.datagrid('selectRow', editIndex);
+                                }
+                            }
+                        }
+                        function append() {
+                            if (endEditing()) {
+                                $dg.datagrid('appendRow', { Status: 0 });
+                                editIndex = $dg.datagrid('getRows').length - 1;
+                                $dg.datagrid('selectRow', editIndex)
+                                        .datagrid('beginEdit', editIndex);
+                            }
+                        }
+                        function removeit() {
+                            if (editIndex == undefined) { return }
+                            $dg.datagrid('cancelEdit', editIndex)
+                                    .datagrid('deleteRow', editIndex);
+                            editIndex = undefined;
+                        }
+                        function accept() {
+                            if (endEditing()) {
+                                if ($dg.datagrid('getChanges').length) {
+                                    var inserted = $dg.datagrid('getChanges', "inserted");
+                                    var deleted = $dg.datagrid('getChanges', "deleted");
+                                    var updated = $dg.datagrid('getChanges', "updated");
+                                    var effectRow = new Object();
+                                    if (inserted.length) {
+                                        effectRow.inserted = inserted;
+                                    }
+                                    if (deleted.length) {
+                                        effectRow.deleted = deleted;
+                                    }
+                                    if (updated.length) {
+                                        effectRow.updated = updated;
+                                    }
+                                    //console.log(JSON.stringify(effectRow));
+                                    $.post("/ProductionSchedules/SaveData", effectRow, function (rsp) {
+                                        console.log(rsp);
+                                        if (rsp.Success) {
+                                            $.messager.alert("提示", "提交成功！");
+                                            $dg.datagrid('acceptChanges');
+                                            $dg.datagrid('reload');
+                                        }
+                                    }, "JSON").error(function () {
+                                        $.messager.alert("错误", "提交错误了！", 'error');
+
+                                    });
+
+                                }
+
+                                $dg.datagrid('acceptChanges');
+                            }
+                        }
+                        function reject() {
+                            $dg.datagrid('rejectChanges');
+                            editIndex = undefined;
+                        }
+                        function getChanges() {
+                            var rows = $dg.datagrid('getChanges');
+                            alert(rows.length + ' rows are changed!');
+                        }
+
+
+                        $(function () {
+
+                            $dg.datagrid('enableFilter', [
+                                         {
+                                             field: 'Status',
+                                             type: 'combobox',
+                                             options: {
+                                                 panelHeight: 'auto',
+                                                 data: [{ value: '', text: 'All' }, { value: '0', text: '启用' }, { value: '1', text: '禁用' }],
+                                                 onChange: function (value) {
+                                                     if (value == '') {
+                                                         $dg.datagrid('removeFilterRule', 'Status');
+                                                     } else {
+                                                         $dg.datagrid('addFilterRule', {
+                                                             field: 'Status',
+                                                             op: 'equal',
+                                                             value: value
+                                                         });
+                                                     }
+                                                     $dg.datagrid('doFilter');
+                                                 }
+                                             }
+                                         },
+
+                                         {
+                                             field: 'OrderDate',
+                                             type: 'datebox',
+                                             options: {
+                                                 onChange: function (value) {
+                                                     if (value == '') {
+                                                         $dg.datagrid('removeFilterRule', 'OrderDate');
+                                                     } else {
+                                                         $dg.datagrid('addFilterRule', {
+                                                             field: 'OrderDate',
+                                                             op: 'equal',
+                                                             value: value
+                                                         });
+                                                     }
+                                                     $dg.datagrid('doFilter');
+                                                 }
+                                             }
+                                         },
+                                         {
+                                             field: 'BeginDate',
+                                             type: 'datebox',
+                                             options: {
+                                                 onChange: function (value) {
+                                                     if (value == '') {
+                                                         $dg.datagrid('removeFilterRule', 'BeginDate');
+                                                     } else {
+                                                         $dg.datagrid('addFilterRule', {
+                                                             field: 'BeginDate',
+                                                             op: 'equal',
+                                                             value: value
+                                                         });
+                                                     }
+                                                     $dg.datagrid('doFilter');
+                                                 }
+                                             }
+                                         },
+                                         {
+                                             field: 'CompletedDate',
+                                             type: 'datebox',
+                                             options: {
+                                                 onChange: function (value) {
+                                                     if (value == '') {
+                                                         $dg.datagrid('removeFilterRule', 'CompletedDate');
+                                                     } else {
+                                                         $dg.datagrid('addFilterRule', {
+                                                             field: 'CompletedDate',
+                                                             op: 'equal',
+                                                             value: value
+                                                         });
+                                                     }
+                                                     $dg.datagrid('doFilter');
+                                                 }
+                                             }
+                                         },
+                                         {
+                                             field: 'ScheduleDate',
+                                             type: 'datebox',
+                                             options: {
+                                                 onChange: function (value) {
+                                                     if (value == '') {
+                                                         $dg.datagrid('removeFilterRule', 'ScheduleDate');
+                                                     } else {
+                                                         $dg.datagrid('addFilterRule', {
+                                                             field: 'ScheduleDate',
+                                                             op: 'equal',
+                                                             value: value
+                                                         });
+                                                     }
+                                                     $dg.datagrid('doFilter');
+                                                 }
+                                             }
+                                         },
+
+                                    {
+                                        field: 'WorkId',
+                                        type: 'combobox',
+                                        options: {
+                                            valueField: 'Id',
+                                            textField: 'WorkNo',
+                                            method: 'get',
+                                            url: '/ProductionSchedules/GetWorks',
+                                            onChange: function (value) {
+                                                if (value == '') {
+                                                    $dg.datagrid('removeFilterRule', 'WorkId');
+                                                } else {
+                                                    $dg.datagrid('addFilterRule', {
+                                                        field: 'WorkId',
+                                                        op: 'equal',
+                                                        value: value
+                                                    });
+                                                }
+                                                $dg.datagrid('doFilter');
+                                            }
+                                        }
+                                    },
+
+                            ]);
+                        })
+                    </script>
+                }
 
