@@ -66,6 +66,10 @@ namespace SAFERUN.IMS.Web.Models
         [ForeignKey("ProductionScheduleId")]
         public virtual ProductionSchedule ProductionSchedule { get; set; }
 
+        public int? WorkDetailId { get; set; }
+        [ForeignKey("WorkDetailId")]
+        public virtual WorkDetail WorkDetail { get; set; }
+
         [ScaffoldColumn(false)]
         public int BomComponentId { get; set; }
         [ScaffoldColumn(false)]

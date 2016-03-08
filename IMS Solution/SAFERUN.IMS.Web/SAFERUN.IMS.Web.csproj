@@ -338,6 +338,10 @@
     <Compile Include="Migrations\201603080811027_sss.Designer.cs">
       <DependentUpon>201603080811027_sss.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603081153257_workdetailid.cs" />
+    <Compile Include="Migrations\201603081153257_workdetailid.Designer.cs">
+      <DependentUpon>201603081153257_workdetailid.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
@@ -420,6 +424,7 @@
     <Compile Include="Models\SupplierMetadata.cs" />
     <Compile Include="Models\WorkDetail.cs" />
     <Compile Include="Models\WorkDetailMetadata.cs" />
+    <Compile Include="Models\ScheduleGeneratorViewModel.cs" />
     <Compile Include="Models\WorkGeneratorViewModel.cs" />
     <Compile Include="Models\WorkMetadata.cs" />
     <Compile Include="Models\WorkOrder.cs" />
@@ -1481,6 +1486,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603080811027_sss.resx">
       <DependentUpon>201603080811027_sss.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603081153257_workdetailid.resx">
+      <DependentUpon>201603081153257_workdetailid.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

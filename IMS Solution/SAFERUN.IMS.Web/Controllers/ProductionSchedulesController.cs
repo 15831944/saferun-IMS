@@ -249,7 +249,13 @@ namespace SAFERUN.IMS.Web.Controllers
             DisplaySuccessMessage("Has delete a ProductionSchedule record");
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        public ActionResult GenerateSchedulekDetails(ScheduleGeneratorViewModel viewmodel) {
 
+            this._productionScheduleService.GenerateSchedulekDetails(viewmodel);
+            _unitOfWork.SaveChanges();
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
 
 
 
