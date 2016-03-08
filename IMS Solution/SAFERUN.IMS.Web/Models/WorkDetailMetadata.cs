@@ -98,7 +98,8 @@ namespace SAFERUN.IMS.Web.Models
 
         [Display(Name = "备用确认完成日期")]
         public DateTime ActualProdctionDate5 { get; set; }
-
+        [Display(Name = "状态")]
+        public int Status { get; set; }
         [Display(Name = "确认人")]
         [MaxLength(20)]
         public string ConfirmUser { get; set; }

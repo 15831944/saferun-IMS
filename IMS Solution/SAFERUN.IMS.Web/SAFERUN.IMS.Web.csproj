@@ -322,6 +322,18 @@
     <Compile Include="Migrations\201603041452324_w.Designer.cs">
       <DependentUpon>201603041452324_w.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603070841133_schedule.cs" />
+    <Compile Include="Migrations\201603070841133_schedule.Designer.cs">
+      <DependentUpon>201603070841133_schedule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603080105078_add-status.cs" />
+    <Compile Include="Migrations\201603080105078_add-status.Designer.cs">
+      <DependentUpon>201603080105078_add-status.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603080108044_add-status33.cs" />
+    <Compile Include="Migrations\201603080108044_add-status33.Designer.cs">
+      <DependentUpon>201603080108044_add-status33.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
@@ -1453,6 +1465,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603041452324_w.resx">
       <DependentUpon>201603041452324_w.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603070841133_schedule.resx">
+      <DependentUpon>201603070841133_schedule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603080105078_add-status.resx">
+      <DependentUpon>201603080105078_add-status.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603080108044_add-status33.resx">
+      <DependentUpon>201603080108044_add-status33.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

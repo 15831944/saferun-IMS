@@ -29,7 +29,8 @@ namespace SAFERUN.IMS.Web.Models
         public DateTime CompletedDate { get; set; }
         public string Ower { get; set; }
         public DateTime ScheduleDate { get; set; }
-
+        [Display(Name = "状态")]
+        public int Status { get; set; }
         public string Remark { get; set; }
 
 

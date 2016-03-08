@@ -161,6 +161,15 @@ namespace SAFERUN.IMS.Web.App_Start
 
         container.RegisterType<IRepositoryAsync<WorkType>, Repository<WorkType>>();
         container.RegisterType<IWorkTypeService, WorkTypeService>();
+
+        container.RegisterType<IRepositoryAsync<Shift>, Repository<Shift>>();
+        container.RegisterType<IShiftService, ShiftService>();
+
+        container.RegisterType<IRepositoryAsync<ProductionSchedule>, Repository<ProductionSchedule>>();
+        container.RegisterType<IProductionScheduleService, ProductionScheduleService>();
+
+        container.RegisterType<IRepositoryAsync<ScheduleDetail>, Repository<ScheduleDetail>>();
+        container.RegisterType<IScheduleDetailService, ScheduleDetailService>();
         }
     }
 }

@@ -64,6 +64,7 @@ namespace SAFERUN.IMS.Web.Models
         public string Remark1 { get; set; }
         public string Remark2 { get; set; }
 
+        public int Status { get; set; }
 
         [ScaffoldColumn(false)]
         public int BomComponentId { get; set; }

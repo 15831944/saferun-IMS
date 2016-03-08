@@ -58,7 +58,7 @@ namespace SAFERUN.IMS.Web.Controllers
             			 
             var scheduledetails  = _scheduleDetailService.Query(new ScheduleDetailQuery().Withfilter(filters)).Include(s => s.ComponentSKU).Include(s => s.ParentSKU).Include(s => s.ProductionSchedule).Include(s => s.Shift).Include(s => s.Station).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
             
-                        var datarows = scheduledetails .Select(  n => new { ComponentSKUSku = (n.ComponentSKU==null?"": n.ComponentSKU.Sku) ,ParentSKUSku = (n.ParentSKU==null?"": n.ParentSKU.Sku) ,ProductionScheduleScheduleNo = (n.ProductionSchedule==null?"": n.ProductionSchedule.ScheduleNo) ,ShiftName = (n.Shift==null?"": n.Shift.Name) ,StationStationNo = (n.Station==null?"": n.Station.StationNo) , Id = n.Id , ScheduleNo = n.ScheduleNo , WorkNo = n.WorkNo , ParentSKUId = n.ParentSKUId , ComponentSKUId = n.ComponentSKUId , GraphSKU = n.GraphSKU , GraphVer = n.GraphVer , ConsumeQty = n.ConsumeQty , StockQty = n.StockQty , RequirementQty = n.RequirementQty , ScheduleProductionQty = n.ScheduleProductionQty , ActualProductionQty = n.ActualProductionQty , StationId = n.StationId , ShiftId = n.ShiftId , Operator = n.Operator , AltProdctionDate1 = n.AltProdctionDate1 , ActualProdctionDate1 = n.ActualProdctionDate1 , AltProdctionDate2 = n.AltProdctionDate2 , ActualProdctionDate2 = n.ActualProdctionDate2 , AltProdctionDate3 = n.AltProdctionDate3 , ActualProdctionDate3 = n.ActualProdctionDate3 , AltConsumeTime = n.AltConsumeTime , ActualConsumeTime = n.ActualConsumeTime , Remark1 = n.Remark1 , Remark2 = n.Remark2 , ProductionScheduleId = n.ProductionScheduleId }).ToList();
+                        var datarows = scheduledetails .Select(  n => new { ComponentSKUSku = (n.ComponentSKU==null?"": n.ComponentSKU.Sku) ,ParentSKUSku = (n.ParentSKU==null?"": n.ParentSKU.Sku) ,ProductionScheduleScheduleNo = (n.ProductionSchedule==null?"": n.ProductionSchedule.ScheduleNo) ,ShiftName = (n.Shift==null?"": n.Shift.Name) ,StationStationNo = (n.Station==null?"": n.Station.StationNo) , Id = n.Id , ScheduleNo = n.ScheduleNo , WorkNo = n.WorkNo , ParentSKUId = n.ParentSKUId , ComponentSKUId = n.ComponentSKUId , GraphSKU = n.GraphSKU , GraphVer = n.GraphVer , ConsumeQty = n.ConsumeQty , StockQty = n.StockQty , RequirementQty = n.RequirementQty , ScheduleProductionQty = n.ScheduleProductionQty , ActualProductionQty = n.ActualProductionQty , StationId = n.StationId , ShiftId = n.ShiftId , Operator = n.Operator , Status = n.Status , AltProdctionDate1 = n.AltProdctionDate1 , ActualProdctionDate1 = n.ActualProdctionDate1 , AltProdctionDate2 = n.AltProdctionDate2 , ActualProdctionDate2 = n.ActualProdctionDate2 , AltProdctionDate3 = n.AltProdctionDate3 , ActualProdctionDate3 = n.ActualProdctionDate3 , AltConsumeTime = n.AltConsumeTime , ActualConsumeTime = n.ActualConsumeTime , Remark1 = n.Remark1 , Remark2 = n.Remark2 , ProductionScheduleId = n.ProductionScheduleId }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
@@ -99,7 +99,13 @@ namespace SAFERUN.IMS.Web.Controllers
             var rows = data.Select(n => new { Id = n.Id, Sku = n.Sku });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-				 
+        //        public ActionResult GetSKUs()
+        //{
+        //    var skuRepository = _unitOfWork.Repository<SKU>();
+        //    var data = skuRepository.Queryable().ToList();
+        //    var rows = data.Select(n => new { Id = n.Id, Sku = n.Sku });
+        //    return Json(rows, JsonRequestBehavior.AllowGet);
+        //}
 				public ActionResult GetProductionSchedules()
         {
             var productionscheduleRepository = _unitOfWork.Repository<ProductionSchedule>();
@@ -162,7 +168,7 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ComponentSKU,ParentSKU,ProductionSchedule,Shift,Station,Id,ScheduleNo,WorkNo,ParentSKUId,ComponentSKUId,GraphSKU,GraphVer,ConsumeQty,StockQty,RequirementQty,ScheduleProductionQty,ActualProductionQty,StationId,ShiftId,Operator,AltProdctionDate1,ActualProdctionDate1,AltProdctionDate2,ActualProdctionDate2,AltProdctionDate3,ActualProdctionDate3,AltConsumeTime,ActualConsumeTime,Remark1,Remark2,ProductionScheduleId,BomComponentId,ParentBomComponentId,OrderKey,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ScheduleDetail scheduleDetail)
+        public ActionResult Create([Bind(Include = "ComponentSKU,ParentSKU,ProductionSchedule,Shift,Station,Id,ScheduleNo,WorkNo,ParentSKUId,ComponentSKUId,GraphSKU,GraphVer,ConsumeQty,StockQty,RequirementQty,ScheduleProductionQty,ActualProductionQty,StationId,ShiftId,Operator,Status,AltProdctionDate1,ActualProdctionDate1,AltProdctionDate2,ActualProdctionDate2,AltProdctionDate3,ActualProdctionDate3,AltConsumeTime,ActualConsumeTime,Remark1,Remark2,ProductionScheduleId,BomComponentId,ParentBomComponentId,OrderKey,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ScheduleDetail scheduleDetail)
         {
             if (ModelState.IsValid)
             {
@@ -224,7 +230,7 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ComponentSKU,ParentSKU,ProductionSchedule,Shift,Station,Id,ScheduleNo,WorkNo,ParentSKUId,ComponentSKUId,GraphSKU,GraphVer,ConsumeQty,StockQty,RequirementQty,ScheduleProductionQty,ActualProductionQty,StationId,ShiftId,Operator,AltProdctionDate1,ActualProdctionDate1,AltProdctionDate2,ActualProdctionDate2,AltProdctionDate3,ActualProdctionDate3,AltConsumeTime,ActualConsumeTime,Remark1,Remark2,ProductionScheduleId,BomComponentId,ParentBomComponentId,OrderKey,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ScheduleDetail scheduleDetail)
+        public ActionResult Edit([Bind(Include = "ComponentSKU,ParentSKU,ProductionSchedule,Shift,Station,Id,ScheduleNo,WorkNo,ParentSKUId,ComponentSKUId,GraphSKU,GraphVer,ConsumeQty,StockQty,RequirementQty,ScheduleProductionQty,ActualProductionQty,StationId,ShiftId,Operator,Status,AltProdctionDate1,ActualProdctionDate1,AltProdctionDate2,ActualProdctionDate2,AltProdctionDate3,ActualProdctionDate3,AltConsumeTime,ActualConsumeTime,Remark1,Remark2,ProductionScheduleId,BomComponentId,ParentBomComponentId,OrderKey,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ScheduleDetail scheduleDetail)
         {
             if (ModelState.IsValid)
             {

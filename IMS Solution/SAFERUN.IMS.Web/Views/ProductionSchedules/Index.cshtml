@@ -7,7 +7,7 @@
 
 
 @{
-    ViewBag.Title = "机加工生产排程";
+    ViewBag.Title = "精加工生产排程";
 }
 
 
@@ -15,7 +15,7 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>机加工生产排程 Data</h5>
+               
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -41,7 +41,7 @@
                 <div class="table-responsive">
            
  
-       <table id="productionschedules_datagrid" class="easyui-datagrid" title="机加工生产排程 DataGrid" style="width:auto;height:auto"
+       <table id="productionschedules_datagrid" class="easyui-datagrid" title="精加工生产排程 DataGrid" style="width:auto;height:auto"
                    data-options="
                  rownumbers:true,
                  idField:'Id',
@@ -95,6 +95,22 @@
 		
                 
 				     <th data-options="field:'ScheduleDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ScheduleDate)</th>
+		
+                
+                        <th data-options="field:'Status',width:100,align:'right',
+                                                 editor:{ type:'combobox',
+                                                 options:{
+                                                    panelHeight: 'auto',
+                                                    data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
+                                                    required:true } 
+                                                 },
+                                                 formatter: function(value,row,index){
+				                                        if (value == 0) {
+                                                            return '启用';
+                                                        } else {
+                                                            return '禁用';
+                                                        }
+			                                     }">@Html.DisplayNameFor(model => model.Status)</th>
 		
                 
 				     <th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Remark)</th>
@@ -301,6 +317,26 @@
 		 $(function () {
 		  
            $dg.datagrid('enableFilter',[
+		   				{
+                      field: 'Status',
+                      type: 'combobox',
+                      options: {
+						   panelHeight: 'auto',
+                           data: [{ value: '', text: 'All' }, { value: '0', text: '启用' }, { value: '1', text: '禁用' }],
+                           onChange: function (value) {
+                              if (value == '') {
+                                  $dg.datagrid('removeFilterRule', 'Status');
+                              } else {
+                                  $dg.datagrid('addFilterRule', {
+                                      field: 'Status',
+                                      op: 'equal',
+                                      value: value
+                                  });
+                              }
+                              $dg.datagrid('doFilter');
+                          }
+                      }
+                  },
 		   
 		   				{
                       field: 'OrderDate',

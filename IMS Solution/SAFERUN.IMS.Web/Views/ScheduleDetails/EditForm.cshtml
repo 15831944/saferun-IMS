@@ -110,6 +110,13 @@
             
 			        </div>
      			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.Status,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Status,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
 						 @Html.LabelFor(model => model.AltProdctionDate1,   htmlAttributes: new { @class = "control-label " })
             
                                 @Html.EditorFor(model => model.AltProdctionDate1, "Date" ,new { htmlAttributes = new { @class = "form-control" } })

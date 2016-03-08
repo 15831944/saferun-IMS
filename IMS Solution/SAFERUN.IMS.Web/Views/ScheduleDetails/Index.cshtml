@@ -154,6 +154,14 @@
 				     <th data-options="field:'Operator',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Operator)</th>
 		
                 
+					 <th data-options="field:'Status',width:100,align:'right',
+                                                 editor:{ type:'combobox',
+                                                 options:{
+                                                    panelHeight: 'auto',
+                                                    data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
+                                                    required:true } }  ,formatter:statusformatter">@Html.DisplayNameFor(model => model.Status)</th>
+		
+                
 				     <th data-options="field:'AltProdctionDate1',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.AltProdctionDate1)</th>
 		
                 
@@ -425,6 +433,26 @@
 		 $(function () {
 		  
            $dg.datagrid('enableFilter',[
+		   				{
+                      field: 'Status',
+                      type: 'combobox',
+                      options: {
+						   panelHeight: 'auto',
+                           data: [{ value: '', text: 'All' }, { value: '0', text: '启用' }, { value: '1', text: '禁用' }],
+                           onChange: function (value) {
+                              if (value == '') {
+                                  $dg.datagrid('removeFilterRule', 'Status');
+                              } else {
+                                  $dg.datagrid('addFilterRule', {
+                                      field: 'Status',
+                                      op: 'equal',
+                                      value: value
+                                  });
+                              }
+                              $dg.datagrid('doFilter');
+                          }
+                      }
+                  },
 		   
 		   				{
                       field: 'AltProdctionDate1',

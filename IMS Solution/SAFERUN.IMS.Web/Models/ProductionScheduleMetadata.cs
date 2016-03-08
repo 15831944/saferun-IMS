@@ -51,6 +51,9 @@ namespace SAFERUN.IMS.Web.Models
         [Display(Name = "排程下单日期")]
         public DateTime ScheduleDate { get; set; }
 
+        [Display(Name = "状态")]
+        public int Status { get; set; }
+
         [Display(Name = "备注")]
         [MaxLength(100)]
         public string Remark { get; set; }

@@ -51,6 +51,8 @@ namespace SAFERUN.IMS.Web.Models
         [Display(Name = "图纸版本号")]
         [MaxLength(20)]
         public string GraphVer { get; set; }
+        [Display(Name = "状态")]
+        public int Status { get; set; }
 
         [Display(Name = "单位用量")]
         public decimal ConsumeQty { get; set; }

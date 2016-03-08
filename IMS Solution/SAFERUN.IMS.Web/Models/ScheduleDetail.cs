@@ -45,6 +45,8 @@ namespace SAFERUN.IMS.Web.Models
 
         public string Operator { get; set; }
 
+        public int Status { get; set; }
+
         public DateTime? AltProdctionDate1 { get; set; }
         public DateTime? ActualProdctionDate1 { get; set; }
         public DateTime? AltProdctionDate2 { get; set; }

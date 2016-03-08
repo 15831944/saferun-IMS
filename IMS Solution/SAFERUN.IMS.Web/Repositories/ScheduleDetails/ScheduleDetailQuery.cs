@@ -169,6 +169,15 @@ namespace SAFERUN.IMS.Web.Repositories
 					
 				    				
 					
+				    						if (rule.field == "Status" && !string.IsNullOrEmpty(rule.value))
+						{
+							int val = Convert.ToInt32(rule.value);
+							And(x => x.Status == val);
+						}
+				   
+					
+				    				
+					
 				    
 											if (rule.field == "AltProdctionDate1" && !string.IsNullOrEmpty(rule.value))
 						{	

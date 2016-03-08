@@ -4,7 +4,7 @@
 @model SAFERUN.IMS.Web.Models.ProductionSchedule
 
 @{
-    ViewBag.Title = "机加工生产排程 | Create";
+    ViewBag.Title = "精加工生产排程 | Create";
 }
 
 
@@ -14,7 +14,7 @@
             <div class="col-md-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>机加工生产排程 form<small> create new ProductionSchedules</small></h5>
+                        <h5>精加工生产排程 form<small> create new ProductionSchedules</small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -67,69 +67,7 @@
  
      <script type="text/javascript">
      
-    		var productionscheduleid = 0;
-		var ObjectState = "Added";  
-                                 
-             var $scheduledetailsdatagrid = $('#scheduledetails_datagrid');
-                        $(document).ready(function () {
-
-                $('form').submit(function () {
-					if (!$('form').valid())
-						return false;
-                    //var token = $('[name=__RequestVerificationToken]').val();
-                    //var serializedForm = $(this).serialize();
-                    var actionurl = $(this).attr('action');
-                     
-						if (!scheduledetails_endEditing())
-								return false;                    
-                        var scheduledetails = $scheduledetailsdatagrid.datagrid('getChanges');
-                                        
-                     var newitem = {
-                                                        BeginDate: $('#BeginDate', 'form').val(),
-                                                        CompletedDate: $('#CompletedDate', 'form').val(),
-                        								//primaryKey
-								Id: productionscheduleid,
-                                                        OrderDate: $('#OrderDate', 'form').val(),
-                                                        OrderKey: $('#OrderKey', 'form').val(),
-                                                        Ower: $('#Ower', 'form').val(),
-                                                        Remark: $('#Remark', 'form').val(),
-                                                        ScheduleDate: $('#ScheduleDate', 'form').val(),
-                        								//detailTables
-                                ScheduleDetails: scheduledetails ,
-                                                        ScheduleNo: $('#ScheduleNo', 'form').val(),
-                        								WorkId: $('#WorkId :selected','form').val(),
-						                                CreatedDateTime: $('#CreatedDateTime', 'form').val(),
-                                                        CreatedUserId: $('#CreatedUserId', 'form').val(),
-                                                        LastEditDateTime: $('#LastEditDateTime', 'form').val(),
-                                                        LastEditUserId: $('#LastEditUserId', 'form').val(),
-                        								CustomerId: $('#CustomerId :selected','form').val(),
-						                        ObjectState:ObjectState 
-                    };
-                    $.ajax({
-                        url: actionurl,
-                        type: "POST",
-                        dataType: "json",
-                        contentType: "application/json; charset=utf-8",
-                        data: JSON.stringify(newitem),
-                        success: function (result) {
-                            if (result.success) {
-                                self.location = "/ProductionSchedules/Index";
-                            } else {
-                                alert(result.err);
-                            }
-                            
-                        },
-                        error: function (result) {
-                            console.log(result.statusText + result.responseText);
-                            alert(result.statusText + result.responseText);
-                        }
-                    });
-                    return false;
-                    
-
-                });
-            });
-          </script>
+            </script>
 
 
 }

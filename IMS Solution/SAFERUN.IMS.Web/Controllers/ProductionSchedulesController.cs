@@ -58,7 +58,7 @@ namespace SAFERUN.IMS.Web.Controllers
             			 
             var productionschedules  = _productionScheduleService.Query(new ProductionScheduleQuery().Withfilter(filters)).Include(p => p.Customer).Include(p => p.Work).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
             
-                        var datarows = productionschedules .Select(  n => new { WorkWorkNo = (n.Work==null?"": n.Work.WorkNo) , Id = n.Id , ScheduleNo = n.ScheduleNo , WorkId = n.WorkId , OrderKey = n.OrderKey , OrderDate = n.OrderDate , BeginDate = n.BeginDate , CompletedDate = n.CompletedDate , Ower = n.Ower , ScheduleDate = n.ScheduleDate , Remark = n.Remark }).ToList();
+                        var datarows = productionschedules .Select(  n => new { WorkWorkNo = (n.Work==null?"": n.Work.WorkNo) , Id = n.Id , ScheduleNo = n.ScheduleNo , WorkId = n.WorkId , OrderKey = n.OrderKey , OrderDate = n.OrderDate , BeginDate = n.BeginDate , CompletedDate = n.CompletedDate , Ower = n.Ower , ScheduleDate = n.ScheduleDate , Status = n.Status , Remark = n.Remark }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
@@ -107,41 +107,6 @@ namespace SAFERUN.IMS.Web.Controllers
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
 		
-				public ActionResult GetSKUs()
-        {
-            var skuRepository = _unitOfWork.Repository<SKU>();
-            var data = skuRepository.Queryable().ToList();
-            var rows = data.Select(n => new { Id = n.Id, Sku = n.Sku });
-            return Json(rows, JsonRequestBehavior.AllowGet);
-        }
-        //        public ActionResult GetSKUs()
-        //{
-        //    var skuRepository = _unitOfWork.Repository<SKU>();
-        //    var data = skuRepository.Queryable().ToList();
-        //    var rows = data.Select(n => new { Id = n.Id, Sku = n.Sku });
-        //    return Json(rows, JsonRequestBehavior.AllowGet);
-        //}
-				public ActionResult GetProductionSchedules()
-        {
-            var productionscheduleRepository = _unitOfWork.Repository<ProductionSchedule>();
-            var data = productionscheduleRepository.Queryable().ToList();
-            var rows = data.Select(n => new { Id = n.Id, ScheduleNo = n.ScheduleNo });
-            return Json(rows, JsonRequestBehavior.AllowGet);
-        }
-				public ActionResult GetShifts()
-        {
-            var shiftRepository = _unitOfWork.Repository<Shift>();
-            var data = shiftRepository.Queryable().ToList();
-            var rows = data.Select(n => new { Id = n.Id, Name = n.Name });
-            return Json(rows, JsonRequestBehavior.AllowGet);
-        }
-				public ActionResult GetStations()
-        {
-            var stationRepository = _unitOfWork.Repository<Station>();
-            var data = stationRepository.Queryable().ToList();
-            var rows = data.Select(n => new { Id = n.Id, StationNo = n.StationNo });
-            return Json(rows, JsonRequestBehavior.AllowGet);
-        }
 		
        
         // GET: ProductionSchedules/Details/5
@@ -176,18 +141,12 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Customer,ScheduleDetails,Work,Id,ScheduleNo,WorkId,OrderKey,OrderDate,BeginDate,CompletedDate,Ower,ScheduleDate,Remark,CustomerId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProductionSchedule productionSchedule)
+        public ActionResult Create([Bind(Include = "Customer,ScheduleDetails,Work,Id,ScheduleNo,WorkId,OrderKey,OrderDate,BeginDate,CompletedDate,Ower,ScheduleDate,Status,Remark,CustomerId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProductionSchedule productionSchedule)
         {
             if (ModelState.IsValid)
             {
-                             productionSchedule.ObjectState = ObjectState.Added;   
-                                foreach (var item in productionSchedule.ScheduleDetails)
-                {
-					item.ProductionScheduleId = productionSchedule.Id ;
-                    item.ObjectState = ObjectState.Added;
-                }
-                                _productionScheduleService.InsertOrUpdateGraph(productionSchedule);
-                            _unitOfWork.SaveChanges();
+             				_productionScheduleService.Insert(productionSchedule);
+                           _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -232,22 +191,12 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Customer,ScheduleDetails,Work,Id,ScheduleNo,WorkId,OrderKey,OrderDate,BeginDate,CompletedDate,Ower,ScheduleDate,Remark,CustomerId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProductionSchedule productionSchedule)
+        public ActionResult Edit([Bind(Include = "Customer,ScheduleDetails,Work,Id,ScheduleNo,WorkId,OrderKey,OrderDate,BeginDate,CompletedDate,Ower,ScheduleDate,Status,Remark,CustomerId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] ProductionSchedule productionSchedule)
         {
             if (ModelState.IsValid)
             {
                 productionSchedule.ObjectState = ObjectState.Modified;
-                                                foreach (var item in productionSchedule.ScheduleDetails)
-                {
-					item.ProductionScheduleId = productionSchedule.Id ;
-                    //set ObjectState with conditions
-                    if(item.Id <= 0)
-                        item.ObjectState = ObjectState.Added;
-                    else
-                        item.ObjectState = ObjectState.Modified;
-                }
-                      
-                _productionScheduleService.InsertOrUpdateGraph(productionSchedule);
+                				_productionScheduleService.Update(productionSchedule);
                                 
                 _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
@@ -302,97 +251,8 @@ namespace SAFERUN.IMS.Web.Controllers
         }
 
 
-        // Get Detail Row By Id For Edit
-        // Get : ProductionSchedules/EditScheduleDetail/:id
-        [HttpGet]
-        public ActionResult EditScheduleDetail(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var scheduledetailRepository = _unitOfWork.Repository<ScheduleDetail>();
-            var scheduledetail = scheduledetailRepository.Find(id);
-
-                        var skuRepository = _unitOfWork.Repository<SKU>();             
-                        //var skuRepository = _unitOfWork.Repository<SKU>();             
-                        var productionscheduleRepository = _unitOfWork.Repository<ProductionSchedule>();             
-                        var shiftRepository = _unitOfWork.Repository<Shift>();             
-                        var stationRepository = _unitOfWork.Repository<Station>();             
-            
-            if (scheduledetail == null)
-            {
-                            ViewBag.ComponentSKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku" );
-                            ViewBag.ParentSKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku" );
-                            ViewBag.ProductionScheduleId = new SelectList(productionscheduleRepository.Queryable(), "Id", "ScheduleNo" );
-                            ViewBag.ShiftId = new SelectList(shiftRepository.Queryable(), "Id", "Name" );
-                            ViewBag.StationId = new SelectList(stationRepository.Queryable(), "Id", "StationNo" );
-                            
-                //return HttpNotFound();
-                return PartialView("_ScheduleDetailEditForm", new ScheduleDetail());
-            }
-            else
-            {
-                            ViewBag.ComponentSKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku" , scheduledetail.ComponentSKUId );  
-                            ViewBag.ParentSKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku" , scheduledetail.ParentSKUId );  
-                            ViewBag.ProductionScheduleId = new SelectList(productionscheduleRepository.Queryable(), "Id", "ScheduleNo" , scheduledetail.ProductionScheduleId );  
-                            ViewBag.ShiftId = new SelectList(shiftRepository.Queryable(), "Id", "Name" , scheduledetail.ShiftId );  
-                            ViewBag.StationId = new SelectList(stationRepository.Queryable(), "Id", "StationNo" , scheduledetail.StationId );  
-                             
-            }
-            return PartialView("_ScheduleDetailEditForm",  scheduledetail);
-
-        }
-        
-        // Get Create Row By Id For Edit
-        // Get : ProductionSchedules/CreateScheduleDetail
-        [HttpGet]
-        public ActionResult CreateScheduleDetail()
-        {
-                        var skuRepository = _unitOfWork.Repository<SKU>();    
-              ViewBag.ComponentSKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku" );
-                        //var skuRepository = _unitOfWork.Repository<SKU>();    
-              ViewBag.ParentSKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku" );
-                        var productionscheduleRepository = _unitOfWork.Repository<ProductionSchedule>();    
-              ViewBag.ProductionScheduleId = new SelectList(productionscheduleRepository.Queryable(), "Id", "ScheduleNo" );
-                        var shiftRepository = _unitOfWork.Repository<Shift>();    
-              ViewBag.ShiftId = new SelectList(shiftRepository.Queryable(), "Id", "Name" );
-                        var stationRepository = _unitOfWork.Repository<Station>();    
-              ViewBag.StationId = new SelectList(stationRepository.Queryable(), "Id", "StationNo" );
-                      return PartialView("_ScheduleDetailEditForm");
-
-        }
-
-        // Post Delete Detail Row By Id
-        // Get : ProductionSchedules/DeleteScheduleDetail/:id
-        [HttpPost,ActionName("DeleteScheduleDetail")]
-        public ActionResult DeleteScheduleDetailConfirmed(int  id)
-        {
-            var scheduledetailRepository = _unitOfWork.Repository<ScheduleDetail>();
-            scheduledetailRepository.Delete(id);
-            _unitOfWork.SaveChanges();
-            if (Request.IsAjaxRequest())
-            {
-                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
-            }
-            DisplaySuccessMessage("Has delete a Order record");
-            return RedirectToAction("Index");
-        }
-
        
 
-        // Get : ProductionSchedules/GetScheduleDetailsByProductionScheduleId/:id
-        [HttpGet]
-        public ActionResult GetScheduleDetailsByProductionScheduleId(int id)
-        {
-            var scheduledetails = _productionScheduleService.GetScheduleDetailsByProductionScheduleId(id);
-            if (Request.IsAjaxRequest())
-            {
-                return Json(scheduledetails.Select( n => new { ComponentSKUSku = (n.ComponentSKU==null?"": n.ComponentSKU.Sku) ,ParentSKUSku = (n.ParentSKU==null?"": n.ParentSKU.Sku) ,ProductionScheduleScheduleNo = (n.ProductionSchedule==null?"": n.ProductionSchedule.ScheduleNo) ,ShiftName = (n.Shift==null?"": n.Shift.Name) ,StationStationNo = (n.Station==null?"": n.Station.StationNo) , Id = n.Id , ScheduleNo = n.ScheduleNo , WorkNo = n.WorkNo , ParentSKUId = n.ParentSKUId , ComponentSKUId = n.ComponentSKUId , GraphSKU = n.GraphSKU , GraphVer = n.GraphVer , ConsumeQty = n.ConsumeQty , StockQty = n.StockQty , RequirementQty = n.RequirementQty , ScheduleProductionQty = n.ScheduleProductionQty , ActualProductionQty = n.ActualProductionQty , StationId = n.StationId , ShiftId = n.ShiftId , Operator = n.Operator , AltProdctionDate1 = n.AltProdctionDate1 , ActualProdctionDate1 = n.ActualProdctionDate1 , AltProdctionDate2 = n.AltProdctionDate2 , ActualProdctionDate2 = n.ActualProdctionDate2 , AltProdctionDate3 = n.AltProdctionDate3 , ActualProdctionDate3 = n.ActualProdctionDate3 , AltConsumeTime = n.AltConsumeTime , ActualConsumeTime = n.ActualConsumeTime , Remark1 = n.Remark1 , Remark2 = n.Remark2 , ProductionScheduleId = n.ProductionScheduleId }),JsonRequestBehavior.AllowGet);
-            }  
-            return View(scheduledetails); 
-
-        }
  
 
         private void DisplaySuccessMessage(string msgText)
