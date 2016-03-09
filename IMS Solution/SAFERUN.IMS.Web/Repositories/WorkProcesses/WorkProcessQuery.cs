@@ -20,14 +20,14 @@ namespace SAFERUN.IMS.Web.Repositories
         public WorkProcessQuery WithAnySearch(string search)
         {
             if (!string.IsNullOrEmpty(search))
-                And( x =>  x.WorkNo.Contains(search) || x.OrderNo.Contains(search) || x.ProjectName.Contains(search) || x.GraphSKU.Contains(search) || x.Operator.Contains(search) || x.WorkDate.ToString().Contains(search) || x.Remark.Contains(search) );
+                And( x =>  x.WorkNo.Contains(search) || x.OrderKey.Contains(search) || x.ProjectName.Contains(search) || x.GraphSKU.Contains(search) || x.Operator.Contains(search) || x.WorkDate.ToString().Contains(search) || x.Remark.Contains(search) );
             return this;
         }
 
 		public WorkProcessQuery WithPopupSearch(string search,string para="")
         {
             if (!string.IsNullOrEmpty(search))
-                And( x =>  x.WorkNo.Contains(search) || x.OrderNo.Contains(search) || x.ProjectName.Contains(search) || x.GraphSKU.Contains(search) || x.Operator.Contains(search) || x.WorkDate.ToString().Contains(search) || x.Remark.Contains(search) );
+                And( x =>  x.WorkNo.Contains(search) || x.OrderKey.Contains(search) || x.ProjectName.Contains(search) || x.GraphSKU.Contains(search) || x.Operator.Contains(search) || x.WorkDate.ToString().Contains(search) || x.Remark.Contains(search) );
             return this;
         }
 
@@ -73,9 +73,9 @@ namespace SAFERUN.IMS.Web.Repositories
 				   
 					
 				    				
-											if (rule.field == "OrderNo"  && !string.IsNullOrEmpty(rule.value))
+											if (rule.field == "OrderKey"  && !string.IsNullOrEmpty(rule.value))
 						{
-							And(x => x.OrderNo.Contains(rule.value));
+							And(x => x.OrderKey.Contains(rule.value));
 						}
 				    
 				    

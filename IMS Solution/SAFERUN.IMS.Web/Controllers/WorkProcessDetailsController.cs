@@ -57,8 +57,8 @@ namespace SAFERUN.IMS.Web.Controllers
             //int pagenum = offset / limit +1;
             			 
             var workprocessdetails  = _workProcessDetailService.Query(new WorkProcessDetailQuery().Withfilter(filters)).Include(w => w.ProcessStep).Include(w => w.Station).Include(w => w.WorkProcess).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
-            
-                        var datarows = workprocessdetails .Select(  n => new { ProcessStepStepName = (n.ProcessStep==null?"": n.ProcessStep.StepName) ,StationStationNo = (n.Station==null?"": n.Station.StationNo) ,WorkProcessWorkNo = (n.WorkProcess==null?"": n.WorkProcess.WorkNo) , Id = n.Id , WorkProcessId = n.WorkProcessId , ProcessStepId = n.ProcessStepId , StepName = n.StepName , StationId = n.StationId , StandardElapsedTime = n.StandardElapsedTime , StartingDateTime = n.StartingDateTime , CompletedDateTime = n.CompletedDateTime , ElapsedTime = n.ElapsedTime , WorkingTime = n.WorkingTime , Operator = n.Operator , QCConfirm = n.QCConfirm , QCConfirmDateTime = n.QCConfirmDateTime , CompletedConfirm = n.CompletedConfirm , Status = n.Status , Remark = n.Remark }).ToList();
+
+            var datarows = workprocessdetails.Select(n => new { ProcessStepOrder = (n.ProcessStep == null ? 0 : n.ProcessStep.Order), ProcessStepStepName = (n.ProcessStep == null ? "" : n.ProcessStep.StepName), StationStationNo = (n.Station == null ? "" : n.Station.StationNo), WorkProcessWorkNo = (n.WorkProcess == null ? "" : n.WorkProcess.WorkNo), Id = n.Id, WorkProcessId = n.WorkProcessId, ProcessStepId = n.ProcessStepId, StepName = n.StepName, StationId = n.StationId, StandardElapsedTime = n.StandardElapsedTime, StartingDateTime = n.StartingDateTime, CompletedDateTime = n.CompletedDateTime, ElapsedTime = n.ElapsedTime, WorkingTime = n.WorkingTime, Operator = n.Operator, QCConfirm = n.QCConfirm, QCConfirmDateTime = n.QCConfirmDateTime, CompletedConfirm = n.CompletedConfirm, Status = n.Status, Remark = n.Remark }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }

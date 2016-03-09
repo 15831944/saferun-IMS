@@ -23,11 +23,17 @@ namespace SAFERUN.IMS.Web.Services
 
         private readonly IRepositoryAsync<WorkProcess> _repository;
 		 private readonly IDataTableImportMappingService _mappingservice;
-        public  WorkProcessService(IRepositoryAsync< WorkProcess> repository,IDataTableImportMappingService mappingservice)
+         private readonly IWorkDetailService _workdetailservice;
+         private readonly IProcessStepService _setpservice;
+         private readonly IWorkProcessDetailService _processdetailservice;
+        public  WorkProcessService( IWorkProcessDetailService processdetailservice,IProcessStepService setpservice,IWorkDetailService workdetailservice,IRepositoryAsync< WorkProcess> repository,IDataTableImportMappingService mappingservice)
             : base(repository)
         {
             _repository=repository;
 			_mappingservice = mappingservice;
+            _workdetailservice = workdetailservice;
+            _setpservice = setpservice;
+            _processdetailservice = processdetailservice;
         }
         
                  public  IEnumerable<WorkProcess> GetByWorkId(int  workid)
@@ -86,6 +92,58 @@ namespace SAFERUN.IMS.Web.Services
                
 
             }
+        }
+
+
+        public void GenerateWorkProcesses(IEnumerable<int> workdetails)
+        {
+            var workdetaillist = _workdetailservice.Queryable().Include(x => x.Work).Include(x=>x.Work.Order).Where(x => workdetails.Contains(x.Id)).ToList();
+            var list = new List<WorkProcess>();
+            foreach (var detail in workdetaillist)
+            {
+                WorkProcess item = new WorkProcess();
+                item.CustomerId = detail.Work.Order.CustomerId;
+                item.FinishedQty = 0;
+                item.GraphSKU = detail.GraphSKU;
+                item.Operator = "";
+                item.OrderId = detail.Work.OrderId;
+                item.OrderKey = detail.Work.OrderKey;
+                item.ProjectName = detail.Work.Order.ProjectName;
+                //item.ProductionProcessId = 1;
+                item.RequirementQty = detail.RequirementQty;
+                item.ProductionQty = detail.RequirementQty;
+                item.SKUId = detail.ComponentSKUId;
+                item.WorkDate = DateTime.Now;
+                item.WorkId = detail.WorkId;
+                item.WorkDetailId = detail.Id;
+                item.WorkItems = 0;
+                item.WorkNo = detail.WorkNo;
+                
+                list.Add(item);
+
+            }
+
+            this.InsertRange(list);
+        }
+
+
+        public void GenerateWorkProcesses(WorkProcess process)
+        {
+            var steps = _setpservice.Queryable().Where(x => x.ProductionProcessId == process.ProductionProcessId).ToList();
+            var list = new List<WorkProcessDetail>();
+            foreach (var setp in steps) {
+                WorkProcessDetail item = new WorkProcessDetail();
+                item.WorkProcessId = process.Id;
+                item.Operator = "";
+                 
+                item.ProcessStepId = setp.Id;
+                item.StandardElapsedTime = setp.ElapsedTime;
+                item.StationId = setp.StationId;
+                item.StepName = setp.StepName;
+                item.Status = 0;
+                list.Add(item);
+            }
+            _processdetailservice.InsertRange(list);
         }
     }
 }

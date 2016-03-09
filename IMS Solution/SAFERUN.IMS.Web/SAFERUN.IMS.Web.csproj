@@ -344,6 +344,18 @@
     <Compile Include="Migrations\201603081153257_workdetailid.Designer.cs">
       <DependentUpon>201603081153257_workdetailid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603090636208_workprocess.cs" />
+    <Compile Include="Migrations\201603090636208_workprocess.Designer.cs">
+      <DependentUpon>201603090636208_workprocess.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603090905206_orderno.cs" />
+    <Compile Include="Migrations\201603090905206_orderno.Designer.cs">
+      <DependentUpon>201603090905206_orderno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603091040564_f.cs" />
+    <Compile Include="Migrations\201603091040564_f.Designer.cs">
+      <DependentUpon>201603091040564_f.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
@@ -1514,6 +1526,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603081153257_workdetailid.resx">
       <DependentUpon>201603081153257_workdetailid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603090636208_workprocess.resx">
+      <DependentUpon>201603090636208_workprocess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603090905206_orderno.resx">
+      <DependentUpon>201603090905206_orderno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603091040564_f.resx">
+      <DependentUpon>201603091040564_f.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -21,7 +21,7 @@ namespace SAFERUN.IMS.Web.Models
         [ForeignKey("WorkId")]
         public virtual Work Work { get; set; }
         public int OrderId { get; set; }
-        public string OrderNo { get; set; }
+        public string OrderKey { get; set; }
          [ForeignKey("OrderId")]
         public virtual Order Order { get; set; }
          public string ProjectName { get; set; }
@@ -33,7 +33,7 @@ namespace SAFERUN.IMS.Web.Models
          public decimal ProductionQty { get; set; }
          public decimal FinishedQty { get; set; }
          public int WorkItems { get; set; }
-         public int ProductionProcessId { get; set; }
+         public int? ProductionProcessId { get; set; }
          [ForeignKey("ProductionProcessId")]
          public virtual ProductionProcess ProductionProcess { get; set; }
          public int Status { get; set; }

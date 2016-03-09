@@ -31,5 +31,8 @@ namespace SAFERUN.IMS.Web.Services
          
  
 		void ImportDataTable(DataTable datatable);
+
+        void GenerateWorkProcesses(IEnumerable<int> workdetails);
+        void GenerateWorkProcesses(WorkProcess process);
 	}
 }

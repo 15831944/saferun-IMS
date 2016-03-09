@@ -22,29 +22,29 @@ namespace SAFERUN.IMS.Web.Controllers
 {
     public class WorkProcessesController : Controller
     {
-        
+
         //Please RegisterType UnityConfig.cs
         //container.RegisterType<IRepositoryAsync<WorkProcess>, Repository<WorkProcess>>();
         //container.RegisterType<IWorkProcessService, WorkProcessService>();
-        
+
         //private ImsDbContext db = new ImsDbContext();
-        private readonly IWorkProcessService  _workProcessService;
+        private readonly IWorkProcessService _workProcessService;
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public WorkProcessesController (IWorkProcessService  workProcessService, IUnitOfWorkAsync unitOfWork)
+        public WorkProcessesController(IWorkProcessService workProcessService, IUnitOfWorkAsync unitOfWork)
         {
-            _workProcessService  = workProcessService;
+            _workProcessService = workProcessService;
             _unitOfWork = unitOfWork;
         }
 
         // GET: WorkProcesses/Index
         public ActionResult Index()
         {
-            
+
             //var workprocesses  = _workProcessService.Queryable().Include(w => w.Customer).Include(w => w.Order).Include(w => w.ProductionProcess).Include(w => w.SKU).Include(w => w.Work).Include(w => w.WorkDetail).AsQueryable();
-            
-             //return View(workprocesses);
-			 return View();
+
+            //return View(workprocesses);
+            return View();
         }
 
         // Get :WorkProcesses/PageList
@@ -52,19 +52,19 @@ namespace SAFERUN.IMS.Web.Controllers
         [HttpGet]
         public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
-			var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
+            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
             //int pagenum = offset / limit +1;
-            			 
-            var workprocesses  = _workProcessService.Query(new WorkProcessQuery().Withfilter(filters)).Include(w => w.Customer).Include(w => w.Order).Include(w => w.ProductionProcess).Include(w => w.SKU).Include(w => w.Work).Include(w => w.WorkDetail).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
-            
-                        var datarows = workprocesses .Select(  n => new { CustomerAccountNumber = (n.Customer==null?"": n.Customer.AccountNumber) ,OrderOrderKey = (n.Order==null?"": n.Order.OrderKey) ,ProductionProcessName = (n.ProductionProcess==null?"": n.ProductionProcess.Name) ,SKUSku = (n.SKU==null?"": n.SKU.Sku) ,WorkWorkNo = (n.Work==null?"": n.Work.WorkNo) ,WorkDetailWorkNo = (n.WorkDetail==null?"": n.WorkDetail.WorkNo) , Id = n.Id , WorkNo = n.WorkNo , WorkId = n.WorkId , OrderId = n.OrderId , OrderNo = n.OrderNo , ProjectName = n.ProjectName , SKUId = n.SKUId , GraphSKU = n.GraphSKU , RequirementQty = n.RequirementQty , ProductionQty = n.ProductionQty , FinishedQty = n.FinishedQty , WorkItems = n.WorkItems , ProductionProcessId = n.ProductionProcessId , Status = n.Status , Operator = n.Operator , WorkDate = n.WorkDate , Remark = n.Remark , WorkDetailId = n.WorkDetailId , CustomerId = n.CustomerId }).ToList();
+
+            var workprocesses = _workProcessService.Query(new WorkProcessQuery().Withfilter(filters)).Include(w => w.Customer).Include(w => w.Order).Include(w => w.ProductionProcess).Include(w => w.SKU).Include(w => w.Work).Include(w => w.WorkDetail).OrderBy(n => n.OrderBy(sort, order)).SelectPage(page, rows, out totalCount);
+
+            var datarows = workprocesses.Select(n => new { CustomerAccountNumber = (n.Customer == null ? "" : n.Customer.AccountNumber), OrderOrderKey = (n.Order == null ? "" : n.Order.OrderKey), ProductionProcessName = (n.ProductionProcess == null ? "" : n.ProductionProcess.Name), SKUSku = (n.SKU == null ? "" : n.SKU.Sku), WorkWorkNo = (n.Work == null ? "" : n.Work.WorkNo), WorkDetailWorkNo = (n.WorkDetail == null ? "" : n.WorkDetail.WorkNo), Id = n.Id, WorkNo = n.WorkNo, WorkId = n.WorkId, OrderId = n.OrderId, OrderKey = n.OrderKey, ProjectName = n.ProjectName, SKUId = n.SKUId, GraphSKU = n.GraphSKU, RequirementQty = n.RequirementQty, ProductionQty = n.ProductionQty, FinishedQty = n.FinishedQty, WorkItems = n.WorkItems, ProductionProcessId = n.ProductionProcessId, Status = n.Status, Operator = n.Operator, WorkDate = n.WorkDate, Remark = n.Remark, WorkDetailId = n.WorkDetailId, CustomerId = n.CustomerId }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
-		[HttpPost]
-		public ActionResult SaveData(WorkProcessChangeViewModel workprocesses)
+        [HttpPost]
+        public ActionResult SaveData(WorkProcessChangeViewModel workprocesses)
         {
             if (workprocesses.updated != null)
             {
@@ -89,75 +89,75 @@ namespace SAFERUN.IMS.Web.Controllers
             }
             _unitOfWork.SaveChanges();
 
-            return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
 
-				public ActionResult GetCustomers()
+        public ActionResult GetCustomers()
         {
             var customerRepository = _unitOfWork.Repository<Customer>();
             var data = customerRepository.Queryable().ToList();
             var rows = data.Select(n => new { Id = n.Id, AccountNumber = n.AccountNumber });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-				public ActionResult GetOrders()
+        public ActionResult GetOrders()
         {
             var orderRepository = _unitOfWork.Repository<Order>();
             var data = orderRepository.Queryable().ToList();
             var rows = data.Select(n => new { Id = n.Id, OrderKey = n.OrderKey });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-				public ActionResult GetProductionProcesses()
+        public ActionResult GetProductionProcesses()
         {
             var productionprocessRepository = _unitOfWork.Repository<ProductionProcess>();
             var data = productionprocessRepository.Queryable().ToList();
             var rows = data.Select(n => new { Id = n.Id, Name = n.Name });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-				public ActionResult GetSKUs()
+        public ActionResult GetSKUs()
         {
             var skuRepository = _unitOfWork.Repository<SKU>();
             var data = skuRepository.Queryable().ToList();
             var rows = data.Select(n => new { Id = n.Id, Sku = n.Sku });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-				public ActionResult GetWorks()
+        public ActionResult GetWorks()
         {
             var workRepository = _unitOfWork.Repository<Work>();
             var data = workRepository.Queryable().ToList();
             var rows = data.Select(n => new { Id = n.Id, WorkNo = n.WorkNo });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-				public ActionResult GetWorkDetails()
+        public ActionResult GetWorkDetails()
         {
             var workdetailRepository = _unitOfWork.Repository<WorkDetail>();
             var data = workdetailRepository.Queryable().ToList();
             var rows = data.Select(n => new { Id = n.Id, WorkNo = n.WorkNo });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-		
-				public ActionResult GetProcessSteps()
+
+        public ActionResult GetProcessSteps()
         {
             var processstepRepository = _unitOfWork.Repository<ProcessStep>();
             var data = processstepRepository.Queryable().ToList();
             var rows = data.Select(n => new { Id = n.Id, StepName = n.StepName });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-				public ActionResult GetStations()
+        public ActionResult GetStations()
         {
             var stationRepository = _unitOfWork.Repository<Station>();
             var data = stationRepository.Queryable().ToList();
             var rows = data.Select(n => new { Id = n.Id, StationNo = n.StationNo });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-				public ActionResult GetWorkProcesses()
+        public ActionResult GetWorkProcesses()
         {
             var workprocessRepository = _unitOfWork.Repository<WorkProcess>();
             var data = workprocessRepository.Queryable().ToList();
             var rows = data.Select(n => new { Id = n.Id, WorkNo = n.WorkNo });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-		
-       
+
+
         // GET: WorkProcesses/Details/5
         public ActionResult Details(int? id)
         {
@@ -172,7 +172,7 @@ namespace SAFERUN.IMS.Web.Controllers
             }
             return View(workProcess);
         }
-        
+
 
         // GET: WorkProcesses/Create
         public ActionResult Create()
@@ -198,18 +198,18 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Customer,Order,ProductionProcess,SKU,Work,WorkDetail,WorkProcessDetails,Id,WorkNo,WorkId,OrderId,OrderNo,ProjectName,SKUId,GraphSKU,RequirementQty,ProductionQty,FinishedQty,WorkItems,ProductionProcessId,Status,Operator,WorkDate,Remark,WorkDetailId,CustomerId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] WorkProcess workProcess)
+        public ActionResult Create([Bind(Include = "Customer,Order,ProductionProcess,SKU,Work,WorkDetail,WorkProcessDetails,Id,WorkNo,WorkId,OrderId,OrderKey,ProjectName,SKUId,GraphSKU,RequirementQty,ProductionQty,FinishedQty,WorkItems,ProductionProcessId,Status,Operator,WorkDate,Remark,WorkDetailId,CustomerId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] WorkProcess workProcess)
         {
             if (ModelState.IsValid)
             {
-                             workProcess.ObjectState = ObjectState.Added;   
-                                foreach (var item in workProcess.WorkProcessDetails)
+                workProcess.ObjectState = ObjectState.Added;
+                foreach (var item in workProcess.WorkProcessDetails)
                 {
-					item.WorkProcessId = workProcess.Id ;
+                    item.WorkProcessId = workProcess.Id;
                     item.ObjectState = ObjectState.Added;
                 }
-                                _workProcessService.InsertOrUpdateGraph(workProcess);
-                            _unitOfWork.SaveChanges();
+                _workProcessService.InsertOrUpdateGraph(workProcess);
+                _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -232,7 +232,7 @@ namespace SAFERUN.IMS.Web.Controllers
             ViewBag.WorkDetailId = new SelectList(workdetailRepository.Queryable(), "Id", "WorkNo", workProcess.WorkDetailId);
             if (Request.IsAjaxRequest())
             {
-                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
@@ -270,23 +270,23 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Customer,Order,ProductionProcess,SKU,Work,WorkDetail,WorkProcessDetails,Id,WorkNo,WorkId,OrderId,OrderNo,ProjectName,SKUId,GraphSKU,RequirementQty,ProductionQty,FinishedQty,WorkItems,ProductionProcessId,Status,Operator,WorkDate,Remark,WorkDetailId,CustomerId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] WorkProcess workProcess)
+        public ActionResult Edit([Bind(Include = "Customer,Order,ProductionProcess,SKU,Work,WorkDetail,WorkProcessDetails,Id,WorkNo,WorkId,OrderId,OrderKey,ProjectName,SKUId,GraphSKU,RequirementQty,ProductionQty,FinishedQty,WorkItems,ProductionProcessId,Status,Operator,WorkDate,Remark,WorkDetailId,CustomerId,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] WorkProcess workProcess)
         {
             if (ModelState.IsValid)
             {
                 workProcess.ObjectState = ObjectState.Modified;
-                                                foreach (var item in workProcess.WorkProcessDetails)
+                foreach (var item in workProcess.WorkProcessDetails)
                 {
-					item.WorkProcessId = workProcess.Id ;
+                    item.WorkProcessId = workProcess.Id;
                     //set ObjectState with conditions
-                    if(item.Id <= 0)
+                    if (item.Id <= 0)
                         item.ObjectState = ObjectState.Added;
                     else
                         item.ObjectState = ObjectState.Modified;
                 }
-                      
+
                 _workProcessService.InsertOrUpdateGraph(workProcess);
-                                
+
                 _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
@@ -309,7 +309,7 @@ namespace SAFERUN.IMS.Web.Controllers
             ViewBag.WorkDetailId = new SelectList(workdetailRepository.Queryable(), "Id", "WorkNo", workProcess.WorkDetailId);
             if (Request.IsAjaxRequest())
             {
-                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
@@ -336,13 +336,13 @@ namespace SAFERUN.IMS.Web.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            WorkProcess workProcess =  _workProcessService.Find(id);
-             _workProcessService.Delete(workProcess);
+            WorkProcess workProcess = _workProcessService.Find(id);
+            _workProcessService.Delete(workProcess);
             _unitOfWork.SaveChanges();
-           if (Request.IsAjaxRequest())
-                {
-                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
-                }
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
             DisplaySuccessMessage("Has delete a WorkProcess record");
             return RedirectToAction("Index");
         }
@@ -360,49 +360,49 @@ namespace SAFERUN.IMS.Web.Controllers
             var workprocessdetailRepository = _unitOfWork.Repository<WorkProcessDetail>();
             var workprocessdetail = workprocessdetailRepository.Find(id);
 
-                        var processstepRepository = _unitOfWork.Repository<ProcessStep>();             
-                        var stationRepository = _unitOfWork.Repository<Station>();             
-                        var workprocessRepository = _unitOfWork.Repository<WorkProcess>();             
-            
+            var processstepRepository = _unitOfWork.Repository<ProcessStep>();
+            var stationRepository = _unitOfWork.Repository<Station>();
+            var workprocessRepository = _unitOfWork.Repository<WorkProcess>();
+
             if (workprocessdetail == null)
             {
-                            ViewBag.ProcessStepId = new SelectList(processstepRepository.Queryable(), "Id", "StepName" );
-                            ViewBag.StationId = new SelectList(stationRepository.Queryable(), "Id", "StationNo" );
-                            ViewBag.WorkProcessId = new SelectList(workprocessRepository.Queryable(), "Id", "WorkNo" );
-                            
+                ViewBag.ProcessStepId = new SelectList(processstepRepository.Queryable(), "Id", "StepName");
+                ViewBag.StationId = new SelectList(stationRepository.Queryable(), "Id", "StationNo");
+                ViewBag.WorkProcessId = new SelectList(workprocessRepository.Queryable(), "Id", "WorkNo");
+
                 //return HttpNotFound();
                 return PartialView("_WorkProcessDetailEditForm", new WorkProcessDetail());
             }
             else
             {
-                            ViewBag.ProcessStepId = new SelectList(processstepRepository.Queryable(), "Id", "StepName" , workprocessdetail.ProcessStepId );  
-                            ViewBag.StationId = new SelectList(stationRepository.Queryable(), "Id", "StationNo" , workprocessdetail.StationId );  
-                            ViewBag.WorkProcessId = new SelectList(workprocessRepository.Queryable(), "Id", "WorkNo" , workprocessdetail.WorkProcessId );  
-                             
+                ViewBag.ProcessStepId = new SelectList(processstepRepository.Queryable(), "Id", "StepName", workprocessdetail.ProcessStepId);
+                ViewBag.StationId = new SelectList(stationRepository.Queryable(), "Id", "StationNo", workprocessdetail.StationId);
+                ViewBag.WorkProcessId = new SelectList(workprocessRepository.Queryable(), "Id", "WorkNo", workprocessdetail.WorkProcessId);
+
             }
-            return PartialView("_WorkProcessDetailEditForm",  workprocessdetail);
+            return PartialView("_WorkProcessDetailEditForm", workprocessdetail);
 
         }
-        
+
         // Get Create Row By Id For Edit
         // Get : WorkProcesses/CreateWorkProcessDetail
         [HttpGet]
         public ActionResult CreateWorkProcessDetail()
         {
-                        var processstepRepository = _unitOfWork.Repository<ProcessStep>();    
-              ViewBag.ProcessStepId = new SelectList(processstepRepository.Queryable(), "Id", "StepName" );
-                        var stationRepository = _unitOfWork.Repository<Station>();    
-              ViewBag.StationId = new SelectList(stationRepository.Queryable(), "Id", "StationNo" );
-                        var workprocessRepository = _unitOfWork.Repository<WorkProcess>();    
-              ViewBag.WorkProcessId = new SelectList(workprocessRepository.Queryable(), "Id", "WorkNo" );
-                      return PartialView("_WorkProcessDetailEditForm");
+            var processstepRepository = _unitOfWork.Repository<ProcessStep>();
+            ViewBag.ProcessStepId = new SelectList(processstepRepository.Queryable(), "Id", "StepName");
+            var stationRepository = _unitOfWork.Repository<Station>();
+            ViewBag.StationId = new SelectList(stationRepository.Queryable(), "Id", "StationNo");
+            var workprocessRepository = _unitOfWork.Repository<WorkProcess>();
+            ViewBag.WorkProcessId = new SelectList(workprocessRepository.Queryable(), "Id", "WorkNo");
+            return PartialView("_WorkProcessDetailEditForm");
 
         }
 
         // Post Delete Detail Row By Id
         // Get : WorkProcesses/DeleteWorkProcessDetail/:id
-        [HttpPost,ActionName("DeleteWorkProcessDetail")]
-        public ActionResult DeleteWorkProcessDetailConfirmed(int  id)
+        [HttpPost, ActionName("DeleteWorkProcessDetail")]
+        public ActionResult DeleteWorkProcessDetailConfirmed(int id)
         {
             var workprocessdetailRepository = _unitOfWork.Repository<WorkProcessDetail>();
             workprocessdetailRepository.Delete(id);
@@ -415,7 +415,7 @@ namespace SAFERUN.IMS.Web.Controllers
             return RedirectToAction("Index");
         }
 
-       
+
 
         // Get : WorkProcesses/GetWorkProcessDetailsByWorkProcessId/:id
         [HttpGet]
@@ -424,13 +424,26 @@ namespace SAFERUN.IMS.Web.Controllers
             var workprocessdetails = _workProcessService.GetWorkProcessDetailsByWorkProcessId(id);
             if (Request.IsAjaxRequest())
             {
-                return Json(workprocessdetails.Select( n => new { ProcessStepStepName = (n.ProcessStep==null?"": n.ProcessStep.StepName) ,StationStationNo = (n.Station==null?"": n.Station.StationNo) ,WorkProcessWorkNo = (n.WorkProcess==null?"": n.WorkProcess.WorkNo) , Id = n.Id , WorkProcessId = n.WorkProcessId , ProcessStepId = n.ProcessStepId , StepName = n.StepName , StationId = n.StationId , StandardElapsedTime = n.StandardElapsedTime , StartingDateTime = n.StartingDateTime , CompletedDateTime = n.CompletedDateTime , ElapsedTime = n.ElapsedTime , WorkingTime = n.WorkingTime , Operator = n.Operator , QCConfirm = n.QCConfirm , QCConfirmDateTime = n.QCConfirmDateTime , CompletedConfirm = n.CompletedConfirm , Status = n.Status , Remark = n.Remark }),JsonRequestBehavior.AllowGet);
-            }  
-            return View(workprocessdetails); 
+                return Json(workprocessdetails.Select(n => new { ProcessStepStepName = (n.ProcessStep == null ? "" : n.ProcessStep.StepName), StationStationNo = (n.Station == null ? "" : n.Station.StationNo), WorkProcessWorkNo = (n.WorkProcess == null ? "" : n.WorkProcess.WorkNo), Id = n.Id, WorkProcessId = n.WorkProcessId, ProcessStepId = n.ProcessStepId, StepName = n.StepName, StationId = n.StationId, StandardElapsedTime = n.StandardElapsedTime, StartingDateTime = n.StartingDateTime, CompletedDateTime = n.CompletedDateTime, ElapsedTime = n.ElapsedTime, WorkingTime = n.WorkingTime, Operator = n.Operator, QCConfirm = n.QCConfirm, QCConfirmDateTime = n.QCConfirmDateTime, CompletedConfirm = n.CompletedConfirm, Status = n.Status, Remark = n.Remark }), JsonRequestBehavior.AllowGet);
+            }
+            return View(workprocessdetails);
 
         }
- 
 
+        [HttpPost]
+        public ActionResult GenerateWorkProceesses(IEnumerable<int> workdetails)
+        {
+            _workProcessService.GenerateWorkProcesses(workdetails);
+            _unitOfWork.SaveChanges();
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult GenerateProcessDetails(WorkProcess process) {
+
+            _workProcessService.GenerateWorkProcesses( process);
+            _unitOfWork.SaveChanges();
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
         private void DisplaySuccessMessage(string msgText)
         {
             TempData["SuccessMessage"] = msgText;

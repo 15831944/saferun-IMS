@@ -48,7 +48,7 @@ namespace SAFERUN.IMS.Web.Models
 
         [Display(Name = "订单号")]
         [MaxLength(30)]
-        public string OrderNo { get; set; }
+        public string OrderKey { get; set; }
 
         [Display(Name = "项目名称")]
         [MaxLength(50)]
