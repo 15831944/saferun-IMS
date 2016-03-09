@@ -1,0 +1,407 @@
+﻿﻿
+
+
+@model SAFERUN.IMS.Web.Models.WorkProcess
+
+
+ @*@Html.HiddenFor(model => model.Id)*@
+
+
+
+    <div class="row">
+         
+
+        			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.WorkNo,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.WorkNo, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.WorkNo,"" , new { @class = "text-danger" })
+            
+			        </div>
+     					<div class="form-group col-lg-3 col-md-3 col-sm-3">
+		    		 
+				@Html.LabelFor(model => model.WorkId,   htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.WorkId, ViewBag.WorkId as List<SelectListItem>,"---Select---", htmlAttributes: new { @class = "form-control" }) 
+                @Html.ValidationMessageFor(model => model.WorkId,"" , new { @class = "text-danger" })
+           
+			        </div>
+      					<div class="form-group col-lg-3 col-md-3 col-sm-3">
+		    		 
+				@Html.LabelFor(model => model.OrderId,   htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.OrderId, ViewBag.OrderId as List<SelectListItem>,"---Select---", htmlAttributes: new { @class = "form-control" }) 
+                @Html.ValidationMessageFor(model => model.OrderId,"" , new { @class = "text-danger" })
+           
+			        </div>
+      			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.OrderNo,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.OrderNo, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.OrderNo,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.ProjectName,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ProjectName,"" , new { @class = "text-danger" })
+            
+			        </div>
+     					<div class="form-group col-lg-3 col-md-3 col-sm-3">
+		    		 
+				@Html.LabelFor(model => model.SKUId,   htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.SKUId, ViewBag.SKUId as List<SelectListItem>,"---Select---", htmlAttributes: new { @class = "form-control" }) 
+                @Html.ValidationMessageFor(model => model.SKUId,"" , new { @class = "text-danger" })
+           
+			        </div>
+      			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.GraphSKU,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.GraphSKU, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.GraphSKU,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.RequirementQty,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.RequirementQty, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.RequirementQty,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.ProductionQty,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.ProductionQty, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ProductionQty,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.FinishedQty,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.FinishedQty, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.FinishedQty,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.WorkItems,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.WorkItems, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.WorkItems,"" , new { @class = "text-danger" })
+            
+			        </div>
+     					<div class="form-group col-lg-3 col-md-3 col-sm-3">
+		    		 
+				@Html.LabelFor(model => model.ProductionProcessId,   htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.ProductionProcessId, ViewBag.ProductionProcessId as List<SelectListItem>,"---Select---", htmlAttributes: new { @class = "form-control" }) 
+                @Html.ValidationMessageFor(model => model.ProductionProcessId,"" , new { @class = "text-danger" })
+           
+			        </div>
+      			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.Status,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Status,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.Operator,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.Operator, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Operator,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.WorkDate,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.WorkDate, "Date" ,new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.WorkDate,"" , new { @class = "text-danger" })
+            
+			        </div>
+     			        <div class="form-group col-lg-3 col-md-3 col-sm-3">
+						 @Html.LabelFor(model => model.Remark,   htmlAttributes: new { @class = "control-label " })
+            
+                                @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Remark,"" , new { @class = "text-danger" })
+            
+			        </div>
+     					<div class="form-group col-lg-3 col-md-3 col-sm-3">
+		    		 
+				@Html.LabelFor(model => model.WorkDetailId,   htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.WorkDetailId, ViewBag.WorkDetailId as List<SelectListItem>,"---Select---", htmlAttributes: new { @class = "form-control" }) 
+                @Html.ValidationMessageFor(model => model.WorkDetailId,"" , new { @class = "text-danger" })
+           
+			        </div>
+      					<div class="form-group col-lg-3 col-md-3 col-sm-3">
+		    		 
+				@Html.LabelFor(model => model.CustomerId,   htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.CustomerId, ViewBag.CustomerId as List<SelectListItem>,"---Select---", htmlAttributes: new { @class = "form-control" }) 
+                @Html.ValidationMessageFor(model => model.CustomerId,"" , new { @class = "text-danger" })
+           
+			        </div>
+       
+    </div>
+ 				 
+		<!-- output all Scaffold = false Hiden field -->
+					@Html.HiddenFor(model => model.CreatedUserId)
+					@Html.HiddenFor(model => model.CreatedDateTime)
+					@Html.HiddenFor(model => model.LastEditUserId)
+					@Html.HiddenFor(model => model.LastEditDateTime)
+				<!--end output all Scaffold = false Hiden field -->
+		   
+
+ 
+
+
+     <!-- details tabs -->
+    <div class="tabs-container">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+								<li class="active"><a data-toggle="tab" href="#tab-workprocessdetails"> WorkProcessDetails</a></li>
+								        
+			 
+   
+		 </ul>
+		 <!-- Tab panes -->
+         <div class="tab-content">
+		  		  <div id="tab-workprocessdetails" class="tab-pane active">
+
+            <div class="panel-body">
+
+                <div class="table-responsive">
+				<table id="workprocessdetails_datagrid" class="easyui-datagrid" title="WorkProcessDetails DataGrid" style="width:auto;height:400px"
+                       data-options="
+                            rownumbers:true,
+                            iconCls: 'fa fa-list',
+                            remoteFilter: false,
+                            singleSelect: true,
+                            toolbar: '#workprocessdetails_toolbar',
+                            method: 'get',
+                            onClickCell: workprocessdetails_onClickCell,
+                            pagination: 'true'
+                    " >
+                    <thead>
+                        <tr>
+						@*<th data-options="field:'ck',checkbox:true"></th>*@
+				        
+														<th data-options="field:'Id',width:80"> Id </th>
+											
+														<th data-options="field:'WorkProcessId',width:100,
+												formatter:function(value,row){
+													return row.WorkProcessWorkNo;
+												},
+												editor:{
+													type:'combobox',
+													options:{
+														valueField:'Id',
+														textField:'WorkNo',
+														method:'get',
+														url:'/WorkProcesses/GetWorkProcesses',
+														required:false
+														}
+												}"> WorkProcessId </th>
+
+           
+											
+														<th data-options="field:'ProcessStepId',width:100,
+												formatter:function(value,row){
+													return row.ProcessStepStepName;
+												},
+												editor:{
+													type:'combobox',
+													options:{
+														valueField:'Id',
+														textField:'StepName',
+														method:'get',
+														url:'/WorkProcesses/GetProcessSteps',
+														required:false
+														}
+												}"> ProcessStepId </th>
+
+           
+											
+						
+															<th data-options="field:'StepName',width:140,editor:{type:'textbox',options:{required:false} } "> StepName</th>
+							
+											
+														<th data-options="field:'StationId',width:100,
+												formatter:function(value,row){
+													return row.StationStationNo;
+												},
+												editor:{
+													type:'combobox',
+													options:{
+														valueField:'Id',
+														textField:'StationNo',
+														method:'get',
+														url:'/WorkProcesses/GetStations',
+														required:false
+														}
+												}"> StationId </th>
+
+           
+											
+						
+																<th data-options="field:'StandardElapsedTime',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.StandardElapsedTime)</th>
+							
+											
+						
+															<th data-options="field:'StartingDateTime',width:160,align:'right',editor:{type:'datebox',options:{required:true}} ,formatter:dateformatter"> StartingDateTime</th>
+							
+											
+						
+															<th data-options="field:'CompletedDateTime',width:160,align:'right',editor:{type:'datebox',options:{required:true}} ,formatter:dateformatter"> CompletedDateTime</th>
+							
+											
+						
+																<th data-options="field:'ElapsedTime',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ElapsedTime)</th>
+							
+											
+						
+																<th data-options="field:'WorkingTime',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.WorkingTime)</th>
+							
+											
+						
+															<th data-options="field:'Operator',width:140,editor:{type:'textbox',options:{required:false} } "> Operator</th>
+							
+											
+						
+															<th data-options="field:'QCConfirm',width:140,editor:{type:'textbox',options:{required:false} } "> QCConfirm</th>
+							
+											
+						
+															<th data-options="field:'QCConfirmDateTime',width:160,align:'right',editor:{type:'datebox',options:{required:true}} ,formatter:dateformatter"> QCConfirmDateTime</th>
+							
+											
+						
+															<th data-options="field:'CompletedConfirm',width:140,editor:{type:'textbox',options:{required:false} } "> CompletedConfirm</th>
+							
+											
+						
+															<th data-options="field:'Status',width:100,align:'right',
+                                                 editor:{ type:'combobox',
+                                                 options:{
+                                                    panelHeight: 'auto',
+                                                    data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
+                                                    required:true } }  ,formatter:statusformatter">@Html.DisplayNameFor(model => model.Status)</th>
+							
+											
+						
+															<th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } "> Remark</th>
+							
+											                           
+                        </tr>
+                    </thead>
+                </table>
+
+				<div id="workprocessdetails_toolbar" style="height:auto">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="workprocessdetails_append()">Append</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="workprocessdetails_removeit()">Remove</a>
+                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="workprocessdetails_accept()">Accept</a>*@
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="workprocessdetails_reject()">Reject</a>
+                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="workprocessdetails_getChanges()">GetChanges</a>*@
+                </div>
+
+                </div>
+            </div>
+
+		  	</div>
+	</div>
+	</div>
+<!--end details tabs -->
+ 
+
+ <script type="text/javascript">
+	
+	    
+	var workprocessdetailseditIndex = undefined;
+    function workprocessdetails_endEditing() {
+        if ( workprocessdetailseditIndex == undefined) { return true }
+        if ($workprocessdetailsdatagrid.datagrid('validateRow', workprocessdetailseditIndex)) {
+			            var ed = $workprocessdetailsdatagrid.datagrid('getEditor', { index: workprocessdetailseditIndex, field: 'ProcessStepId' });
+            var ProcessStepStepName = $(ed.target).combobox('getText');
+            var ProcessStepId = $(ed.target).combobox('getValue');
+          
+            $workprocessdetailsdatagrid.datagrid('getRows')[workprocessdetailseditIndex]['ProcessStepStepName'] = ProcessStepStepName;
+            $workprocessdetailsdatagrid.datagrid('getRows')[workprocessdetailseditIndex]['ProcessStepId'] = ProcessStepId;
+            
+            
+			            var ed = $workprocessdetailsdatagrid.datagrid('getEditor', { index: workprocessdetailseditIndex, field: 'StationId' });
+            var StationStationNo = $(ed.target).combobox('getText');
+            var StationId = $(ed.target).combobox('getValue');
+          
+            $workprocessdetailsdatagrid.datagrid('getRows')[workprocessdetailseditIndex]['StationStationNo'] = StationStationNo;
+            $workprocessdetailsdatagrid.datagrid('getRows')[workprocessdetailseditIndex]['StationId'] = StationId;
+            
+            
+			            var ed = $workprocessdetailsdatagrid.datagrid('getEditor', { index: workprocessdetailseditIndex, field: 'WorkProcessId' });
+            var WorkProcessWorkNo = $(ed.target).combobox('getText');
+            var WorkProcessId = $(ed.target).combobox('getValue');
+          
+            $workprocessdetailsdatagrid.datagrid('getRows')[workprocessdetailseditIndex]['WorkProcessWorkNo'] = WorkProcessWorkNo;
+            $workprocessdetailsdatagrid.datagrid('getRows')[workprocessdetailseditIndex]['WorkProcessId'] = WorkProcessId;
+            
+            
+						$workprocessdetailsdatagrid.datagrid('endEdit', workprocessdetailseditIndex);
+            workprocessdetailseditIndex = undefined;
+
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function workprocessdetails_onClickCell(index, field) {
+        if (workprocessdetailseditIndex != index) {
+            if (workprocessdetails_endEditing()) {
+                $workprocessdetailsdatagrid.datagrid('selectRow', index)
+                        .datagrid('beginEdit', index);
+                var ed = $workprocessdetailsdatagrid.datagrid('getEditor', { index: index, field: field });
+                if (ed) {
+                    ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+                }
+                workprocessdetailseditIndex  = index;
+            } else {
+                $workprocessdetailsdatagrid.datagrid('selectRow', workprocessdetailseditIndex);
+            }
+        }
+    }
+    function workprocessdetails_append() {
+        if (workprocessdetails_endEditing()) {
+            $workprocessdetailsdatagrid.datagrid('appendRow', { Status:0   });
+            workprocessdetailseditIndex = $workprocessdetailsdatagrid.datagrid('getRows').length - 1;
+            $workprocessdetailsdatagrid.datagrid('selectRow', workprocessdetailseditIndex )
+                    .datagrid('beginEdit', workprocessdetailseditIndex);
+        }
+    }
+    function workprocessdetails_removeit() {
+        if (workprocessdetailseditIndex  == undefined) { return }
+        $workprocessdetailsdatagrid.datagrid('cancelEdit', workprocessdetailseditIndex )
+                .datagrid('deleteRow', workprocessdetailseditIndex );
+        workprocessdetailseditIndex = undefined;
+    }
+   
+    function workprocessdetails_reject() {
+        $workprocessdetailsdatagrid.datagrid('rejectChanges');
+        workprocessdetailseditIndex  = undefined;
+    }
+    function workprocessdetails_getChanges() {
+        var rows = $workprocessdetailsdatagrid.datagrid('getChanges');
+        alert(rows.length + ' rows are changed!');
+    }
+
+
+	  
+	$(function () {
+	
+		$.get('/WorkProcesses/GetWorkProcessDetailsByWorkProcessId/' + @Model.Id,function(data){
+            //console.log(data);
+            $workprocessdetailsdatagrid.datagrid('loadData',data);
+        
+        })
+
+
+	
+	});
+</script>
+
+
+

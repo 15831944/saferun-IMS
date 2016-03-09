@@ -83,5 +83,9 @@ namespace SAFERUN.IMS.Web.Models
         public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.ScheduleDetail> ScheduleDetails { get; set; }
 
         public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.ProductionSchedule> ProductionSchedules { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.WorkProcessDetail> WorkProcessDetails { get; set; }
+
+        public System.Data.Entity.DbSet<SAFERUN.IMS.Web.Models.WorkProcess> WorkProcesses { get; set; }
     }
 }

@@ -243,6 +243,8 @@
     <Compile Include="Controllers\StationsController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Controllers\WorkDetailsController.cs" />
+    <Compile Include="Controllers\WorkProcessDetailsController.cs" />
+    <Compile Include="Controllers\WorkProcessesController.cs" />
     <Compile Include="Controllers\WorksController.cs" />
     <Compile Include="Controllers\WorkTypesController.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
@@ -355,6 +357,7 @@
     <Compile Include="Models\BOMComponentMetadata.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\WorkProcess.cs" />
     <Compile Include="Models\ProductionSchedule.cs" />
     <Compile Include="Models\ProductionScheduleMetadata.cs" />
     <Compile Include="Models\ScheduleDetail.cs" />
@@ -428,6 +431,9 @@
     <Compile Include="Models\WorkGeneratorViewModel.cs" />
     <Compile Include="Models\WorkMetadata.cs" />
     <Compile Include="Models\WorkOrder.cs" />
+    <Compile Include="Models\WorkProcessDetail.cs" />
+    <Compile Include="Models\WorkProcessDetailMetadata.cs" />
+    <Compile Include="Models\WorkProcessMetadata.cs" />
     <Compile Include="Models\WorkType.cs" />
     <Compile Include="Models\WorkTypeMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -497,6 +503,10 @@
     <Compile Include="Repositories\Suppliers\SupplierRepository.cs" />
     <Compile Include="Repositories\WorkDetails\WorkDetailQuery.cs" />
     <Compile Include="Repositories\WorkDetails\WorkDetailRepository.cs" />
+    <Compile Include="Repositories\WorkProcessDetails\WorkProcessDetailQuery.cs" />
+    <Compile Include="Repositories\WorkProcessDetails\WorkProcessDetailRepository.cs" />
+    <Compile Include="Repositories\WorkProcesses\WorkProcessQuery.cs" />
+    <Compile Include="Repositories\WorkProcesses\WorkProcessRepository.cs" />
     <Compile Include="Repositories\Works\WorkQuery.cs" />
     <Compile Include="Repositories\Works\WorkRepository.cs" />
     <Compile Include="Repositories\WorkTypes\WorkTypeQuery.cs" />
@@ -567,6 +577,10 @@
     <Compile Include="Services\Suppliers\SupplierService.cs" />
     <Compile Include="Services\WorkDetails\IWorkDetailService.cs" />
     <Compile Include="Services\WorkDetails\WorkDetailService.cs" />
+    <Compile Include="Services\WorkProcessDetails\IWorkProcessDetailService.cs" />
+    <Compile Include="Services\WorkProcessDetails\WorkProcessDetailService.cs" />
+    <Compile Include="Services\WorkProcesses\IWorkProcessService.cs" />
+    <Compile Include="Services\WorkProcesses\WorkProcessService.cs" />
     <Compile Include="Services\Works\IWorkService.cs" />
     <Compile Include="Services\Works\WorkService.cs" />
     <Compile Include="Services\WorkTypes\IWorkTypeService.cs" />
@@ -1393,6 +1407,17 @@
     <Content Include="Views\ProductionSchedules\EditForm.cshtml" />
     <Content Include="Views\ProductionSchedules\_PopupSearch.cshtml" />
     <Content Include="Views\ProductionSchedules\_ScheduleDetailEditForm.cshtml" />
+    <Content Include="Views\WorkProcessDetails\Index.cshtml" />
+    <Content Include="Views\WorkProcessDetails\Create.cshtml" />
+    <Content Include="Views\WorkProcessDetails\Edit.cshtml" />
+    <Content Include="Views\WorkProcessDetails\EditForm.cshtml" />
+    <Content Include="Views\WorkProcessDetails\_PopupSearch.cshtml" />
+    <Content Include="Views\WorkProcesses\Index.cshtml" />
+    <Content Include="Views\WorkProcesses\Create.cshtml" />
+    <Content Include="Views\WorkProcesses\Edit.cshtml" />
+    <Content Include="Views\WorkProcesses\EditForm.cshtml" />
+    <Content Include="Views\WorkProcesses\_PopupSearch.cshtml" />
+    <Content Include="Views\WorkProcesses\_WorkProcessDetailEditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
