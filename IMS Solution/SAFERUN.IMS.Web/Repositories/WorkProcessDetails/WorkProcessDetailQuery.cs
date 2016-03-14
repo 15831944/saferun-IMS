@@ -20,14 +20,14 @@ namespace SAFERUN.IMS.Web.Repositories
         public WorkProcessDetailQuery WithAnySearch(string search)
         {
             if (!string.IsNullOrEmpty(search))
-                And( x =>  x.StepName.Contains(search) || x.StartingDateTime.ToString().Contains(search) || x.CompletedDateTime.ToString().Contains(search) || x.Operator.Contains(search) || x.QCConfirm.Contains(search) || x.QCConfirmDateTime.ToString().Contains(search) || x.CompletedConfirm.Contains(search) || x.Remark.Contains(search) );
+                And( x =>  x.ComponentSKU.Contains(search) || x.GraphSKU.Contains(search) || x.StepName.Contains(search) || x.StartingDateTime.ToString().Contains(search) || x.CompletedDateTime.ToString().Contains(search) || x.Operator.Contains(search) || x.QCConfirm.Contains(search) || x.QCConfirmDateTime.ToString().Contains(search) || x.CompletedConfirm.Contains(search) || x.Remark.Contains(search) );
             return this;
         }
 
 		public WorkProcessDetailQuery WithPopupSearch(string search,string para="")
         {
             if (!string.IsNullOrEmpty(search))
-                And( x =>  x.StepName.Contains(search) || x.StartingDateTime.ToString().Contains(search) || x.CompletedDateTime.ToString().Contains(search) || x.Operator.Contains(search) || x.QCConfirm.Contains(search) || x.QCConfirmDateTime.ToString().Contains(search) || x.CompletedConfirm.Contains(search) || x.Remark.Contains(search) );
+                And( x =>  x.ComponentSKU.Contains(search) || x.GraphSKU.Contains(search) || x.StepName.Contains(search) || x.StartingDateTime.ToString().Contains(search) || x.CompletedDateTime.ToString().Contains(search) || x.Operator.Contains(search) || x.QCConfirm.Contains(search) || x.QCConfirmDateTime.ToString().Contains(search) || x.CompletedConfirm.Contains(search) || x.Remark.Contains(search) );
             return this;
         }
 
@@ -54,6 +54,31 @@ namespace SAFERUN.IMS.Web.Repositories
 							And(x => x.WorkProcessId == val);
 						}
 				   
+					
+				    				
+					
+				    						if (rule.field == "SKUId" && !string.IsNullOrEmpty(rule.value))
+						{
+							int val = Convert.ToInt32(rule.value);
+							And(x => x.SKUId == val);
+						}
+				   
+					
+				    				
+											if (rule.field == "ComponentSKU"  && !string.IsNullOrEmpty(rule.value))
+						{
+							And(x => x.ComponentSKU.Contains(rule.value));
+						}
+				    
+				    
+					
+				    				
+											if (rule.field == "GraphSKU"  && !string.IsNullOrEmpty(rule.value))
+						{
+							And(x => x.GraphSKU.Contains(rule.value));
+						}
+				    
+				    
 					
 				    				
 					

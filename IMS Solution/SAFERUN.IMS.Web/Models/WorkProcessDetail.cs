@@ -15,6 +15,12 @@ namespace SAFERUN.IMS.Web.Models
         public int WorkProcessId { get; set; }
         [ForeignKey("WorkProcessId")]
         public virtual WorkProcess WorkProcess { get; set; }
+
+        public int SKUId { get; set; }
+        [ForeignKey("SKUId")]
+        public virtual SKU SKU { get; set; }
+        public string ComponentSKU { get; set; }
+        public string GraphSKU { get; set; }
         public int ProcessStepId { get; set; }
         [ForeignKey("ProcessStepId")]
         public virtual ProcessStep ProcessStep { get; set; }

@@ -27,6 +27,15 @@ namespace SAFERUN.IMS.Web.Repositories
 
          }
              
+                 public static IEnumerable<WorkProcessDetail> GetBySKUId(this IRepositoryAsync<WorkProcessDetail> repository, int skuid)
+         {
+             var query= repository
+                .Queryable()
+                .Where(x => x.SKUId==skuid);
+             return query;
+
+         }
+             
                  public static IEnumerable<WorkProcessDetail> GetByProcessStepId(this IRepositoryAsync<WorkProcessDetail> repository, int processstepid)
          {
              var query= repository

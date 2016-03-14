@@ -34,6 +34,10 @@ namespace SAFERUN.IMS.Web.Services
          {
             return _repository.GetByWorkProcessId(workprocessid);
          }
+                  public  IEnumerable<WorkProcessDetail> GetBySKUId(int  skuid)
+         {
+            return _repository.GetBySKUId(skuid);
+         }
                   public  IEnumerable<WorkProcessDetail> GetByProcessStepId(int  processstepid)
          {
             return _repository.GetByProcessStepId(processstepid);
@@ -70,6 +74,29 @@ namespace SAFERUN.IMS.Web.Services
                
 
             }
+        }
+
+
+        public void Start(int id)
+        {
+            var detail = this.Queryable().Where(x => x.Id == id).First();
+            detail.StartingDateTime = DateTime.Now;
+            detail.Status = 1;
+            detail.Operator = System.Threading.Thread.CurrentPrincipal.Identity.Name;
+            this.Update(detail);
+
+        }
+
+        public void Completed(int id)
+        {
+            var detail = this.Queryable().Where(x => x.Id == id).First();
+            detail.CompletedDateTime = DateTime.Now;
+            var hours = detail.CompletedDateTime.Value - detail.StartingDateTime.Value;
+            detail.ElapsedTime = hours.Hours;
+            detail.Status = 2;
+            detail.Operator = System.Threading.Thread.CurrentPrincipal.Identity.Name;
+
+            this.Update(detail);
         }
     }
 }

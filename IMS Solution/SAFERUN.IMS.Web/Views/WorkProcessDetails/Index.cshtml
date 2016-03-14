@@ -7,7 +7,7 @@
 
 
 @{
-    ViewBag.Title = "零件生产工序流程卡明细";
+    ViewBag.Title = "零件工序工时流程卡明细";
 }
 
 
@@ -41,7 +41,7 @@
                 <div class="table-responsive">
            
  
-       <table id="workprocessdetails_datagrid" class="easyui-datagrid" title="零件生产工序流程卡明细 DataGrid" style="width:auto;height:auto"
+       <table id="workprocessdetails_datagrid" class="easyui-datagrid" title="零件工序工时流程卡明细 DataGrid" style="width:auto;height:auto"
                    data-options="
                  rownumbers:true,
                  idField:'Id',
@@ -58,8 +58,8 @@
                 <thead>
                     <tr>
                         @*<th data-options="field:'ck',checkbox:true"></th>*@
-        			<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>
-                			<th data-options="field:'WorkProcessId',width:100,sortable:true,resizable:true, 
+        			@*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
+                      <th data-options="field:'WorkProcessId',width:120,sortable:true,resizable:true, 
                         formatter:function(value,row){
                             return row.WorkProcessWorkNo;
                         },
@@ -73,9 +73,31 @@
                                 required:true
                             }
                         }">@Html.DisplayNameFor(model => model.WorkProcessId)</th>
+                        <th data-options="field:'WorkProcessProjectName',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">项目名称</th>
+                        
+                	   <th data-options="field:'SKUId',width:140,sortable:true,resizable:true, 
+                        formatter:function(value,row){
+                            return row.SKUSku;
+                        },
+                        editor:{
+                            type:'combobox',
+                            options:{
+                                valueField:'Id',
+                                textField:'Sku',
+                                method:'get',
+                                url:'/WorkProcessDetails/GetSKUs',
+                                required:true
+                            }
+                        }">@Html.DisplayNameFor(model => model.SKUId)</th>
 
            
-                			<th data-options="field:'ProcessStepId',width:100,sortable:true,resizable:true, 
+                
+				     @*<th data-options="field:'ComponentSKU',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ComponentSKU)</th>*@
+		
+                
+				     <th data-options="field:'GraphSKU',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.GraphSKU)</th>
+		
+                			@*<th data-options="field:'ProcessStepId',width:100,sortable:true,resizable:true, 
                         formatter:function(value,row){
                             return row.ProcessStepStepName;
                         },
@@ -88,13 +110,13 @@
                                 url:'/WorkProcessDetails/GetProcessSteps',
                                 required:true
                             }
-                        }">@Html.DisplayNameFor(model => model.ProcessStepId)</th>
+                        }">@Html.DisplayNameFor(model => model.ProcessStepId)</th>*@
 
            
                 
-				     <th data-options="field:'StepName',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.StepName)</th>
+				     <th data-options="field:'StepName',width:110,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.StepName)</th>
 		
-                			<th data-options="field:'StationId',width:100,sortable:true,resizable:true, 
+                     <th data-options="field:'StationId',width:100,sortable:true,resizable:true, 
                         formatter:function(value,row){
                             return row.StationStationNo;
                         },
@@ -114,42 +136,44 @@
 				     <th data-options="field:'StandardElapsedTime',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.StandardElapsedTime)</th>
 		
                 
-				     <th data-options="field:'StartingDateTime',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.StartingDateTime)</th>
+				     <th data-options="field:'StartingDateTime',width:140,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter1">@Html.DisplayNameFor(model => model.StartingDateTime)</th>
 		
                 
-				     <th data-options="field:'CompletedDateTime',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.CompletedDateTime)</th>
+				     <th data-options="field:'CompletedDateTime',width:140,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter2">@Html.DisplayNameFor(model => model.CompletedDateTime)</th>
 		
                 
 				     <th data-options="field:'ElapsedTime',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ElapsedTime)</th>
 		
                 
-				     <th data-options="field:'WorkingTime',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.WorkingTime)</th>
+				     @*<th data-options="field:'WorkingTime',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.WorkingTime)</th>*@
 		
                 
 				     <th data-options="field:'Operator',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Operator)</th>
 		
                 
-				     <th data-options="field:'QCConfirm',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.QCConfirm)</th>
+				     @*<th data-options="field:'QCConfirm',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.QCConfirm)</th>*@
 		
                 
-				     <th data-options="field:'QCConfirmDateTime',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.QCConfirmDateTime)</th>
+				     @*<th data-options="field:'QCConfirmDateTime',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.QCConfirmDateTime)</th>*@
 		
                 
-				     <th data-options="field:'CompletedConfirm',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.CompletedConfirm)</th>
+				     @*<th data-options="field:'CompletedConfirm',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.CompletedConfirm)</th>*@
 		
                 
-					 <th data-options="field:'Status',width:100,align:'right',
+                        <th data-options="field:'Status',width:100,align:'right',
                                                 editor:{ type:'combobox',
                                                  options:{
                                                     panelHeight: 'auto',
-                                                    data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
-                                                    required:true } 
+                                                    data: [ { value: '0', text: '新建' },{ value: '1', text: '开始' },{ value: '2', text: '完成' } ],
+                                                    required:true }
                                                  },
                                                  formatter: function(value,row,index){
 				                                        if (value == 0) {
-                                                            return '启用';
-                                                        } else {
-                                                            return '禁用';
+                                                            return '新建';
+                                                        } else if (value == 1) {
+                                                            return '开始';
+                                                        }else{
+                                                             return '完成';
                                                         }
 			                                     }">@Html.DisplayNameFor(model => model.Status)</th>
 		
@@ -163,12 +187,12 @@
 
 </table>
 	<div id="workprocessdetails_toolbar" style="height:auto">
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
+                @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>*@
+                @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>*@
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
-				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+                @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>*@
+				@*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>*@
             </div>
 				</div>
 
@@ -191,6 +215,30 @@
 
 @section Scripts {
     <script type="text/javascript">
+        function dateformatter1(value, row, index) {
+            if (row.Status == 0) {
+                return "<button type='button' onclick='start(" + row.Id + ")' class='btn btn-success btn-sm'>开始</button>";
+            } else if(value!=null) {
+                return moment(value).format('HH:mm');
+            }
+        }
+        function dateformatter2(value, row, index) {
+            if (row.Status == 1) {
+                return "<button type='button' onclick='completed(" +row.Id +")' class='btn btn-success btn-sm'>完成</button>";;
+            } else if (value != null) {
+                return moment(value).format('HH:mm');
+            }
+        }
+        function start(id) {
+            $.post('/WorkProcessDetails/Start', { id: id }, function () {
+                $dg.datagrid('reload');
+            })
+        }
+        function completed(id) {
+            $.post('/WorkProcessDetails/Completed', { id: id }, function () {
+                $dg.datagrid('reload');
+            })
+        }
 
 			 $(function () {
                         $('#alert1').hide('normal');
@@ -265,6 +313,14 @@
                 $dg.datagrid('getRows')[editIndex]['ProcessStepId'] = processstepid;
  
 
+				                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'SKUId' });
+                var skusku = $(ed.target).combobox('getText');
+                var skuid = $(ed.target).combobox('getValue');
+               
+                $dg.datagrid('getRows')[editIndex]['SKUSku'] =  skusku;
+                $dg.datagrid('getRows')[editIndex]['SKUId'] = skuid;
+ 
+
 				                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'StationId' });
                 var stationstationno = $(ed.target).combobox('getText');
                 var stationid = $(ed.target).combobox('getValue');
@@ -291,7 +347,7 @@
             }
         }
         function onClickCell(index, field) {
-			var _operates = ["_operate1", "_operate2", "_operate3", "ck"]
+            var _operates = ["_operate1", "_operate2", "_operate3", "ck", "StartingDateTime", "CompletedDateTime"]
             if ($.inArray(field, _operates) >= 0) {
                 return;
             }
@@ -460,6 +516,28 @@
 								} else {
 									$dg.datagrid('addFilterRule', {
 										field: 'WorkProcessId',
+									    op: 'equal',
+										value: value
+                                });
+                            }
+                            $dg.datagrid('doFilter');
+                        }
+					}
+		   },
+		   		   {
+				 field: 'SKUId',
+				 type:'combobox',
+                 options:{
+                                valueField:'Id',
+                                textField:'Sku',
+                                method:'get',
+                                url:'/WorkProcessDetails/GetSKUs',
+								onChange: function (value) {
+								if (value == '') {
+									$dg.datagrid('removeFilterRule', 'SKUId');
+								} else {
+									$dg.datagrid('addFilterRule', {
+										field: 'SKUId',
 									    op: 'equal',
 										value: value
                                 });

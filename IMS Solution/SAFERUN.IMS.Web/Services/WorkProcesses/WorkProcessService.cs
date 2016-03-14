@@ -129,13 +129,16 @@ namespace SAFERUN.IMS.Web.Services
 
         public void GenerateWorkProcesses(WorkProcess process)
         {
+            var workprocess = this.Queryable().Include(x => x.SKU).Where(x => x.Id == process.Id).First();
             var steps = _setpservice.Queryable().Where(x => x.ProductionProcessId == process.ProductionProcessId).ToList();
             var list = new List<WorkProcessDetail>();
             foreach (var setp in steps) {
                 WorkProcessDetail item = new WorkProcessDetail();
                 item.WorkProcessId = process.Id;
                 item.Operator = "";
-                 
+                item.SKUId = workprocess.SKUId;
+                item.ComponentSKU = workprocess.SKU.Sku;
+                item.GraphSKU = workprocess.GraphSKU;
                 item.ProcessStepId = setp.Id;
                 item.StandardElapsedTime = setp.ElapsedTime;
                 item.StationId = setp.StationId;

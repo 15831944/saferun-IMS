@@ -41,7 +41,7 @@ namespace SAFERUN.IMS.Web.Controllers
         public ActionResult Index()
         {
             
-            //var workprocessdetails  = _workProcessDetailService.Queryable().Include(w => w.ProcessStep).Include(w => w.Station).Include(w => w.WorkProcess).AsQueryable();
+            //var workprocessdetails  = _workProcessDetailService.Queryable().Include(w => w.ProcessStep).Include(w => w.SKU).Include(w => w.Station).Include(w => w.WorkProcess).AsQueryable();
             
              //return View(workprocessdetails);
 			 return View();
@@ -56,9 +56,9 @@ namespace SAFERUN.IMS.Web.Controllers
             int totalCount = 0;
             //int pagenum = offset / limit +1;
             			 
-            var workprocessdetails  = _workProcessDetailService.Query(new WorkProcessDetailQuery().Withfilter(filters)).Include(w => w.ProcessStep).Include(w => w.Station).Include(w => w.WorkProcess).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
+            var workprocessdetails  = _workProcessDetailService.Query(new WorkProcessDetailQuery().Withfilter(filters)).Include(w => w.ProcessStep).Include(w => w.SKU).Include(w => w.Station).Include(w => w.WorkProcess).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
 
-            var datarows = workprocessdetails.Select(n => new { ProcessStepOrder = (n.ProcessStep == null ? 0 : n.ProcessStep.Order), ProcessStepStepName = (n.ProcessStep == null ? "" : n.ProcessStep.StepName), StationStationNo = (n.Station == null ? "" : n.Station.StationNo), WorkProcessWorkNo = (n.WorkProcess == null ? "" : n.WorkProcess.WorkNo), Id = n.Id, WorkProcessId = n.WorkProcessId, ProcessStepId = n.ProcessStepId, StepName = n.StepName, StationId = n.StationId, StandardElapsedTime = n.StandardElapsedTime, StartingDateTime = n.StartingDateTime, CompletedDateTime = n.CompletedDateTime, ElapsedTime = n.ElapsedTime, WorkingTime = n.WorkingTime, Operator = n.Operator, QCConfirm = n.QCConfirm, QCConfirmDateTime = n.QCConfirmDateTime, CompletedConfirm = n.CompletedConfirm, Status = n.Status, Remark = n.Remark }).ToList();
+            var datarows = workprocessdetails.Select(n => new { ProcessStepOrder = (n.ProcessStep == null ? 0 : n.ProcessStep.Order), ProcessStepStepName = (n.ProcessStep == null ? "" : n.ProcessStep.StepName), SKUSku = (n.SKU == null ? "" : n.SKU.Sku), StationStationNo = (n.Station == null ? "" : n.Station.StationNo), WorkProcessWorkNo = (n.WorkProcess == null ? "" : n.WorkProcess.WorkNo), WorkProcessProjectName = (n.WorkProcess == null ? "" : n.WorkProcess.ProjectName), Id = n.Id, WorkProcessId = n.WorkProcessId, SKUId = n.SKUId, ComponentSKU = n.ComponentSKU, GraphSKU = n.GraphSKU, ProcessStepId = n.ProcessStepId, StepName = n.StepName, StationId = n.StationId, StandardElapsedTime = n.StandardElapsedTime, StartingDateTime = n.StartingDateTime, CompletedDateTime = n.CompletedDateTime, ElapsedTime = n.ElapsedTime, WorkingTime = n.WorkingTime, Operator = n.Operator, QCConfirm = n.QCConfirm, QCConfirmDateTime = n.QCConfirmDateTime, CompletedConfirm = n.CompletedConfirm, Status = n.Status, Remark = n.Remark }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
@@ -97,6 +97,13 @@ namespace SAFERUN.IMS.Web.Controllers
             var processstepRepository = _unitOfWork.Repository<ProcessStep>();
             var data = processstepRepository.Queryable().ToList();
             var rows = data.Select(n => new { Id = n.Id, StepName = n.StepName });
+            return Json(rows, JsonRequestBehavior.AllowGet);
+        }
+				public ActionResult GetSKUs()
+        {
+            var skuRepository = _unitOfWork.Repository<SKU>();
+            var data = skuRepository.Queryable().ToList();
+            var rows = data.Select(n => new { Id = n.Id, Sku = n.Sku });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
 				public ActionResult GetStations()
@@ -139,6 +146,8 @@ namespace SAFERUN.IMS.Web.Controllers
             //set default value
             var processstepRepository = _unitOfWork.Repository<ProcessStep>();
             ViewBag.ProcessStepId = new SelectList(processstepRepository.Queryable(), "Id", "StepName");
+            var skuRepository = _unitOfWork.Repository<SKU>();
+            ViewBag.SKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku");
             var stationRepository = _unitOfWork.Repository<Station>();
             ViewBag.StationId = new SelectList(stationRepository.Queryable(), "Id", "StationNo");
             var workprocessRepository = _unitOfWork.Repository<WorkProcess>();
@@ -150,7 +159,7 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProcessStep,Station,WorkProcess,Id,WorkProcessId,ProcessStepId,StepName,StationId,StandardElapsedTime,StartingDateTime,CompletedDateTime,ElapsedTime,WorkingTime,Operator,QCConfirm,QCConfirmDateTime,CompletedConfirm,Status,Remark,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] WorkProcessDetail workProcessDetail)
+        public ActionResult Create([Bind(Include = "ProcessStep,SKU,Station,WorkProcess,Id,WorkProcessId,SKUId,ComponentSKU,GraphSKU,ProcessStepId,StepName,StationId,StandardElapsedTime,StartingDateTime,CompletedDateTime,ElapsedTime,WorkingTime,Operator,QCConfirm,QCConfirmDateTime,CompletedConfirm,Status,Remark,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] WorkProcessDetail workProcessDetail)
         {
             if (ModelState.IsValid)
             {
@@ -166,6 +175,8 @@ namespace SAFERUN.IMS.Web.Controllers
 
             var processstepRepository = _unitOfWork.Repository<ProcessStep>();
             ViewBag.ProcessStepId = new SelectList(processstepRepository.Queryable(), "Id", "StepName", workProcessDetail.ProcessStepId);
+            var skuRepository = _unitOfWork.Repository<SKU>();
+            ViewBag.SKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku", workProcessDetail.SKUId);
             var stationRepository = _unitOfWork.Repository<Station>();
             ViewBag.StationId = new SelectList(stationRepository.Queryable(), "Id", "StationNo", workProcessDetail.StationId);
             var workprocessRepository = _unitOfWork.Repository<WorkProcess>();
@@ -193,6 +204,8 @@ namespace SAFERUN.IMS.Web.Controllers
             }
             var processstepRepository = _unitOfWork.Repository<ProcessStep>();
             ViewBag.ProcessStepId = new SelectList(processstepRepository.Queryable(), "Id", "StepName", workProcessDetail.ProcessStepId);
+            var skuRepository = _unitOfWork.Repository<SKU>();
+            ViewBag.SKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku", workProcessDetail.SKUId);
             var stationRepository = _unitOfWork.Repository<Station>();
             ViewBag.StationId = new SelectList(stationRepository.Queryable(), "Id", "StationNo", workProcessDetail.StationId);
             var workprocessRepository = _unitOfWork.Repository<WorkProcess>();
@@ -204,7 +217,7 @@ namespace SAFERUN.IMS.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProcessStep,Station,WorkProcess,Id,WorkProcessId,ProcessStepId,StepName,StationId,StandardElapsedTime,StartingDateTime,CompletedDateTime,ElapsedTime,WorkingTime,Operator,QCConfirm,QCConfirmDateTime,CompletedConfirm,Status,Remark,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] WorkProcessDetail workProcessDetail)
+        public ActionResult Edit([Bind(Include = "ProcessStep,SKU,Station,WorkProcess,Id,WorkProcessId,SKUId,ComponentSKU,GraphSKU,ProcessStepId,StepName,StationId,StandardElapsedTime,StartingDateTime,CompletedDateTime,ElapsedTime,WorkingTime,Operator,QCConfirm,QCConfirmDateTime,CompletedConfirm,Status,Remark,CreatedUserId,CreatedDateTime,LastEditUserId,LastEditDateTime")] WorkProcessDetail workProcessDetail)
         {
             if (ModelState.IsValid)
             {
@@ -221,6 +234,8 @@ namespace SAFERUN.IMS.Web.Controllers
             }
             var processstepRepository = _unitOfWork.Repository<ProcessStep>();
             ViewBag.ProcessStepId = new SelectList(processstepRepository.Queryable(), "Id", "StepName", workProcessDetail.ProcessStepId);
+            var skuRepository = _unitOfWork.Repository<SKU>();
+            ViewBag.SKUId = new SelectList(skuRepository.Queryable(), "Id", "Sku", workProcessDetail.SKUId);
             var stationRepository = _unitOfWork.Repository<Station>();
             ViewBag.StationId = new SelectList(stationRepository.Queryable(), "Id", "StationNo", workProcessDetail.StationId);
             var workprocessRepository = _unitOfWork.Repository<WorkProcess>();
@@ -266,10 +281,22 @@ namespace SAFERUN.IMS.Web.Controllers
         }
 
 
-       
 
- 
 
+
+        [HttpPost]
+        public ActionResult Start(int id = 0) {
+            this._workProcessDetailService.Start(id);
+            _unitOfWork.SaveChanges();
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult Completed(int id = 0)
+        {
+            this._workProcessDetailService.Completed(id);
+            _unitOfWork.SaveChanges();
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
         private void DisplaySuccessMessage(string msgText)
         {
             TempData["SuccessMessage"] = msgText;

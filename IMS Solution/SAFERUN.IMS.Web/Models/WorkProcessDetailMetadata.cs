@@ -20,6 +20,16 @@ namespace SAFERUN.IMS.Web.Models
         [Display(Name = "零件加工工序卡")]
         public WorkProcess WorkProcess { get; set; }
 
+         [Display(Name = "零件编号")]
+        public int SKUId { get; set; }
+     [Display(Name = "零件编号")]
+        public virtual SKU SKU { get; set; }
+        [Display(Name = "零件编号")]
+        public string ComponentSKU { get; set; }
+        [Display(Name = "零件图号")]
+        public string GraphSKU { get; set; }
+
+
         [Required(ErrorMessage = "Please enter : Id")]
         [Display(Name = "Id")]
         public int Id { get; set; }
@@ -29,6 +39,7 @@ namespace SAFERUN.IMS.Web.Models
 
         [Display(Name = "工序")]
         public int ProcessStepId { get; set; }
+
 
         [Display(Name = "工序步骤")]
         [MaxLength(50)]
