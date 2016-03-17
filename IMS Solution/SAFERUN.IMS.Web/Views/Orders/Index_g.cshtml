@@ -687,8 +687,8 @@
 		//datagrid onSelect
 		//-----------------------------------------------------
 		function onSelect(index, row) {
-		    //console.log(index, row);
-		    filterByOrderId(row.Id);
+            //console.log(index, row);
+			filterByOrderId(row.Id);
         }
 		function filterByOrderId(orderid) {
             var value = orderid;
@@ -757,7 +757,9 @@
     }
     function orderdetails_append() {
         if (orderdetails_endEditing()) {
-            $orderdetailsdg.datagrid('appendRow', { Status:0   });
+			 var order = $dg.datagrid('getSelected');
+
+            $orderdetailsdg.datagrid('appendRow', { OrderId:order.Id   });
             orderdetailseditIndex = $orderdetailsdg.datagrid('getRows').length - 1;
             $orderdetailsdg.datagrid('selectRow', orderdetails_editIndex )
                     .datagrid('beginEdit', orderdetails_editIndex);
