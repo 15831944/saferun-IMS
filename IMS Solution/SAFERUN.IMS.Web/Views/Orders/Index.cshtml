@@ -141,21 +141,20 @@
                 @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>*@
             </div>
         </div>
-
+          
         <div id="detailtabs" class="easyui-tabs" style="width:auto;height:400px;">
             <div title="订单明细" style="padding:10px;">
                 <div class="table-responsive">
                     <table id="orderdetails_datagrid" class="easyui-datagrid" title="订单明细 DataGrid" style="width:auto;height:auto"
                            data-options="
                  rownumbers:true,
-
-                remoteFilter: true,
-                singleSelect: true,
-                toolbar: '#orderdetails_toolbar',
-                url: '/OrderDetails/GetData',
-                method: 'get',
-                onClickCell: orderdetails_onClickCell,
-                pagination: 'true'
+                 remoteFilter: true,
+                 singleSelect: true,
+                 toolbar: '#orderdetails_toolbar',
+                 url: '/OrderDetails/GetData',
+                 method: 'get',
+                 onClickCell: orderdetails_onClickCell,
+                 pagination: 'true'
                    ">
                         <thead>
                             <tr>

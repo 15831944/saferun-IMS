@@ -1306,7 +1306,7 @@
     <Content Include="Scripts\uploadify\check-exists.php" />
     <Content Include="Scripts\uploadify\index.php" />
     <Content Include="Scripts\uploadify\uploadify.php" />
-    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Orders\Index1.cshtml" />
     <Content Include="Views\Orders\Create.cshtml" />
     <Content Include="Views\Orders\Edit.cshtml" />
     <Content Include="Views\Orders\EditForm.cshtml" />
@@ -1434,6 +1434,7 @@
     <Content Include="Views\WorkProcessDetails\Edit.cshtml" />
     <Content Include="Views\WorkProcessDetails\EditForm.cshtml" />
     <Content Include="Views\WorkProcessDetails\_PopupSearch.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
