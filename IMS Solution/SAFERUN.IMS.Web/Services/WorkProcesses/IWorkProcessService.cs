@@ -34,5 +34,6 @@ namespace SAFERUN.IMS.Web.Services
 
         void GenerateWorkProcesses(IEnumerable<int> workdetails);
         void GenerateWorkProcesses(WorkProcess process);
+        void CompletedWork(int id);
 	}
 }

@@ -1,10 +1,10 @@
 ﻿
 
 
-@model SAFERUN.IMS.Web.Models.BOMComponent
+@model SAFERUN.IMS.Web.Models.Work
 
 @{
-    ViewBag.Title = "BOMComponents | Create";
+    ViewBag.Title = "生产任务单 | Edit"  ;
 }
 
 
@@ -14,7 +14,7 @@
             <div class="col-md-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>BOMComponents form<small> create new BOMComponents</small></h5>
+                        <h5>生产任务单 form<small> edit Works</small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -25,7 +25,7 @@
                             <ul class="dropdown-menu dropdown-user">
                                 <li><a href="#">Config option 1</a>
                                 </li>
-                                <li><a href="#">Config option 2</a>
+                                <li><a href="">Config option 2</a>
                                 </li>
                             </ul>
                             <a class="close-link">
@@ -34,18 +34,18 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                 
+                       
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
-   
     @*@Html.AntiForgeryToken()*@
-    		
+     
+ 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
  
-		 
+    
         @Html.Partial("EditForm")
-	 
+ 
 		<div class="row">
         <div class="hr-line-dashed"></div>
                                 <div class="form-group">
@@ -56,64 +56,64 @@
                                 </div>
 	    </div>
 
-
 		 }
-    </div>
+ </div>
         </div>
     </div>
 </div>
 
-@section Scripts {
  
-     <script type="text/javascript">
-     
-    		var bomcomponentid = 0;
-		var ObjectState = "Added";  
-                                 
-             var $componentsdatagrid = $('#components_datagrid');
-                        $(document).ready(function () {
 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+	
+    		var workid = 0;
+		var ObjectState = "Modified";   
+                                 
+             var $workdetailsdatagrid = $('#workdetails_datagrid');
+                        $(document).ready(function () {
+				workid = $('#Id', 'form').val();
                 $('form').submit(function () {
 					if (!$('form').valid())
 						return false;
                     //var token = $('[name=__RequestVerificationToken]').val();
                     //var serializedForm = $(this).serialize();
                     var actionurl = $(this).attr('action');
-                     
-						if (!components_endEditing())
-								return false;                    
-                        var components = $componentsdatagrid.datagrid('getChanges');
-                                        
+                    						if (!workdetails_endEditing())
+								return false;                                         
+                        var workdetails = $workdetailsdatagrid.datagrid('getChanges');
+                                         
                      var newitem = {
-                                                        ALTSku: $('#ALTSku', 'form').val(),
-                        								//detailTables
-                                Components: components ,
-                                                        ComponentSKU: $('#ComponentSKU', 'form').val(),
-                                                        ConsumeQty: $('#ConsumeQty', 'form').val(),
-                                                        ConsumeTime: $('#ConsumeTime', 'form').val(),
-                                                        Deploy: $('#Deploy', 'form').val(),
-                                                        DesignName: $('#DesignName', 'form').val(),
-                                                        GraphSKU: $('#GraphSKU', 'form').val(),
-                        								//primaryKey
-								Id: bomcomponentid,
-                                                        Locator: $('#Locator', 'form').val(),
-                                                        NoPur: $('#NoPur', 'form').val(),
-                                                        ProductionLine: $('#ProductionLine', 'form').val(),
-                                                        RejectRatio: $('#RejectRatio', 'form').val(),
-                                                        Remark1: $('#Remark1', 'form').val(),
-                                                        Remark2: $('#Remark2', 'form').val(),
+						
+
+                                                        AssembleConfirm: $('#AssembleConfirm', 'form').val(),
+                        								//primaryKey   
+								Id: workid,
+                                                        OrderKey: $('#OrderKey', 'form').val(),
+                                                        OutsourceConfirm: $('#OutsourceConfirm', 'form').val(),
+                                                        PO: $('#PO', 'form').val(),
+                                                        ProductionConfirm: $('#ProductionConfirm', 'form').val(),
+                                                        PurchaseConfirm: $('#PurchaseConfirm', 'form').val(),
+                                                        Remark: $('#Remark', 'form').val(),
+                                                        Review: $('#Review', 'form').val(),
+                                                        ReviewDate: $('#ReviewDate', 'form').val(),
                                                         Status: $('#Status', 'form').val(),
-                                                        StockSKU: $('#StockSKU', 'form').val(),
-                        								ParentComponentId: $('#ParentComponentId :selected','form').val(),
-														SKUId: $('#SKUId :selected','form').val(),
-						                                CreatedDateTime: $('#CreatedDateTime', 'form').val(),
+                                                        User: $('#User', 'form').val(),
+                                                        WorkDate: $('#WorkDate', 'form').val(),
+                        								//detailTables
+                                WorkDetails: workdetails ,
+                                                        WorkNo: $('#WorkNo', 'form').val(),
+                        								OrderId: $('#OrderId :selected','form').val(),
+														WorkTypeId: $('#WorkTypeId :selected','form').val(),
+						                                AssembleConfirmDate: $('#AssembleConfirmDate', 'form').val(),
+                                                        CreatedDateTime: $('#CreatedDateTime', 'form').val(),
                                                         CreatedUserId: $('#CreatedUserId', 'form').val(),
-                                                        DesignPricture1: $('#DesignPricture1', 'form').val(),
-                                                        DesignPricture2: $('#DesignPricture2', 'form').val(),
-                                                        DesignPrictureURL1: $('#DesignPrictureURL1', 'form').val(),
-                                                        DesignPrictureURL2: $('#DesignPrictureURL2', 'form').val(),
                                                         LastEditDateTime: $('#LastEditDateTime', 'form').val(),
                                                         LastEditUserId: $('#LastEditUserId', 'form').val(),
+                                                        OutsourceConfirmDate: $('#OutsourceConfirmDate', 'form').val(),
+                                                        ProductionConfirmDate: $('#ProductionConfirmDate', 'form').val(),
+                                                        PurchaseConfirmDate: $('#PurchaseConfirmDate', 'form').val(),
                                                 ObjectState:ObjectState 
                     };
                     $.ajax({
@@ -124,7 +124,7 @@
                         data: JSON.stringify(newitem),
                         success: function (result) {
                             if (result.success) {
-                                self.location = "/BOMComponents/Index";
+                                self.location = "/Works/Index";
                             } else {
                                 alert(result.err);
                             }
@@ -140,7 +140,7 @@
 
                 });
             });
-          </script>
-
+      
+      </script>
 
 }

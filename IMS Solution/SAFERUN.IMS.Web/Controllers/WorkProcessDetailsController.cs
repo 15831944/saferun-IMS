@@ -22,29 +22,31 @@ namespace SAFERUN.IMS.Web.Controllers
 {
     public class WorkProcessDetailsController : Controller
     {
-        
+
         //Please RegisterType UnityConfig.cs
         //container.RegisterType<IRepositoryAsync<WorkProcessDetail>, Repository<WorkProcessDetail>>();
         //container.RegisterType<IWorkProcessDetailService, WorkProcessDetailService>();
-        
+
         //private ImsDbContext db = new ImsDbContext();
-        private readonly IWorkProcessDetailService  _workProcessDetailService;
+        private readonly IWorkProcessDetailService _workProcessDetailService;
+        private readonly IWorkProcessService _workProcessService;
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public WorkProcessDetailsController (IWorkProcessDetailService  workProcessDetailService, IUnitOfWorkAsync unitOfWork)
+        public WorkProcessDetailsController(IWorkProcessService workProcessService,IWorkProcessDetailService workProcessDetailService, IUnitOfWorkAsync unitOfWork)
         {
-            _workProcessDetailService  = workProcessDetailService;
+            _workProcessDetailService = workProcessDetailService;
             _unitOfWork = unitOfWork;
+            _workProcessService = workProcessService;
         }
 
         // GET: WorkProcessDetails/Index
         public ActionResult Index()
         {
-            
+
             //var workprocessdetails  = _workProcessDetailService.Queryable().Include(w => w.ProcessStep).Include(w => w.SKU).Include(w => w.Station).Include(w => w.WorkProcess).AsQueryable();
-            
-             //return View(workprocessdetails);
-			 return View();
+
+            //return View(workprocessdetails);
+            return View();
         }
 
         // Get :WorkProcessDetails/PageList
@@ -52,19 +54,19 @@ namespace SAFERUN.IMS.Web.Controllers
         [HttpGet]
         public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
-			var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
+            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
             //int pagenum = offset / limit +1;
-            			 
-            var workprocessdetails  = _workProcessDetailService.Query(new WorkProcessDetailQuery().Withfilter(filters)).Include(w => w.ProcessStep).Include(w => w.SKU).Include(w => w.Station).Include(w => w.WorkProcess).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
+
+            var workprocessdetails = _workProcessDetailService.Query(new WorkProcessDetailQuery().Withfilter(filters)).Include(w => w.ProcessStep).Include(w => w.SKU).Include(w => w.Station).Include(w => w.WorkProcess).OrderBy(n => n.OrderBy(sort, order)).SelectPage(page, rows, out totalCount);
 
             var datarows = workprocessdetails.Select(n => new { ProcessStepOrder = (n.ProcessStep == null ? 0 : n.ProcessStep.Order), ProcessStepStepName = (n.ProcessStep == null ? "" : n.ProcessStep.StepName), SKUSku = (n.SKU == null ? "" : n.SKU.Sku), StationStationNo = (n.Station == null ? "" : n.Station.StationNo), WorkProcessWorkNo = (n.WorkProcess == null ? "" : n.WorkProcess.WorkNo), WorkProcessProjectName = (n.WorkProcess == null ? "" : n.WorkProcess.ProjectName), Id = n.Id, WorkProcessId = n.WorkProcessId, SKUId = n.SKUId, ComponentSKU = n.ComponentSKU, GraphSKU = n.GraphSKU, ProcessStepId = n.ProcessStepId, StepName = n.StepName, StationId = n.StationId, StandardElapsedTime = n.StandardElapsedTime, StartingDateTime = n.StartingDateTime, CompletedDateTime = n.CompletedDateTime, ElapsedTime = n.ElapsedTime, WorkingTime = n.WorkingTime, Operator = n.Operator, QCConfirm = n.QCConfirm, QCConfirmDateTime = n.QCConfirmDateTime, CompletedConfirm = n.CompletedConfirm, Status = n.Status, Remark = n.Remark }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
-		[HttpPost]
-		public ActionResult SaveData(WorkProcessDetailChangeViewModel workprocessdetails)
+        [HttpPost]
+        public ActionResult SaveData(WorkProcessDetailChangeViewModel workprocessdetails)
         {
             if (workprocessdetails.updated != null)
             {
@@ -88,41 +90,46 @@ namespace SAFERUN.IMS.Web.Controllers
                 }
             }
             _unitOfWork.SaveChanges();
+            if (workprocessdetails.updated != null)
+            {
+                this._workProcessService.CompletedWork(workprocessdetails.updated.First().WorkProcessId);
+                _unitOfWork.SaveChanges();
+            }
 
-            return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
 
-				public ActionResult GetProcessSteps()
+        public ActionResult GetProcessSteps()
         {
             var processstepRepository = _unitOfWork.Repository<ProcessStep>();
             var data = processstepRepository.Queryable().ToList();
-            var rows = data.Select(n => new { Id = n.Id, StepName = n.StepName });
+            var rows = data.Select(n => new { Id = n.Id, StepName = n.StepName, Order = n.Order, ElapsedTime = n.ElapsedTime, StationId=n.StationId });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-				public ActionResult GetSKUs()
+        public ActionResult GetSKUs()
         {
             var skuRepository = _unitOfWork.Repository<SKU>();
             var data = skuRepository.Queryable().ToList();
             var rows = data.Select(n => new { Id = n.Id, Sku = n.Sku });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-				public ActionResult GetStations()
+        public ActionResult GetStations()
         {
             var stationRepository = _unitOfWork.Repository<Station>();
             var data = stationRepository.Queryable().ToList();
             var rows = data.Select(n => new { Id = n.Id, StationNo = n.StationNo });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-				public ActionResult GetWorkProcesses()
+        public ActionResult GetWorkProcesses()
         {
             var workprocessRepository = _unitOfWork.Repository<WorkProcess>();
             var data = workprocessRepository.Queryable().ToList();
             var rows = data.Select(n => new { Id = n.Id, WorkNo = n.WorkNo });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-		
-		
-       
+
+
+
         // GET: WorkProcessDetails/Details/5
         public ActionResult Details(int? id)
         {
@@ -137,7 +144,7 @@ namespace SAFERUN.IMS.Web.Controllers
             }
             return View(workProcessDetail);
         }
-        
+
 
         // GET: WorkProcessDetails/Create
         public ActionResult Create()
@@ -163,8 +170,8 @@ namespace SAFERUN.IMS.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-             				_workProcessDetailService.Insert(workProcessDetail);
-                           _unitOfWork.SaveChanges();
+                _workProcessDetailService.Insert(workProcessDetail);
+                _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -183,7 +190,7 @@ namespace SAFERUN.IMS.Web.Controllers
             ViewBag.WorkProcessId = new SelectList(workprocessRepository.Queryable(), "Id", "WorkNo", workProcessDetail.WorkProcessId);
             if (Request.IsAjaxRequest())
             {
-                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
@@ -222,8 +229,8 @@ namespace SAFERUN.IMS.Web.Controllers
             if (ModelState.IsValid)
             {
                 workProcessDetail.ObjectState = ObjectState.Modified;
-                				_workProcessDetailService.Update(workProcessDetail);
-                                
+                _workProcessDetailService.Update(workProcessDetail);
+
                 _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
@@ -242,7 +249,7 @@ namespace SAFERUN.IMS.Web.Controllers
             ViewBag.WorkProcessId = new SelectList(workprocessRepository.Queryable(), "Id", "WorkNo", workProcessDetail.WorkProcessId);
             if (Request.IsAjaxRequest())
             {
-                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
@@ -269,13 +276,13 @@ namespace SAFERUN.IMS.Web.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            WorkProcessDetail workProcessDetail =  _workProcessDetailService.Find(id);
-             _workProcessDetailService.Delete(workProcessDetail);
+            WorkProcessDetail workProcessDetail = _workProcessDetailService.Find(id);
+            _workProcessDetailService.Delete(workProcessDetail);
             _unitOfWork.SaveChanges();
-           if (Request.IsAjaxRequest())
-                {
-                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
-                }
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
             DisplaySuccessMessage("Has delete a WorkProcessDetail record");
             return RedirectToAction("Index");
         }
@@ -285,7 +292,8 @@ namespace SAFERUN.IMS.Web.Controllers
 
 
         [HttpPost]
-        public ActionResult Start(int id = 0) {
+        public ActionResult Start(int id = 0)
+        {
             this._workProcessDetailService.Start(id);
             _unitOfWork.SaveChanges();
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);

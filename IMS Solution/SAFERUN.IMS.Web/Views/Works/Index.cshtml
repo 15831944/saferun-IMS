@@ -1343,7 +1343,7 @@
                                     viewmodel.WorkingBomComponents.push(element.Id);
                                 });
                                 console.log(viewmodel);
-                                $.post('/Works/GenerateWorkDetails', { viewmodel: viewmodel }, function (data, textStatus, jqXHR) {
+                                $.post('/Works/GenerateWorkDetail', { viewmodel: viewmodel }, function (data, textStatus, jqXHR) {
                                     console.log(data);
                                     $('#bomimportwindow').window('close');
                                     $workdetailsgrid.datagrid('reload');

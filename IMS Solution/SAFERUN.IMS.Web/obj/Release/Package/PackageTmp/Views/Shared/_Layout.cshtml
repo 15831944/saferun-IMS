@@ -84,7 +84,7 @@
     <script src="~/javascripts/main.js" type="text/javascript"></script>
     <script src="~/javascripts/respond.js" type="text/javascript"></script>
 
-
+    <script src="~/javascripts/jquery.animateNumber.js"></script>
     
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
     <script src="~/Scripts/uploadify/jquery.uploadify.js"></script>
@@ -131,6 +131,10 @@
                                     <a href="/Customers">客户信息维护</a>
                                 </li>
                                 <li>
+                                    <a href="/Suppliers">供应商信息维护</a>
+                                </li>
+                                
+                                <li>
                                     <a href="/Multicomponents">部套信息维护</a>
                                 </li>
                                 <li>
@@ -146,13 +150,16 @@
                                     <a href="/Employees">生产员工维护（导入）</a>
                                 </li>
                                 <li>
-                                    <a href="#">组别班次维护</a>
+                                    <a href="/Shifts">组别班次维护</a>
                                 </li>
                                 <li>
                                     <a href="/DefectTypes">检验缺陷类型维护</a>
                                 </li>
                                 <li>
                                     <a href="/DefectCodes">缺陷代码维护</a>
+                                </li>
+                                <li>
+                                    <a href="/WorkTypes">任务单类型</a>
                                 </li>
                                
                             </ul>
@@ -171,33 +178,30 @@
                                     <a href="/OrderAuditPlans">
                                         <span class="notifications label label-warning">新</span>
                                         <p>
-                                            主节点计划
+                                            订单评审计划
                                         </p>
                                     </a>
 
                                 </li>
                                 <li>
-                                    <a href="/ProductionPlans">订单生产计划</a>
+                                    <a href="/AssemblyPlans">部套计划</a>
+                                </li>
+                                                           
+                                <li>
+                                    <a href="/Works">生产任务单</a>
                                 </li>
                                 <li>
-                                    <a href="/PurchasePlans">订单采购计划</a>
-                                </li>
-                              
-                                <li>
-                                    <a href="#">生产任务单</a>
+                                    <a href="/ProductionSchedules">生产排程</a>
                                 </li>
                                 <li>
-                                    <a href="#">生产排程</a>
-                                </li>
-                                <li>
-                                    <a href="#">零件工序作业</a>
+                                    <a href="/WorkProcesses">零件工序作业</a>
                                 </li>
                                 
                                 <li>
                                     <a href="/DefectTrackings">缺陷跟踪</a>
                                 </li>
                                 <li>
-                                    <a href="#">返修记录管理</a>
+                                    <a href="/RepairJobs">返修记录管理</a>
                                 </li>
                                 
 
@@ -291,6 +295,16 @@
                         </div>
                     </div>
                     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        function statusformatter(value, row, index) {
+  
+            if (value == 0) {
+                return '启用';
+            } else {
+                return '禁用';
+            }
+        }
+    </script>
     
 </body>
 </html>

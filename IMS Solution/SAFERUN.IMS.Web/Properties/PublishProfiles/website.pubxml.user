@@ -85,16 +85,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/27/2016 20:03:39</publishTime>
     </File>
     <File Include="bin/Repository.Pattern.dll">
-      <publishTime>02/22/2016 08:39:21</publishTime>
+      <publishTime>03/23/2016 16:03:12</publishTime>
     </File>
     <File Include="bin/Repository.Pattern.Ef6.dll">
-      <publishTime>02/22/2016 08:39:22</publishTime>
+      <publishTime>03/23/2016 16:03:12</publishTime>
     </File>
     <File Include="bin/SAFERUN.IMS.Web.dll">
-      <publishTime>02/22/2016 08:39:26</publishTime>
+      <publishTime>03/23/2016 16:03:16</publishTime>
     </File>
     <File Include="bin/Service.Pattern.dll">
-      <publishTime>02/22/2016 08:39:22</publishTime>
+      <publishTime>03/23/2016 16:03:13</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>01/27/2016 20:03:29</publishTime>
@@ -1285,7 +1285,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/27/2016 20:26:33</publishTime>
     </File>
     <File Include="images/logo-login%402x.png">
-      <publishTime>01/27/2016 20:26:33</publishTime>
+      <publishTime>02/24/2016 17:01:20</publishTime>
     </File>
     <File Include="images/logo-login.png">
       <publishTime>01/27/2016 20:26:33</publishTime>
@@ -1318,10 +1318,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/27/2016 20:26:33</publishTime>
     </File>
     <File Include="images/se7en-logo%402x.png">
-      <publishTime>01/27/2016 20:56:41</publishTime>
+      <publishTime>02/24/2016 16:55:10</publishTime>
     </File>
     <File Include="images/se7en-logo.png">
-      <publishTime>01/27/2016 20:58:39</publishTime>
+      <publishTime>02/24/2016 16:56:32</publishTime>
     </File>
     <File Include="images/select2-spinner.gif">
       <publishTime>01/27/2016 20:26:33</publishTime>
@@ -1392,6 +1392,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="javascripts/isotope_extras.js">
       <publishTime>01/27/2016 20:26:34</publishTime>
     </File>
+    <File Include="javascripts/jquery.animateNumber.js">
+      <publishTime>02/24/2016 20:46:51</publishTime>
+    </File>
     <File Include="javascripts/jquery.bootstrap.wizard.js">
       <publishTime>01/27/2016 20:26:34</publishTime>
     </File>
@@ -1459,7 +1462,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/27/2016 20:26:34</publishTime>
     </File>
     <File Include="javascripts/main.js">
-      <publishTime>01/27/2016 20:26:34</publishTime>
+      <publishTime>02/24/2016 19:50:48</publishTime>
     </File>
     <File Include="javascripts/modernizr.custom.js">
       <publishTime>01/27/2016 20:26:34</publishTime>
@@ -1633,7 +1636,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/27/2016 20:03:24</publishTime>
     </File>
     <File Include="Scripts/moment.js">
-      <publishTime>02/04/2016 20:28:06</publishTime>
+      <publishTime>03/07/2016 16:35:20</publishTime>
     </File>
     <File Include="Scripts/plugins/datagrid-filter.js">
       <publishTime>01/31/2016 15:37:05</publishTime>
@@ -1807,7 +1810,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/05/2016 21:03:05</publishTime>
     </File>
     <File Include="Scripts/_references.js">
-      <publishTime>02/05/2016 21:03:05</publishTime>
+      <publishTime>02/24/2016 20:47:37</publishTime>
     </File>
     <File Include="stylesheets/application.css">
       <publishTime>01/27/2016 20:26:34</publishTime>
@@ -1873,7 +1876,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/27/2016 20:26:34</publishTime>
     </File>
     <File Include="stylesheets/style.css">
-      <publishTime>01/31/2016 16:24:41</publishTime>
+      <publishTime>02/24/2016 19:58:00</publishTime>
     </File>
     <File Include="stylesheets/summernote.css">
       <publishTime>01/27/2016 20:26:34</publishTime>
@@ -1932,6 +1935,21 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/AccountManage/Index.cshtml">
       <publishTime>01/31/2016 16:29:43</publishTime>
     </File>
+    <File Include="Views/AssemblyPlans/Create.cshtml">
+      <publishTime>03/07/2016 16:35:20</publishTime>
+    </File>
+    <File Include="Views/AssemblyPlans/Edit.cshtml">
+      <publishTime>03/07/2016 16:35:20</publishTime>
+    </File>
+    <File Include="Views/AssemblyPlans/EditForm.cshtml">
+      <publishTime>03/07/2016 16:35:20</publishTime>
+    </File>
+    <File Include="Views/AssemblyPlans/Index.cshtml">
+      <publishTime>03/07/2016 16:35:20</publishTime>
+    </File>
+    <File Include="Views/AssemblyPlans/_PopupSearch.cshtml">
+      <publishTime>03/07/2016 16:35:20</publishTime>
+    </File>
     <File Include="Views/BaseCodes/Create.cshtml">
       <publishTime>01/31/2016 14:43:22</publishTime>
     </File>
@@ -1957,7 +1975,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/19/2016 13:03:58</publishTime>
     </File>
     <File Include="Views/BOMComponents/Index.cshtml">
-      <publishTime>02/19/2016 21:07:42</publishTime>
+      <publishTime>03/07/2016 16:35:20</publishTime>
+    </File>
+    <File Include="Views/BOMComponents/Index2.cshtml">
+      <publishTime>03/07/2016 16:35:20</publishTime>
+    </File>
+    <File Include="Views/BOMComponents/IndexCopy.cshtml">
+      <publishTime>03/07/2016 16:35:20</publishTime>
     </File>
     <File Include="Views/BOMComponents/_BOMComponentEditForm.cshtml">
       <publishTime>02/19/2016 13:04:00</publishTime>
@@ -2038,7 +2062,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/17/2016 10:59:16</publishTime>
     </File>
     <File Include="Views/DefectTrackings/Index.cshtml">
-      <publishTime>02/18/2016 09:47:38</publishTime>
+      <publishTime>03/07/2016 16:35:20</publishTime>
     </File>
     <File Include="Views/DefectTrackings/_PopupSearch.cshtml">
       <publishTime>02/17/2016 10:59:17</publishTime>
@@ -2101,7 +2125,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/27/2016 20:02:58</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>02/20/2016 20:59:28</publishTime>
+      <publishTime>02/24/2016 21:02:08</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>01/27/2016 20:03:31</publishTime>
@@ -2230,7 +2254,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/10/2016 17:19:20</publishTime>
     </File>
     <File Include="Views/Orders/Index.cshtml">
-      <publishTime>02/16/2016 16:01:33</publishTime>
+      <publishTime>03/17/2016 20:56:40</publishTime>
+    </File>
+    <File Include="Views/Orders/Index_g.cshtml">
+      <publishTime>03/17/2016 22:22:32</publishTime>
     </File>
     <File Include="Views/Orders/_OrderDetailEditForm.cshtml">
       <publishTime>02/10/2016 12:57:37</publishTime>
@@ -2254,31 +2281,31 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/31/2016 14:43:14</publishTime>
     </File>
     <File Include="Views/ProcessSteps/Create.cshtml">
-      <publishTime>02/19/2016 09:38:04</publishTime>
+      <publishTime>02/25/2016 20:44:44</publishTime>
     </File>
     <File Include="Views/ProcessSteps/Edit.cshtml">
-      <publishTime>02/19/2016 09:38:04</publishTime>
+      <publishTime>02/25/2016 20:44:44</publishTime>
     </File>
     <File Include="Views/ProcessSteps/EditForm.cshtml">
-      <publishTime>02/19/2016 09:38:05</publishTime>
+      <publishTime>02/25/2016 20:44:44</publishTime>
     </File>
     <File Include="Views/ProcessSteps/Index.cshtml">
-      <publishTime>02/19/2016 09:44:11</publishTime>
+      <publishTime>02/25/2016 20:44:44</publishTime>
     </File>
     <File Include="Views/ProcessSteps/_PopupSearch.cshtml">
       <publishTime>02/19/2016 09:38:06</publishTime>
     </File>
     <File Include="Views/ProductionPlans/Create.cshtml">
-      <publishTime>02/10/2016 14:45:12</publishTime>
+      <publishTime>02/25/2016 20:44:44</publishTime>
     </File>
     <File Include="Views/ProductionPlans/Edit.cshtml">
-      <publishTime>02/10/2016 14:45:13</publishTime>
+      <publishTime>02/25/2016 20:44:44</publishTime>
     </File>
     <File Include="Views/ProductionPlans/EditForm.cshtml">
-      <publishTime>02/10/2016 14:45:13</publishTime>
+      <publishTime>02/25/2016 20:44:44</publishTime>
     </File>
     <File Include="Views/ProductionPlans/Index.cshtml">
-      <publishTime>02/15/2016 08:26:44</publishTime>
+      <publishTime>02/25/2016 20:44:44</publishTime>
     </File>
     <File Include="Views/ProductionPlans/_PopupSearch.cshtml">
       <publishTime>02/10/2016 14:45:13</publishTime>
@@ -2297,6 +2324,39 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Views/ProductionProcesses/_PopupSearch.cshtml">
       <publishTime>02/19/2016 09:34:50</publishTime>
+    </File>
+    <File Include="Views/ProductionSchedules/Create.cshtml">
+      <publishTime>03/08/2016 09:15:25</publishTime>
+    </File>
+    <File Include="Views/ProductionSchedules/Edit.cshtml">
+      <publishTime>03/08/2016 09:15:26</publishTime>
+    </File>
+    <File Include="Views/ProductionSchedules/EditForm.cshtml">
+      <publishTime>03/08/2016 09:15:26</publishTime>
+    </File>
+    <File Include="Views/ProductionSchedules/Index.cshtml">
+      <publishTime>03/09/2016 16:30:20</publishTime>
+    </File>
+    <File Include="Views/ProductionSchedules/_PopupSearch.cshtml">
+      <publishTime>03/08/2016 09:15:27</publishTime>
+    </File>
+    <File Include="Views/ProductionSchedules/_ScheduleDetailEditForm.cshtml">
+      <publishTime>03/08/2016 09:15:28</publishTime>
+    </File>
+    <File Include="Views/ProductionTasks/Create.cshtml">
+      <publishTime>02/25/2016 20:44:44</publishTime>
+    </File>
+    <File Include="Views/ProductionTasks/Edit.cshtml">
+      <publishTime>02/25/2016 20:44:44</publishTime>
+    </File>
+    <File Include="Views/ProductionTasks/EditForm.cshtml">
+      <publishTime>02/25/2016 20:44:44</publishTime>
+    </File>
+    <File Include="Views/ProductionTasks/Index.cshtml">
+      <publishTime>02/25/2016 20:44:44</publishTime>
+    </File>
+    <File Include="Views/ProductionTasks/_PopupSearch.cshtml">
+      <publishTime>02/24/2016 16:42:05</publishTime>
     </File>
     <File Include="Views/ProjectNodes/Create.cshtml">
       <publishTime>02/04/2016 21:42:06</publishTime>
@@ -2323,31 +2383,61 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/05/2016 11:12:01</publishTime>
     </File>
     <File Include="Views/ProjectTypes/Index.cshtml">
-      <publishTime>02/19/2016 21:29:42</publishTime>
+      <publishTime>03/07/2016 16:35:20</publishTime>
     </File>
     <File Include="Views/ProjectTypes/_PopupSearch.cshtml">
       <publishTime>02/05/2016 11:12:01</publishTime>
     </File>
     <File Include="Views/PurchasePlans/Create.cshtml">
-      <publishTime>02/10/2016 14:57:31</publishTime>
+      <publishTime>02/25/2016 20:44:44</publishTime>
     </File>
     <File Include="Views/PurchasePlans/Edit.cshtml">
-      <publishTime>02/10/2016 14:57:32</publishTime>
+      <publishTime>02/25/2016 20:44:45</publishTime>
     </File>
     <File Include="Views/PurchasePlans/EditForm.cshtml">
-      <publishTime>02/10/2016 14:57:32</publishTime>
+      <publishTime>02/25/2016 20:44:45</publishTime>
     </File>
     <File Include="Views/PurchasePlans/Index.cshtml">
-      <publishTime>02/15/2016 08:27:49</publishTime>
+      <publishTime>02/25/2016 20:44:45</publishTime>
     </File>
     <File Include="Views/PurchasePlans/_PopupSearch.cshtml">
       <publishTime>02/10/2016 14:57:33</publishTime>
     </File>
+    <File Include="Views/RepairJobs/Create.cshtml">
+      <publishTime>02/24/2016 16:42:05</publishTime>
+    </File>
+    <File Include="Views/RepairJobs/Edit.cshtml">
+      <publishTime>02/24/2016 16:42:05</publishTime>
+    </File>
+    <File Include="Views/RepairJobs/EditForm.cshtml">
+      <publishTime>02/24/2016 16:42:05</publishTime>
+    </File>
+    <File Include="Views/RepairJobs/Index.cshtml">
+      <publishTime>02/24/2016 16:42:05</publishTime>
+    </File>
+    <File Include="Views/RepairJobs/_PopupSearch.cshtml">
+      <publishTime>02/24/2016 16:42:05</publishTime>
+    </File>
     <File Include="Views/RoleMenus/Index.cshtml">
-      <publishTime>02/21/2016 16:01:20</publishTime>
+      <publishTime>02/24/2016 16:42:05</publishTime>
     </File>
     <File Include="Views/RoleMenus/_navMenuBar.cshtml">
       <publishTime>01/31/2016 14:43:30</publishTime>
+    </File>
+    <File Include="Views/ScheduleDetails/Create.cshtml">
+      <publishTime>03/08/2016 09:11:04</publishTime>
+    </File>
+    <File Include="Views/ScheduleDetails/Edit.cshtml">
+      <publishTime>03/08/2016 09:11:05</publishTime>
+    </File>
+    <File Include="Views/ScheduleDetails/EditForm.cshtml">
+      <publishTime>03/08/2016 09:11:06</publishTime>
+    </File>
+    <File Include="Views/ScheduleDetails/Index.cshtml">
+      <publishTime>03/08/2016 16:17:58</publishTime>
+    </File>
+    <File Include="Views/ScheduleDetails/_PopupSearch.cshtml">
+      <publishTime>03/08/2016 09:11:07</publishTime>
     </File>
     <File Include="Views/Shared/DisplayTemplates/Date.cshtml">
       <publishTime>01/31/2016 14:43:34</publishTime>
@@ -2374,16 +2464,31 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/27/2016 20:27:24</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>02/20/2016 21:00:15</publishTime>
+      <publishTime>03/09/2016 14:36:00</publishTime>
     </File>
     <File Include="Views/Shared/_LoginLayout.cshtml">
-      <publishTime>02/03/2016 14:33:08</publishTime>
+      <publishTime>03/23/2016 15:10:45</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>02/03/2016 15:10:32</publishTime>
     </File>
     <File Include="Views/Shared/_LoginViewLayout.cshtml">
-      <publishTime>02/03/2016 14:50:58</publishTime>
+      <publishTime>03/23/2016 15:11:47</publishTime>
+    </File>
+    <File Include="Views/Shifts/Create.cshtml">
+      <publishTime>03/07/2016 16:35:20</publishTime>
+    </File>
+    <File Include="Views/Shifts/Edit.cshtml">
+      <publishTime>03/07/2016 16:35:20</publishTime>
+    </File>
+    <File Include="Views/Shifts/EditForm.cshtml">
+      <publishTime>03/07/2016 16:35:20</publishTime>
+    </File>
+    <File Include="Views/Shifts/Index.cshtml">
+      <publishTime>03/07/2016 16:35:20</publishTime>
+    </File>
+    <File Include="Views/Shifts/_PopupSearch.cshtml">
+      <publishTime>03/07/2016 16:35:20</publishTime>
     </File>
     <File Include="Views/SKUs/Create.cshtml">
       <publishTime>02/05/2016 14:24:34</publishTime>
@@ -2395,28 +2500,124 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/05/2016 14:24:35</publishTime>
     </File>
     <File Include="Views/SKUs/Index.cshtml">
-      <publishTime>02/18/2016 21:03:41</publishTime>
+      <publishTime>02/24/2016 16:42:05</publishTime>
     </File>
     <File Include="Views/SKUs/_PopupSearch.cshtml">
       <publishTime>02/05/2016 14:24:36</publishTime>
     </File>
     <File Include="Views/Stations/Create.cshtml">
-      <publishTime>01/31/2016 18:47:02</publishTime>
+      <publishTime>02/25/2016 20:44:45</publishTime>
     </File>
     <File Include="Views/Stations/Edit.cshtml">
-      <publishTime>01/31/2016 18:47:02</publishTime>
+      <publishTime>02/25/2016 20:44:45</publishTime>
     </File>
     <File Include="Views/Stations/EditForm.cshtml">
-      <publishTime>01/31/2016 18:47:02</publishTime>
+      <publishTime>02/25/2016 20:44:45</publishTime>
     </File>
     <File Include="Views/Stations/Index.cshtml">
-      <publishTime>01/31/2016 18:47:01</publishTime>
+      <publishTime>02/25/2016 20:44:45</publishTime>
     </File>
     <File Include="Views/Stations/_PopupSearch.cshtml">
-      <publishTime>01/31/2016 18:47:03</publishTime>
+      <publishTime>02/24/2016 22:00:09</publishTime>
+    </File>
+    <File Include="Views/Suppliers/Create.cshtml">
+      <publishTime>02/25/2016 20:44:45</publishTime>
+    </File>
+    <File Include="Views/Suppliers/Edit.cshtml">
+      <publishTime>02/25/2016 20:44:45</publishTime>
+    </File>
+    <File Include="Views/Suppliers/EditForm.cshtml">
+      <publishTime>02/25/2016 20:44:45</publishTime>
+    </File>
+    <File Include="Views/Suppliers/Index.cshtml">
+      <publishTime>02/25/2016 20:44:45</publishTime>
+    </File>
+    <File Include="Views/Suppliers/_PopupSearch.cshtml">
+      <publishTime>02/25/2016 20:44:45</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>01/27/2016 20:02:58</publishTime>
+    </File>
+    <File Include="Views/WorkDetails/Create.cshtml">
+      <publishTime>03/07/2016 16:35:20</publishTime>
+    </File>
+    <File Include="Views/WorkDetails/Edit.cshtml">
+      <publishTime>03/07/2016 16:35:20</publishTime>
+    </File>
+    <File Include="Views/WorkDetails/EditForm.cshtml">
+      <publishTime>03/07/2016 16:35:20</publishTime>
+    </File>
+    <File Include="Views/WorkDetails/Index.cshtml">
+      <publishTime>03/08/2016 09:04:14</publishTime>
+    </File>
+    <File Include="Views/WorkDetails/_PopupSearch.cshtml">
+      <publishTime>03/07/2016 16:35:20</publishTime>
+    </File>
+    <File Include="Views/WorkProcessDetails/Create.cshtml">
+      <publishTime>03/14/2016 20:44:54</publishTime>
+    </File>
+    <File Include="Views/WorkProcessDetails/Edit.cshtml">
+      <publishTime>03/14/2016 20:44:55</publishTime>
+    </File>
+    <File Include="Views/WorkProcessDetails/EditForm.cshtml">
+      <publishTime>03/14/2016 20:44:56</publishTime>
+    </File>
+    <File Include="Views/WorkProcessDetails/Index.cshtml">
+      <publishTime>03/14/2016 22:17:46</publishTime>
+    </File>
+    <File Include="Views/WorkProcessDetails/_PopupSearch.cshtml">
+      <publishTime>03/14/2016 20:44:57</publishTime>
+    </File>
+    <File Include="Views/WorkProcesses/Create.cshtml">
+      <publishTime>03/09/2016 17:04:36</publishTime>
+    </File>
+    <File Include="Views/WorkProcesses/Edit.cshtml">
+      <publishTime>03/09/2016 17:04:36</publishTime>
+    </File>
+    <File Include="Views/WorkProcesses/EditForm.cshtml">
+      <publishTime>03/09/2016 17:04:36</publishTime>
+    </File>
+    <File Include="Views/WorkProcesses/Index.cshtml">
+      <publishTime>03/09/2016 20:25:57</publishTime>
+    </File>
+    <File Include="Views/WorkProcesses/_PopupSearch.cshtml">
+      <publishTime>03/09/2016 13:51:49</publishTime>
+    </File>
+    <File Include="Views/WorkProcesses/_WorkProcessDetailEditForm.cshtml">
+      <publishTime>03/09/2016 13:51:50</publishTime>
+    </File>
+    <File Include="Views/Works/Create.cshtml">
+      <publishTime>03/07/2016 16:35:20</publishTime>
+    </File>
+    <File Include="Views/Works/Edit.cshtml">
+      <publishTime>03/07/2016 16:35:21</publishTime>
+    </File>
+    <File Include="Views/Works/EditForm.cshtml">
+      <publishTime>03/07/2016 16:35:21</publishTime>
+    </File>
+    <File Include="Views/Works/Index.cshtml">
+      <publishTime>03/23/2016 15:24:18</publishTime>
+    </File>
+    <File Include="Views/Works/_PopupSearch.cshtml">
+      <publishTime>03/07/2016 16:35:21</publishTime>
+    </File>
+    <File Include="Views/Works/_WorkDetailEditForm.cshtml">
+      <publishTime>03/07/2016 16:35:21</publishTime>
+    </File>
+    <File Include="Views/WorkTypes/Create.cshtml">
+      <publishTime>03/07/2016 16:35:20</publishTime>
+    </File>
+    <File Include="Views/WorkTypes/Edit.cshtml">
+      <publishTime>03/07/2016 16:35:20</publishTime>
+    </File>
+    <File Include="Views/WorkTypes/EditForm.cshtml">
+      <publishTime>03/07/2016 16:35:20</publishTime>
+    </File>
+    <File Include="Views/WorkTypes/Index.cshtml">
+      <publishTime>03/07/2016 16:35:20</publishTime>
+    </File>
+    <File Include="Views/WorkTypes/_PopupSearch.cshtml">
+      <publishTime>03/07/2016 16:35:20</publishTime>
     </File>
     <File Include="Views/_ViewStart.cshtml">
       <publishTime>01/27/2016 20:02:58</publishTime>

@@ -1,0 +1,685 @@
+﻿@model IEnumerable<SAFERUN.IMS.Web.Models.AssemblyPlan>
+
+
+
+
+@{
+    ViewBag.Title = "部套计划";
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="table_data_tables.html#">Config option 1</a>
+                        </li>
+                        <li>
+                            <a href="table_data_tables.html#">Config option 2</a>
+                        </li>
+                    </ul>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+
+                <div class="table-responsive">
+
+
+                    <table id="assemblyplans_datagrid" class="easyui-datagrid" title="部套计划 DataGrid" style="width:auto;height:auto"
+                           data-options="
+                 rownumbers:true,
+                 idField:'Id',
+                 sortName:'Id',
+                 sortorder:'asc',
+                remoteFilter: true,
+                singleSelect: true,
+                toolbar: '#assemblyplans_toolbar',
+                url: '/AssemblyPlans/GetData',
+                method: 'get',
+                onClickCell: onClickCell,
+                pagination: 'true'
+                   ">
+                        <thead>
+                            <tr>
+                                @*<th data-options="field:'ck',checkbox:true"></th>*@
+                                @*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
+                                <th rowspan="2" data-options="field:'OrderId',width:100,sortable:true,resizable:true,
+                                        formatter:function(value,row){
+                                                return row.OrderOrderKey;
+                                        },
+                                        editor:{
+                                            type:'combobox',
+                                            options:{
+                                                valueField:'Id',
+                                                textField:'OrderKey',
+                                                method:'get',
+                                                url:'/AssemblyPlans/GetOrders',
+                                                required:true
+                                        }
+                                    }">@Html.DisplayNameFor(model => model.OrderId)</th>
+                                    @*<th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.OrderKey)</th>*@
+                                    <th rowspan="2" data-options="field:'SKUId',width:100,sortable:true,resizable:true,
+                                            formatter:function(value,row){
+                                                return row.SKUSku;
+                                            },
+                                            editor:{
+                                                    type:'combobox',
+                                            options:{
+                                                valueField:'Id',
+                                                textField:'Sku',
+                                                method:'get',
+                                                url:'/AssemblyPlans/GetSKUs',
+                                                required:true
+                                        }
+                                }">@Html.DisplayNameFor(model => model.SKUId)</th>
+                                <th rowspan="2" data-options="field:'DesignName',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.DesignName)</th>
+                                @*<th data-options="field:'ComponentSKU',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ComponentSKU)</th>*@
+                                <th rowspan="2" data-options="field:'FinishedSKU',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.FinishedSKU)</th>
+                                <th rowspan="2" data-options="field:'OrderDate',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.OrderDate)</th>
+                                <th rowspan="2" data-options="field:'RequirementDate',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.RequirementDate)</th>
+                                <th colspan="2" width="320" align="center">设计</th>
+                                <th colspan="2" width="320" align="center">外购件</th>
+                                <th colspan="2" width="320" align="center">外协件</th>
+                                <th colspan="2" width="320" align="center">铆焊件</th>
+                                <th colspan="3" width="480" align="center">自制件</th>
+                                <th colspan="3" width="480" align="center">组装</th>
+
+                                <th rowspan="2" data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Remark)</th>
+
+
+                                <th rowspan="2" data-options="field:'Status',width:100,align:'right',
+                                                 editor:{ type:'combobox',
+                                                 options:{
+                                                    panelHeight: 'auto',
+                                                    data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
+                                                    required:true } }  ,formatter:statusformatter">@Html.DisplayNameFor(model => model.Status)</th>
+                                                </tr>
+                                                <tr>
+                                                    <th data-options="field:'ResolveDate1',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ResolveDate1)</th>
+                                                    <th data-options="field:'ActualReleaseDate1',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ActualReleaseDate1)</th>
+                                                    <th data-options="field:'SetPlanDate2',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.SetPlanDate2)</th>
+                                                    <th data-options="field:'PutawayDate2',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.PutawayDate2)</th>
+                                                    <th data-options="field:'SetPlanDate3',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.SetPlanDate3)</th>
+                                                    <th data-options="field:'PutawayDate3',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.PutawayDate3)</th>
+                                                    <th data-options="field:'SetPlanDate4',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.SetPlanDate4)</th>
+                                                    <th data-options="field:'PutawayDate4',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.PutawayDate4)</th>
+                                                    <th data-options="field:'SetPlanDate5',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.SetPlanDate5)</th>
+                                                    <th data-options="field:'DeliveryDate5',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.DeliveryDate5)</th>
+                                                    <th data-options="field:'PutawayDate5',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.PutawayDate5)</th>
+                                                    <th data-options="field:'SetPlanDate6',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.SetPlanDate6)</th>
+                                                    <th data-options="field:'ActualStartDate6',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ActualStartDate6)</th>
+                                                    <th data-options="field:'ActualCompletedDate6',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ActualCompletedDate6)</th>
+                                                </tr>
+                                            </thead>
+
+
+                                        </table>
+                                        <div id="assemblyplans_toolbar" style="height:auto">
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="importwindow" class="easyui-window" title="Excel 导入" data-options="modal:true,collapsible:false,minimizable:false,maximizable:false,closed:true,iconCls:'icon-paperclip'" style="width:500px;height:260px;padding:10px;">
+
+                        <p><input type="file" name="file_upload" id="file_upload" /></p>
+                        <div id="alert1" class="alert alert-success">
+                            <button class="close" data-dismiss="alert" type="button">&times;</button>上传成功，开始执行导入。
+
+                        </div>
+                        <div id="alert2" class="alert alert-info">
+                            <button class="close" data-dismiss="alert" type="button">&times;</button>正在执行导入程序，请耐心等待。
+
+                        </div>
+                    </div>
+
+                    @section Scripts {
+                        <script type="text/javascript">
+
+                            $(function () {
+                                $('#alert1').hide('normal');
+                                $('#alert2').hide('normal');
+                                $("#file_upload").uploadify({
+                                    'height': 30,
+                                    'fileTypeDesc': 'Excel 2010 Files',
+                                    'fileTypeExts': '*.xlsx',
+                                    'swf': '/scripts/uploadify/uploadify.swf',
+                                    'uploader': '/FileUpload/Upload',
+                                    'buttonText': '选择EXCEL',
+                                    'uploadLimit': 1,
+                                    'displayData': 'speed',
+                                    'formData': { 'modelType': 'AssemblyPlan' },
+                                    'width': 120,
+                                    'successTimeout': 100000,
+                                    'onUploadComplete': function (file) {
+                                        $('#alert1').hide('normal');
+                                        $('#alert2').show('normal');
+                                    },
+                                    'onFallback': function () {
+                                        $.messager.progress('close');
+                                        $.messager.alert('导入错误', '导入错误，请重试！<br>', 'error');
+                                        $('#file_upload').uploadify('cancel')
+                                    },
+                                    'onUploadStart': function () {
+                                        $.messager.progress({ title: '正在处理请耐心等待！' });
+                                        $('#alert1').show('normal');
+                                        $('#alert2').hide('normal');
+                                    },
+                                    'onUploadError': function (file, errorCode, errorMsg, errorString) {
+                                        $.messager.progress('close');
+                                        $.messager.alert('导入错误', '导入错误，请修改后再倒入！<br>' + errorMsg, 'error');
+                                        $('#file_upload').uploadify('cancel')
+                                    },
+                                    'onUploadSuccess': function (file, data, response) {
+                                        $.messager.progress('close');
+                                        //console.log(file, data, response);
+                                        $('#alert1').hide('normal');
+                                        $('#alert2').hide('normal');
+                                        $('#w').window('close');
+                                        var data = $.parseJSON(data);
+                                        console.log(data);
+                                        if (data.success == "false") {
+                                            $.messager.alert('导入错误', '导入错误，请修改后再倒入！<br>' + data.message, 'error');
+                                        } else {
+                                            $.messager.alert('导入完成', '导入完成！<br>', 'info');
+                                            $dg.datagrid('reload');
+                                        }
+                                        //alert('The file ' + file.name + ' was successfully uploaded with a response of ' + response + ':' + data);
+
+                                    }
+                                });
+
+                            })
+
+                            function importexcel() {
+                                $('#importwindow').window('open');
+                            }
+
+                            var $dg = $('#assemblyplans_datagrid');
+                            var editIndex = undefined;
+                            function endEditing() {
+                                if (editIndex == undefined) { return true }
+                                if ($dg.datagrid('validateRow', editIndex)) {
+
+                                    var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'OrderId' });
+                                    var orderorderkey = $(ed.target).combobox('getText');
+                                    var orderid = $(ed.target).combobox('getValue');
+
+                                    $dg.datagrid('getRows')[editIndex]['OrderOrderKey'] = orderorderkey;
+                                    $dg.datagrid('getRows')[editIndex]['OrderId'] = orderid;
+
+
+                                    var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'SKUId' });
+                                    var skusku = $(ed.target).combobox('getText');
+                                    var skuid = $(ed.target).combobox('getValue');
+
+                                    $dg.datagrid('getRows')[editIndex]['SKUSku'] = skusku;
+                                    $dg.datagrid('getRows')[editIndex]['SKUId'] = skuid;
+
+
+                                    $dg.datagrid('endEdit', editIndex);
+                                    editIndex = undefined;
+
+
+                                    return true;
+                                } else {
+                                    return false;
+                                }
+                            }
+                            function onClickCell(index, field) {
+                                if (editIndex != index) {
+                                    if (endEditing()) {
+                                        $dg.datagrid('selectRow', index)
+                                                .datagrid('beginEdit', index);
+                                        var ed = $dg.datagrid('getEditor', { index: index, field: field });
+                                        if (ed) {
+                                            ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+                                        }
+                                        editIndex = index;
+                                    } else {
+                                        $dg.datagrid('selectRow', editIndex);
+                                    }
+                                }
+                            }
+                            function append() {
+                                if (endEditing()) {
+                                    $dg.datagrid('appendRow', { status: 'P' });
+                                    editIndex = $dg.datagrid('getRows').length - 1;
+                                    $dg.datagrid('selectRow', editIndex)
+                                            .datagrid('beginEdit', editIndex);
+                                }
+                            }
+                            function removeit() {
+                                if (editIndex == undefined) { return }
+                                $dg.datagrid('cancelEdit', editIndex)
+                                        .datagrid('deleteRow', editIndex);
+                                editIndex = undefined;
+                            }
+                            function accept() {
+                                if (endEditing()) {
+                                    if ($dg.datagrid('getChanges').length) {
+                                        var inserted = $dg.datagrid('getChanges', "inserted");
+                                        var deleted = $dg.datagrid('getChanges', "deleted");
+                                        var updated = $dg.datagrid('getChanges', "updated");
+                                        var effectRow = new Object();
+                                        if (inserted.length) {
+                                            effectRow.inserted = inserted;
+                                        }
+                                        if (deleted.length) {
+                                            effectRow.deleted = deleted;
+                                        }
+                                        if (updated.length) {
+                                            effectRow.updated = updated;
+                                        }
+                                        //console.log(JSON.stringify(effectRow));
+                                        $.post("/AssemblyPlans/SaveData", effectRow, function (rsp) {
+                                            console.log(rsp);
+                                            if (rsp.Success) {
+                                                $.messager.alert("提示", "提交成功！");
+                                                $dg.datagrid('acceptChanges');
+                                                $dg.datagrid('reload');
+                                            }
+                                        }, "JSON").error(function () {
+                                            $.messager.alert("错误", "提交错误了！", 'error');
+
+                                        });
+
+                                    }
+
+                                    $dg.datagrid('acceptChanges');
+                                }
+                            }
+                            function reject() {
+                                $dg.datagrid('rejectChanges');
+                                editIndex = undefined;
+                            }
+                            function getChanges() {
+                                var rows = $dg.datagrid('getChanges');
+                                alert(rows.length + ' rows are changed!');
+                            }
+
+
+                            $(function () {
+
+                                $dg.datagrid('enableFilter', [
+                                             {
+                                                 field: 'Status',
+                                                 type: 'combobox',
+                                                 options: {
+                                                     panelHeight: 'auto',
+                                                     data: [{ value: '', text: 'All' }, { value: '0', text: '启用' }, { value: '1', text: '禁用' }],
+                                                     onChange: function (value) {
+                                                         if (value == '') {
+                                                             $dg.datagrid('removeFilterRule', 'Status');
+                                                         } else {
+                                                             $dg.datagrid('addFilterRule', {
+                                                                 field: 'Status',
+                                                                 op: 'equal',
+                                                                 value: value
+                                                             });
+                                                         }
+                                                         $dg.datagrid('doFilter');
+                                                     }
+                                                 }
+                                             },
+
+                                             {
+                                                 field: 'OrderDate',
+                                                 type: 'datebox',
+                                                 options: {
+                                                     onChange: function (value) {
+                                                         if (value == '') {
+                                                             $dg.datagrid('removeFilterRule', 'OrderDate');
+                                                         } else {
+                                                             $dg.datagrid('addFilterRule', {
+                                                                 field: 'OrderDate',
+                                                                 op: 'equal',
+                                                                 value: value
+                                                             });
+                                                         }
+                                                         $dg.datagrid('doFilter');
+                                                     }
+                                                 }
+                                             },
+                                             {
+                                                 field: 'RequirementDate',
+                                                 type: 'datebox',
+                                                 options: {
+                                                     onChange: function (value) {
+                                                         if (value == '') {
+                                                             $dg.datagrid('removeFilterRule', 'RequirementDate');
+                                                         } else {
+                                                             $dg.datagrid('addFilterRule', {
+                                                                 field: 'RequirementDate',
+                                                                 op: 'equal',
+                                                                 value: value
+                                                             });
+                                                         }
+                                                         $dg.datagrid('doFilter');
+                                                     }
+                                                 }
+                                             },
+                                             {
+                                                 field: 'ResolveDate1',
+                                                 type: 'datebox',
+                                                 options: {
+                                                     onChange: function (value) {
+                                                         if (value == '') {
+                                                             $dg.datagrid('removeFilterRule', 'ResolveDate1');
+                                                         } else {
+                                                             $dg.datagrid('addFilterRule', {
+                                                                 field: 'ResolveDate1',
+                                                                 op: 'equal',
+                                                                 value: value
+                                                             });
+                                                         }
+                                                         $dg.datagrid('doFilter');
+                                                     }
+                                                 }
+                                             },
+                                             {
+                                                 field: 'ActualReleaseDate1',
+                                                 type: 'datebox',
+                                                 options: {
+                                                     onChange: function (value) {
+                                                         if (value == '') {
+                                                             $dg.datagrid('removeFilterRule', 'ActualReleaseDate1');
+                                                         } else {
+                                                             $dg.datagrid('addFilterRule', {
+                                                                 field: 'ActualReleaseDate1',
+                                                                 op: 'equal',
+                                                                 value: value
+                                                             });
+                                                         }
+                                                         $dg.datagrid('doFilter');
+                                                     }
+                                                 }
+                                             },
+                                             {
+                                                 field: 'SetPlanDate2',
+                                                 type: 'datebox',
+                                                 options: {
+                                                     onChange: function (value) {
+                                                         if (value == '') {
+                                                             $dg.datagrid('removeFilterRule', 'SetPlanDate2');
+                                                         } else {
+                                                             $dg.datagrid('addFilterRule', {
+                                                                 field: 'SetPlanDate2',
+                                                                 op: 'equal',
+                                                                 value: value
+                                                             });
+                                                         }
+                                                         $dg.datagrid('doFilter');
+                                                     }
+                                                 }
+                                             },
+                                             {
+                                                 field: 'PutawayDate2',
+                                                 type: 'datebox',
+                                                 options: {
+                                                     onChange: function (value) {
+                                                         if (value == '') {
+                                                             $dg.datagrid('removeFilterRule', 'PutawayDate2');
+                                                         } else {
+                                                             $dg.datagrid('addFilterRule', {
+                                                                 field: 'PutawayDate2',
+                                                                 op: 'equal',
+                                                                 value: value
+                                                             });
+                                                         }
+                                                         $dg.datagrid('doFilter');
+                                                     }
+                                                 }
+                                             },
+                                             {
+                                                 field: 'SetPlanDate3',
+                                                 type: 'datebox',
+                                                 options: {
+                                                     onChange: function (value) {
+                                                         if (value == '') {
+                                                             $dg.datagrid('removeFilterRule', 'SetPlanDate3');
+                                                         } else {
+                                                             $dg.datagrid('addFilterRule', {
+                                                                 field: 'SetPlanDate3',
+                                                                 op: 'equal',
+                                                                 value: value
+                                                             });
+                                                         }
+                                                         $dg.datagrid('doFilter');
+                                                     }
+                                                 }
+                                             },
+                                             {
+                                                 field: 'PutawayDate3',
+                                                 type: 'datebox',
+                                                 options: {
+                                                     onChange: function (value) {
+                                                         if (value == '') {
+                                                             $dg.datagrid('removeFilterRule', 'PutawayDate3');
+                                                         } else {
+                                                             $dg.datagrid('addFilterRule', {
+                                                                 field: 'PutawayDate3',
+                                                                 op: 'equal',
+                                                                 value: value
+                                                             });
+                                                         }
+                                                         $dg.datagrid('doFilter');
+                                                     }
+                                                 }
+                                             },
+                                             {
+                                                 field: 'SetPlanDate4',
+                                                 type: 'datebox',
+                                                 options: {
+                                                     onChange: function (value) {
+                                                         if (value == '') {
+                                                             $dg.datagrid('removeFilterRule', 'SetPlanDate4');
+                                                         } else {
+                                                             $dg.datagrid('addFilterRule', {
+                                                                 field: 'SetPlanDate4',
+                                                                 op: 'equal',
+                                                                 value: value
+                                                             });
+                                                         }
+                                                         $dg.datagrid('doFilter');
+                                                     }
+                                                 }
+                                             },
+                                             {
+                                                 field: 'PutawayDate4',
+                                                 type: 'datebox',
+                                                 options: {
+                                                     onChange: function (value) {
+                                                         if (value == '') {
+                                                             $dg.datagrid('removeFilterRule', 'PutawayDate4');
+                                                         } else {
+                                                             $dg.datagrid('addFilterRule', {
+                                                                 field: 'PutawayDate4',
+                                                                 op: 'equal',
+                                                                 value: value
+                                                             });
+                                                         }
+                                                         $dg.datagrid('doFilter');
+                                                     }
+                                                 }
+                                             },
+                                             {
+                                                 field: 'SetPlanDate5',
+                                                 type: 'datebox',
+                                                 options: {
+                                                     onChange: function (value) {
+                                                         if (value == '') {
+                                                             $dg.datagrid('removeFilterRule', 'SetPlanDate5');
+                                                         } else {
+                                                             $dg.datagrid('addFilterRule', {
+                                                                 field: 'SetPlanDate5',
+                                                                 op: 'equal',
+                                                                 value: value
+                                                             });
+                                                         }
+                                                         $dg.datagrid('doFilter');
+                                                     }
+                                                 }
+                                             },
+                                             {
+                                                 field: 'DeliveryDate5',
+                                                 type: 'datebox',
+                                                 options: {
+                                                     onChange: function (value) {
+                                                         if (value == '') {
+                                                             $dg.datagrid('removeFilterRule', 'DeliveryDate5');
+                                                         } else {
+                                                             $dg.datagrid('addFilterRule', {
+                                                                 field: 'DeliveryDate5',
+                                                                 op: 'equal',
+                                                                 value: value
+                                                             });
+                                                         }
+                                                         $dg.datagrid('doFilter');
+                                                     }
+                                                 }
+                                             },
+                                             {
+                                                 field: 'PutawayDate5',
+                                                 type: 'datebox',
+                                                 options: {
+                                                     onChange: function (value) {
+                                                         if (value == '') {
+                                                             $dg.datagrid('removeFilterRule', 'PutawayDate5');
+                                                         } else {
+                                                             $dg.datagrid('addFilterRule', {
+                                                                 field: 'PutawayDate5',
+                                                                 op: 'equal',
+                                                                 value: value
+                                                             });
+                                                         }
+                                                         $dg.datagrid('doFilter');
+                                                     }
+                                                 }
+                                             },
+                                             {
+                                                 field: 'SetPlanDate6',
+                                                 type: 'datebox',
+                                                 options: {
+                                                     onChange: function (value) {
+                                                         if (value == '') {
+                                                             $dg.datagrid('removeFilterRule', 'SetPlanDate6');
+                                                         } else {
+                                                             $dg.datagrid('addFilterRule', {
+                                                                 field: 'SetPlanDate6',
+                                                                 op: 'equal',
+                                                                 value: value
+                                                             });
+                                                         }
+                                                         $dg.datagrid('doFilter');
+                                                     }
+                                                 }
+                                             },
+                                             {
+                                                 field: 'ActualStartDate6',
+                                                 type: 'datebox',
+                                                 options: {
+                                                     onChange: function (value) {
+                                                         if (value == '') {
+                                                             $dg.datagrid('removeFilterRule', 'ActualStartDate6');
+                                                         } else {
+                                                             $dg.datagrid('addFilterRule', {
+                                                                 field: 'ActualStartDate6',
+                                                                 op: 'equal',
+                                                                 value: value
+                                                             });
+                                                         }
+                                                         $dg.datagrid('doFilter');
+                                                     }
+                                                 }
+                                             },
+                                             {
+                                                 field: 'ActualCompletedDate6',
+                                                 type: 'datebox',
+                                                 options: {
+                                                     onChange: function (value) {
+                                                         if (value == '') {
+                                                             $dg.datagrid('removeFilterRule', 'ActualCompletedDate6');
+                                                         } else {
+                                                             $dg.datagrid('addFilterRule', {
+                                                                 field: 'ActualCompletedDate6',
+                                                                 op: 'equal',
+                                                                 value: value
+                                                             });
+                                                         }
+                                                         $dg.datagrid('doFilter');
+                                                     }
+                                                 }
+                                             },
+
+                                        {
+                                            field: 'SKUId',
+                                            type: 'combobox',
+                                            options: {
+                                                valueField: 'Id',
+                                                textField: 'Sku',
+                                                method: 'get',
+                                                url: '/AssemblyPlans/GetSKUs',
+                                                onChange: function (value) {
+                                                    if (value == '') {
+                                                        $dg.datagrid('removeFilterRule', 'SKUId');
+                                                    } else {
+                                                        $dg.datagrid('addFilterRule', {
+                                                            field: 'SKUId',
+                                                            op: 'equal',
+                                                            value: value
+                                                        });
+                                                    }
+                                                    $dg.datagrid('doFilter');
+                                                }
+                                            }
+                                        },
+                                        {
+                                            field: 'OrderId',
+                                            type: 'combobox',
+                                            options: {
+                                                valueField: 'Id',
+                                                textField: 'OrderKey',
+                                                method: 'get',
+                                                url: '/AssemblyPlans/GetOrders',
+                                                onChange: function (value) {
+                                                    if (value == '') {
+                                                        $dg.datagrid('removeFilterRule', 'OrderId');
+                                                    } else {
+                                                        $dg.datagrid('addFilterRule', {
+                                                            field: 'OrderId',
+                                                            op: 'equal',
+                                                            value: value
+                                                        });
+                                                    }
+                                                    $dg.datagrid('doFilter');
+                                                }
+                                            }
+                                        },
+
+                                ]);
+                            })
+                        </script>
+                    }
+

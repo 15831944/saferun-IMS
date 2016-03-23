@@ -1,13 +1,10 @@
-﻿
-
-
-@model IEnumerable<SAFERUN.IMS.Web.Models.ProductionPlan>
+﻿@model IEnumerable<SAFERUN.IMS.Web.Models.ProductionPlan>
 
 
 
 
 @{
-    ViewBag.Title = "订单生产计划";
+    ViewBag.Title = "生产计划";
 }
 
 
@@ -15,7 +12,7 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-           
+
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -39,14 +36,16 @@
             <div class="ibox-content">
 
                 <div class="table-responsive">
-           
- 
-                    <table id="productionplans_datagrid" class="easyui-datagrid" title="订单生产计划 DataGrid" style="width:auto;height:auto"
+
+
+                    <table id="productionplans_datagrid" class="easyui-datagrid" title="生产计划 DataGrid" style="width:auto;height:auto"
                            data-options="
                  rownumbers:true,
-
+                 idField:'Id',
+                 sortName:'Id',
+                 sortorder:'asc',
                 remoteFilter: true,
-                singleSelect: true,
+                singleSelect: false,
                 toolbar: '#productionplans_toolbar',
                 url: '/ProductionPlans/GetData',
                 method: 'get',
@@ -55,73 +54,11 @@
                    ">
                         <thead>
                             <tr>
-                                @*<th data-options="field:'ck',checkbox:true"></th>*@
-                                <th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>
+                                <th data-options="field:'_ck',checkbox:true"></th>
+                                @*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>
 
-                                <th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.OrderKey)</th>
-
-                                <th data-options="field:'SKUId',width:100,
-                        formatter:function(value,row){
-                            return row.SKUSku;
-                        },
-                        editor:{
-                            type:'combobox',
-                            options:{
-                                valueField:'Id',
-                                textField:'Sku',
-                                method:'get',
-                                url:'/ProductionPlans/GetSKUs',
-                                required:false
-                            }
-                        }">@Html.DisplayNameFor(model => model.SKUId)</th>
-
-
-
-                        <th data-options="field:'DesignName',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.DesignName)</th>
-
-
-                        <th data-options="field:'ComponentSKU',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.ComponentSKU)</th>
-
-
-                        <th data-options="field:'ALTSku',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.ALTSku)</th>
-
-
-                        <th data-options="field:'GraphSKU',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.GraphSKU)</th>
-
-
-                        <th data-options="field:'StockSKU',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.StockSKU)</th>
-
-
-                        <th data-options="field:'Status',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Status)</th>
-
-
-                        <th data-options="field:'ConsumeQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.ConsumeQty)</th>
-
-
-                        <th data-options="field:'RequirementQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.RequirementQty)</th>
-
-
-                        <th data-options="field:'RejectRatio',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.RejectRatio)</th>
-
-
-                        <th data-options="field:'Deploy',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Deploy)</th>
-
-
-                        <th data-options="field:'Locator',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Locator)</th>
-
-
-                        <th data-options="field:'ProductionLine',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.ProductionLine)</th>
-
-
-                        <th data-options="field:'OrderPlanDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.OrderPlanDate)</th>
-
-
-                        <th data-options="field:'ActualFinishDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ActualFinishDate)</th>
-
-
-                        <th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Remark)</th>
-
-                        <th data-options="field:'OrderId',width:100,
+                                    <th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.OrderKey)</th>*@
+                                <th data-options="field:'OrderId',width:100,sortable:true,resizable:true,
                         formatter:function(value,row){
                             return row.OrderOrderKey;
                         },
@@ -132,9 +69,109 @@
                                 textField:'OrderKey',
                                 method:'get',
                                 url:'/ProductionPlans/GetOrders',
-                                required:false
+                                required:true
                             }
                         }">@Html.DisplayNameFor(model => model.OrderId)</th>
+                        <th data-options="field:'SKUId',width:100,sortable:true,resizable:true,
+                        formatter:function(value,row){
+                            return row.SKUSku;
+                        },
+                        editor:{
+                            type:'combobox',
+                            options:{
+                                valueField:'Id',
+                                textField:'Sku',
+                                method:'get',
+                                url:'/ProductionPlans/GetSKUs',
+                                required:true
+                            }
+                        }">@Html.DisplayNameFor(model => model.SKUId)</th>
+
+
+
+                        <th data-options="field:'DesignName',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.DesignName)</th>
+
+
+                        @*<th data-options="field:'ComponentSKU',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ComponentSKU)</th>
+
+
+                            <th data-options="field:'ALTSku',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ALTSku)</th>*@
+
+
+                        <th data-options="field:'GraphSKU',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.GraphSKU)</th>
+
+
+                        @*<th data-options="field:'StockSKU',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.StockSKU)</th>*@
+
+
+                        <th data-options="field:'SKUGroup',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.SKUGroup)</th>
+
+
+                                <th data-options="field:'MadeType',width:140,editor:{ type:'combobox'
+                                            ,options:{
+                                                panelHeight: 'auto',
+                                                 data: [ { value: '自制', text: '自制' },{ value: '外协', text: '外协' }, { value: '外购', text: '外购' } ],
+                                                required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.MadeType)</th>
+
+
+                        <th data-options="field:'Status',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Status)</th>
+
+
+                        <th data-options="field:'ConsumeQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ConsumeQty)</th>
+
+
+                        <th data-options="field:'RequirementQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.RequirementQty)</th>
+
+
+                        <th data-options="field:'RejectRatio',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.RejectRatio)</th>
+
+
+                        @*<th data-options="field:'Deploy',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Deploy)</th>*@
+
+                        <th data-options="field:'ProductionProcessId',width:100,sortable:true,resizable:true,
+                        formatter:function(value,row){
+                            return row.ProductionProcessName;
+                        },
+                        editor:{
+                            type:'combobox',
+                            options:{
+                                valueField:'Id',
+                                textField:'Name',
+                                method:'get',
+                                url:'/ProductionPlans/GetProductionProcesses',
+                                required:false
+                            }
+                        }">@Html.DisplayNameFor(model => model.ProductionProcessId)</th>
+
+
+
+                        @*<th data-options="field:'Locator',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Locator)</th>
+
+
+                            <th data-options="field:'ProductionLine',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ProductionLine)</th>*@
+
+
+                        <th data-options="field:'OrderPlanDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.OrderPlanDate)</th>
+
+
+                        <th data-options="field:'PlanedStartDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.PlanedStartDate)</th>
+
+
+                        <th data-options="field:'PlanedCompletedDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.PlanedCompletedDate)</th>
+
+
+                        <th data-options="field:'ActualStartDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ActualStartDate)</th>
+
+
+                        <th data-options="field:'ActualCompletedDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ActualCompletedDate)</th>
+
+
+                        @*<th data-options="field:'ActualFinishDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ActualFinishDate)</th>*@
+
+
+                        <th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Remark)</th>
+
+
 
 
 
@@ -142,54 +179,166 @@
                 </thead>
 
 
-                </table>
-	<div id="productionplans_toolbar" style="height:auto">
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
+            </table>
+            <div id="productionplans_toolbar" style="height:auto">
+                @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">Append</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>*@
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
-            </div>
-				</div>
+                @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>*@
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
 
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-calendar',plain:true" onclick="generatetask()">生成生产排程计划</a>
             </div>
         </div>
+
     </div>
 </div>
+</div>
+</div>
+<div id="importwindow" class="easyui-window" title="Excel 导入" data-options="modal:true,collapsible:false,minimizable:false,maximizable:false,closed:true,iconCls:'icon-paperclip'" style="width:500px;height:260px;padding:10px;">
+
+    <p><input type="file" name="file_upload" id="file_upload" /></p>
+    <div id="alert1" class="alert alert-success">
+        <button class="close" data-dismiss="alert" type="button">&times;</button>上传成功，开始执行导入。
+
+    </div>
+    <div id="alert2" class="alert alert-info">
+        <button class="close" data-dismiss="alert" type="button">&times;</button>正在执行导入程序，请耐心等待。
+
+    </div>
+</div>
+
 @section Scripts {
     <script type="text/javascript">
-         var $dg = $('#productionplans_datagrid');
-		 var editIndex = undefined;
+
+        function generatetask() {
+            var rows = $dg.datagrid('getSelections');
+            var selectedid = [];
+            //console.log(rows);
+            if (rows.length == 0) {
+                $.messager.alert('Warning', '请选中你要生成的记录');
+            } else {
+                $.each(rows, function (index, row) {
+                    selectedid.push(row.Id);
+                });
+                console.log(selectedid)
+                $.messager.progress({ title: '正在处理请耐心等待！' });
+                $.post('/ProductionPlans/GenerateTask', { plansid: selectedid }, function (data, textStatus, jqXHR) {
+
+                    $.messager.progress('close');
+                    $.messager.alert('成功', '生成任务完成！<br>', 'info');
+
+                });
+
+            }
+
+        }
+
+
+        $(function () {
+            $('#alert1').hide('normal');
+            $('#alert2').hide('normal');
+            $("#file_upload").uploadify({
+                'height': 30,
+                'fileTypeDesc': 'Excel 2010 Files',
+                'fileTypeExts': '*.xlsx',
+                'swf': '/scripts/uploadify/uploadify.swf',
+                'uploader': '/FileUpload/Upload',
+                'buttonText': '选择EXCEL',
+                'uploadLimit': 1,
+                'displayData': 'speed',
+                'formData': { 'modelType': 'ProductionPlan' },
+                'width': 120,
+                'successTimeout': 100000,
+                'onUploadComplete': function (file) {
+                    $('#alert1').hide('normal');
+                    $('#alert2').show('normal');
+                },
+                'onFallback': function () {
+                    $.messager.progress('close');
+                    $.messager.alert('导入错误', '导入错误，请重试！<br>', 'error');
+                    $('#file_upload').uploadify('cancel')
+                },
+                'onUploadStart': function () {
+                    $.messager.progress({ title: '正在处理请耐心等待！' });
+                    $('#alert1').show('normal');
+                    $('#alert2').hide('normal');
+                },
+                'onUploadError': function (file, errorCode, errorMsg, errorString) {
+                    $.messager.progress('close');
+                    $.messager.alert('导入错误', '导入错误，请修改后再倒入！<br>' + errorMsg, 'error');
+                    $('#file_upload').uploadify('cancel')
+                },
+                'onUploadSuccess': function (file, data, response) {
+                    $.messager.progress('close');
+                    //console.log(file, data, response);
+                    $('#alert1').hide('normal');
+                    $('#alert2').hide('normal');
+                    $('#w').window('close');
+                    var data = $.parseJSON(data);
+                    console.log(data);
+                    if (data.success == "false") {
+                        $.messager.alert('导入错误', '导入错误，请修改后再倒入！<br>' + data.message, 'error');
+                    } else {
+                        $.messager.alert('导入完成', '导入完成！<br>', 'info');
+                        $dg.datagrid('reload');
+                    }
+                    //alert('The file ' + file.name + ' was successfully uploaded with a response of ' + response + ':' + data);
+
+                }
+            });
+
+        })
+
+        function importexcel() {
+            $('#importwindow').window('open');
+        }
+
+        var $dg = $('#productionplans_datagrid');
+        var editIndex = undefined;
         function endEditing() {
             if (editIndex == undefined) { return true }
             if ($dg.datagrid('validateRow', editIndex)) {
 
-				                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'OrderId' });
+                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'OrderId' });
                 var orderorderkey = $(ed.target).combobox('getText');
                 var orderid = $(ed.target).combobox('getValue');
-               
-                $dg.datagrid('getRows')[editIndex]['OrderOrderKey'] =  orderorderkey;
-                $dg.datagrid('getRows')[editIndex]['OrderId'] = orderid;
- 
 
-				                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'SKUId' });
+                $dg.datagrid('getRows')[editIndex]['OrderOrderKey'] = orderorderkey;
+                $dg.datagrid('getRows')[editIndex]['OrderId'] = orderid;
+
+
+                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'ProductionProcessId' });
+                var productionprocessname = $(ed.target).combobox('getText');
+                var productionprocessid = $(ed.target).combobox('getValue');
+
+                $dg.datagrid('getRows')[editIndex]['ProductionProcessName'] = productionprocessname;
+                $dg.datagrid('getRows')[editIndex]['ProductionProcessId'] = productionprocessid;
+
+
+                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'SKUId' });
                 var skusku = $(ed.target).combobox('getText');
                 var skuid = $(ed.target).combobox('getValue');
-               
-                $dg.datagrid('getRows')[editIndex]['SKUSku'] =  skusku;
-                $dg.datagrid('getRows')[editIndex]['SKUId'] = skuid;
- 
 
-								$dg.datagrid('endEdit', editIndex);
+                $dg.datagrid('getRows')[editIndex]['SKUSku'] = skusku;
+                $dg.datagrid('getRows')[editIndex]['SKUId'] = skuid;
+
+
+                $dg.datagrid('endEdit', editIndex);
                 editIndex = undefined;
 
-                
+
                 return true;
             } else {
                 return false;
             }
         }
         function onClickCell(index, field) {
+            var _operates = ["_ck"];
+            if ($.inArray(field, _operates) >= 0) {
+                return;
+            }
             if (editIndex != index) {
                 if (endEditing()) {
                     $dg.datagrid('selectRow', index)
@@ -234,18 +383,19 @@
                     if (updated.length) {
                         effectRow.updated = updated;
                     }
-                    console.log(JSON.stringify(effectRow));
+                    //console.log(JSON.stringify(effectRow));
                     $.post("/ProductionPlans/SaveData", effectRow, function (rsp) {
                         console.log(rsp);
                         if (rsp.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
+                            $dg.datagrid('reload');
                         }
                     }, "JSON").error(function () {
-                        $.messager.alert("错误", "提交错误了！",'error');
-                      
+                        $.messager.alert("错误", "提交错误了！", 'error');
+
                     });
-              
+
                 }
 
                 $dg.datagrid('acceptChanges');
@@ -261,93 +411,187 @@
         }
 
 
-		 $(function () {
-		  
-           $dg.datagrid('enableFilter',[
-		   				{
-                      field: 'OrderPlanDate',
-                      type: 'datebox',
-                      options: {
-                          onChange: function (value) {
-                              if (value == '') {
-                                  $dg.datagrid('removeFilterRule', 'OrderPlanDate');
-                              } else {
-                                  $dg.datagrid('addFilterRule', {
-                                      field: 'OrderPlanDate',
-                                      op: 'equal',
-                                      value: value
-                                  });
-                              }
-                              $dg.datagrid('doFilter');
-                          }
-                      }
-                  },
-		   				{
-                      field: 'ActualFinishDate',
-                      type: 'datebox',
-                      options: {
-                          onChange: function (value) {
-                              if (value == '') {
-                                  $dg.datagrid('removeFilterRule', 'ActualFinishDate');
-                              } else {
-                                  $dg.datagrid('addFilterRule', {
-                                      field: 'ActualFinishDate',
-                                      op: 'equal',
-                                      value: value
-                                  });
-                              }
-                              $dg.datagrid('doFilter');
-                          }
-                      }
-                  },
-		   		   
-		   		   {
-				 field: 'SKUId',
-				 type:'combobox',
-                 options:{
-                                valueField:'Id',
-                                textField:'Sku',
-                                method:'get',
-                                url:'/ProductionPlans/GetSKUs',
-								onChange: function (value) {
-								if (value == '') {
-									$dg.datagrid('removeFilterRule', 'SKUId');
-								} else {
-									$dg.datagrid('addFilterRule', {
-										field: 'SKUId',
-									    op: 'equal',
-										value: value
-                                });
+        $(function () {
+
+            $dg.datagrid('enableFilter', [
+                         {
+                             field: 'OrderPlanDate',
+                             type: 'datebox',
+                             options: {
+                                 onChange: function (value) {
+                                     if (value == '') {
+                                         $dg.datagrid('removeFilterRule', 'OrderPlanDate');
+                                     } else {
+                                         $dg.datagrid('addFilterRule', {
+                                             field: 'OrderPlanDate',
+                                             op: 'equal',
+                                             value: value
+                                         });
+                                     }
+                                     $dg.datagrid('doFilter');
+                                 }
+                             }
+                         },
+                         {
+                             field: 'PlanedStartDate',
+                             type: 'datebox',
+                             options: {
+                                 onChange: function (value) {
+                                     if (value == '') {
+                                         $dg.datagrid('removeFilterRule', 'PlanedStartDate');
+                                     } else {
+                                         $dg.datagrid('addFilterRule', {
+                                             field: 'PlanedStartDate',
+                                             op: 'equal',
+                                             value: value
+                                         });
+                                     }
+                                     $dg.datagrid('doFilter');
+                                 }
+                             }
+                         },
+                         {
+                             field: 'PlanedCompletedDate',
+                             type: 'datebox',
+                             options: {
+                                 onChange: function (value) {
+                                     if (value == '') {
+                                         $dg.datagrid('removeFilterRule', 'PlanedCompletedDate');
+                                     } else {
+                                         $dg.datagrid('addFilterRule', {
+                                             field: 'PlanedCompletedDate',
+                                             op: 'equal',
+                                             value: value
+                                         });
+                                     }
+                                     $dg.datagrid('doFilter');
+                                 }
+                             }
+                         },
+                         {
+                             field: 'ActualStartDate',
+                             type: 'datebox',
+                             options: {
+                                 onChange: function (value) {
+                                     if (value == '') {
+                                         $dg.datagrid('removeFilterRule', 'ActualStartDate');
+                                     } else {
+                                         $dg.datagrid('addFilterRule', {
+                                             field: 'ActualStartDate',
+                                             op: 'equal',
+                                             value: value
+                                         });
+                                     }
+                                     $dg.datagrid('doFilter');
+                                 }
+                             }
+                         },
+                         {
+                             field: 'ActualCompletedDate',
+                             type: 'datebox',
+                             options: {
+                                 onChange: function (value) {
+                                     if (value == '') {
+                                         $dg.datagrid('removeFilterRule', 'ActualCompletedDate');
+                                     } else {
+                                         $dg.datagrid('addFilterRule', {
+                                             field: 'ActualCompletedDate',
+                                             op: 'equal',
+                                             value: value
+                                         });
+                                     }
+                                     $dg.datagrid('doFilter');
+                                 }
+                             }
+                         },
+                         {
+                             field: 'ActualFinishDate',
+                             type: 'datebox',
+                             options: {
+                                 onChange: function (value) {
+                                     if (value == '') {
+                                         $dg.datagrid('removeFilterRule', 'ActualFinishDate');
+                                     } else {
+                                         $dg.datagrid('addFilterRule', {
+                                             field: 'ActualFinishDate',
+                                             op: 'equal',
+                                             value: value
+                                         });
+                                     }
+                                     $dg.datagrid('doFilter');
+                                 }
+                             }
+                         },
+
+                    {
+                        field: 'SKUId',
+                        type: 'combobox',
+                        options: {
+                            valueField: 'Id',
+                            textField: 'Sku',
+                            method: 'get',
+                            url: '/ProductionPlans/GetSKUs',
+                            onChange: function (value) {
+                                if (value == '') {
+                                    $dg.datagrid('removeFilterRule', 'SKUId');
+                                } else {
+                                    $dg.datagrid('addFilterRule', {
+                                        field: 'SKUId',
+                                        op: 'equal',
+                                        value: value
+                                    });
+                                }
+                                $dg.datagrid('doFilter');
                             }
-                            $dg.datagrid('doFilter');
                         }
-					}
-		   },
-		   		   {
-				 field: 'OrderId',
-				 type:'combobox',
-                 options:{
-                                valueField:'Id',
-                                textField:'OrderKey',
-                                method:'get',
-                                url:'/ProductionPlans/GetOrders',
-								onChange: function (value) {
-								if (value == '') {
-									$dg.datagrid('removeFilterRule', 'OrderId');
-								} else {
-									$dg.datagrid('addFilterRule', {
-										field: 'OrderId',
-									    op: 'equal',
-										value: value
-                                });
+                    },
+                    {
+                        field: 'ProductionProcessId',
+                        type: 'combobox',
+                        options: {
+                            valueField: 'Id',
+                            textField: 'Name',
+                            method: 'get',
+                            url: '/ProductionPlans/GetProductionProcesses',
+                            onChange: function (value) {
+                                if (value == '') {
+                                    $dg.datagrid('removeFilterRule', 'ProductionProcessId');
+                                } else {
+                                    $dg.datagrid('addFilterRule', {
+                                        field: 'ProductionProcessId',
+                                        op: 'equal',
+                                        value: value
+                                    });
+                                }
+                                $dg.datagrid('doFilter');
                             }
-                            $dg.datagrid('doFilter');
                         }
-					}
-		   },
-		   		   
-		   ]);
+                    },
+                    {
+                        field: 'OrderId',
+                        type: 'combobox',
+                        options: {
+                            valueField: 'Id',
+                            textField: 'OrderKey',
+                            method: 'get',
+                            url: '/ProductionPlans/GetOrders',
+                            onChange: function (value) {
+                                if (value == '') {
+                                    $dg.datagrid('removeFilterRule', 'OrderId');
+                                } else {
+                                    $dg.datagrid('addFilterRule', {
+                                        field: 'OrderId',
+                                        op: 'equal',
+                                        value: value
+                                    });
+                                }
+                                $dg.datagrid('doFilter');
+                            }
+                        }
+                    },
+
+            ]);
         })
-     </script>
+    </script>
 }
 

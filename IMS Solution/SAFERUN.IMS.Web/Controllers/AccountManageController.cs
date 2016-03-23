@@ -84,7 +84,7 @@ namespace SAFERUN.IMS.Web.Controllers
                 }
             }
             totalCount = users.Count();
-            var datalist = users.Skip(page).Take(rows);
+            var datalist = users.Skip((page-1)*rows).Take(rows);
             var datarows = datalist.Select(n => new { Id = n.Id, UserName = n.UserName, Email = n.Email, PhoneNumber = n.PhoneNumber, AccessFailedCount = n.AccessFailedCount, LockoutEnabled = n.LockoutEnabled, LockoutEndDateUtc = n.LockoutEndDateUtc }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);

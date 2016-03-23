@@ -35,6 +35,10 @@ namespace SAFERUN.IMS.Web.Models
         public decimal StockQty { get; set; }
         public decimal RequirementQty { get; set; }
 
+        public decimal? ProductionQty { get; set; }
+
+        public decimal? FinishedQty { get; set; }
+
         public string Brand { get; set; }
 
         public string Process { get; set; }

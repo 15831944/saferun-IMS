@@ -1,0 +1,144 @@
+﻿
+
+
+@model SAFERUN.IMS.Web.Models.Work
+
+@{
+    ViewBag.Title = "生产任务单 | Create";
+}
+
+
+
+
+<div class="row">
+            <div class="col-md-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>生产任务单 form<small> create new Works</small></h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#">Config option 1</a>
+                                </li>
+                                <li><a href="#">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                 
+
+@using (Html.BeginForm()) 
+{
+   
+    @*@Html.AntiForgeryToken()*@
+    		
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+ 
+		 
+        @Html.Partial("EditForm")
+	 
+		<div class="row">
+        <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                        <button class="btn btn-white" type="reset">Cancel</button>
+                                        <button class="btn btn-primary" type="submit">Save</button>
+                                    </div>
+                                </div>
+	    </div>
+
+
+		 }
+    </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+ 
+     <script type="text/javascript">
+     
+    		var workid = 0;
+		var ObjectState = "Added";  
+                                 
+             var $workdetailsdatagrid = $('#workdetails_datagrid');
+                        $(document).ready(function () {
+
+                $('form').submit(function () {
+					if (!$('form').valid())
+						return false;
+                    //var token = $('[name=__RequestVerificationToken]').val();
+                    //var serializedForm = $(this).serialize();
+                    var actionurl = $(this).attr('action');
+                     
+						if (!workdetails_endEditing())
+								return false;                    
+                        var workdetails = $workdetailsdatagrid.datagrid('getChanges');
+                                        
+                     var newitem = {
+                                                        AssembleConfirm: $('#AssembleConfirm', 'form').val(),
+                        								//primaryKey
+								Id: workid,
+                                                        OrderKey: $('#OrderKey', 'form').val(),
+                                                        OutsourceConfirm: $('#OutsourceConfirm', 'form').val(),
+                                                        PO: $('#PO', 'form').val(),
+                                                        ProductionConfirm: $('#ProductionConfirm', 'form').val(),
+                                                        PurchaseConfirm: $('#PurchaseConfirm', 'form').val(),
+                                                        Remark: $('#Remark', 'form').val(),
+                                                        Review: $('#Review', 'form').val(),
+                                                        ReviewDate: $('#ReviewDate', 'form').val(),
+                                                        Status: $('#Status', 'form').val(),
+                                                        User: $('#User', 'form').val(),
+                                                        WorkDate: $('#WorkDate', 'form').val(),
+                        								//detailTables
+                                WorkDetails: workdetails ,
+                                                        WorkNo: $('#WorkNo', 'form').val(),
+                        								OrderId: $('#OrderId :selected','form').val(),
+														WorkTypeId: $('#WorkTypeId :selected','form').val(),
+						                                AssembleConfirmDate: $('#AssembleConfirmDate', 'form').val(),
+                                                        CreatedDateTime: $('#CreatedDateTime', 'form').val(),
+                                                        CreatedUserId: $('#CreatedUserId', 'form').val(),
+                                                        LastEditDateTime: $('#LastEditDateTime', 'form').val(),
+                                                        LastEditUserId: $('#LastEditUserId', 'form').val(),
+                                                        OutsourceConfirmDate: $('#OutsourceConfirmDate', 'form').val(),
+                                                        ProductionConfirmDate: $('#ProductionConfirmDate', 'form').val(),
+                                                        PurchaseConfirmDate: $('#PurchaseConfirmDate', 'form').val(),
+                                                ObjectState:ObjectState 
+                    };
+                    $.ajax({
+                        url: actionurl,
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(newitem),
+                        success: function (result) {
+                            if (result.success) {
+                                self.location = "/Works/Index";
+                            } else {
+                                alert(result.err);
+                            }
+                            
+                        },
+                        error: function (result) {
+                            console.log(result.statusText + result.responseText);
+                            alert(result.statusText + result.responseText);
+                        }
+                    });
+                    return false;
+                    
+
+                });
+            });
+          </script>
+
+
+}

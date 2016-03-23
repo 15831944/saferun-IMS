@@ -3206,5 +3206,14 @@ function dateformatter(value, row, index) {
     if (value == null)
         return "";
     else
+        return moment(value).format('YYYY-MM-DD');
+}
+function datetimeformatter(value, row, index) {
+    //console.log(new Date(value));
+    if (value == typeof (undefined))
+        return "";
+    if (value == null)
+        return "";
+    else
         return moment(value).format('YYYY-MM-DD HH:mm:ss');
 }

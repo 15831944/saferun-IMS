@@ -130,23 +130,51 @@ namespace SAFERUN.IMS.Web.Services
         public void GenerateWorkProcesses(WorkProcess process)
         {
             var workprocess = this.Queryable().Include(x => x.SKU).Where(x => x.Id == process.Id).First();
+            workprocess.Status = 1;
+            this.Update(workprocess);
             var steps = _setpservice.Queryable().Where(x => x.ProductionProcessId == process.ProductionProcessId).ToList();
             var list = new List<WorkProcessDetail>();
             foreach (var setp in steps) {
-                WorkProcessDetail item = new WorkProcessDetail();
-                item.WorkProcessId = process.Id;
-                item.Operator = "";
-                item.SKUId = workprocess.SKUId;
-                item.ComponentSKU = workprocess.SKU.Sku;
-                item.GraphSKU = workprocess.GraphSKU;
-                item.ProcessStepId = setp.Id;
-                item.StandardElapsedTime = setp.ElapsedTime;
-                item.StationId = setp.StationId;
-                item.StepName = setp.StepName;
-                item.Status = 0;
-                list.Add(item);
+                if (!_processdetailservice.Queryable().Where(x => x.ProcessStepId == setp.Id).Any())
+                {
+                    WorkProcessDetail item = new WorkProcessDetail();
+                    item.WorkProcessId = process.Id;
+                    item.Operator = "";
+                    item.SKUId = workprocess.SKUId;
+                    item.ComponentSKU = workprocess.SKU.Sku;
+                    item.GraphSKU = workprocess.GraphSKU;
+                    item.ProcessStepId = setp.Id;
+                    item.StandardElapsedTime = setp.ElapsedTime;
+                    item.StationId = setp.StationId;
+                    item.StepName = setp.StepName;
+                    item.Status = 0;
+                    list.Add(item);
+                }
             }
             _processdetailservice.InsertRange(list);
+        }
+
+
+        public void CompletedWork(int id)
+        {
+            if (!this._processdetailservice.Queryable().Where(x => x.WorkProcessId == id && x.Status != 2).Any())
+            {
+
+                var workProcess = this.Find(id);
+                workProcess.Status = 3;
+                workProcess.FinishedQty = workProcess.ProductionQty;
+                this.Update(workProcess);
+            }
+
+            if (this._processdetailservice.Queryable().Where(x => x.WorkProcessId == id && (x.Status == 1 || x.Status == 0) ).Any())
+            {
+
+                var workProcess = this.Find(id);
+                workProcess.Status = 2;
+                workProcess.FinishedQty = workProcess.ProductionQty;
+                this.Update(workProcess);
+            }
+
         }
     }
 }

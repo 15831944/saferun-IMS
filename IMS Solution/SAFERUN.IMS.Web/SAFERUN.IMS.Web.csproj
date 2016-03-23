@@ -360,6 +360,14 @@
     <Compile Include="Migrations\201603141221293_workprocessdetsil.Designer.cs">
       <DependentUpon>201603141221293_workprocessdetsil.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603231359216_upd.cs" />
+    <Compile Include="Migrations\201603231359216_upd.Designer.cs">
+      <DependentUpon>201603231359216_upd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603231400247_ddd1.cs" />
+    <Compile Include="Migrations\201603231400247_ddd1.Designer.cs">
+      <DependentUpon>201603231400247_ddd1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
@@ -1543,6 +1551,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603141221293_workprocessdetsil.resx">
       <DependentUpon>201603141221293_workprocessdetsil.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603231359216_upd.resx">
+      <DependentUpon>201603231359216_upd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603231400247_ddd1.resx">
+      <DependentUpon>201603231400247_ddd1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

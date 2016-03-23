@@ -7,7 +7,7 @@
 
 
 @{
-    ViewBag.Title = "工序步骤维护";
+    ViewBag.Title = "工序维护";
 }
 
 
@@ -15,7 +15,7 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>工序步骤维护 Data</h5>
+                <h5>工序维护 Data</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -41,10 +41,12 @@
                 <div class="table-responsive">
            
  
-       <table id="processsteps_datagrid" class="easyui-datagrid" title="工序步骤维护 DataGrid" style="width:auto;height:auto"
+       <table id="processsteps_datagrid" class="easyui-datagrid" title="工序维护 DataGrid" style="width:auto;height:auto"
                    data-options="
                  rownumbers:true,
-                 
+                 idField:'Id',
+                 sortName:'Id',
+                 sortorder:'asc',
                 remoteFilter: true,
                 singleSelect: true,
                 toolbar: '#processsteps_toolbar',
@@ -56,8 +58,8 @@
                 <thead>
                     <tr>
                         @*<th data-options="field:'ck',checkbox:true"></th>*@
-        			<th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>
-                        <th data-options="field:'ProductionProcessId',width:100,
+        			@*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
+                        <th data-options="field:'ProductionProcessId',width:100,sortable:true,resizable:true,
                         formatter:function(value,row){
                             return row.ProductionProcessName;
                         },
@@ -71,23 +73,38 @@
                                 required:false
                             }
                         }">@Html.DisplayNameFor(model => model.ProductionProcessId)</th>
-                
-				     <th data-options="field:'StepName',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.StepName)</th>
+				     <th data-options="field:'StepName',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.StepName)</th>
 		
                 
-				     <th data-options="field:'Order',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Order)</th>
+				     <th data-options="field:'Order',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Order)</th>
+		
+                			<th data-options="field:'StationId',width:100,sortable:true,resizable:true, 
+                        formatter:function(value,row){
+                            return row.StationStationNo;
+                        },
+                        editor:{
+                            type:'combobox',
+                            options:{
+                                valueField:'Id',
+                                textField:'StationNo',
+                                method:'get',
+                                url:'/ProcessSteps/GetStations',
+                                required:false
+                            }
+                        }">@Html.DisplayNameFor(model => model.StationId)</th>
+
+           
+                
+				     <th data-options="field:'ElapsedTime',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ElapsedTime)</th>
 		
                 
-				     <th data-options="field:'ElapsedTime',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.ElapsedTime)</th>
+				     @*<th data-options="field:'Equipment',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Equipment)</th>*@
 		
                 
-				     <th data-options="field:'Equipment',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Equipment)</th>
+				     <th data-options="field:'Status',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Status)</th>
 		
                 
-				     <th data-options="field:'Status',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Status)</th>
-		
-                
-				     <th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Description)</th>
+				     <th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Description)</th>
 		
                 			
 
@@ -201,6 +218,14 @@
                 $dg.datagrid('getRows')[editIndex]['ProductionProcessId'] = productionprocessid;
  
 
+				                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'StationId' });
+                var stationstationno = $(ed.target).combobox('getText');
+                var stationid = $(ed.target).combobox('getValue');
+               
+                $dg.datagrid('getRows')[editIndex]['StationStationNo'] =  stationstationno;
+                $dg.datagrid('getRows')[editIndex]['StationId'] = stationid;
+ 
+
 								$dg.datagrid('endEdit', editIndex);
                 editIndex = undefined;
 
@@ -287,6 +312,28 @@
 		  
            $dg.datagrid('enableFilter',[
 		   		   
+		   		   {
+				 field: 'StationId',
+				 type:'combobox',
+                 options:{
+                                valueField:'Id',
+                                textField:'StationNo',
+                                method:'get',
+                                url:'/ProcessSteps/GetStations',
+								onChange: function (value) {
+								if (value == '') {
+									$dg.datagrid('removeFilterRule', 'StationId');
+								} else {
+									$dg.datagrid('addFilterRule', {
+										field: 'StationId',
+									    op: 'equal',
+										value: value
+                                });
+                            }
+                            $dg.datagrid('doFilter');
+                        }
+					}
+		   },
 		   		   {
 				 field: 'ProductionProcessId',
 				 type:'combobox',

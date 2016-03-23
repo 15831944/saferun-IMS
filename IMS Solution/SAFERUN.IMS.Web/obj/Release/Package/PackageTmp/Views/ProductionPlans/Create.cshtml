@@ -4,7 +4,7 @@
 @model SAFERUN.IMS.Web.Models.ProductionPlan
 
 @{
-    ViewBag.Title = "ProductionPlans | Create";
+    ViewBag.Title = "生产计划 | Create";
 }
 
 
@@ -14,7 +14,7 @@
             <div class="col-md-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>ProductionPlans form<small> create new ProductionPlans</small></h5>
+                        <h5>生产计划 form<small> create new ProductionPlans</small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -40,8 +40,7 @@
 {
    
     @*@Html.AntiForgeryToken()*@
-    		<div class="form-horizontal">
-			
+    		
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
  
 		 
@@ -58,8 +57,7 @@
 	    </div>
 
 
-		 		</div>
-		}
+		 }
     </div>
         </div>
     </div>

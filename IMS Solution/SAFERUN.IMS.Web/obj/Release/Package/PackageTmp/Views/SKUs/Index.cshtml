@@ -53,7 +53,7 @@
                                 <th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>
 
                                 <th data-options="field:'Sku',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.Sku)</th>
-
+                                <th data-options="field:'ProductName',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.ProductName)</th>
 
                                 <th data-options="field:'ALTSku',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.ALTSku)</th>
 
@@ -67,7 +67,7 @@
                                 <th data-options="field:'MadeType',width:140,editor:{ type:'combobox'
                                             ,options:{
                                                 panelHeight: 'auto',
-                                                 data: [ { value: '自制', text: '自制' },{ value: '外协', text: '外协' }, { value: '采购', text: '采购' } ],
+                                                 data: [ { value: '自制', text: '自制' },{ value: '外协', text: '外协' }, { value: '外购', text: '外购' } ],
                                                 required:true} } ">@Html.DisplayNameFor(model => model.MadeType)</th>
                                                 <th data-options="field:'Model',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Model)</th>
 
@@ -343,7 +343,7 @@
                                          type: 'combobox',
                                          options: {
                                              panelHeight: 'auto',
-                                             data: [{ value: '', text: 'All' }, { value: '自制', text: '自制' }, { value: '外协', text: '外协' }, { value: '采购', text: '采购' }],
+                                             data: [{ value: '', text: 'All' }, { value: '自制', text: '自制' }, { value: '外协', text: '外协' }, { value: '外购', text: '外购' }],
                                              onChange: function (value) {
                                                  if (value == '') {
                                                      $dg.datagrid('removeFilterRule', 'MadeType');

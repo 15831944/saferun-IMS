@@ -61,52 +61,22 @@
                                 <th data-options="field:'WorkId',width:100,sortable:true,resizable:true,
                                         formatter:function(value,row){
                                               return row.WorkWorkNo;
-                                          },
-                                          editor:{
-                                              type:'combobox',
-                                              options:{
-                                                  valueField:'Id',
-                                                  textField:'WorkNo',
-                                                  method:'get',
-                                                  url:'/WorkProcesses/GetWorks',
-                                                  required:true
-                                              }
                                           }">@Html.DisplayNameFor(model => model.WorkId)</th>
                                         <th data-options="field:'OrderId',width:100,sortable:true,resizable:true,
                                           formatter:function(value,row){
                                               return row.OrderOrderKey;
-                                          },
-                                          editor:{
-                                              type:'combobox',
-                                              options:{
-                                                  valueField:'Id',
-                                                  textField:'OrderKey',
-                                                  method:'get',
-                                                  url:'/WorkProcesses/GetOrders',
-                                                  required:true
-                                              }
                                           }">@Html.DisplayNameFor(model => model.OrderId)</th>
                                         @*<th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.OrderKey)</th>*@
-                                        <th data-options="field:'ProjectName',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ProjectName)</th>
+                                        <th data-options="field:'ProjectName',width:140,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ProjectName)</th>
                                         <th data-options="field:'SKUId',width:100,sortable:true,resizable:true,
                                           formatter:function(value,row){
                                               return row.SKUSku;
-                                          },
-                                          editor:{
-                                              type:'combobox',
-                                              options:{
-                                                  valueField:'Id',
-                                                  textField:'Sku',
-                                                  method:'get',
-                                                  url:'/WorkProcesses/GetSKUs',
-                                                  required:true
-                                              }
                                           }">@Html.DisplayNameFor(model => model.SKUId)</th>
-                                        <th data-options="field:'GraphSKU',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.GraphSKU)</th>
-                                        <th data-options="field:'RequirementQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.RequirementQty)</th>
+                                        <th data-options="field:'GraphSKU',width:140,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.GraphSKU)</th>
+                                        <th data-options="field:'RequirementQty',width:100,align:'right' ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.RequirementQty)</th>
                                         <th data-options="field:'ProductionQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ProductionQty)</th>
-                                        <th data-options="field:'FinishedQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.FinishedQty)</th>
-                                        <th data-options="field:'WorkItems',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.WorkItems)</th>
+                                        <th data-options="field:'FinishedQty',width:100,align:'right' ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.FinishedQty)</th>
+                                        <th data-options="field:'WorkItems',width:100,align:'right',sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.WorkItems)</th>
                                         <th data-options="field:'ProductionProcessId',width:100,sortable:true,resizable:true,
                                           formatter:function(value,row){
                                               return row.ProductionProcessName;
@@ -121,22 +91,28 @@
                                                   required:true
                                               }
                                           }">@Html.DisplayNameFor(model => model.ProductionProcessId)</th>
-                                        <th data-options="field:'Status',width:100,align:'right',
-                                                editor:{ type:'combobox',
-                                                 options:{
-                                                    panelHeight: 'auto',
-                                                    data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
-                                                    required:true }
-                                                 },
+                                <th data-options="field:'Status',width:100,align:'right',
+                                                
                                                  formatter: function(value,row,index){
-				                                        if (value == 0) {
-                                                            return '启用';
-                                                        } else {
-                                                            return '禁用';
-                                                        }
+				                                       switch(value) {
+                                                                case 0:
+                                                                    return '新建';
+                                                                    break;
+                                                                case 1:
+                                                                    return '安排工序作业';
+                                                                    break;
+                                                                case 2:
+                                                                    return '生产中';
+                                                                    break;
+                                                                case 3:
+                                                                    return '完工';
+                                                                    break;
+                                                                default:
+                                                                    return '新建';
+                                                            }
 			                                     }">@Html.DisplayNameFor(model => model.Status)</th>
                                                 <th data-options="field:'Operator',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Operator)</th>
-                                                <th data-options="field:'WorkDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.WorkDate)</th>
+                                                <th data-options="field:'WorkDate',width:160,align:'right' ,sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.WorkDate)</th>
                                                 <th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Remark)</th>
 
 
@@ -195,14 +171,45 @@
                                                                       url:'/WorkProcessDetails/GetWorkProcesses',
                                                                       required:true
                                                                 }
-                                                              }">@Html.DisplayNameFor(model => model.WorkProcessId)</th>*@
+                                                              }">工序</th>*@
 
 
                                                         <th data-options="field:'ProcessStepId',width:100,sortable:true,resizable:true,
                                                             formatter:function(value,row){
+                                                                return row.ProcessStepStepName;
+                                                            },
+                                                            editor:{
+                                                                type:'combogrid',
+                                                                options:{
+                                                                        idField:'Id',
+                                                                        panelWidth: 300,
+                                                                        textField:'StepName',
+                                                                        method:'get',
+                                                                        url:'/WorkProcessDetails/GetProcessSteps',
+                                                                        required:true,
+                                                                        fitColumns:true,
+                                                                        columns:[[
+                                                                            {field:'StepName',title:'工序名称',width:100},
+						                                                    {field:'Order',title:'次序',width:120},
+                                                                            {field:'ElapsedTime',title:'标准用时',width:80}
+					                                                            ]],
+                                                                        onSelect:function(rowIndex, rowData) {
+                                                                            var ed = $workprocessdetailsdg.datagrid('getEditor',{index:workprocessdetails_editIndex,field:'ProcessStepOrder'});
+                                                                            $(ed.target).textbox('setValue',rowData.Order);
+                                                                            $workprocessdetailsdg.datagrid('getRows')[workprocessdetails_editIndex]['StepName'] = rowData.StepName;
+                                                                             var ed = $workprocessdetailsdg.datagrid('getEditor',{index:workprocessdetails_editIndex,field:'StandardElapsedTime'});
+                                                                             $(ed.target).textbox('setValue',rowData.ElapsedTime);
+                                                                             var ed = $workprocessdetailsdg.datagrid('getEditor',{index:workprocessdetails_editIndex,field:'StationId'});
+                                                                            $(ed.target).combobox('setValue',rowData.StationId);
+                                                                        }
+                                                                }
+                                                            }
+                                                            ">工序</th>
+                                                        <th data-options="field:'ProcessStepOrder',width:100,sortable:true,resizable:true,
+                                                            formatter:function(value,row){
                                                                 return row.ProcessStepOrder;
-                                                            }">工序序号</th>
-                                                        <th data-options="field:'StepName',width:140 ,sortable:true,resizable:true ">工序</th>
+                                                            },editor:{type:'textbox'}">工序序号</th>
+                                                        @*<th data-options="field:'StepName',width:140 ,sortable:true,resizable:true ">工序</th>*@
                                                         <th data-options="field:'StationId',width:100,sortable:true,resizable:true,
                                                                               formatter:function(value,row){
                                                                                   return row.StationStationNo;
@@ -217,7 +224,7 @@
                                                                                       required:true
                                                                                   }
                                                                               }">加工机台</th>
-                                                        <th data-options="field:'StandardElapsedTime',width:100,align:'right' ,sortable:true,resizable:true ">标准加工工时</th>
+                                                        <th data-options="field:'StandardElapsedTime',width:100,align:'right',editor:{type:'textbox'} ,sortable:true,resizable:true ">标准加工工时</th>
 
 
                                                         <th data-options="field:'StartingDateTime',width:160,align:'right',editor:{type:'datetimebox',options:{required:true}},sortable:true,resizable:true  ,formatter:datetimeformatter">开始时间</th>
@@ -245,18 +252,22 @@
 
 
                                                         <th data-options="field:'Status',width:100,align:'right',
-                                                editor:{ type:'combobox',
-                                                 options:{
-                                                    panelHeight: 'auto',
-                                                    data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
-                                                    required:true }
-                                                 },
+                                                 
                                                  formatter: function(value,row,index){
-				                                        if (value == 0) {
-                                                            return '启用';
-                                                        } else {
-                                                            return '禁用';
-                                                        }
+				                                        switch(value) {
+                                                                case 0:
+                                                                    return '新建';
+                                                                    break;
+                                                                case 1:
+                                                                    return '开始';
+                                                                    break;
+                                                                case 2:
+                                                                    return '完成';
+                                                                    break;
+                                                               
+                                                                default:
+                                                                    return '新建';
+                                                            }
 			                                     }">状态</th>
 
 
@@ -448,12 +459,12 @@
 
 
 
-                                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'OrderId' });
-                                var orderorderkey = $(ed.target).combobox('getText');
-                                var orderid = $(ed.target).combobox('getValue');
+                                //var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'OrderId' });
+                                //var orderorderkey = $(ed.target).combobox('getText');
+                                //var orderid = $(ed.target).combobox('getValue');
 
-                                $dg.datagrid('getRows')[editIndex]['OrderOrderKey'] = orderorderkey;
-                                $dg.datagrid('getRows')[editIndex]['OrderId'] = orderid;
+                                //$dg.datagrid('getRows')[editIndex]['OrderOrderKey'] = orderorderkey;
+                                //$dg.datagrid('getRows')[editIndex]['OrderId'] = orderid;
 
 
                                 var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'ProductionProcessId' });
@@ -464,20 +475,20 @@
                                 $dg.datagrid('getRows')[editIndex]['ProductionProcessId'] = productionprocessid;
 
 
-                                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'SKUId' });
-                                var skusku = $(ed.target).combobox('getText');
-                                var skuid = $(ed.target).combobox('getValue');
+                                //var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'SKUId' });
+                                //var skusku = $(ed.target).combobox('getText');
+                                //var skuid = $(ed.target).combobox('getValue');
 
-                                $dg.datagrid('getRows')[editIndex]['SKUSku'] = skusku;
-                                $dg.datagrid('getRows')[editIndex]['SKUId'] = skuid;
+                                //$dg.datagrid('getRows')[editIndex]['SKUSku'] = skusku;
+                                //$dg.datagrid('getRows')[editIndex]['SKUId'] = skuid;
 
 
-                                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'WorkId' });
-                                var workworkno = $(ed.target).combobox('getText');
-                                var workid = $(ed.target).combobox('getValue');
+                                //var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'WorkId' });
+                                //var workworkno = $(ed.target).combobox('getText');
+                                //var workid = $(ed.target).combobox('getValue');
 
-                                $dg.datagrid('getRows')[editIndex]['WorkWorkNo'] = workworkno;
-                                $dg.datagrid('getRows')[editIndex]['WorkId'] = workid;
+                                //$dg.datagrid('getRows')[editIndex]['WorkWorkNo'] = workworkno;
+                                //$dg.datagrid('getRows')[editIndex]['WorkId'] = workid;
 
 
 
@@ -577,7 +588,7 @@
                                              type: 'combobox',
                                              options: {
                                                  panelHeight: 'auto',
-                                                 data: [{ value: '', text: 'All' }, { value: '0', text: '启用' }, { value: '1', text: '禁用' }],
+                                                 data: [{ value: '0', text: '新建' }, { value: '1', text: '安排工序作业' }, { value: '2', text: '生产中' }, { value: '3', text: '完工' }],
                                                  onChange: function (value) {
                                                      if (value == '') {
                                                          $dg.datagrid('removeFilterRule', 'Status');
@@ -1063,10 +1074,15 @@
                                 $.messager.alert('提示', '请先制定工序');
                                 return;
                             }
+                            if (workprocess.Status > 0) {
+                                $.messager.alert('提示', '已经安排工序作业');
+                                return;
+                            }
                             $.post('/WorkProcesses/GenerateProcessDetails', { process: workprocess }, function (data, textStatus, jqXHR) {
                                 console.log(data);
                                 $('#workimportwindow').window('close');
                                 $workprocessdetailsdg.datagrid('reload');
+                                $dg.datagrid('reload');
 
                             });
 
@@ -1096,12 +1112,12 @@
                                 $workprocessdetailsdg.datagrid('getRows')[workprocessdetails_editIndex]['StationId'] = stationid;
 
 
-                                var ed = $workprocessdetailsdg.datagrid('getEditor', { index: workprocessdetails_editIndex, field: 'WorkProcessId' });
-                                var workprocessworkno = $(ed.target).combobox('getText');
-                                var workprocessid = $(ed.target).combobox('getValue');
+                                //var ed = $workprocessdetailsdg.datagrid('getEditor', { index: workprocessdetails_editIndex, field: 'WorkProcessId' });
+                                //var workprocessworkno = $(ed.target).combobox('getText');
+                                //var workprocessid = $(ed.target).combobox('getValue');
 
-                                $workprocessdetailsdg.datagrid('getRows')[workprocessdetails_editIndex]['WorkProcessWorkNo'] = workprocessworkno;
-                                $workprocessdetailsdg.datagrid('getRows')[workprocessdetails_editIndex]['WorkProcessId'] = workprocessid;
+                                //$workprocessdetailsdg.datagrid('getRows')[workprocessdetails_editIndex]['WorkProcessWorkNo'] = workprocessworkno;
+                                //$workprocessdetailsdg.datagrid('getRows')[workprocessdetails_editIndex]['WorkProcessId'] = workprocessid;
 
 
                                 $workprocessdetailsdg.datagrid('endEdit', workprocessdetails_editIndex);
@@ -1134,7 +1150,14 @@
                         }
                         function workprocessdetails_append() {
                             if (workprocessdetails_endEditing()) {
-                                $workprocessdetailsdg.datagrid('appendRow', { Status: 0 });
+                                var workitem = $dg.datagrid('getSelected');
+                                console.log(workitem);
+                                $workprocessdetailsdg.datagrid('appendRow', {
+                                    WorkProcessId: workitem.Id,
+                                    SKUId: workitem.SKUId,
+                                    GraphSKU:workitem.GraphSKU,
+                                    ComponentSKU: workitem.SKUSku, Status: 0
+                                });
                                 workprocessdetails_editIndex = $workprocessdetailsdg.datagrid('getRows').length - 1;
                                 $workprocessdetailsdg.datagrid('selectRow', workprocessdetails_editIndex)
                                         .datagrid('beginEdit', workprocessdetails_editIndex);
@@ -1169,6 +1192,7 @@
                                             $.messager.alert("提示", "提交成功！");
                                             $workprocessdetailsdg.datagrid('acceptChanges');
                                             $workprocessdetailsdg.datagrid('reload');
+                                            $dg.datagrid('reload');
                                         }
                                     }, "JSON").error(function () {
                                         $.messager.alert("错误", "提交错误了！", 'error');
@@ -1198,7 +1222,7 @@
                                              type: 'combobox',
                                              options: {
                                                  panelHeight: 'auto',
-                                                 data: [{ value: '', text: 'All' }, { value: '0', text: '启用' }, { value: '1', text: '禁用' }],
+                                                 data: [{ value: '0', text: '新建' }, { value: '1', text: '开始' }, { value: '2', text: '完成' }],
                                                  onChange: function (value) {
                                                      if (value == '') {
                                                          $workprocessdetailsdg.datagrid('removeFilterRule', 'Status');
