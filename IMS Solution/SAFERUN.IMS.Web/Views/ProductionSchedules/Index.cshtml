@@ -186,40 +186,20 @@
                                                         <th data-options="field:'ParentSKUId',width:130,sortable:true,resizable:true,
                                                             formatter:function(value,row){
                                                                 return row.ParentSKUSku;
-                                                            },
-                                                            editor:{
-                                                                type:'combobox',
-                                                                 options:{
-                                                                     valueField:'Id',
-                                                                     textField:'Sku',
-                                                                     method:'get',
-                                                                     url:'/ScheduleDetails/GetSKUs',
-                                                                     required:true
-                                                                 }
-                                                             }">部套号</th>
+                                                            }">部套号</th>
 
 
                                                         <th data-options="field:'ComponentSKUId',width:130,sortable:true,resizable:true,
                                                              formatter:function(value,row){
                                                                  return row.ComponentSKUSku;
-                                                             },
-                                                             editor:{
-                                                                 type:'combobox',
-                                                                 options:{
-                                                                     valueField:'Id',
-                                                                     textField:'Sku',
-                                                                     method:'get',
-                                                                     url:'/ScheduleDetails/GetSKUs',
-                                                                     required:true
-                                                                 }
                                                              }">零件号</th>
-                                                        <th data-options="field:'GraphSKU',width:130,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">图纸编号 </th>
-                                                        <th data-options="field:'GraphVer',width:80,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">图纸版本号</th>
+                                                        <th data-options="field:'GraphSKU',width:130,sortable:true,resizable:true ">图纸编号 </th>
+                                                        <th data-options="field:'GraphVer',width:80,sortable:true,resizable:true ">图纸版本号</th>
                                                         @*<th data-options="field:'ConsumeQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ConsumeQty)</th>*@
                                                         @*<th data-options="field:'StockQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.StockQty)</th>*@
-                                                        <th data-options="field:'RequirementQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">需求数量</th>
-                                                        <th data-options="field:'ScheduleProductionQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">排程生产量</th>
-                                                        <th data-options="field:'ActualProductionQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">实际生产量</th>
+                                                        <th data-options="field:'RequirementQty',width:100,align:'right',sortable:true,resizable:true ">需求数量</th>
+                                                        <th data-options="field:'ScheduleProductionQty',width:100,align:'right',sortable:true,resizable:true ">排程生产量</th>
+                                                        <th data-options="field:'ActualProductionQty',width:100,align:'right',sortable:true,resizable:true ">实际生产量</th>
                                                         <th data-options="field:'StationId',width:100,sortable:true,resizable:true,
                                                             formatter:function(value,row){
                                                                 return row.StationStationNo;
@@ -262,16 +242,16 @@
                                                     required:true } }  ,formatter:statusformatter">@Html.DisplayNameFor(model => model.Status)</th>
 
 
-                                                    <th data-options="field:'AltProdctionDate1',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">毛坯件计划完工日期</th>
+                                                    <th data-options="field:'AltProdctionDate1',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">毛坯件计划完工日期</th>
 
 
-                                                    <th data-options="field:'ActualProdctionDate1',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">毛坯件实际完成日期</th>
+                                                        <th data-options="field:'ActualProdctionDate1',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">毛坯件实际完成日期</th>
 
 
-                                                    <th data-options="field:'AltProdctionDate2',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">加工计划完成日期</th>
+                                                        <th data-options="field:'AltProdctionDate2',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">加工计划完成日期</th>
 
 
-                                                    <th data-options="field:'ActualProdctionDate2',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">加工实际完成日期</th>
+                                                        <th data-options="field:'ActualProdctionDate2',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">加工实际完成日期</th>
 
 
 
@@ -297,7 +277,7 @@
 
                                         </table>
                                         <div id="scheduledetails_toolbar" style="height:auto">
-                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="scheduledetails_append()">Append</a>
+                                            @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="scheduledetails_append()">Append</a>*@
                                             <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="scheduledetails_removeit()">Remove</a>
                                             <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="scheduledetails_accept()">Accept</a>
                                             <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="scheduledetails_reject()">Reject</a>
@@ -723,20 +703,20 @@
                         if (scheduledetails_editIndex == undefined) { return true }
                         if ($scheduledetailsdg.datagrid('validateRow', scheduledetails_editIndex)) {
 
-                            var ed = $scheduledetailsdg.datagrid('getEditor', { index: scheduledetails_editIndex, field: 'ComponentSKUId' });
-                            var componentskusku = $(ed.target).combobox('getText');
-                            var componentskuid = $(ed.target).combobox('getValue');
+                            //var ed = $scheduledetailsdg.datagrid('getEditor', { index: scheduledetails_editIndex, field: 'ComponentSKUId' });
+                            //var componentskusku = $(ed.target).combobox('getText');
+                            //var componentskuid = $(ed.target).combobox('getValue');
 
-                            $scheduledetailsdg.datagrid('getRows')[scheduledetails_editIndex]['ComponentSKUSku'] = componentskusku;
-                            $scheduledetailsdg.datagrid('getRows')[scheduledetails_editIndex]['ComponentSKUId'] = componentskuid;
+                            //$scheduledetailsdg.datagrid('getRows')[scheduledetails_editIndex]['ComponentSKUSku'] = componentskusku;
+                            //$scheduledetailsdg.datagrid('getRows')[scheduledetails_editIndex]['ComponentSKUId'] = componentskuid;
 
 
-                            var ed = $scheduledetailsdg.datagrid('getEditor', { index: scheduledetails_editIndex, field: 'ParentSKUId' });
-                            var parentskusku = $(ed.target).combobox('getText');
-                            var parentskuid = $(ed.target).combobox('getValue');
+                            //var ed = $scheduledetailsdg.datagrid('getEditor', { index: scheduledetails_editIndex, field: 'ParentSKUId' });
+                            //var parentskusku = $(ed.target).combobox('getText');
+                            //var parentskuid = $(ed.target).combobox('getValue');
 
-                            $scheduledetailsdg.datagrid('getRows')[scheduledetails_editIndex]['ParentSKUSku'] = parentskusku;
-                            $scheduledetailsdg.datagrid('getRows')[scheduledetails_editIndex]['ParentSKUId'] = parentskuid;
+                            //$scheduledetailsdg.datagrid('getRows')[scheduledetails_editIndex]['ParentSKUSku'] = parentskusku;
+                            //$scheduledetailsdg.datagrid('getRows')[scheduledetails_editIndex]['ParentSKUId'] = parentskuid;
 
 
                             //var ed = $scheduledetailsdg.datagrid('getEditor', { index: scheduledetails_editIndex, field: 'ProductionScheduleId' });
