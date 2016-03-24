@@ -180,19 +180,18 @@
 
                                                 <table id="workdetails_datagrid" class="easyui-datagrid" title="生产任务单明细 DataGrid" style="width:auto;height:auto"
                                                        data-options="
-                 rownumbers:true,
-                 idField:'Id',
-                 sortName:'Id',
-                 sortorder:'asc',
-                remoteFilter: true,
-                singleSelect: true,
-                onClickCell:workdetails_onClickCell,
-                toolbar: '#workdetails_toolbar',
-                url: '/WorkDetails/GetData',
-                method: 'get',
-
-                pagination: 'true'
-                   ">
+                                                                 rownumbers:true,
+                                                                 idField:'Id',
+                                                                 sortName:'Id',
+                                                                 sortorder:'asc',
+                                                                remoteFilter: true,
+                                                                singleSelect: true,
+                                                                onClickCell:workdetails_onClickCell,
+                                                                toolbar: '#workdetails_toolbar',
+                                                                url: '/WorkDetails/GetData',
+                                                                method: 'get',
+                                                                pagination: 'true'
+                                                                   ">
                                                     <thead>
                                                         <tr>
                                                             @*<th data-options="field:'ck',checkbox:true"></th>*@
@@ -217,52 +216,33 @@
 
 
                                                             <th data-options="field:'ParentSKUId',width:100,sortable:true,resizable:true,
-                        formatter:function(value,row){
-                            return row.ParentSKUSku;
-                        },
-                        editor:{
-                            type:'combobox',
-                            options:{
-                                valueField:'Id',
-                                textField:'Sku',
-                                method:'get',
-                                url:'/WorkDetails/GetSKUs',
-                                required:true
-                            }
-                        }">部套编码</th>
-
-                                                            <th data-options="field:'ParentSKUProductName',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">部套名称</th>
-
+                                                                formatter:function(value,row){
+                                                                    return row.ParentSKUSku;
+                                                                }">部套编码</th>
+                                       
+                                                            <th data-options="field:'ParentSKUProductName',width:140,sortable:true,resizable:true ">部套名称</th>
+                                       
                                                             <th data-options="field:'ComponentSKUId',width:100,sortable:true,resizable:true,
-                        formatter:function(value,row){
-                            return row.ComponentSKUSku;
-                        },
-                        editor:{
-                            type:'combobox',
-                            options:{
-                                valueField:'Id',
-                                textField:'Sku',
-                                method:'get',
-                                url:'/WorkDetails/GetSKUs',
-                                required:true
-                            }
-                        }">组件编码</th>
-                                                            <th data-options="field:'ComponentSKUProductName',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">组件名称</th>
+                                                                formatter:function(value,row){
+                                                                        return row.ComponentSKUSku;
+                                                                    }
+                                                            ">组件编码</th>
+                                                            <th data-options="field:'ComponentSKUProductName',width:140,sortable:true,resizable:true ">组件名称</th>
 
 
-                                                            <th data-options="field:'GraphSKU',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">图纸编号</th>
+                                                            <th data-options="field:'GraphSKU',width:140,sortable:true,resizable:true ">图纸编号</th>
 
 
-                                                            <th data-options="field:'GraphVer',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">图纸版本号</th>
+                                                            <th data-options="field:'GraphVer',width:140,sortable:true,resizable:true ">图纸版本号</th>
 
 
-                                                            <th data-options="field:'ConsumeQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">BOM单位用量</th>
+                                                            <th data-options="field:'ConsumeQty',width:100,align:'right',sortable:true,resizable:true ">BOM单位用量</th>
 
 
-                                                            <th data-options="field:'StockQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">库存量</th>
+                                                            <th data-options="field:'StockQty',width:100,align:'right'  ,sortable:true,resizable:true ">库存量</th>
 
 
-                                                            <th data-options="field:'RequirementQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">订单需求量</th>
+                                                            <th data-options="field:'RequirementQty',width:100,align:'right',sortable:true,resizable:true ">订单需求量</th>
 
 
                                                             <th data-options="field:'Brand',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">品牌</th>
@@ -274,31 +254,31 @@
                                                             <th data-options="field:'Responsibility',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">物料责任单位</th>
 
 
-                                                            <th data-options="field:'AltOrderProdctionDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">订单生产计划日期</th>
+                                                            <th data-options="field:'AltOrderProdctionDate',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">订单生产计划日期</th>
 
 
-                                                            <th data-options="field:'AltProdctionDate1',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">毛坯件计划生产日期</th>
+                                                            <th data-options="field:'AltProdctionDate1',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">毛坯件计划生产日期</th>
 
 
-                                                            <th data-options="field:'ActualProdctionDate1',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">毛坯件确认完成日期</th>
+                                                            <th data-options="field:'ActualProdctionDate1',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">毛坯件确认完成日期</th>
 
 
-                                                            <th data-options="field:'AltProdctionDate2',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">精加工计划生产日期</th>
+                                                            <th data-options="field:'AltProdctionDate2',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">精加工计划生产日期</th>
 
 
-                                                            <th data-options="field:'ActualProdctionDate2',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">精加工确认完成日期</th>
+                                                            <th data-options="field:'ActualProdctionDate2',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">精加工确认完成日期</th>
 
 
-                                                            <th data-options="field:'AltProdctionDate3',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">表面处理/入库计划日期</th>
+                                                            <th data-options="field:'AltProdctionDate3',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">表面处理/入库计划日期</th>
 
 
-                                                            <th data-options="field:'ActualProdctionDate3',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">表面处理/入库确认日期</th>
+                                                            <th data-options="field:'ActualProdctionDate3',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">表面处理/入库确认日期</th>
 
 
-                                                            <th data-options="field:'AltProdctionDate4',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">装配计划日期</th>
+                                                            <th data-options="field:'AltProdctionDate4',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">装配计划日期</th>
 
 
-                                                            <th data-options="field:'ActualProdctionDate4',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">装配确认完成日期</th>
+                                                            <th data-options="field:'ActualProdctionDate4',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">装配确认完成日期</th>
 
 
                                                             @*<th data-options="field:'AltProdctionDate5',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">备用</th>*@
@@ -321,9 +301,9 @@
 
 
                                                 </table>
-                                                
+
                                                 <div id="workdetails_toolbar" style="height:auto">
-                                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="workdetails_append()">Append</a>
+                                                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="workdetails_append()">Append</a>*@
                                                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="workdetails_removeit()">Remove</a>
                                                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="workdetails_accept()">Accept</a>
                                                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="workdetails_reject()">Reject</a>
@@ -354,16 +334,16 @@
                         <div class="table-responsive">
                             <table id="orderdetails_datagrid" class="easyui-datagrid" title="订单明细 DataGrid" style="width:auto;height:160px"
                                    data-options="
-                 rownumbers:true,
-                remoteFilter: true,
-                singleSelect: true,
-                toolbar: '#orderdetails_toolbar',
-                url: '/OrderDetails/GetDataWithOrderId?orderid=-1',
-                method: 'get',
-                onSelect:orderdetailsOnSelect,
-                pagination: 'true',
-                onLoadSuccess:function(data){
-                                   
+                                          rownumbers:true,
+                                          remoteFilter: true,
+                                          singleSelect: true,
+                                          toolbar: '#orderdetails_toolbar',
+                                          url: '/OrderDetails/GetDataWithOrderId?orderid=-1',
+                                          method: 'get',
+                                          onSelect:orderdetailsOnSelect,
+                                          pagination: 'true',
+                                          onLoadSuccess:function(data){
+
                                    if(data.rows.length>0){
                                     $('#orderdetails_datagrid').datagrid('selectRow',0)
                                    }
@@ -400,7 +380,7 @@
                 toolbar: '#bomcomponents_gridtoolbar',
                 url: '/BOMComponents/GridData',
                 method: 'get',
-                
+
                 pagination: 'true'
                    ">
                             <thead>
@@ -1339,7 +1319,7 @@
                                 viewmodel.WorkId = work.Id;
                                 viewmodel.WorkNo = work.WorkNo;
                                 viewmodel.WorkingBomComponents = [];
-                                $.each(bomcomponents,function(index,element){
+                                $.each(bomcomponents, function (index, element) {
                                     viewmodel.WorkingBomComponents.push(element.Id);
                                 });
                                 console.log(viewmodel);

@@ -74,7 +74,7 @@
                                           }">@Html.DisplayNameFor(model => model.SKUId)</th>
                                         <th data-options="field:'GraphSKU',width:140,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.GraphSKU)</th>
                                         <th data-options="field:'RequirementQty',width:100,align:'right' ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.RequirementQty)</th>
-                                        <th data-options="field:'ProductionQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ProductionQty)</th>
+                                        <th data-options="field:'ProductionQty',width:100,align:'right',sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ProductionQty)</th>
                                         <th data-options="field:'FinishedQty',width:100,align:'right' ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.FinishedQty)</th>
                                         <th data-options="field:'WorkItems',width:100,align:'right',sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.WorkItems)</th>
                                         <th data-options="field:'ProductionProcessId',width:100,sortable:true,resizable:true,
@@ -227,10 +227,10 @@
                                                         <th data-options="field:'StandardElapsedTime',width:100,align:'right',editor:{type:'textbox'} ,sortable:true,resizable:true ">标准加工工时</th>
 
 
-                                                        <th data-options="field:'StartingDateTime',width:160,align:'right',editor:{type:'datetimebox',options:{required:true}},sortable:true,resizable:true  ,formatter:datetimeformatter">开始时间</th>
+                                                        <th data-options="field:'StartingDateTime',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:datetimeformatter">开始时间</th>
 
 
-                                                        <th data-options="field:'CompletedDateTime',width:160,align:'right',editor:{type:'datetimebox',options:{required:true}},sortable:true,resizable:true  ,formatter:datetimeformatter">结束时间</th>
+                                                        <th data-options="field:'CompletedDateTime',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:datetimeformatter">结束时间</th>
 
 
                                                         <th data-options="field:'ElapsedTime',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">工时</th>
@@ -245,7 +245,7 @@
                                                         <th data-options="field:'QCConfirm',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">检验确认</th>
 
 
-                                                        <th data-options="field:'QCConfirmDateTime',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">检验确认日期</th>
+                                                        <th data-options="field:'QCConfirmDateTime',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">检验确认日期</th>
 
 
                                                         <th data-options="field:'CompletedConfirm',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">转序完成</th>
@@ -537,6 +537,7 @@
                         }
                         function removeit() {
                             if (editIndex == undefined) { return }
+
                             $dg.datagrid('cancelEdit', editIndex)
                                     .datagrid('deleteRow', editIndex);
                             editIndex = undefined;

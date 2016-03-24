@@ -113,6 +113,7 @@ namespace SAFERUN.IMS.Web.Services
                 item.RequirementQty = orderdetail.Qty * bom.ConsumeQty;
                 item.StockQty = 0;
                 item.ProductionQty = orderdetail.Qty * bom.ConsumeQty;
+                item.DoingQty = 0;
                 item.FinishedQty = 0;
 
                 var exists = _workdetailservice.Queryable().Where(x => x.WorkId == work.Id && x.ComponentSKUId == bom.SKUId && x.ParentSKUId == bom.ParentComponent.SKUId).Any();
