@@ -55,6 +55,8 @@ namespace SAFERUN.IMS.Web.Models
         public decimal RequirementQty { get; set; }
          [Display(Name = "生产数量")]
         public decimal? ProductionQty { get; set; }
+        [Display(Name = "安排生产数量")]
+         public decimal? DoingQty { get; set; }
          [Display(Name = "已完成数量")]
         public decimal? FinishedQty { get; set; }
 

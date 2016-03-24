@@ -58,7 +58,46 @@ namespace SAFERUN.IMS.Web.Controllers
 
             var workdetails = _workDetailService.Query(new WorkDetailQuery().Withfilter(filters)).Include(w => w.ComponentSKU).Include(w => w.ParentSKU).Include(w => w.Work).OrderBy(n => n.OrderBy(sort, order)).SelectPage(page, rows, out totalCount);
 
-            var datarows = workdetails.Select(n => new { Status=n.Status, ComponentSKUProductName = (n.ComponentSKU == null ? "" : n.ComponentSKU.ProductName), ComponentSKUSku = (n.ComponentSKU == null ? "" : n.ComponentSKU.Sku), ParentSKUProductName = (n.ParentSKU == null ? "" : n.ParentSKU.ProductName), ParentSKUSku = (n.ParentSKU == null ? "" : n.ParentSKU.Sku), WorkWorkNo = (n.Work == null ? "" : n.Work.WorkNo), Id = n.Id, WorkNo = n.WorkNo, WorkId = n.WorkId, ParentSKUId = n.ParentSKUId, ComponentSKUId = n.ComponentSKUId, GraphSKU = n.GraphSKU, GraphVer = n.GraphVer, ConsumeQty = n.ConsumeQty, StockQty = n.StockQty, RequirementQty = n.RequirementQty, Brand = n.Brand, Process = n.Process, Responsibility = n.Responsibility, AltOrderProdctionDate = n.AltOrderProdctionDate, AltProdctionDate1 = n.AltProdctionDate1, ActualProdctionDate1 = n.ActualProdctionDate1, AltProdctionDate2 = n.AltProdctionDate2, ActualProdctionDate2 = n.ActualProdctionDate2, AltProdctionDate3 = n.AltProdctionDate3, ActualProdctionDate3 = n.ActualProdctionDate3, AltProdctionDate4 = n.AltProdctionDate4, ActualProdctionDate4 = n.ActualProdctionDate4, AltProdctionDate5 = n.AltProdctionDate5, ActualProdctionDate5 = n.ActualProdctionDate5, ConfirmUser = n.ConfirmUser, Remark1 = n.Remark1, Remark2 = n.Remark2 }).ToList();
+            var datarows = workdetails.Select(n => new
+            {
+                WorkDate=n.Work.WorkDate,
+                ProductionQty=(n.ProductionQty==null?0:n.ProductionQty),
+                DoingQty = (n.DoingQty==null?0:n.DoingQty),
+                FinishedQty=(n.FinishedQty==null?0:n.FinishedQty),
+                Status = n.Status,
+                ComponentSKUProductName = (n.ComponentSKU == null ? "" : n.ComponentSKU.ProductName),
+                ComponentSKUSku = (n.ComponentSKU == null ? "" : n.ComponentSKU.Sku),
+                ParentSKUProductName = (n.ParentSKU == null ? "" : n.ParentSKU.ProductName),
+                ParentSKUSku = (n.ParentSKU == null ? "" : n.ParentSKU.Sku),
+                WorkWorkNo = (n.Work == null ? "" : n.Work.WorkNo),
+                Id = n.Id,
+                WorkNo = n.WorkNo,
+                WorkId = n.WorkId,
+                ParentSKUId = n.ParentSKUId,
+                ComponentSKUId = n.ComponentSKUId,
+                GraphSKU = n.GraphSKU,
+                GraphVer = n.GraphVer,
+                ConsumeQty = n.ConsumeQty,
+                StockQty = n.StockQty,
+                RequirementQty = n.RequirementQty,
+                Brand = n.Brand,
+                Process = n.Process,
+                Responsibility = n.Responsibility,
+                AltOrderProdctionDate = n.AltOrderProdctionDate,
+                AltProdctionDate1 = n.AltProdctionDate1,
+                ActualProdctionDate1 = n.ActualProdctionDate1,
+                AltProdctionDate2 = n.AltProdctionDate2,
+                ActualProdctionDate2 = n.ActualProdctionDate2,
+                AltProdctionDate3 = n.AltProdctionDate3,
+                ActualProdctionDate3 = n.ActualProdctionDate3,
+                AltProdctionDate4 = n.AltProdctionDate4,
+                ActualProdctionDate4 = n.ActualProdctionDate4,
+                AltProdctionDate5 = n.AltProdctionDate5,
+                ActualProdctionDate5 = n.ActualProdctionDate5,
+                ConfirmUser = n.ConfirmUser,
+                Remark1 = n.Remark1,
+                Remark2 = n.Remark2
+            }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }

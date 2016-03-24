@@ -32,7 +32,7 @@ namespace SAFERUN.IMS.Web.Services
  
 		void ImportDataTable(DataTable datatable);
 
-        void GenerateWorkProcesses(IEnumerable<int> workdetails);
+        void GenerateWorkProcesses(IEnumerable<WorkDetail> workdetails);
         void GenerateWorkProcesses(WorkProcess process);
         void CompletedWork(int id);
 	}

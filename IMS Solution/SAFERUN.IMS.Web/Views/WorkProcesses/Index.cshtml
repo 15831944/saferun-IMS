@@ -112,7 +112,7 @@
                                                             }
 			                                     }">@Html.DisplayNameFor(model => model.Status)</th>
                                                 <th data-options="field:'Operator',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Operator)</th>
-                                                <th data-options="field:'WorkDate',width:160,align:'right' ,sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.WorkDate)</th>
+                                                <th data-options="field:'WorkDate',width:160,align:'right' ,sortable:true,resizable:true,formatter:dateformatter">@Html.DisplayNameFor(model => model.WorkDate)</th>
                                                 <th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Remark)</th>
 
 
@@ -319,64 +319,69 @@
                                 checkOnSelect:true,
                                 url: '/WorkDetails/GetData',
                                 method: 'get',
-                                pagination: 'true'
+                                pagination: 'true',
+                                onSelect:workdetail_onSelect
                             ">
                             <thead>
                                 <tr>
                                     <th data-options="field:'ck',checkbox:true"></th>
                                     @*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
-                                    <th data-options="field:'WorkNo',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">生产任务单</th>
+                                    <th data-options="field:'WorkNo',width:120,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">生产任务单</th>
                                     <th data-options="field:'ParentSKUId',width:130,sortable:true,resizable:true,
                                         formatter:function(value,row){
                                             return row.ParentSKUSku;
-                                        },
-                                        editor:{
-                                            type:'combobox',
-                                            options:{
-                                                valueField:'Id',
-                                                textField:'Sku',
-                                                method:'get',
-                                                url:'/WorkDetails/GetSKUs',
-                                                required:true
-                                            }
                                         }">部套编码</th>
 
                                     @*<th data-options="field:'ParentSKUProductName',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">部套名称</th>*@
                                     <th data-options="field:'ComponentSKUId',width:130,sortable:true,resizable:true,
                                         formatter:function(value,row){
                                             return row.ComponentSKUSku;
-                                        },
-                                        editor:{
-                                            type:'combobox',
-                                            options:{
-                                                valueField:'Id',
-                                                textField:'Sku',
-                                                method:'get',
-                                                url:'/WorkDetails/GetSKUs',
-                                                required:true
-                                            }
                                         }">组件编码</th>
                                     @*<th data-options="field:'ComponentSKUProductName',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">组件名称</th>*@
-                                    <th data-options="field:'GraphSKU',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">图纸编号</th>
-                                    <th data-options="field:'GraphVer',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">图纸版本号</th>
-                                    <th data-options="field:'ConsumeQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">BOM单位用量</th>
-                                    <th data-options="field:'StockQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">库存量</th>
-                                    <th data-options="field:'RequirementQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">订单需求量</th>
-                                    <th data-options="field:'Brand',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">品牌</th>
-                                    <th data-options="field:'Process',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">表面处理</th>
-                                    <th data-options="field:'Responsibility',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">物料责任单位</th>
-                                    <th data-options="field:'AltOrderProdctionDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">订单生产计划日期</th>
-                                    <th data-options="field:'AltProdctionDate1',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">毛坯件计划生产日期</th>
-                                    <th data-options="field:'ActualProdctionDate1',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">毛坯件确认完成日期</th>
-                                    <th data-options="field:'AltProdctionDate2',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">精加工计划生产日期</th>
-                                    <th data-options="field:'ActualProdctionDate2',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">精加工确认完成日期</th>
-                                    <th data-options="field:'AltProdctionDate3',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">表面处理/入库计划日期</th>
-                                    <th data-options="field:'ActualProdctionDate3',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">表面处理/入库确认日期</th>
-                                    <th data-options="field:'AltProdctionDate4',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">装配计划日期</th>
-                                    <th data-options="field:'ActualProdctionDate4',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">装配确认完成日期</th>
-                                    <th data-options="field:'ConfirmUser',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">确认人</th>
-                                    <th data-options="field:'Remark1',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">备注1</th>
-                                    <th data-options="field:'Remark2',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">备注2</th>
+                                    <th data-options="field:'GraphSKU',width:140 ,sortable:true,resizable:true ">图纸编号</th>
+                                    <th data-options="field:'GraphVer',width:90,sortable:true,resizable:true ">图纸版本号</th>
+                                    <th data-options="field:'ConsumeQty',width:100,align:'right',sortable:true,resizable:true ">BOM单位用量</th>
+                                    <th data-options="field:'StockQty',width:100,align:'right',sortable:true,resizable:true ">库存量</th>
+                                    <th data-options="field:'RequirementQty',width:100,align:'right',sortable:true,resizable:true ">订单需求量</th>
+                                    <th data-options="field:'ProductionQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true,
+                                            formatter:editProductionQty
+                                            ">安排生产数量</th>
+                                    <th data-options="field:'DoingQty',width:100,align:'right',sortable:true,resizable:true ">已排生产量</th>
+                                    <th data-options="field:'FinishedQty',width:100,align:'right',sortable:true,resizable:true ">已完成数量</th>
+                                    <th data-options="field:'Status',width:100,align:'right',sortable:true,resizable:true, formatter: function(value,row,index){
+				                                        switch(value) {
+                                                                case 0:
+                                                                    return '新建';
+                                                                    break;
+                                                                case 1:
+                                                                    return '部分排产';
+                                                                    break;
+                                                                case 2:
+                                                                    return '完成排产';
+                                                                    break;
+                                                                case 2:
+                                                                    return '生产完工';
+                                                                    break;
+                                                                default:
+                                                                    return '新建';
+                                                            }
+			                                     } ">状态</th>
+                                    <th data-options="field:'WorkDate',width:120,formatter:dateformatter ,sortable:true,resizable:true ">任务单日期</th>
+                                    @*<th data-options="field:'Brand',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">品牌</th>*@
+                                    @*<th data-options="field:'Process',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">表面处理</th>*@
+                                    @*<th data-options="field:'Responsibility',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">物料责任单位</th>*@
+                                    @*<th data-options="field:'AltOrderProdctionDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">订单生产计划日期</th>*@
+                                    @*<th data-options="field:'AltProdctionDate1',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">毛坯件计划生产日期</th>*@
+                                    @*<th data-options="field:'ActualProdctionDate1',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">毛坯件确认完成日期</th>*@
+                                    @*<th data-options="field:'AltProdctionDate2',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">精加工计划生产日期</th>*@
+                                    @*<th data-options="field:'ActualProdctionDate2',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">精加工确认完成日期</th>*@
+                                    @*<th data-options="field:'AltProdctionDate3',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">表面处理/入库计划日期</th>*@
+                                    @*<th data-options="field:'ActualProdctionDate3',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">表面处理/入库确认日期</th>*@
+                                    @*<th data-options="field:'AltProdctionDate4',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">装配计划日期</th>*@
+                                    @*<th data-options="field:'ActualProdctionDate4',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">装配确认完成日期</th>*@
+                                    @*<th data-options="field:'ConfirmUser',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">确认人</th>*@
+                                    @*<th data-options="field:'Remark1',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">备注1</th>*@
+                                    @*<th data-options="field:'Remark2',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">备注2</th>*@
                                 </tr>
                             </thead>
 
@@ -473,7 +478,7 @@
 
                                 $dg.datagrid('getRows')[editIndex]['ProductionProcessName'] = productionprocessname;
                                 $dg.datagrid('getRows')[editIndex]['ProductionProcessId'] = productionprocessid;
-
+                                $dg.datagrid('getRows')[editIndex]['WorkDate'] = moment($dg.datagrid('getRows')[editIndex]['WorkDate']).format('YYYY-MM-DD HH:mm:ss');
 
                                 //var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'SKUId' });
                                 //var skusku = $(ed.target).combobox('getText');
@@ -552,7 +557,7 @@
                                     if (updated.length) {
                                         effectRow.updated = updated;
                                     }
-                                    //console.log(JSON.stringify(effectRow));
+                                    console.log(JSON.stringify(effectRow));
                                     $.post("/WorkProcesses/SaveData", effectRow, function (rsp) {
                                         console.log(rsp);
                                         if (rsp.Success) {
@@ -588,7 +593,7 @@
                                              type: 'combobox',
                                              options: {
                                                  panelHeight: 'auto',
-                                                 data: [{ value: '0', text: '新建' }, { value: '1', text: '安排工序作业' }, { value: '2', text: '生产中' }, { value: '3', text: '完工' }],
+                                                 data: [{ value: '0', text: '新建' }, { value: '1', text: '部分排产' }, { value: '2', text: '完成排产' }, { value: '3', text: '生产完工' }],
                                                  onChange: function (value) {
                                                      if (value == '') {
                                                          $dg.datagrid('removeFilterRule', 'Status');
@@ -763,9 +768,60 @@
                         //workdetails_datagrid
                         //------------------------------------------------------
                         var $workdetailsdg = $('#workdetails_datagrid');
+
+                        function editProductionQty(value, row, index) {
+                            return "<input name='productionqty' class='easyui-numberbox' data-options='min:0,precision:0' id='productqty_" + index + "'  type='text'   value='" + (value||0) + "' onChange=onEditProductionQty(" + JSON.stringify(row) + ",this," + index +")>";
+                        }
+                        function onEditProductionQty(row, txt,index) {
+                            //console.log(row);
+                            var productionQty = row.RequirementQty - row.FinishedQty - row.DoingQty;
+                            console.log($(txt).val(), productionQty);
+                            if ($.isNumeric($(txt).val())) {
+                                var inputval = parseInt($(txt).val());
+                                if (inputval > productionQty) {
+                                    $.messager.alert('Error', '不能超过需求数量');
+                                    $(txt).val(0);
+                                    return;
+                                }
+                            } else {
+                                $.messager.alert('Error', '输入无效');
+                                $(txt).val(0);
+                                return;
+                            }
+                            $workdetailsdg.datagrid('getRows')[index]['ProductionQty'] = $(txt).val();
+                            
+                            console.log($workdetailsdg.datagrid('getRows')[index]['ProductionQty']);
+                            
+                        }
+                       
+
+                        function workdetail_onSelect(index, row) {
+                             
+                        }
+
                         $(function () {
 
                             $workdetailsdg.datagrid('enableFilter', [
+                                {
+                                    field: 'Status',
+                                    type: 'combobox',
+                                    options: {
+                                        panelHeight: 'auto',
+                                        data: [{ value: '0', text: '新建' }, { value: '1', text: '部分排产' }, { value: '2', text: '生产中' }, { value: '3', text: '完工' }],
+                                        onChange: function (value) {
+                                            if (value == '') {
+                                                $workdetailsdg.datagrid('removeFilterRule', 'Status');
+                                            } else {
+                                                $workdetailsdg.datagrid('addFilterRule', {
+                                                    field: 'Status',
+                                                    op: 'equal',
+                                                    value: value
+                                                });
+                                            }
+                                            $workdetailsdg.datagrid('doFilter');
+                                        }
+                                    }
+                                },
 
                                          {
                                              field: 'AltOrderProdctionDate',
@@ -1049,16 +1105,22 @@
                             var workdetails = $workdetailsdg.datagrid('getSelections');
                             var workdetailid = [];
                             $.each(workdetails, function (index, element) {
-                                workdetailid.push(element.Id);
+                                if ((element.ProductionQty||0) > 0) {
+                                    workdetailid.push(element);
+                                }
                             });
+                            if (workdetailid.length > 0) {
+                                //console.log(workdetailid);
+                                $.post('/WorkProcesses/GenerateWorkProceesses', { workdetails: workdetailid }, function (data, textStatus, jqXHR) {
+                                    //console.log(data);
+                                    $('#workimportwindow').window('close');
+                                    $dg.datagrid('reload');
+                                    $workdetailsdg.datagrid('reload');
 
-                            console.log(workdetailid);
-                            $.post('/WorkProcesses/GenerateWorkProceesses', { workdetails: workdetailid }, function (data, textStatus, jqXHR) {
-                                console.log(data);
-                                $('#workimportwindow').window('close');
-                                $dg.datagrid('reload');
-
-                            });
+                                });
+                            } else {
+                                $.messager.alert('提示', '请选中记录需要安排生产记录');
+                            }
                         }
                         //---------------------------------------------------------------
                         //generateprocessdetails（）

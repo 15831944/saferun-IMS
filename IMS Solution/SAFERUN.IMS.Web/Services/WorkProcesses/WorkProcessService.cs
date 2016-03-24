@@ -95,12 +95,12 @@ namespace SAFERUN.IMS.Web.Services
         }
 
 
-        public void GenerateWorkProcesses(IEnumerable<int> workdetails)
+        public void GenerateWorkProcesses(IEnumerable<WorkDetail> workdetails)
         {
-            var workdetaillist = _workdetailservice.Queryable().Include(x => x.Work).Include(x=>x.Work.Order).Where(x => workdetails.Contains(x.Id)).ToList();
             var list = new List<WorkProcess>();
-            foreach (var detail in workdetaillist)
+            foreach (var workdetail in workdetails)
             {
+                var detail = _workdetailservice.Queryable().Include(x=>x.Work).Include(x=>x.Work.Order).Where(x=>x.Id==workdetail.Id).First();
                 WorkProcess item = new WorkProcess();
                 item.CustomerId = detail.Work.Order.CustomerId;
                 item.FinishedQty = 0;
@@ -111,15 +111,32 @@ namespace SAFERUN.IMS.Web.Services
                 item.ProjectName = detail.Work.Order.ProjectName;
                 //item.ProductionProcessId = 1;
                 item.RequirementQty = detail.RequirementQty;
-                item.ProductionQty = detail.RequirementQty;
+                item.ProductionQty = workdetail.ProductionQty.Value;
                 item.SKUId = detail.ComponentSKUId;
                 item.WorkDate = DateTime.Now;
                 item.WorkId = detail.WorkId;
                 item.WorkDetailId = detail.Id;
                 item.WorkItems = 0;
                 item.WorkNo = detail.WorkNo;
-                
                 list.Add(item);
+
+                detail.ProductionQty = workdetail.RequirementQty - workdetail.ProductionQty - workdetail.DoingQty - workdetail.FinishedQty;
+                detail.DoingQty = (detail.DoingQty == null ? 0 : detail.DoingQty) + workdetail.ProductionQty.Value;
+                if (detail.DoingQty == detail.RequirementQty)
+                {
+                    detail.Status = 2;
+                }
+                else if (detail.DoingQty > 0 && detail.DoingQty < detail.RequirementQty)
+                {
+                    detail.Status = 1;
+                }
+                else if (detail.FinishedQty == detail.RequirementQty)
+                {
+                    detail.Status = 3;
+                }
+
+                this._workdetailservice.Update(detail);
+
 
             }
 

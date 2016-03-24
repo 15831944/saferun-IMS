@@ -368,6 +368,10 @@
     <Compile Include="Migrations\201603231400247_ddd1.Designer.cs">
       <DependentUpon>201603231400247_ddd1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603240543575_doingqty.cs" />
+    <Compile Include="Migrations\201603240543575_doingqty.Designer.cs">
+      <DependentUpon>201603240543575_doingqty.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
@@ -1557,6 +1561,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603231400247_ddd1.resx">
       <DependentUpon>201603231400247_ddd1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603240543575_doingqty.resx">
+      <DependentUpon>201603240543575_doingqty.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -431,7 +431,7 @@ namespace SAFERUN.IMS.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult GenerateWorkProceesses(IEnumerable<int> workdetails)
+        public ActionResult GenerateWorkProceesses(IEnumerable<WorkDetail> workdetails)
         {
             _workProcessService.GenerateWorkProcesses(workdetails);
             _unitOfWork.SaveChanges();

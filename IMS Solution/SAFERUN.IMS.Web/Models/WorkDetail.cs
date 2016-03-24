@@ -37,6 +37,8 @@ namespace SAFERUN.IMS.Web.Models
 
         public decimal? ProductionQty { get; set; }
 
+        public decimal? DoingQty { get; set; }
+
         public decimal? FinishedQty { get; set; }
 
         public string Brand { get; set; }
