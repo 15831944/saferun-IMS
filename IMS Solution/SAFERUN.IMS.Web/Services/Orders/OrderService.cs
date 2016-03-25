@@ -58,6 +58,8 @@ namespace SAFERUN.IMS.Web.Services
         public IEnumerable<OrderAuditPlan> GenerateAuditPlan(int orderId)
         {
             List<OrderAuditPlan> list = new List<OrderAuditPlan>();
+            //var order = this.Find(orderId);
+            
             list = _auditplanService.Queryable().Where(x => x.OrderId == orderId).ToList();
             if (list.Count > 0)
             {
@@ -66,6 +68,9 @@ namespace SAFERUN.IMS.Web.Services
             else
             {
                 var order = this.Find(orderId);
+                order.Status = 1;
+                order.AuditDate = DateTime.Now;
+                this.Update(order);
                 var projectNodelist = _projectnoderepository.Queryable().Include(x => x.Department).Where(x => x.ProjectTypeId == order.ProjectTypeId).OrderBy(x => x.Order);
                 foreach (var item in projectNodelist)
                 {
@@ -183,6 +188,10 @@ namespace SAFERUN.IMS.Web.Services
         public IEnumerable<AssemblyPlan> GenerateAssemblyPlan(int orderId)
         {
             List<AssemblyPlan> list = new List<AssemblyPlan>();
+            var order = this.Find(orderId);
+            order.Status = 2;
+            order.AuditDate = DateTime.Now;
+            this.Update(order);
             list = this._assemblyservice.Queryable().Where(x => x.OrderId == orderId).ToList();
             if (list.Count > 0)
             {

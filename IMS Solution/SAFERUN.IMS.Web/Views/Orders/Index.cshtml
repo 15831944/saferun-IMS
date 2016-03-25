@@ -72,42 +72,74 @@
                                 <th data-options="field:'AuditDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:true}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.AuditDate)</th>
 
                                 <th data-options="field:'CustomerId',width:100,
-                        formatter:function(value,row){
-                            return row.CustomerAccountNumber;
-                        },
-                        editor:{
-                            type:'combobox',
-                            options:{
-                                valueField:'Id',
-                                textField:'AccountNumber',
-                                method:'get',
-                                url:'/Orders/GetCustomers',
-                                required:true
-                            }
-                        }">@Html.DisplayNameFor(model => model.CustomerId)</th>
+                                    formatter:function(value,row){
+                                        return row.CustomerAccountNumber;
+                                    },
+                                    editor:{
+                                        type:'combobox',
+                                        options:{
+                                                valueField:'Id',
+                                                textField:'AccountNumber',
+                                                method:'get',
+                                                url:'/Orders/GetCustomers',
+                                        required:true
+                                    }
+                                    }">@Html.DisplayNameFor(model => model.CustomerId)</th>
 
 
-                        <th data-options="field:'ProjectTypeId',width:100,
-                        formatter:function(value,row){
-                            return row.ProjectTypeTypeName;
-                        },
-                        editor:{
-                            type:'combobox',
-                            options:{
-                                valueField:'Id',
-                                textField:'TypeName',
-                                method:'get',
-                                url:'/Orders/GetProjectTypes',
-                                required:true
-                            }
-                        }">@Html.DisplayNameFor(model => model.ProjectTypeId)</th>
+                            <th data-options="field:'ProjectTypeId',width:100,
+                                formatter:function(value,row){
+                                        return row.ProjectTypeTypeName;
+                                    },
+                                    editor:{
+                                        type:'combobox',
+                                        options:{
+                                            valueField:'Id',
+                                            textField:'TypeName',
+                                            method:'get',
+                                            url:'/Orders/GetProjectTypes',
+                                            required:true
+                                    }
+                                }">@Html.DisplayNameFor(model => model.ProjectTypeId)</th>
 
 
 
                         <th data-options="field:'ProjectName',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.ProjectName)</th>
 
 
-                        <th data-options="field:'Status',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Status)</th>
+                                <th data-options="field:'Status',width:100,align:'right',editor:{ type:'combobox',
+                                                 options:{
+                                                    panelHeight: 'auto',
+                                                    data: [ { value: '0', text: '新建' },
+                                                            { value: '1', text: '生成评审计划' },
+                                                            { value: '2', text: '生产部套计划' },
+                                                            { value: '3', text: '生产中' },
+                                                            { value: '4', text: '生产完成' },
+                                                            { value: '5', text: '关闭' }],
+                                                    required:true } } ,
+                                                    formatter:function(value,row,index){
+                                                           switch (value) {
+                                                                case 0:
+                                                                   return '新建';
+                                                                   break;
+                                                                case 1:
+                                                                   return '生成评审计划';
+                                                                   break;
+                                                                case 2:
+                                                                   return '生产部套计划';
+                                                                   break;
+                                                                case 3:
+                                                                   return '生产中';
+                                                                   break;
+                                                                case 4:
+                                                                   return '生产完成';
+                                                                   break;
+                                                                case 5:
+                                                                   return '关闭';
+                                                                   break;
+
+                                                            }
+                                                    }">@Html.DisplayNameFor(model => model.Status)</th>
 
 
                         <th data-options="field:'AuditResult',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.AuditResult)</th>
@@ -122,7 +154,11 @@
                         <th data-options="field:'ActualFinishDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ActualFinishDate)</th>
 
 
-                        <th data-options="field:'ShipDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ShipDate)</th>
+                                <th data-options="field:'ShipDate',width:160,align:'right',
+                                        editor:{type:'datetimebox',
+                                        options:{
+                                                
+                                              }} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ShipDate)</th>
 
 
                         <th data-options="field:'ColseDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ColseDate)</th>
@@ -132,7 +168,7 @@
                 </thead>
 
 
-                </table>
+            </table>
             <div id="orders_toolbar" style="height:auto">
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">Append</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
@@ -141,7 +177,7 @@
                 @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>*@
             </div>
         </div>
-          
+
         <div id="detailtabs" class="easyui-tabs" style="width:auto;height:400px;">
             <div title="订单明细" style="padding:10px;">
                 <div class="table-responsive">
@@ -164,19 +200,19 @@
                                 @*<th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.OrderKey)</th>*@
 
                                 @*<th data-options="field:'OrderId',width:100,
-                    formatter:function(value,row){
-                        return row.OrderOrderKey;
-                    },
-                    editor:{
-                        type:'combobox',
-                        options:{
-                            valueField:'Id',
-                            textField:'OrderKey',
-                            method:'get',
-                            url:'/OrderDetails/GetOrders',
-                            required:false
-                        }
-                    }">@Html.DisplayNameFor(model => model.OrderId)</th>*@
+                                    formatter:function(value,row){
+                                        return row.OrderOrderKey;
+                                    },
+                                    editor:{
+                                        type:'combobox',
+                                        options:{
+                                            valueField:'Id',
+                                            textField:'OrderKey',
+                                            method:'get',
+                                            url:'/OrderDetails/GetOrders',
+                                            required:false
+                                        }
+                                    }">@Html.DisplayNameFor(model => model.OrderId)</th>*@
 
 
 
@@ -231,13 +267,13 @@
 
 
                     </table>
-                <div id="orderdetails_toolbar" style="height:auto">
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="orderdetails_append()">Append</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="orderdetails_removeit()">Remove</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="orderdetails_accept()">Accept</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="orderdetails_reject()">Reject</a>
-                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="orderdetails_getChanges()">GetChanges</a>*@
-                </div>
+                    <div id="orderdetails_toolbar" style="height:auto">
+                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="orderdetails_append()">Append</a>
+                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="orderdetails_removeit()">Remove</a>
+                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="orderdetails_accept()">Accept</a>
+                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="orderdetails_reject()">Reject</a>
+                        @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="orderdetails_getChanges()">GetChanges</a>*@
+                    </div>
                 </div>
             </div>
         </div>
@@ -266,6 +302,7 @@
         function formatAction4(val, row, index) {
             return '<a   class="easyui-linkbutton" href="javascript:void(0)" onclick="generateProductPlan(' + row.Id + ')" >生成外购计划</a>'
         }
+
         function generateAssemblyPlan(id) {
             $.messager.progress({ title: '正在处理请耐心等待！' });
             $.post('/Orders/GenerateAssemblyPlan/' + id, function (data, textStatus, jqXHR) {
@@ -330,7 +367,7 @@
             }
         }
         function onClickCell(index, field) {
-            var _operates = ["ck","_operate1", "_operate2", "_operate3", "_operate4"]
+            var _operates = ["ck", "_operate1", "_operate2", "_operate3", "_operate4"]
             if ($.inArray(field, _operates) >= 0) {
                 return;
             }
@@ -409,6 +446,31 @@
         $(function () {
 
             $dg.datagrid('enableFilter', [
+                        {
+                            field: 'Status',
+                            type: 'combobox',
+                            options: {
+                                panelHeight: 'auto',
+                                data: [{ value: '0', text: '新建' },
+                                                          { value: '1', text: '生成评审计划' },
+                                                          { value: '2', text: '生产部套计划' },
+                                                          { value: '3', text: '生产中' },
+                                                          { value: '4', text: '生产完成' },
+                                                          { value: '5', text: '关闭' }],
+                                onChange: function (value) {
+                                    if (value == '') {
+                                        $dg.datagrid('removeFilterRule', 'Status');
+                                    } else {
+                                        $dg.datagrid('addFilterRule', {
+                                            field: 'Status',
+                                            op: 'equal',
+                                            value: value
+                                        });
+                                    }
+                                    $dg.datagrid('doFilter');
+                                }
+                            }
+                        },
                          {
                              field: 'OrderDate',
                              type: 'datebox',
@@ -638,7 +700,7 @@
         function orderdetails_append() {
             if (orderdetails_endEditing()) {
                 var order = $dg.datagrid('getSelected');
-                var linenumber = '00' + ($orderdetailsdg.datagrid('getRows').length +1);
+                var linenumber = '00' + ($orderdetailsdg.datagrid('getRows').length + 1);
                 $orderdetailsdg.datagrid('appendRow', { OrderId: order.Id, OrderKey: order.OrderKey, LineNumber: linenumber });
                 orderdetails_editIndex = $orderdetailsdg.datagrid('getRows').length - 1;
                 $orderdetailsdg.datagrid('selectRow', orderdetails_editIndex)

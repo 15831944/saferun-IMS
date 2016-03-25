@@ -3200,20 +3200,21 @@
 
 
 function dateformatter(value, row, index) {
-    //console.log(new Date(value));
+     
     if (value == typeof (undefined))
-        return "";
+        return null;
     if (value == null)
-        return "";
+        return null;
     else
         return moment(value).format('YYYY-MM-DD');
 }
 function datetimeformatter(value, row, index) {
-    //console.log(new Date(value));
-    if (value == typeof (undefined))
-        return "";
+    
+
+    if (value == typeof (undefined)  )
+        return null;
     if (value == null)
-        return "";
+        return null;
     else
         return moment(value).format('YYYY-MM-DD HH:mm:ss');
 }
