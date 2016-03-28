@@ -31,12 +31,34 @@ namespace SAFERUN.IMS.Web.Controllers
         private readonly IWorkProcessDetailService _workProcessDetailService;
         private readonly IWorkProcessService _workProcessService;
         private readonly IUnitOfWorkAsync _unitOfWork;
+        private readonly IStationService _stationService;
 
-        public WorkProcessDetailsController(IWorkProcessService workProcessService,IWorkProcessDetailService workProcessDetailService, IUnitOfWorkAsync unitOfWork)
+        public WorkProcessDetailsController(IStationService stationService,IWorkProcessService workProcessService,IWorkProcessDetailService workProcessDetailService, IUnitOfWorkAsync unitOfWork)
         {
             _workProcessDetailService = workProcessDetailService;
             _unitOfWork = unitOfWork;
             _workProcessService = workProcessService;
+            _stationService = stationService;
+        }
+
+        public ActionResult StationWorking() {
+            var stations = this._stationService.Queryable().ToList();
+            ViewBag.Stations = stations;
+            var working = this._workProcessDetailService.Queryable().Include(w => w.WorkProcess).Where(x => x.Status < 3).Select(x => new StationWorkViewModel()
+            {
+                Id = x.Id,
+                ProjectName = x.WorkProcess.ProjectName,
+                ComponentSKU = x.ComponentSKU,
+                GraphSKU = x.GraphSKU,
+                Status = x.Status,
+                StartingDateTime = x.StartingDateTime,
+                CompletedDateTime = x.CompletedDateTime,
+                ElapsedTime = x.ElapsedTime,
+                StandardElapsedTime = x.StandardElapsedTime,
+                Operator = x.Operator
+            }).ToList();
+
+            return View(working);
         }
 
         // GET: WorkProcessDetails/Index

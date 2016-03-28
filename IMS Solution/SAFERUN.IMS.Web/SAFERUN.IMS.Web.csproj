@@ -241,6 +241,7 @@
     <Compile Include="Controllers\ShiftsController.cs" />
     <Compile Include="Controllers\SKUsController.cs" />
     <Compile Include="Controllers\StationsController.cs" />
+    <Compile Include="Models\StationWorkViewModel.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Controllers\WorkDetailsController.cs" />
     <Compile Include="Controllers\WorkProcessDetailsController.cs" />
@@ -1447,6 +1448,8 @@
     <Content Include="Views\WorkProcessDetails\EditForm.cshtml" />
     <Content Include="Views\WorkProcessDetails\_PopupSearch.cshtml" />
     <Content Include="Views\Orders\Index_g.cshtml" />
+    <Content Include="Views\Shared\_TerminalLayoutPage.cshtml" />
+    <Content Include="Views\WorkProcessDetails\StationWorking.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
