@@ -83,6 +83,7 @@ namespace SAFERUN.IMS.Web.Services
         {
             var detail = this.Queryable().Where(x => x.Id == id).First();
             detail.StartingDateTime = DateTime.Now;
+            detail.CompletedDateTime = null;
             detail.Status = 1;
             detail.Operator = System.Threading.Thread.CurrentPrincipal.Identity.Name;
             this.Update(detail);

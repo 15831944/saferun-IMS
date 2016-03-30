@@ -41,10 +41,25 @@ namespace SAFERUN.IMS.Web.Controllers
             _stationService = stationService;
         }
 
-        public ActionResult StationWorking() {
+        public ActionResult StationWorking(string station="",string status="") {
+
+            int[] initstatus ={0,1};
+            if (status == "未开始")
+            {
+                initstatus = new int[] { 0 };
+            }
+            else if (status == "未完成")
+            {
+                initstatus = new int[] { 0, 1 };
+            }
+            else if (status=="已完成")
+            {
+                initstatus = new int[] { 2};
+            }
+
             var stations = this._stationService.Queryable().ToList();
             ViewBag.Stations = stations;
-            var working = this._workProcessDetailService.Queryable().Include(w => w.WorkProcess).Where(x => x.Status < 3).Select(x => new StationWorkViewModel()
+            var working = this._workProcessDetailService.Queryable().Include(w => w.WorkProcess).Where(x => initstatus.Contains(x.Status) && x.Station.StationNo==station).Select(x => new StationWorkViewModel()
             {
                 Id = x.Id,
                 ProjectName = x.WorkProcess.ProjectName,

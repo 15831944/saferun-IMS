@@ -11,8 +11,8 @@
     <ul class="nav navbar-nav">
         <li><a href="#">当前机台</a></li>
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 选择机台 <span class="caret"></span></a>
-            <ul class="dropdown-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="stationNo"> 选择机台 <span class="caret"></span></a>
+            <ul class="dropdown-menu" id="station">
                 @foreach (var item in ViewBag.Stations)
                 {
                     <li><a href="#">@item.StationNo</a></li>
@@ -23,11 +23,11 @@
 
         <li><a href="#">状态</a></li>
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 选择状态 <span class="caret"></span></a>
-            <ul class="dropdown-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="wkstatus"> 未完成 <span class="caret"></span></a>
+            <ul class="dropdown-menu" id="status">
                 <li><a href="#">未开始</a></li>
-                <li><a href="#">行进中</a></li>
-                <li><a href="#">已完工</a></li>
+                <li><a href="#">未完成</a></li>
+                <li><a href="#">已完成</a></li>
 
             </ul>
         </li>
@@ -82,7 +82,7 @@
                 <td>
                     @if (item.Status == 0)
                     {
-                        <a id="add_row" class="btn btn-success pull-left">开始</a>
+                        <a id="add_row" class="btn btn-success pull-left" onclick="start(@item.Id)">开始</a>
                     }
                     else
                     {
@@ -98,11 +98,11 @@
                     {
                         if (item.Status == 0)
                         {
-                            <a id="add_row" disabled class="btn btn-danger pull-left">结束</a>
+                            <a id="add_row" disabled class="btn btn-danger pull-left" >结束</a>
                         }
                         else
                         {
-                            <a id="add_row" class="btn btn-danger pull-left">结束</a>
+                            <a id="add_row" class="btn btn-danger pull-left" onclick="completed(@item.Id)" >结束</a>
                         }
                     }
                     else
@@ -123,12 +123,42 @@
 
     </table>
     <script type="text/javascript">
+        $.urlParam = function (name) {
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+            return results[1] || 0;
+        }
+        function start(id) {
+            $.post('/WorkProcessDetails/Start', { id: id }, function () {
+                location.reload();
+            })
+        }
+        function completed(id) {
+            $.post('/WorkProcessDetails/Completed', { id: id }, function () {
+                location.reload();
+            })
+        }
         $(function () {
 
+            console.log(decodeURIComponent($.urlParam('station')));
+            console.log(decodeURIComponent($.urlParam('status')));
+            $('#stationNo').html(decodeURIComponent($.urlParam('station')).replace('+', '') + ' <span class="caret"></span>');
+            $('#wkstatus').html(decodeURIComponent($.urlParam('status')).replace('+', '') + ' <span class="caret"></span>');
             $(".dropdown-menu li a").click(function () {
                 var selText = $(this).text();
-                console.log(selText);
+                var id = $(this).parent().parent().attr('id');
+                 
                 $(this).parents('.dropdown').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
+                //console.log($('#stationNo').text());
+                //console.log($('#wkstatus').text());
+                var params = { station: $('#stationNo').text(), status: $('#wkstatus').text() };
+                var urlparams = $.param(params,true);
+                console.log(urlparams);
+                var currentUrl = window.location.href;
+                location.search = $.param(params);
+                
+                console.log(currentUrl);
+                console.log(location.search);
+
             });
         })
     </script>
