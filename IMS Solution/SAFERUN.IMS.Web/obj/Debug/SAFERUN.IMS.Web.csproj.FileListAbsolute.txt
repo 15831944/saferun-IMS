@@ -286,3 +286,4 @@ D:\萨驰华辰项目\saferun-IMS\IMS Solution\SAFERUN.IMS.Web\obj\Debug\SAFERUN
 D:\萨驰华辰项目\saferun-IMS\IMS Solution\SAFERUN.IMS.Web\obj\Debug\SAFERUN.IMS.Web.Migrations.upd.resources
 D:\萨驰华辰项目\saferun-IMS\IMS Solution\SAFERUN.IMS.Web\obj\Debug\SAFERUN.IMS.Web.Migrations.ddd1.resources
 D:\萨驰华辰项目\saferun-IMS\IMS Solution\SAFERUN.IMS.Web\obj\Debug\SAFERUN.IMS.Web.Migrations.doingqty.resources
+D:\萨驰项目\SourceCode\saferun-IMS\IMS Solution\SAFERUN.IMS.Web\obj\Debug\SAFERUN.IMS.Web.Migrations.doingqty.resources

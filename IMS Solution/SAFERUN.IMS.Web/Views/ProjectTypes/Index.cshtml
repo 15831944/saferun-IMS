@@ -80,10 +80,32 @@
                                                 <th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Description)</th>
 
 
-                                                <th data-options="field:'StartDate',width:160,align:'right',editor:{type:'datetimebox',options:{}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.StartDate)</th>
+                                <th data-options="field:'StartDate',width:160,
+                                                                    align:'right',editor:{
+                                                                                          type:'datebox',
+                                                                                          options:{
+                                                                                           required:true,
+                                                                                          onSelect: function(sdate){
+		                                                                                        //console.log(sdate);
+                                                                                               var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'ExpiryDate' });
+                                                                                               var edate= $(ed.target).datebox('getValue');
+                                                                                                $(ed.target).datebox('setValue','').
+                                                                                                    datebox('calendar').calendar({
+                                                                                                    validator: function(date){
+
+                                                                                                            return   date>sdate;
+                                                                                                      }
+                                                                                                });;
+
+                                                                                              }
+                                                                                          },
+
+                                                } ,formatter:dateformatter">@Html.DisplayNameFor(model => model.StartDate)</th>
 
 
-                                                <th data-options="field:'ExpiryDate',width:160,align:'right',editor:{type:'datetimebox',options:{}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ExpiryDate)</th>
+                                <th data-options="field:'ExpiryDate',width:160,align:'right',editor:{
+                                                                                                type:'datebox',
+                                                                                                options:{required:true}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ExpiryDate)</th>
 
 
                                             </tr>
@@ -106,11 +128,27 @@
 </div>
 @section Scripts {
     <script type="text/javascript">
+        $.extend($.fn.validatebox.defaults.rules, {
+            date: {
+                validator: function (value, param) {
+
+                    console.log(value, param);
+                   
+                    return false
+                },
+                message: '到期日期不能小于启用日期.' 
+            }
+        })
+
+
+
          var $dg = $('#projecttypes_datagrid');
 		 var editIndex = undefined;
         function endEditing() {
             if (editIndex == undefined) { return true }
             if ($dg.datagrid('validateRow', editIndex)) {
+
+                
 
 								$dg.datagrid('endEdit', editIndex);
                 editIndex = undefined;
@@ -173,9 +211,11 @@
                         if (rsp.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
+                            $dg.datagrid('reload');
                         }
                     }, "JSON").error(function () {
-                        $.messager.alert("错误", "提交错误了！",'error');
+                        $.messager.alert("错误", "提交错误了！", 'error');
+                        $dg.datagrid('reload');
                       
                     });
               
