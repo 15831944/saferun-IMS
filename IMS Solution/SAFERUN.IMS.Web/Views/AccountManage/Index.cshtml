@@ -153,11 +153,11 @@
                         if (rsp.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
-                            //$dg.datagrid('reload');
+                            $dg.datagrid('reload');
                         }
                     }, "JSON").error(function () {
                         $.messager.alert("错误", "提交错误了！", 'error');
-
+                        $dg.datagrid('acceptChanges');
                     });
 
                 }

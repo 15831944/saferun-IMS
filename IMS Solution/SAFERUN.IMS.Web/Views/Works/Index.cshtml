@@ -634,7 +634,7 @@
                                             }
                                         }, "JSON").error(function () {
                                             $.messager.alert("错误", "提交错误了！", 'error');
-
+                                            $dg.datagrid('reload');
                                         });
 
                                     }
@@ -867,7 +867,7 @@
                                             }
                                         }, "JSON").error(function () {
                                             $.messager.alert("错误", "提交错误了！", 'error');
-
+                                            $workdetailsgrid.datagrid('reload');
                                         });
 
                                     }

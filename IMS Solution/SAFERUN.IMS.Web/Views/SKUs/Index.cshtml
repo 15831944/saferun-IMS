@@ -96,13 +96,28 @@
                                             <th data-options="field:'PackKey',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.PackKey)</th>
 
 
-                                            <th data-options="field:'QCLOC',width:120,editor:'textbox' ">@Html.DisplayNameFor(model => model.QCLOC)</th>
+                                <th data-options="field:'QCLOC',width:120,editor: {type:'combobox',
+																options:{
+																	panelHeight: 'auto',
+																	data: [ { value: 'true', text: 'true' },
+																			{ value: 'false', text: 'false' }],
+																required:true}}">@Html.DisplayNameFor(model => model.QCLOC)</th>
 
 
-                                            <th data-options="field:'QCLOCOUT',width:120,editor:'textbox' ">@Html.DisplayNameFor(model => model.QCLOCOUT)</th>
+                                <th data-options="field:'QCLOCOUT',width:120,editor: {type:'combobox',
+																options:{
+																	panelHeight: 'auto',
+																	data: [ { value: 'true', text: 'true' },
+																			{ value: 'false', text: 'false' }],
+																required:true}}">@Html.DisplayNameFor(model => model.QCLOCOUT)</th>
 
 
-                                            <th data-options="field:'Active',width:120,editor:'textbox' ">@Html.DisplayNameFor(model => model.Active)</th>
+                                <th data-options="field:'Active',width:120,editor: {type:'combobox',
+																options:{
+																	panelHeight: 'auto',
+																	data: [ { value: 'true', text: 'true' },
+																			{ value: 'false', text: 'false' }],
+																required:true}}">@Html.DisplayNameFor(model => model.Active)</th>
 
 
                                             <th data-options="field:'Price',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Price)</th>
@@ -297,7 +312,7 @@
                                     }
                                 }, "JSON").error(function () {
                                     $.messager.alert("错误", "提交错误了！", 'error');
-
+                                    $dg.datagrid('reload');
                                 });
 
                             }
