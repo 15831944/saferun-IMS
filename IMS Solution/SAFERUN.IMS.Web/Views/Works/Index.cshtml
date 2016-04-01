@@ -165,10 +165,10 @@
 
                                         </table>
                                         <div id="works_toolbar" style="height:auto">
-                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">Append</a>
-                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
-                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
-                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
                                             @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>*@
                                             <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
                                         </div>
@@ -197,7 +197,7 @@
                                                             @*<th data-options="field:'ck',checkbox:true"></th>*@
                                                             @*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
 
-                                                            <th data-options="field:'WorkNo',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.WorkNo)</th>
+                                                            <th data-options="field:'WorkNo',width:140 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.WorkNo)</th>
 
                                                             @*<th data-options="field:'WorkId',width:100,sortable:true,resizable:true,
                     formatter:function(value,row){
@@ -303,10 +303,10 @@
                                                 </table>
 
                                                 <div id="workdetails_toolbar" style="height:auto">
-                                                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="workdetails_append()">Append</a>*@
-                                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="workdetails_removeit()">Remove</a>
-                                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="workdetails_accept()">Accept</a>
-                                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="workdetails_reject()">Reject</a>
+                                                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="workdetails_append()">新增</a>*@
+                                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="workdetails_removeit()">删除</a>
+                                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="workdetails_accept()">保存</a>
+                                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="workdetails_reject()">取消</a>
                                                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cog',plain:true" onclick="workdetails_bomimportexcel()">BOM 导入</a>
                                                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="workdetails_importexcel()">EXCEL 导入</a>
                                                 </div>
@@ -777,20 +777,20 @@
                                 if (workdetails_editIndex == undefined) { return true }
                                 if ($workdetailsgrid.datagrid('validateRow', workdetails_editIndex)) {
 
-                                    var ed = $workdetailsgrid.datagrid('getEditor', { index: workdetails_editIndex, field: 'ComponentSKUId' });
-                                    var componentskusku = $(ed.target).combobox('getText');
-                                    var componentskuid = $(ed.target).combobox('getValue');
+                                    //var ed = $workdetailsgrid.datagrid('getEditor', { index: workdetails_editIndex, field: 'ComponentSKUId' });
+                                    //var componentskusku = $(ed.target).combobox('getText');
+                                    //var componentskuid = $(ed.target).combobox('getValue');
 
-                                    $workdetailsgrid.datagrid('getRows')[workdetails_editIndex]['ComponentSKUSku'] = componentskusku;
-                                    $workdetailsgrid.datagrid('getRows')[workdetails_editIndex]['ComponentSKUId'] = componentskuid;
+                                    //$workdetailsgrid.datagrid('getRows')[workdetails_editIndex]['ComponentSKUSku'] = componentskusku;
+                                    //$workdetailsgrid.datagrid('getRows')[workdetails_editIndex]['ComponentSKUId'] = componentskuid;
 
 
-                                    var ed = $workdetailsgrid.datagrid('getEditor', { index: workdetails_editIndex, field: 'ParentSKUId' });
-                                    var parentskusku = $(ed.target).combobox('getText');
-                                    var parentskuid = $(ed.target).combobox('getValue');
+                                    //var ed = $workdetailsgrid.datagrid('getEditor', { index: workdetails_editIndex, field: 'ParentSKUId' });
+                                    //var parentskusku = $(ed.target).combobox('getText');
+                                    //var parentskuid = $(ed.target).combobox('getValue');
 
-                                    $workdetailsgrid.datagrid('getRows')[workdetails_editIndex]['ParentSKUSku'] = parentskusku;
-                                    $workdetailsgrid.datagrid('getRows')[workdetails_editIndex]['ParentSKUId'] = parentskuid;
+                                    //$workdetailsgrid.datagrid('getRows')[workdetails_editIndex]['ParentSKUSku'] = parentskusku;
+                                    //$workdetailsgrid.datagrid('getRows')[workdetails_editIndex]['ParentSKUId'] = parentskuid;
 
 
                                     //var ed = $workdetailsgrid.datagrid('getEditor', { index: workdetails_editIndex, field: 'WorkId' });
