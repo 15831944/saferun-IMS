@@ -41,7 +41,7 @@
                 <div class="table-responsive">
            
  
-       <table id="workdetails_datagrid" class="easyui-datagrid" title="生产任务单明细 DataGrid" style="width:auto;height:auto"
+       <table id="workdetails_datagrid" class="easyui-datagrid" title="生产任务单明细 " style="width:auto;height:auto"
                    data-options="
                  rownumbers:true,
                  idField:'Id',
@@ -357,9 +357,9 @@
                         effectRow.updated = updated;
                     }
                     //console.log(JSON.stringify(effectRow));
-                    $.post("/WorkDetails/SaveData", effectRow, function (rsp) {
-                        console.log(rsp);
-                        if (rsp.Success) {
+                    $.post("/WorkDetails/SaveData", effectRow, function (response) {
+                        console.log(response);
+                        if (response.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
 							$dg.datagrid('reload');

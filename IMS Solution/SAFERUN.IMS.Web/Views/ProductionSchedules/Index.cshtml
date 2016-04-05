@@ -38,7 +38,7 @@
                 <div class="table-responsive">
 
 
-                    <table id="productionschedules_datagrid" class="easyui-datagrid" title="精加工生产排程 DataGrid" style="width:auto;height:auto"
+                    <table id="productionschedules_datagrid" class="easyui-datagrid" title="精加工生产排程 " style="width:auto;height:auto"
                            data-options="
                  rownumbers:true,
                  idField:'Id',
@@ -163,7 +163,7 @@
                                 <div id="detailtabs" class="easyui-tabs" style="width:auto;height:400px;">
                                     <div title="排程作业单明细" style="padding:10px;">
                                         <div class="table-responsive">
-                                            <table id="scheduledetails_datagrid" class="easyui-datagrid" title="生产排程明细 DataGrid" style="width:auto;height:auto"
+                                            <table id="scheduledetails_datagrid" class="easyui-datagrid" title="生产排程明细 " style="width:auto;height:auto"
                                                    data-options="
                                                         rownumbers:true,
                                                         idField:'Id',
@@ -306,7 +306,7 @@
             </div>
             <div id="workimportwindow" class="easyui-window" title="从生产任务单中选择导入" data-options="modal:true,closed:true,iconCls:'icon-cog'" style="width:75%;height:500px;padding:10px;">
                 <div class="table-responsive">
-                    <table id="workdetails_datagrid" class="easyui-datagrid" title="生产任务单明细 DataGrid" style="width:auto;height:auto"
+                    <table id="workdetails_datagrid" class="easyui-datagrid" title="生产任务单明细 " style="width:auto;height:auto"
                            data-options="
                                 rownumbers:true,
                                 idField:'Id',
@@ -523,9 +523,9 @@
                                     effectRow.updated = updated;
                                 }
                                 //console.log(JSON.stringify(effectRow));
-                                $.post("/ProductionSchedules/SaveData", effectRow, function (rsp) {
-                                    console.log(rsp);
-                                    if (rsp.Success) {
+                                $.post("/ProductionSchedules/SaveData", effectRow, function (response) {
+                                    console.log(response);
+                                    if (response.Success) {
                                         $.messager.alert("提示", "提交成功！");
                                         $dg.datagrid('acceptChanges');
                                         $dg.datagrid('reload');
@@ -798,9 +798,9 @@
                                     effectRow.updated = updated;
                                 }
                                 //console.log(JSON.stringify(effectRow));
-                                $.post("/ScheduleDetails/SaveData", effectRow, function (rsp) {
-                                    console.log(rsp);
-                                    if (rsp.Success) {
+                                $.post("/ScheduleDetails/SaveData", effectRow, function (response) {
+                                    console.log(response);
+                                    if (response.Success) {
                                         $.messager.alert("提示", "提交成功！");
                                         $scheduledetailsdg.datagrid('acceptChanges');
                                         $scheduledetailsdg.datagrid('reload');

@@ -41,7 +41,7 @@
                 <div class="table-responsive">
            
  
-                    <table id="basecodes_datagrid" class="easyui-datagrid" title="基础代码 DataGrid" style="width:auto;height:auto"
+                    <table id="basecodes_datagrid" class="easyui-datagrid" title="基础代码 " style="width:auto;height:auto"
                            data-options="
                  rownumbers:true,
 
@@ -145,9 +145,9 @@
                         effectRow.updated = updated;
                     }
                     console.log(JSON.stringify(effectRow));
-                    $.post("/BaseCodes/SaveData", effectRow, function (rsp) {
-                        console.log(rsp);
-                        if (rsp.Success) {
+                    $.post("/BaseCodes/SaveData", effectRow, function (response) {
+                        console.log(response);
+                        if (response.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
                         }

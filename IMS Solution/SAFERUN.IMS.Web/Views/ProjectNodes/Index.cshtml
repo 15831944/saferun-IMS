@@ -38,7 +38,7 @@
                 <div class="table-responsive">
 
 
-                    <table id="projectnodes_datagrid" class="easyui-datagrid" title="项目评审节点 DataGrid" style="width:auto;height:auto"
+                    <table id="projectnodes_datagrid" class="easyui-datagrid" title="项目评审节点 " style="width:auto;height:auto"
                            data-options="
                  rownumbers:true,
 
@@ -199,9 +199,9 @@
                         effectRow.updated = updated;
                     }
                     console.log(JSON.stringify(effectRow));
-                    $.post("/ProjectNodes/SaveData", effectRow, function (rsp) {
-                        console.log(rsp);
-                        if (rsp.Success) {
+                    $.post("/ProjectNodes/SaveData", effectRow, function (response) {
+                        console.log(response);
+                        if (response.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
                         }

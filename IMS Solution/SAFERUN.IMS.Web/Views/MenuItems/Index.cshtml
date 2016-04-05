@@ -36,7 +36,7 @@
                 <div class="table-responsive">
            
  
-       <table id="menuitems_datagrid" class="easyui-datagrid" title="MenuItems DataGrid" style="width:auto;height:auto"
+       <table id="menuitems_datagrid" class="easyui-datagrid" title="MenuItems " style="width:auto;height:auto"
                    data-options="
                  rownumbers:true,
                  
@@ -192,9 +192,9 @@
                         effectRow.updated = updated;
                     }
                     console.log(JSON.stringify(effectRow));
-                    $.post("/MenuItems/SaveData", effectRow, function (rsp) {
-                        console.log(rsp);
-                        if (rsp.Success) {
+                    $.post("/MenuItems/SaveData", effectRow, function (response) {
+                        console.log(response);
+                        if (response.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
                         }

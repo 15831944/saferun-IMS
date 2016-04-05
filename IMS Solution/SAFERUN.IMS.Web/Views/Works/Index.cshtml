@@ -38,7 +38,7 @@
                 <div class="table-responsive">
 
 
-                    <table id="works_datagrid" class="easyui-datagrid" title="生产任务单 DataGrid" style="width:auto;height:auto"
+                    <table id="works_datagrid" class="easyui-datagrid" title="生产任务单 " style="width:auto;height:auto"
                            data-options="
                            collapsible:true,
                  rownumbers:true,
@@ -178,7 +178,7 @@
                                         <div title="生产任务单明细" style="padding:10px;">
                                             <div class="table-responsive">
 
-                                                <table id="workdetails_datagrid" class="easyui-datagrid" title="生产任务单明细 DataGrid" style="width:auto;height:auto"
+                                                <table id="workdetails_datagrid" class="easyui-datagrid" title="生产任务单明细 " style="width:auto;height:auto"
                                                        data-options="
                                                                  rownumbers:true,
                                                                  idField:'Id',
@@ -332,7 +332,7 @@
                     </div>
                     <div id="bomimportwindow" class="easyui-window" title="从BOM中选择导入" data-options="modal:true,closed:true,iconCls:'icon-cog'" style="width:75%;height:500px;padding:10px;">
                         <div class="table-responsive">
-                            <table id="orderdetails_datagrid" class="easyui-datagrid" title="订单明细 DataGrid" style="width:auto;height:160px"
+                            <table id="orderdetails_datagrid" class="easyui-datagrid" title="订单明细 " style="width:auto;height:160px"
                                    data-options="
                                           rownumbers:true,
                                           remoteFilter: true,
@@ -367,7 +367,7 @@
                             </table>
                         </div>
 
-                        <table id="bomcomponents_datagrid" class="easyui-datagrid" title="BOM DataGrid" style="width:auto;height:auto"
+                        <table id="bomcomponents_datagrid" class="easyui-datagrid" title="BOM " style="width:auto;height:auto"
                                data-options="
                                pageSize:10,
                  rownumbers:true,
@@ -625,16 +625,21 @@
                                             effectRow.updated = updated;
                                         }
                                         //console.log(JSON.stringify(effectRow));
-                                        $.post("/Works/SaveData", effectRow, function (rsp) {
-                                            console.log(rsp);
-                                            if (rsp.Success) {
+                                        $.post("/Works/SaveData", effectRow, function (response) {
+                                            //console.log(response);
+                                            if (response.Success) {
                                                 $.messager.alert("提示", "提交成功！");
                                                 $dg.datagrid('acceptChanges');
                                                 $dg.datagrid('reload');
                                             }
-                                        }, "JSON").error(function () {
-                                            $.messager.alert("错误", "提交错误了！", 'error');
-                                            $dg.datagrid('reload');
+                                        }, "JSON")
+                                            .fail(function (response) {
+                                                console.log('fail', response);
+                                            })
+                                            .error(function (response) {
+                                                console.log('error',response);
+                                                $.messager.alert("错误", "提交错误了！", 'error');
+                                            //$dg.datagrid('reload');
                                         });
 
                                     }
@@ -858,9 +863,9 @@
                                             effectRow.updated = updated;
                                         }
                                         //console.log(JSON.stringify(effectRow));
-                                        $.post("/WorkDetails/SaveData", effectRow, function (rsp) {
-                                            console.log(rsp);
-                                            if (rsp.Success) {
+                                        $.post("/WorkDetails/SaveData", effectRow, function (response) {
+                                            //console.log(response);
+                                            if (response.Success) {
                                                 $.messager.alert("提示", "提交成功！");
                                                 $workdetailsgrid.datagrid('acceptChanges');
                                                 $workdetailsgrid.datagrid('reload');

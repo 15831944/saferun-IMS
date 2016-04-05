@@ -36,7 +36,7 @@
             <div class="ibox-content">
 
                 <div class="table-responsive">
-                    <table id="skus_datagrid" class="easyui-datagrid" title="物料主数据 DataGrid" style="width:auto;height:auto"
+                    <table id="skus_datagrid" class="easyui-datagrid" title="物料主数据 " style="width:auto;height:auto"
                            data-options="
                 rownumbers:true,
                 remoteFilter: true,
@@ -304,9 +304,9 @@
                                     effectRow.updated = updated;
                                 }
                                 console.log(JSON.stringify(effectRow));
-                                $.post("/SKUs/SaveData", effectRow, function (rsp) {
-                                    console.log(rsp);
-                                    if (rsp.Success) {
+                                $.post("/SKUs/SaveData", effectRow, function (response) {
+                                    console.log(response);
+                                    if (response.Success) {
                                         $.messager.alert("提示", "提交成功！");
                                         $dg.datagrid('acceptChanges');
                                     }

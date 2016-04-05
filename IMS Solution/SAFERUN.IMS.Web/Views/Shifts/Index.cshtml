@@ -41,7 +41,7 @@
                 <div class="table-responsive">
            
  
-       <table id="shifts_datagrid" class="easyui-datagrid" title="班别维护 DataGrid" style="width:auto;height:auto"
+       <table id="shifts_datagrid" class="easyui-datagrid" title="班别维护 " style="width:auto;height:auto"
                    data-options="
                  rownumbers:true,
                  idField:'Id',
@@ -227,9 +227,9 @@
                         effectRow.updated = updated;
                     }
                     //console.log(JSON.stringify(effectRow));
-                    $.post("/Shifts/SaveData", effectRow, function (rsp) {
-                        console.log(rsp);
-                        if (rsp.Success) {
+                    $.post("/Shifts/SaveData", effectRow, function (response) {
+                        console.log(response);
+                        if (response.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
 							$dg.datagrid('reload');

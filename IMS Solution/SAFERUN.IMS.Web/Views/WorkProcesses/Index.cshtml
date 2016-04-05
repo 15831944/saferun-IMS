@@ -38,7 +38,7 @@
                 <div class="table-responsive">
 
 
-                    <table id="workprocesses_datagrid" class="easyui-datagrid" title="零件工序流程卡 DataGrid" style="width:auto;height:auto"
+                    <table id="workprocesses_datagrid" class="easyui-datagrid" title="零件工序流程卡 " style="width:auto;height:auto"
                            data-options="
                  rownumbers:true,
                  idField:'Id',
@@ -140,7 +140,7 @@
                                 <div id="detailtabs" class="easyui-tabs" style="width:auto;height:400px;">
                                     <div title="零件加工工序作业明细" style="padding:10px;">
                                         <div class="table-responsive">
-                                            <table id="workprocessdetails_datagrid" class="easyui-datagrid" title="零件生产工序流程卡明细 DataGrid" style="width:auto;height:auto"
+                                            <table id="workprocessdetails_datagrid" class="easyui-datagrid" title="零件生产工序流程卡明细 " style="width:auto;height:auto"
                                                    data-options="
                                                         rownumbers:true,
                                                         idField:'Id',
@@ -308,7 +308,7 @@
                 </div>
                 <div id="workimportwindow" class="easyui-window" title="从生产任务单中选择导入" data-options="modal:true,closed:true,iconCls:'icon-cog'" style="width:75%;height:500px;padding:10px;">
                     <div class="table-responsive">
-                        <table id="workdetails_datagrid" class="easyui-datagrid" title="生产任务单明细 DataGrid" style="width:auto;height:auto"
+                        <table id="workdetails_datagrid" class="easyui-datagrid" title="生产任务单明细 " style="width:auto;height:auto"
                                data-options="
                                 rownumbers:true,
                                 idField:'Id',
@@ -559,9 +559,9 @@
                                         effectRow.updated = updated;
                                     }
                                     console.log(JSON.stringify(effectRow));
-                                    $.post("/WorkProcesses/SaveData", effectRow, function (rsp) {
-                                        console.log(rsp);
-                                        if (rsp.Success) {
+                                    $.post("/WorkProcesses/SaveData", effectRow, function (response) {
+                                        console.log(response);
+                                        if (response.Success) {
                                             $.messager.alert("提示", "提交成功！");
                                             $dg.datagrid('acceptChanges');
                                             $dg.datagrid('reload');
@@ -1249,9 +1249,9 @@
                                         effectRow.updated = updated;
                                     }
                                     //console.log(JSON.stringify(effectRow));
-                                    $.post("/WorkProcessDetails/SaveData", effectRow, function (rsp) {
-                                        console.log(rsp);
-                                        if (rsp.Success) {
+                                    $.post("/WorkProcessDetails/SaveData", effectRow, function (response) {
+                                        console.log(response);
+                                        if (response.Success) {
                                             $.messager.alert("提示", "提交成功！");
                                             $workprocessdetailsdg.datagrid('acceptChanges');
                                             $workprocessdetailsdg.datagrid('reload');

@@ -4,7 +4,7 @@
 
 
 @{
-    ViewBag.Title = "订单信息";
+    ViewBag.Title = "订单主档";
 }
 
 
@@ -38,7 +38,7 @@
                 <div class="table-responsive">
 
 
-                    <table id="orders_datagrid" class="easyui-datagrid" title="订单信息 DataGrid" style="width:auto;height:auto"
+                    <table id="orders_datagrid" class="easyui-datagrid" title="订单主档 " style="width:auto;height:auto"
                            data-options="
                            checkOnSelect:true,
                            selectOnCheck:true,
@@ -60,16 +60,16 @@
                                 <th data-options="field:'_operate3',width:120,align:'center',formatter:formatAction2">部套计划</th>
                                 @*<th data-options="field:'_operate4',width:120,align:'center',formatter:formatAction3">生产计划</th>*@
                                 @*<th data-options="field:'_operate5',width:120,align:'center',formatter:formatAction4">外购计划</th>*@
-                                <th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.OrderKey)</th>
+                                <th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.OrderKey)</th>
 
 
                                 <th data-options="field:'Sales',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.Sales)</th>
 
 
-                                <th data-options="field:'OrderDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:true}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.OrderDate)</th>
+                                <th data-options="field:'OrderDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.OrderDate)</th>
 
 
-                                <th data-options="field:'AuditDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:true}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.AuditDate)</th>
+                                <th data-options="field:'AuditDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.AuditDate)</th>
 
                                 <th data-options="field:'CustomerId',width:100,
                                     formatter:function(value,row){
@@ -87,7 +87,7 @@
                                     }">@Html.DisplayNameFor(model => model.CustomerId)</th>
 
 
-                            <th data-options="field:'ProjectTypeId',width:100,
+                                    <th data-options="field:'ProjectTypeId',width:100,
                                 formatter:function(value,row){
                                         return row.ProjectTypeTypeName;
                                     },
@@ -104,19 +104,10 @@
 
 
 
-                        <th data-options="field:'ProjectName',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.ProjectName)</th>
+                                <th data-options="field:'ProjectName',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.ProjectName)</th>
 
 
-                                <th data-options="field:'Status',width:100,align:'right',editor:{ type:'combobox',
-                                                 options:{
-                                                    panelHeight: 'auto',
-                                                    data: [ { value: '0', text: '新建' },
-                                                            { value: '1', text: '生成评审计划' },
-                                                            { value: '2', text: '生产部套计划' },
-                                                            { value: '3', text: '生产中' },
-                                                            { value: '4', text: '生产完成' },
-                                                            { value: '5', text: '关闭' }],
-                                                    required:true } } ,
+                                <th data-options="field:'Status',width:100,align:'right',
                                                     formatter:function(value,row,index){
                                                            switch (value) {
                                                                 case 0:
@@ -142,47 +133,47 @@
                                                     }">@Html.DisplayNameFor(model => model.Status)</th>
 
 
-                        <th data-options="field:'AuditResult',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.AuditResult)</th>
+                                                    <th data-options="field:'AuditResult',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.AuditResult)</th>
 
 
-                        <th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Remark)</th>
+                                                    <th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Remark)</th>
 
 
-                        <th data-options="field:'PlanFinishDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.PlanFinishDate)</th>
+                                                    <th data-options="field:'PlanFinishDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.PlanFinishDate)</th>
 
 
-                        <th data-options="field:'ActualFinishDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ActualFinishDate)</th>
+                                                    <th data-options="field:'ActualFinishDate',width:160,align:'right',editor:{type:'datebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ActualFinishDate)</th>
 
 
-                                <th data-options="field:'ShipDate',width:160,align:'right',
-                                        editor:{type:'datetimebox',
+                                                    <th data-options="field:'ShipDate',width:160,align:'right',
+                                        editor:{type:'datebox',
                                         options:{
-                                                
+
                                               }} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ShipDate)</th>
 
 
-                        <th data-options="field:'ColseDate',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ColseDate)</th>
+                                            <th data-options="field:'ColseDate',width:160,align:'right',editor:{type:'datebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ColseDate)</th>
 
 
-                    </tr>
-                </thead>
+                                        </tr>
+                                    </thead>
 
 
-            </table>
-            <div id="orders_toolbar" style="height:auto">
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
-                @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>*@
-            </div>
-        </div>
+                                </table>
+                                <div id="orders_toolbar" style="height:auto">
+                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+                                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>*@
+                                </div>
+                            </div>
 
-        <div id="detailtabs" class="easyui-tabs" style="width:auto;height:400px;">
-            <div title="订单明细" style="padding:10px;">
-                <div class="table-responsive">
-                    <table id="orderdetails_datagrid" class="easyui-datagrid" title="订单明细 DataGrid" style="width:auto;height:auto"
-                           data-options="
+                            <div id="detailtabs" class="easyui-tabs" style="width:auto;height:400px;">
+                                <div title="订单明细" style="padding:10px;">
+                                    <div class="table-responsive">
+                                        <table id="orderdetails_datagrid" class="easyui-datagrid" title="订单明细 " style="width:auto;height:auto"
+                                               data-options="
                  rownumbers:true,
                  remoteFilter: true,
                  singleSelect: true,
@@ -192,36 +183,36 @@
                  onClickCell: orderdetails_onClickCell,
                  pagination: 'true'
                    ">
-                        <thead>
-                            <tr>
-                                @*<th data-options="field:'ck',checkbox:true"></th>*@
-                                @*<th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>*@
+                                            <thead>
+                                                <tr>
+                                                    @*<th data-options="field:'ck',checkbox:true"></th>*@
+                                                    @*<th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>*@
 
-                                @*<th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.OrderKey)</th>*@
+                                                    @*<th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.OrderKey)</th>*@
 
-                                @*<th data-options="field:'OrderId',width:100,
-                                    formatter:function(value,row){
-                                        return row.OrderOrderKey;
-                                    },
-                                    editor:{
-                                        type:'combobox',
-                                        options:{
-                                            valueField:'Id',
-                                            textField:'OrderKey',
-                                            method:'get',
-                                            url:'/OrderDetails/GetOrders',
-                                            required:false
-                                        }
-                                    }">@Html.DisplayNameFor(model => model.OrderId)</th>*@
-
-
-
-                                <th data-options="field:'LineNumber',width:140,editor:{type:'textbox',options:{required:false} } ">行号</th>
+                                                    @*<th data-options="field:'OrderId',width:100,
+                                                        formatter:function(value,row){
+                                                            return row.OrderOrderKey;
+                                                        },
+                                                        editor:{
+                                                            type:'combobox',
+                                                            options:{
+                                                                valueField:'Id',
+                                                                textField:'OrderKey',
+                                                                method:'get',
+                                                                url:'/OrderDetails/GetOrders',
+                                                                required:false
+                                                            }
+                                                        }">@Html.DisplayNameFor(model => model.OrderId)</th>*@
 
 
-                                <th data-options="field:'ContractNum',width:140,editor:{type:'textbox',options:{required:false} } ">合同号</th>
 
-                                <th data-options="field:'SKUId',width:100,
+                                                    <th data-options="field:'LineNumber',width:140,editor:{type:'textbox',options:{required:true} } ">行号</th>
+
+
+                                                    <th data-options="field:'ContractNum',width:140,editor:{type:'textbox',options:{required:false} } ">合同号</th>
+
+                                                    <th data-options="field:'SKUId',width:100,
                         formatter:function(value,row){
                             return row.SKUSku;
                         },
@@ -232,583 +223,600 @@
                                 textField:'Sku',
                                 method:'get',
                                 url:'/OrderDetails/GetSKUs',
-                                required:false
+                                required:true
                             }
                         }">产品编码</th>
 
 
 
-                                @*<th data-options="field:'ProductionSku',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.ProductionSku)</th>*@
+                                                    @*<th data-options="field:'ProductionSku',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.ProductionSku)</th>*@
 
 
-                                <th data-options="field:'Model',width:140,editor:{type:'textbox',options:{required:false} } ">型号</th>
+                                                    <th data-options="field:'Model',width:140,editor:{type:'textbox',options:{required:false} } ">型号</th>
 
 
-                                <th data-options="field:'Qty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">订购数量</th>
+                                                    <th data-options="field:'Qty',width:100,align:'right',editor:{type:'numberbox',options:{required:true,precision:0}}">订购数量</th>
 
 
-                                <th data-options="field:'UOM',width:140,editor:{type:'textbox',options:{required:false} } ">单位</th>
+                                                    <th data-options="field:'UOM',width:140,editor:{type:'textbox',options:{required:false} } ">单位</th>
 
 
-                                <th data-options="field:'Price',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">单价</th>
+                                                    <th data-options="field:'Price',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">单价</th>
 
 
-                                <th data-options="field:'SubTotal',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">合计</th>
+                                                    <th data-options="field:'SubTotal',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">合计</th>
 
 
-                                <th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } ">备注</th>
+                                                    <th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } ">备注</th>
 
 
-                                @*<th data-options="field:'Status',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Status)</th>*@
+                                                    @*<th data-options="field:'Status',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Status)</th>*@
 
 
-                            </tr>
-                        </thead>
+                                                </tr>
+                                            </thead>
 
 
-                    </table>
-                    <div id="orderdetails_toolbar" style="height:auto">
-                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="orderdetails_append()">新增</a>
-                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="orderdetails_removeit()">删除</a>
-                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="orderdetails_accept()">保存</a>
-                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="orderdetails_reject()">取消</a>
-                        @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="orderdetails_getChanges()">GetChanges</a>*@
+                                        </table>
+                                        <div id="orderdetails_toolbar" style="height:auto">
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="orderdetails_append()">新增</a>
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="orderdetails_removeit()">删除</a>
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="orderdetails_accept()">保存</a>
+                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="orderdetails_reject()">取消</a>
+                                            @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="orderdetails_getChanges()">GetChanges</a>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-    </div>
-</div>
-</div>
-</div>
-@section Scripts {
-    <script type="text/javascript">
-        var $dg = $('#orders_datagrid');
-        var editIndex = undefined;
-        function formatOper(val, row, index) {
-            //console.log(val, row, index);
-            return '<a  class="easyui-linkbutton" href="/Orders/Edit/' + row.Id + '" >编辑明细</a>';
-        }
-        function formatAction1(val, row, index) {
-            return '<a   class="easyui-linkbutton" href="javascript:void(0)" onclick="generateAudit(' + row.Id + ')" >生成评审计划</a>'
-        }
-        function formatAction2(val, row, index) {
-            return '<a   class="easyui-linkbutton" href="javascript:void(0)" onclick="generateAssemblyPlan(' + row.Id + ')" >生成部套计划</a>'
-        }
-        function formatAction3(val, row, index) {
-            return '<a   class="easyui-linkbutton" href="javascript:void(0)" onclick="generateProductPlan(' + row.Id + ')" >生成生产计划</a>'
-        }
-        function formatAction4(val, row, index) {
-            return '<a   class="easyui-linkbutton" href="javascript:void(0)" onclick="generateProductPlan(' + row.Id + ')" >生成外购计划</a>'
-        }
-
-        function generateAssemblyPlan(id) {
-            $.messager.progress({ title: '正在处理请耐心等待！' });
-            $.post('/Orders/GenerateAssemblyPlan/' + id, function (data, textStatus, jqXHR) {
-                //console.log(data);
-                $.messager.progress('close');
-                $.messager.alert("提示", "部套计划生成完成！", 'info', function () {
-                    $(location).attr('href', '/AssemblyPlans');
-                });
-
-            });
-        }
-        function generateAudit(id) {
-            $.messager.progress({ title: '正在处理请耐心等待！' });
-            $.post('/Orders/GenerateAuditPlan/' + id, function (data, textStatus, jqXHR) {
-                //console.log(data);
-                $.messager.progress('close');
-                $.messager.alert("提示", "评审计划生成完成！", 'info', function () {
-                    $(location).attr('href', '/OrderAuditPlans');
-                });
-
-            });
-        }
-        function generateProductPlan(id) {
-            $.messager.progress({ title: '正在处理请耐心等待！' });
-            $.post('/Orders/GenerateProductionPlan/' + id, function (data, textStatus, jqXHR) {
-                $.messager.progress('close');
-                console.log(data);
-                $.messager.alert("提示", "生产计划生成完成！", 'info', function () {
-                    $(location).attr('href', '/ProductionPlans');
-                });
-
-            });
-        }
-
-        function endEditing() {
-            if (editIndex == undefined) { return true }
-            if ($dg.datagrid('validateRow', editIndex)) {
-
-                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'CustomerId' });
-                var customeraccountnumber = $(ed.target).combobox('getText');
-                var customerid = $(ed.target).combobox('getValue');
-
-                $dg.datagrid('getRows')[editIndex]['CustomerAccountNumber'] = customeraccountnumber;
-                $dg.datagrid('getRows')[editIndex]['CustomerId'] = customerid;
-
-
-                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'ProjectTypeId' });
-                var projecttypetypename = $(ed.target).combobox('getText');
-                var projecttypeid = $(ed.target).combobox('getValue');
-
-                $dg.datagrid('getRows')[editIndex]['ProjectTypeTypeName'] = projecttypetypename;
-                $dg.datagrid('getRows')[editIndex]['ProjectTypeId'] = projecttypeid;
-
-
-                $dg.datagrid('endEdit', editIndex);
-                editIndex = undefined;
-
-
-                return true;
-            } else {
-                return false;
-            }
-        }
-        function onClickCell(index, field) {
-            var _operates = ["ck", "_operate1", "_operate2", "_operate3", "_operate4"]
-            if ($.inArray(field, _operates) >= 0) {
-                return;
-            }
-
-            if (editIndex != index) {
-                if (endEditing()) {
-                    $dg.datagrid('selectRow', index)
-                            .datagrid('beginEdit', index);
-                    var ed = $dg.datagrid('getEditor', { index: index, field: field });
-                    if (ed) {
-                        ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+            @section Scripts {
+                <script type="text/javascript">
+                    var $dg = $('#orders_datagrid');
+                    var editIndex = undefined;
+                    function formatOper(val, row, index) {
+                        //console.log(val, row, index);
+                        return '<a  class="easyui-linkbutton" href="/Orders/Edit/' + row.Id + '" >编辑明细</a>';
                     }
-                    editIndex = index;
-                } else {
-                    $dg.datagrid('selectRow', editIndex);
-                }
-            }
-        }
-        function append() {
-            if (endEditing()) {
-                $dg.datagrid('appendRow', { status: 'P' });
-                editIndex = $dg.datagrid('getRows').length - 1;
-                $dg.datagrid('selectRow', editIndex)
-                        .datagrid('beginEdit', editIndex);
-            }
-        }
-        function removeit() {
-            if (editIndex == undefined) { return }
-            $dg.datagrid('cancelEdit', editIndex)
-                    .datagrid('deleteRow', editIndex);
-            editIndex = undefined;
-        }
-        function accept() {
-            if (endEditing()) {
-                if ($dg.datagrid('getChanges').length) {
-                    var inserted = $dg.datagrid('getChanges', "inserted");
-                    var deleted = $dg.datagrid('getChanges', "deleted");
-                    var updated = $dg.datagrid('getChanges', "updated");
-                    var effectRow = new Object();
-                    if (inserted.length) {
-                        effectRow.inserted = inserted;
+                    function formatAction1(val, row, index) {
+                        return '<a   class="easyui-linkbutton" href="javascript:void(0)" onclick="generateAudit(' + row.Id + ')" >生成评审计划</a>'
                     }
-                    if (deleted.length) {
-                        effectRow.deleted = deleted;
+                    function formatAction2(val, row, index) {
+                        return '<a   class="easyui-linkbutton" href="javascript:void(0)" onclick="generateAssemblyPlan(' + row.Id + ')" >生成部套计划</a>'
                     }
-                    if (updated.length) {
-                        effectRow.updated = updated;
+                    function formatAction3(val, row, index) {
+                        return '<a   class="easyui-linkbutton" href="javascript:void(0)" onclick="generateProductPlan(' + row.Id + ')" >生成生产计划</a>'
                     }
-                    console.log(JSON.stringify(effectRow));
-                    $.post("/Orders/SaveData", effectRow, function (rsp) {
-                        console.log(rsp);
-                        if (rsp.Success) {
-                            $.messager.alert("提示", "提交成功！");
-                            $dg.datagrid('acceptChanges');
+                    function formatAction4(val, row, index) {
+                        return '<a   class="easyui-linkbutton" href="javascript:void(0)" onclick="generateProductPlan(' + row.Id + ')" >生成外购计划</a>'
+                    }
+
+                    function generateAssemblyPlan(id) {
+                        $.messager.confirm('询问', '是否现在生成部套计划?', function (r) {
+                            if (r) {
+                                $.messager.progress({ title: '正在处理请耐心等待！' });
+                                $.post('/Orders/GenerateAssemblyPlan/' + id, function (data, textStatus, jqXHR) {
+                                    //console.log(data);
+                                    $.messager.progress('close');
+                                    $.messager.alert("提示", "部套计划生成完成！", 'info', function () {
+                                        $(location).attr('href', '/AssemblyPlans');
+                                    });
+
+                                });
+                            }
+                        });
+                    }
+                    function generateAudit(id) {
+                        $.messager.confirm('询问', '是否现在生成评审计划?', function (r) {
+                            if (r) {
+                                $.messager.progress({ title: '正在处理请耐心等待！' });
+                                $.post('/Orders/GenerateAuditPlan/' + id, function (data, textStatus, jqXHR) {
+                                    //console.log(data);
+                                    $.messager.progress('close');
+                                    $.messager.alert("提示", "评审计划生成完成！", 'info', function () {
+                                        $(location).attr('href', '/OrderAuditPlans');
+                                    });
+
+                                });
+                            }
+                        });
+                    }
+                    function generateProductPlan(id) {
+                        $.messager.confirm('询问', '是否现在生成?', function (r) {
+                            if (r) {
+                        $.messager.progress({ title: '正在处理请耐心等待！' });
+                        $.post('/Orders/GenerateProductionPlan/' + id, function (data, textStatus, jqXHR) {
+                            $.messager.progress('close');
+                            console.log(data);
+                            $.messager.alert("提示", "生产计划生成完成！", 'info', function () {
+                                $(location).attr('href', '/ProductionPlans');
+                            });
+
+                        });
+                            }
+                        });
+                    }
+
+                    function endEditing() {
+                        if (editIndex == undefined) { return true }
+                        if ($dg.datagrid('validateRow', editIndex)) {
+
+                            var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'CustomerId' });
+                            var customeraccountnumber = $(ed.target).combobox('getText');
+                            var customerid = $(ed.target).combobox('getValue');
+
+                            $dg.datagrid('getRows')[editIndex]['CustomerAccountNumber'] = customeraccountnumber;
+                            $dg.datagrid('getRows')[editIndex]['CustomerId'] = customerid;
+
+
+                            var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'ProjectTypeId' });
+                            var projecttypetypename = $(ed.target).combobox('getText');
+                            var projecttypeid = $(ed.target).combobox('getValue');
+
+                            $dg.datagrid('getRows')[editIndex]['ProjectTypeTypeName'] = projecttypetypename;
+                            $dg.datagrid('getRows')[editIndex]['ProjectTypeId'] = projecttypeid;
+
+
+                            $dg.datagrid('endEdit', editIndex);
+                            editIndex = undefined;
+
+
+                            return true;
+                        } else {
+                            return false;
                         }
-                    }, "JSON").error(function () {
-                        $.messager.alert("错误", "提交错误了！", 'error');
-                        $dg.datagrid('reload');
-                    });
+                    }
+                    function onClickCell(index, field) {
+                        var _operates = ["ck", "_operate1", "_operate2", "_operate3", "_operate4"]
+                        if ($.inArray(field, _operates) >= 0) {
+                            return;
+                        }
 
-                }
-
-                $dg.datagrid('acceptChanges');
-            }
-        }
-        function reject() {
-            $dg.datagrid('rejectChanges');
-            editIndex = undefined;
-        }
-        function getChanges() {
-            var rows = $dg.datagrid('getChanges');
-            alert(rows.length + ' rows are changed!');
-        }
-
-
-        $(function () {
-
-            $dg.datagrid('enableFilter', [
-                        {
-                            field: 'Status',
-                            type: 'combobox',
-                            options: {
-                                panelHeight: 'auto',
-                                data: [{ value: '0', text: '新建' },
-                                                          { value: '1', text: '生成评审计划' },
-                                                          { value: '2', text: '生产部套计划' },
-                                                          { value: '3', text: '生产中' },
-                                                          { value: '4', text: '生产完成' },
-                                                          { value: '5', text: '关闭' }],
-                                onChange: function (value) {
-                                    if (value == '') {
-                                        $dg.datagrid('removeFilterRule', 'Status');
-                                    } else {
-                                        $dg.datagrid('addFilterRule', {
-                                            field: 'Status',
-                                            op: 'equal',
-                                            value: value
-                                        });
+                        if (editIndex != index) {
+                            if (endEditing()) {
+                                $dg.datagrid('selectRow', index)
+                                        .datagrid('beginEdit', index);
+                                var ed = $dg.datagrid('getEditor', { index: index, field: field });
+                                if (ed) {
+                                    ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+                                }
+                                editIndex = index;
+                            } else {
+                                $dg.datagrid('selectRow', editIndex);
+                            }
+                        }
+                    }
+                    function append() {
+                        if (endEditing()) {
+                            $dg.datagrid('appendRow', { Status: 0 });
+                            editIndex = $dg.datagrid('getRows').length - 1;
+                            $dg.datagrid('selectRow', editIndex)
+                                    .datagrid('beginEdit', editIndex);
+                        }
+                    }
+                    function removeit() {
+                        if (editIndex == undefined) { return }
+                        $dg.datagrid('cancelEdit', editIndex)
+                                .datagrid('deleteRow', editIndex);
+                        editIndex = undefined;
+                    }
+                    function accept() {
+                        if (endEditing()) {
+                            if ($dg.datagrid('getChanges').length) {
+                                var inserted = $dg.datagrid('getChanges', "inserted");
+                                var deleted = $dg.datagrid('getChanges', "deleted");
+                                var updated = $dg.datagrid('getChanges', "updated");
+                                var effectRow = new Object();
+                                if (inserted.length) {
+                                    effectRow.inserted = inserted;
+                                }
+                                if (deleted.length) {
+                                    effectRow.deleted = deleted;
+                                }
+                                if (updated.length) {
+                                    effectRow.updated = updated;
+                                }
+                                console.log(JSON.stringify(effectRow));
+                                $.post("/Orders/SaveData", effectRow, function (response) {
+                                    //console.log(response);
+                                    if (response.Success) {
+                                        $.messager.alert("提示", "提交成功！");
+                                        $dg.datagrid('acceptChanges');
                                     }
-                                    $dg.datagrid('doFilter');
-                                }
-                            }
-                        },
-                         {
-                             field: 'OrderDate',
-                             type: 'datebox',
-                             options: {
-                                 onChange: function (value) {
-                                     if (value == '') {
-                                         $dg.datagrid('removeFilterRule', 'OrderDate');
-                                     } else {
-                                         $dg.datagrid('addFilterRule', {
-                                             field: 'OrderDate',
-                                             op: 'equal',
-                                             value: value
-                                         });
-                                     }
-                                     $dg.datagrid('doFilter');
-                                 }
-                             }
-                         },
-                         {
-                             field: 'AuditDate',
-                             type: 'datebox',
-                             options: {
-                                 onChange: function (value) {
-                                     if (value == '') {
-                                         $dg.datagrid('removeFilterRule', 'AuditDate');
-                                     } else {
-                                         $dg.datagrid('addFilterRule', {
-                                             field: 'AuditDate',
-                                             op: 'equal',
-                                             value: value
-                                         });
-                                     }
-                                     $dg.datagrid('doFilter');
-                                 }
-                             }
-                         },
-                         {
-                             field: 'PlanFinishDate',
-                             type: 'datebox',
-                             options: {
-                                 onChange: function (value) {
-                                     if (value == '') {
-                                         $dg.datagrid('removeFilterRule', 'PlanFinishDate');
-                                     } else {
-                                         $dg.datagrid('addFilterRule', {
-                                             field: 'PlanFinishDate',
-                                             op: 'equal',
-                                             value: value
-                                         });
-                                     }
-                                     $dg.datagrid('doFilter');
-                                 }
-                             }
-                         },
-                         {
-                             field: 'ActualFinishDate',
-                             type: 'datebox',
-                             options: {
-                                 onChange: function (value) {
-                                     if (value == '') {
-                                         $dg.datagrid('removeFilterRule', 'ActualFinishDate');
-                                     } else {
-                                         $dg.datagrid('addFilterRule', {
-                                             field: 'ActualFinishDate',
-                                             op: 'equal',
-                                             value: value
-                                         });
-                                     }
-                                     $dg.datagrid('doFilter');
-                                 }
-                             }
-                         },
-                         {
-                             field: 'ShipDate',
-                             type: 'datebox',
-                             options: {
-                                 onChange: function (value) {
-                                     if (value == '') {
-                                         $dg.datagrid('removeFilterRule', 'ShipDate');
-                                     } else {
-                                         $dg.datagrid('addFilterRule', {
-                                             field: 'ShipDate',
-                                             op: 'equal',
-                                             value: value
-                                         });
-                                     }
-                                     $dg.datagrid('doFilter');
-                                 }
-                             }
-                         },
-                         {
-                             field: 'ColseDate',
-                             type: 'datebox',
-                             options: {
-                                 onChange: function (value) {
-                                     if (value == '') {
-                                         $dg.datagrid('removeFilterRule', 'ColseDate');
-                                     } else {
-                                         $dg.datagrid('addFilterRule', {
-                                             field: 'ColseDate',
-                                             op: 'equal',
-                                             value: value
-                                         });
-                                     }
-                                     $dg.datagrid('doFilter');
-                                 }
-                             }
-                         },
-
-                    {
-                        field: 'CustomerId',
-                        type: 'combobox',
-                        options: {
-                            valueField: 'Id',
-                            textField: 'AccountNumber',
-                            method: 'get',
-                            url: '/Orders/GetCustomers',
-                            onChange: function (value) {
-                                if (value == '') {
-                                    $dg.datagrid('removeFilterRule', 'CustomerId');
-                                } else {
-                                    $dg.datagrid('addFilterRule', {
-                                        field: 'CustomerId',
-                                        op: 'equal',
-                                        value: value
+                                }, "JSON")
+                                    .fail(function (response) {
+                                        console.log('Error: ' + response.responseText);
+                                    })
+                                    .error(function (reponse) {
+                                        console.log(reponse);
+                                        $.messager.alert("错误", "提交错误了！" + reponse.statusText, 'error');
+                                        //$dg.datagrid('reload');
                                     });
+
+                            }
+
+                            //$dg.datagrid('acceptChanges');
+                        }
+                    }
+                    function reject() {
+                        $dg.datagrid('rejectChanges');
+                        editIndex = undefined;
+                    }
+                    function getChanges() {
+                        var rows = $dg.datagrid('getChanges');
+                        alert(rows.length + ' rows are changed!');
+                    }
+
+
+                    $(function () {
+
+                        $dg.datagrid('enableFilter', [
+                                    {
+                                        field: 'Status',
+                                        type: 'combobox',
+                                        options: {
+                                            panelHeight: 'auto',
+                                            data: [{ value: '0', text: '新建' },
+                                                                      { value: '1', text: '生成评审计划' },
+                                                                      { value: '2', text: '生产部套计划' },
+                                                                      { value: '3', text: '生产中' },
+                                                                      { value: '4', text: '生产完成' },
+                                                                      { value: '5', text: '关闭' }],
+                                            onChange: function (value) {
+                                                if (value == '') {
+                                                    $dg.datagrid('removeFilterRule', 'Status');
+                                                } else {
+                                                    $dg.datagrid('addFilterRule', {
+                                                        field: 'Status',
+                                                        op: 'equal',
+                                                        value: value
+                                                    });
+                                                }
+                                                $dg.datagrid('doFilter');
+                                            }
+                                        }
+                                    },
+                                     {
+                                         field: 'OrderDate',
+                                         type: 'datebox',
+                                         options: {
+                                             onChange: function (value) {
+                                                 if (value == '') {
+                                                     $dg.datagrid('removeFilterRule', 'OrderDate');
+                                                 } else {
+                                                     $dg.datagrid('addFilterRule', {
+                                                         field: 'OrderDate',
+                                                         op: 'equal',
+                                                         value: value
+                                                     });
+                                                 }
+                                                 $dg.datagrid('doFilter');
+                                             }
+                                         }
+                                     },
+                                     {
+                                         field: 'AuditDate',
+                                         type: 'datebox',
+                                         options: {
+                                             onChange: function (value) {
+                                                 if (value == '') {
+                                                     $dg.datagrid('removeFilterRule', 'AuditDate');
+                                                 } else {
+                                                     $dg.datagrid('addFilterRule', {
+                                                         field: 'AuditDate',
+                                                         op: 'equal',
+                                                         value: value
+                                                     });
+                                                 }
+                                                 $dg.datagrid('doFilter');
+                                             }
+                                         }
+                                     },
+                                     {
+                                         field: 'PlanFinishDate',
+                                         type: 'datebox',
+                                         options: {
+                                             onChange: function (value) {
+                                                 if (value == '') {
+                                                     $dg.datagrid('removeFilterRule', 'PlanFinishDate');
+                                                 } else {
+                                                     $dg.datagrid('addFilterRule', {
+                                                         field: 'PlanFinishDate',
+                                                         op: 'equal',
+                                                         value: value
+                                                     });
+                                                 }
+                                                 $dg.datagrid('doFilter');
+                                             }
+                                         }
+                                     },
+                                     {
+                                         field: 'ActualFinishDate',
+                                         type: 'datebox',
+                                         options: {
+                                             onChange: function (value) {
+                                                 if (value == '') {
+                                                     $dg.datagrid('removeFilterRule', 'ActualFinishDate');
+                                                 } else {
+                                                     $dg.datagrid('addFilterRule', {
+                                                         field: 'ActualFinishDate',
+                                                         op: 'equal',
+                                                         value: value
+                                                     });
+                                                 }
+                                                 $dg.datagrid('doFilter');
+                                             }
+                                         }
+                                     },
+                                     {
+                                         field: 'ShipDate',
+                                         type: 'datebox',
+                                         options: {
+                                             onChange: function (value) {
+                                                 if (value == '') {
+                                                     $dg.datagrid('removeFilterRule', 'ShipDate');
+                                                 } else {
+                                                     $dg.datagrid('addFilterRule', {
+                                                         field: 'ShipDate',
+                                                         op: 'equal',
+                                                         value: value
+                                                     });
+                                                 }
+                                                 $dg.datagrid('doFilter');
+                                             }
+                                         }
+                                     },
+                                     {
+                                         field: 'ColseDate',
+                                         type: 'datebox',
+                                         options: {
+                                             onChange: function (value) {
+                                                 if (value == '') {
+                                                     $dg.datagrid('removeFilterRule', 'ColseDate');
+                                                 } else {
+                                                     $dg.datagrid('addFilterRule', {
+                                                         field: 'ColseDate',
+                                                         op: 'equal',
+                                                         value: value
+                                                     });
+                                                 }
+                                                 $dg.datagrid('doFilter');
+                                             }
+                                         }
+                                     },
+
+                                {
+                                    field: 'CustomerId',
+                                    type: 'combobox',
+                                    options: {
+                                        valueField: 'Id',
+                                        textField: 'AccountNumber',
+                                        method: 'get',
+                                        url: '/Orders/GetCustomers',
+                                        onChange: function (value) {
+                                            if (value == '') {
+                                                $dg.datagrid('removeFilterRule', 'CustomerId');
+                                            } else {
+                                                $dg.datagrid('addFilterRule', {
+                                                    field: 'CustomerId',
+                                                    op: 'equal',
+                                                    value: value
+                                                });
+                                            }
+                                            $dg.datagrid('doFilter');
+                                        }
+                                    }
+                                },
+                                {
+                                    field: 'ProjectTypeId',
+                                    type: 'combobox',
+                                    options: {
+                                        valueField: 'Id',
+                                        textField: 'TypeName',
+                                        method: 'get',
+                                        url: '/Orders/GetProjectTypes',
+                                        onChange: function (value) {
+                                            if (value == '') {
+                                                $dg.datagrid('removeFilterRule', 'ProjectTypeId');
+                                            } else {
+                                                $dg.datagrid('addFilterRule', {
+                                                    field: 'ProjectTypeId',
+                                                    op: 'equal',
+                                                    value: value
+                                                });
+                                            }
+                                            $dg.datagrid('doFilter');
+                                        }
+                                    }
+                                },
+
+                        ]);
+                    })
+                    //------------------------------------------------
+                    function onSelect(index, row) {
+                        //console.log(index, row);
+
+                        filterByOrderId(row.Id);
+                    }
+                    function filterByOrderId(orderid) {
+                        var value = orderid;
+                        if (value == '') {
+                            $orderdetailsdg.datagrid('removeFilterRule', 'OrderId');
+                        } else {
+                            $orderdetailsdg.datagrid('addFilterRule', {
+                                field: 'OrderId',
+                                op: 'equal',
+                                value: value
+                            });
+                        }
+                        $orderdetailsdg.datagrid('doFilter');
+
+                    }
+
+                    //----------------------------------------------
+                    //orderdetails_datagrid
+                    //-----------------------------------------------
+                    var $orderdetailsdg = $('#orderdetails_datagrid');
+                    var orderdetails_editIndex = undefined;
+                    function orderdetails_endEditing() {
+                        if (orderdetails_editIndex == undefined) { return true }
+                        if ($orderdetailsdg.datagrid('validateRow', orderdetails_editIndex)) {
+
+                            //var ed = $orderdetailsdg.datagrid('getEditor', { index: orderdetails_editIndex, field: 'OrderId' });
+                            //var orderorderkey = $(ed.target).combobox('getText');
+                            //var orderid = $(ed.target).combobox('getValue');
+
+                            //$orderdetailsdg.datagrid('getRows')[orderdetails_editIndex]['OrderOrderKey'] = orderorderkey;
+                            //$orderdetailsdg.datagrid('getRows')[orderdetails_editIndex]['OrderId'] = orderid;
+
+
+                            var ed = $orderdetailsdg.datagrid('getEditor', { index: orderdetails_editIndex, field: 'SKUId' });
+                            var skusku = $(ed.target).combobox('getText');
+                            var skuid = $(ed.target).combobox('getValue');
+
+                            $orderdetailsdg.datagrid('getRows')[orderdetails_editIndex]['SKUSku'] = skusku;
+                            $orderdetailsdg.datagrid('getRows')[orderdetails_editIndex]['SKUId'] = skuid;
+                            $orderdetailsdg.datagrid('getRows')[orderdetails_editIndex]['ProductionSku'] = skusku;
+
+                            $orderdetailsdg.datagrid('endEdit', orderdetails_editIndex);
+                            orderdetails_editIndex = undefined;
+
+
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                    function orderdetails_onClickCell(index, field) {
+                        if (orderdetails_editIndex != index) {
+                            if (orderdetails_endEditing()) {
+                                $orderdetailsdg.datagrid('selectRow', index)
+                                        .datagrid('beginEdit', index);
+                                var ed = $orderdetailsdg.datagrid('getEditor', { index: index, field: field });
+                                if (ed) {
+                                    ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
                                 }
-                                $dg.datagrid('doFilter');
+                                orderdetails_editIndex = index;
+                            } else {
+                                $orderdetailsdg.datagrid('selectRow', orderdetails_editIndex);
                             }
                         }
-                    },
-                    {
-                        field: 'ProjectTypeId',
-                        type: 'combobox',
-                        options: {
-                            valueField: 'Id',
-                            textField: 'TypeName',
-                            method: 'get',
-                            url: '/Orders/GetProjectTypes',
-                            onChange: function (value) {
-                                if (value == '') {
-                                    $dg.datagrid('removeFilterRule', 'ProjectTypeId');
-                                } else {
-                                    $dg.datagrid('addFilterRule', {
-                                        field: 'ProjectTypeId',
-                                        op: 'equal',
-                                        value: value
-                                    });
+                    }
+                    function orderdetails_append() {
+                        if (orderdetails_endEditing()) {
+                            var order = $dg.datagrid('getSelected');
+                            var linenumber = '00' + ($orderdetailsdg.datagrid('getRows').length + 1);
+                            $orderdetailsdg.datagrid('appendRow', { OrderId: order.Id, OrderKey: order.OrderKey, LineNumber: linenumber, Status: 0 });
+                            orderdetails_editIndex = $orderdetailsdg.datagrid('getRows').length - 1;
+                            $orderdetailsdg.datagrid('selectRow', orderdetails_editIndex)
+                                    .datagrid('beginEdit', orderdetails_editIndex);
+                        }
+                    }
+                    function orderdetails_removeit() {
+                        if (orderdetails_editIndex == undefined) { return }
+                        $orderdetailsdg.datagrid('cancelEdit', orderdetails_editIndex)
+                                .datagrid('deleteRow', orderdetails_editIndex);
+                        orderdetails_editIndex = undefined;
+                    }
+                    function orderdetails_accept() {
+                        if (orderdetails_endEditing()) {
+                            if ($orderdetailsdg.datagrid('getChanges').length) {
+                                var inserted = $orderdetailsdg.datagrid('getChanges', "inserted");
+                                var deleted = $orderdetailsdg.datagrid('getChanges', "deleted");
+                                var updated = $orderdetailsdg.datagrid('getChanges', "updated");
+                                var effectRow = new Object();
+                                if (inserted.length) {
+                                    effectRow.inserted = inserted;
                                 }
-                                $dg.datagrid('doFilter');
-                            }
-                        }
-                    },
-
-            ]);
-        })
-        //------------------------------------------------
-        function onSelect(index, row) {
-            //console.log(index, row);
-
-            filterByOrderId(row.Id);
-        }
-        function filterByOrderId(orderid) {
-            var value = orderid;
-            if (value == '') {
-                $orderdetailsdg.datagrid('removeFilterRule', 'OrderId');
-            } else {
-                $orderdetailsdg.datagrid('addFilterRule', {
-                    field: 'OrderId',
-                    op: 'equal',
-                    value: value
-                });
-            }
-            $orderdetailsdg.datagrid('doFilter');
-
-        }
-
-        //----------------------------------------------
-        //orderdetails_datagrid
-        //-----------------------------------------------
-        var $orderdetailsdg = $('#orderdetails_datagrid');
-        var orderdetails_editIndex = undefined;
-        function orderdetails_endEditing() {
-            if (orderdetails_editIndex == undefined) { return true }
-            if ($orderdetailsdg.datagrid('validateRow', orderdetails_editIndex)) {
-
-                //var ed = $orderdetailsdg.datagrid('getEditor', { index: orderdetails_editIndex, field: 'OrderId' });
-                //var orderorderkey = $(ed.target).combobox('getText');
-                //var orderid = $(ed.target).combobox('getValue');
-
-                //$orderdetailsdg.datagrid('getRows')[orderdetails_editIndex]['OrderOrderKey'] = orderorderkey;
-                //$orderdetailsdg.datagrid('getRows')[orderdetails_editIndex]['OrderId'] = orderid;
-
-
-                var ed = $orderdetailsdg.datagrid('getEditor', { index: orderdetails_editIndex, field: 'SKUId' });
-                var skusku = $(ed.target).combobox('getText');
-                var skuid = $(ed.target).combobox('getValue');
-
-                $orderdetailsdg.datagrid('getRows')[orderdetails_editIndex]['SKUSku'] = skusku;
-                $orderdetailsdg.datagrid('getRows')[orderdetails_editIndex]['SKUId'] = skuid;
-                $orderdetailsdg.datagrid('getRows')[orderdetails_editIndex]['ProductionSku'] = skusku;
-
-                $orderdetailsdg.datagrid('endEdit', orderdetails_editIndex);
-                orderdetails_editIndex = undefined;
-
-
-                return true;
-            } else {
-                return false;
-            }
-        }
-        function orderdetails_onClickCell(index, field) {
-            if (orderdetails_editIndex != index) {
-                if (orderdetails_endEditing()) {
-                    $orderdetailsdg.datagrid('selectRow', index)
-                            .datagrid('beginEdit', index);
-                    var ed = $orderdetailsdg.datagrid('getEditor', { index: index, field: field });
-                    if (ed) {
-                        ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
-                    }
-                    orderdetails_editIndex = index;
-                } else {
-                    $orderdetailsdg.datagrid('selectRow', orderdetails_editIndex);
-                }
-            }
-        }
-        function orderdetails_append() {
-            if (orderdetails_endEditing()) {
-                var order = $dg.datagrid('getSelected');
-                var linenumber = '00' + ($orderdetailsdg.datagrid('getRows').length + 1);
-                $orderdetailsdg.datagrid('appendRow', { OrderId: order.Id, OrderKey: order.OrderKey, LineNumber: linenumber });
-                orderdetails_editIndex = $orderdetailsdg.datagrid('getRows').length - 1;
-                $orderdetailsdg.datagrid('selectRow', orderdetails_editIndex)
-                        .datagrid('beginEdit', orderdetails_editIndex);
-            }
-        }
-        function orderdetails_removeit() {
-            if (orderdetails_editIndex == undefined) { return }
-            $orderdetailsdg.datagrid('cancelEdit', orderdetails_editIndex)
-                    .datagrid('deleteRow', orderdetails_editIndex);
-            orderdetails_editIndex = undefined;
-        }
-        function orderdetails_accept() {
-            if (orderdetails_endEditing()) {
-                if ($orderdetailsdg.datagrid('getChanges').length) {
-                    var inserted = $orderdetailsdg.datagrid('getChanges', "inserted");
-                    var deleted = $orderdetailsdg.datagrid('getChanges', "deleted");
-                    var updated = $orderdetailsdg.datagrid('getChanges', "updated");
-                    var effectRow = new Object();
-                    if (inserted.length) {
-                        effectRow.inserted = inserted;
-                    }
-                    if (deleted.length) {
-                        effectRow.deleted = deleted;
-                    }
-                    if (updated.length) {
-                        effectRow.updated = updated;
-                    }
-                    console.log(JSON.stringify(effectRow));
-                    $.post("/OrderDetails/SaveData", effectRow, function (rsp) {
-                        console.log(rsp);
-                        if (rsp.Success) {
-                            $.messager.alert("提示", "提交成功！");
-                            $orderdetailsdg.datagrid('acceptChanges');
-                        }
-                    }, "JSON").error(function () {
-                        $.messager.alert("错误", "提交错误了！", 'error');
-                        $dg.datagrid('reload');
-                    });
-
-                }
-
-                $orderdetailsdg.datagrid('acceptChanges');
-            }
-        }
-        function orderdetails_reject() {
-            $orderdetailsdg.datagrid('rejectChanges');
-            orderdetails_editIndex = undefined;
-        }
-        function orderdetails_getChanges() {
-            var rows = $orderdetailsdg.datagrid('getChanges');
-            alert(rows.length + ' rows are changed!');
-        }
-
-        $(function () {
-
-            $orderdetailsdg.datagrid('enableFilter', [
-
-                    {
-                        field: 'OrderId',
-                        type: 'combobox',
-                        options: {
-                            valueField: 'Id',
-                            textField: 'OrderKey',
-                            method: 'get',
-                            url: '/OrderDetails/GetOrders',
-                            onChange: function (value) {
-                                if (value == '') {
-                                    $orderdetailsdg.datagrid('removeFilterRule', 'OrderId');
-                                } else {
-                                    $orderdetailsdg.datagrid('addFilterRule', {
-                                        field: 'OrderId',
-                                        op: 'equal',
-                                        value: value
-                                    });
+                                if (deleted.length) {
+                                    effectRow.deleted = deleted;
                                 }
-                                $orderdetailsdg.datagrid('doFilter');
-                            }
-                        }
-                    },
-                    {
-                        field: 'SKUId',
-                        type: 'combobox',
-                        options: {
-                            valueField: 'Id',
-                            textField: 'Sku',
-                            method: 'get',
-                            url: '/OrderDetails/GetSKUs',
-                            onChange: function (value) {
-                                if (value == '') {
-                                    $orderdetailsdg.datagrid('removeFilterRule', 'SKUId');
-                                } else {
-                                    $orderdetailsdg.datagrid('addFilterRule', {
-                                        field: 'SKUId',
-                                        op: 'equal',
-                                        value: value
-                                    });
+                                if (updated.length) {
+                                    effectRow.updated = updated;
                                 }
-                                $orderdetailsdg.datagrid('doFilter');
+                                //console.log(JSON.stringify(effectRow));
+                                $.post("/OrderDetails/SaveData", effectRow, function (response) {
+                                    console.log(response);
+                                    if (response.Success) {
+                                        $.messager.alert("提示", "提交成功！");
+                                        $orderdetailsdg.datagrid('acceptChanges');
+                                    }
+                                }, "JSON").error(function (response) {
+                                    $.messager.alert("错误", "提交错误了！" + response.statusText, 'error');
+                                    //$dg.datagrid('reload');
+                                });
+
                             }
+
+                            //$orderdetailsdg.datagrid('acceptChanges');
                         }
-                    },
+                    }
+                    function orderdetails_reject() {
+                        $orderdetailsdg.datagrid('rejectChanges');
+                        orderdetails_editIndex = undefined;
+                    }
+                    function orderdetails_getChanges() {
+                        var rows = $orderdetailsdg.datagrid('getChanges');
+                        alert(rows.length + ' rows are changed!');
+                    }
 
-            ]);
+                    $(function () {
 
-            filterByOrderId(-1);
-        })
+                        $orderdetailsdg.datagrid('enableFilter', [
 
-    </script>
-}
+                                {
+                                    field: 'OrderId',
+                                    type: 'combobox',
+                                    options: {
+                                        valueField: 'Id',
+                                        textField: 'OrderKey',
+                                        method: 'get',
+                                        url: '/OrderDetails/GetOrders',
+                                        onChange: function (value) {
+                                            if (value == '') {
+                                                $orderdetailsdg.datagrid('removeFilterRule', 'OrderId');
+                                            } else {
+                                                $orderdetailsdg.datagrid('addFilterRule', {
+                                                    field: 'OrderId',
+                                                    op: 'equal',
+                                                    value: value
+                                                });
+                                            }
+                                            $orderdetailsdg.datagrid('doFilter');
+                                        }
+                                    }
+                                },
+                                {
+                                    field: 'SKUId',
+                                    type: 'combobox',
+                                    options: {
+                                        valueField: 'Id',
+                                        textField: 'Sku',
+                                        method: 'get',
+                                        url: '/OrderDetails/GetSKUs',
+                                        onChange: function (value) {
+                                            if (value == '') {
+                                                $orderdetailsdg.datagrid('removeFilterRule', 'SKUId');
+                                            } else {
+                                                $orderdetailsdg.datagrid('addFilterRule', {
+                                                    field: 'SKUId',
+                                                    op: 'equal',
+                                                    value: value
+                                                });
+                                            }
+                                            $orderdetailsdg.datagrid('doFilter');
+                                        }
+                                    }
+                                },
+
+                        ]);
+
+                        filterByOrderId(-1);
+                    })
+
+                </script>
+            }
 

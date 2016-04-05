@@ -41,7 +41,7 @@
                 <div class="table-responsive">
            
  
-       <table id="bomcomponents_datagrid" class="easyui-datagrid" title="BOMComponent DataGrid" style="width:auto;height:auto"
+       <table id="bomcomponents_datagrid" class="easyui-datagrid" title="BOMComponent " style="width:auto;height:auto"
                    data-options="
                  rownumbers:true,
                  idField:'Id',
@@ -353,9 +353,9 @@
                         effectRow.updated = updated;
                     }
                     //console.log(JSON.stringify(effectRow));
-                    $.post("/BOMComponents/SaveData", effectRow, function (rsp) {
-                        console.log(rsp);
-                        if (rsp.Success) {
+                    $.post("/BOMComponents/SaveData", effectRow, function (response) {
+                        console.log(response);
+                        if (response.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
 							$dg.datagrid('reload');

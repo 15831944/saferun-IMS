@@ -38,7 +38,7 @@
                 <div class="table-responsive">
 
 
-                    <table id="productionplans_datagrid" class="easyui-datagrid" title="生产计划 DataGrid" style="width:auto;height:auto"
+                    <table id="productionplans_datagrid" class="easyui-datagrid" title="生产计划 " style="width:auto;height:auto"
                            data-options="
                  rownumbers:true,
                  idField:'Id',
@@ -384,9 +384,9 @@
                         effectRow.updated = updated;
                     }
                     //console.log(JSON.stringify(effectRow));
-                    $.post("/ProductionPlans/SaveData", effectRow, function (rsp) {
-                        console.log(rsp);
-                        if (rsp.Success) {
+                    $.post("/ProductionPlans/SaveData", effectRow, function (response) {
+                        console.log(response);
+                        if (response.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
                             $dg.datagrid('reload');

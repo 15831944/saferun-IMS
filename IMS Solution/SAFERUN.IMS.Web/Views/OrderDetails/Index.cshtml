@@ -41,7 +41,7 @@
                 <div class="table-responsive">
            
  
-                    <table id="orderdetails_datagrid" class="easyui-datagrid" title="订单明细 DataGrid" style="width:auto;height:auto"
+                    <table id="orderdetails_datagrid" class="easyui-datagrid" title="订单明细 " style="width:auto;height:auto"
                            data-options="
                  rownumbers:true,
 
@@ -220,9 +220,9 @@
                         effectRow.updated = updated;
                     }
                     console.log(JSON.stringify(effectRow));
-                    $.post("/OrderDetails/SaveData", effectRow, function (rsp) {
-                        console.log(rsp);
-                        if (rsp.Success) {
+                    $.post("/OrderDetails/SaveData", effectRow, function (response) {
+                        console.log(response);
+                        if (response.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
                         }

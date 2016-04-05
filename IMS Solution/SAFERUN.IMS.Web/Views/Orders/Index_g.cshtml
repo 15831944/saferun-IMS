@@ -41,7 +41,7 @@
                 <div class="table-responsive">
            
  
-       <table id="orders_datagrid" class="easyui-datagrid" title="Order DataGrid" style="width:auto;height:auto"
+       <table id="orders_datagrid" class="easyui-datagrid" title="Order " style="width:auto;height:auto"
                    data-options="
                  rownumbers:true,
 				 checkOnSelect:true,
@@ -162,7 +162,7 @@
 							<!--OrderDetails tab   -->
 				<div title="OrderDetails" id="orderdetails" style="padding:10px;">
 					<div class="table-responsive">
-						<table id="orderdetails_datagrid" class="easyui-datagrid" title="@Html.DisplayNameFor(model => model.OrderDetails) DataGrid" style="width:auto;height:auto"
+						<table id="orderdetails_datagrid" class="easyui-datagrid" title="@Html.DisplayNameFor(model => model.OrderDetails) " style="width:auto;height:auto"
                            data-options="
 								rownumbers:true,
 								remoteFilter: true,
@@ -476,9 +476,9 @@
                         effectRow.updated = updated;
                     }
                     //console.log(JSON.stringify(effectRow));
-                    $.post("/Orders/SaveData", effectRow, function (rsp) {
-                        console.log(rsp);
-                        if (rsp.Success) {
+                    $.post("/Orders/SaveData", effectRow, function (response) {
+                        console.log(response);
+                        if (response.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
 							$dg.datagrid('reload');
@@ -797,9 +797,9 @@
                         effectRow.updated = updated;
                     }
                     //console.log(JSON.stringify(effectRow));
-                    $.post("/OrderDetails/SaveData", effectRow, function (rsp) {
-                        //console.log(rsp);
-                        if (rsp.Success) {
+                    $.post("/OrderDetails/SaveData", effectRow, function (response) {
+                        //console.log(response);
+                        if (response.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $orderdetailsdg.datagrid('acceptChanges');
 							$orderdetailsdg.datagrid('reload');

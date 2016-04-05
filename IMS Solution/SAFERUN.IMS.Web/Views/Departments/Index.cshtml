@@ -41,7 +41,7 @@
                 <div class="table-responsive">
            
  
-       <table id="departments_datagrid" class="easyui-datagrid" title="部门信息维护 DataGrid" style="width:auto;height:auto"
+       <table id="departments_datagrid" class="easyui-datagrid" title="部门信息维护 " style="width:auto;height:auto"
                    data-options="
                  rownumbers:true,
                  idField:'Id',
@@ -245,9 +245,9 @@
                         effectRow.updated = updated;
                     }
                     //console.log(JSON.stringify(effectRow));
-                    $.post("/Departments/SaveData", effectRow, function (rsp) {
-                        console.log(rsp);
-                        if (rsp.Success) {
+                    $.post("/Departments/SaveData", effectRow, function (response) {
+                        console.log(response);
+                        if (response.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
 							$dg.datagrid('reload');

@@ -38,7 +38,7 @@
                 <div class="table-responsive">
 
 
-                    <table id="assemblyplans_datagrid" class="easyui-datagrid" title="部套计划 DataGrid" style="width:auto;height:auto"
+                    <table id="assemblyplans_datagrid" class="easyui-datagrid" title="部套计划 " style="width:auto;height:auto"
                            data-options="
                  rownumbers:true,
                  idField:'Id',
@@ -133,7 +133,7 @@
                                             <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
                                             <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
                                             @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>*@
-                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+                                            @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>*@
                                         </div>
                                     </div>
 
@@ -293,9 +293,9 @@
                                             effectRow.updated = updated;
                                         }
                                         //console.log(JSON.stringify(effectRow));
-                                        $.post("/AssemblyPlans/SaveData", effectRow, function (rsp) {
-                                            console.log(rsp);
-                                            if (rsp.Success) {
+                                        $.post("/AssemblyPlans/SaveData", effectRow, function (response) {
+                                            console.log(response);
+                                            if (response.Success) {
                                                 $.messager.alert("提示", "提交成功！");
                                                 $dg.datagrid('acceptChanges');
                                                 $dg.datagrid('reload');

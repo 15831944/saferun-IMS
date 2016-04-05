@@ -37,7 +37,7 @@
                 <div class="table-responsive">
 
 
-                    <table id="users_datagrid" class="easyui-datagrid" title="Users DataGrid" style="width:auto;height:auto"
+                    <table id="users_datagrid" class="easyui-datagrid" title="Users " style="width:auto;height:auto"
                            data-options="
                  rownumbers:true,
 
@@ -148,9 +148,9 @@
                         effectRow.updated = updated;
                     }
                     console.log(JSON.stringify(effectRow));
-                    $.post("/AccountManage/SaveData", effectRow, function (rsp) {
-                        console.log(rsp);
-                        if (rsp.Success) {
+                    $.post("/AccountManage/SaveData", effectRow, function (response) {
+                        console.log(response);
+                        if (response.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
                             $dg.datagrid('reload');

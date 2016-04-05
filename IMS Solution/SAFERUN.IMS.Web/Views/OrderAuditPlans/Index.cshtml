@@ -38,7 +38,7 @@
                 <div class="table-responsive">
 
 
-                    <table id="orderauditplans_datagrid" class="easyui-datagrid" title="订单评审计划 DataGrid" style="width:auto;height:auto"
+                    <table id="orderauditplans_datagrid" class="easyui-datagrid" title="订单评审计划 " style="width:auto;height:auto"
                            data-options="
                  rownumbers:true,
 
@@ -188,9 +188,9 @@
                         effectRow.updated = updated;
                     }
                     console.log(JSON.stringify(effectRow));
-                    $.post("/OrderAuditPlans/SaveData", effectRow, function (rsp) {
-                        console.log(rsp);
-                        if (rsp.Success) {
+                    $.post("/OrderAuditPlans/SaveData", effectRow, function (response) {
+                        console.log(response);
+                        if (response.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
                         }

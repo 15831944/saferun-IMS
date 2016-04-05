@@ -41,7 +41,7 @@
                 <div class="table-responsive">
            
  
-       <table id="worktypes_datagrid" class="easyui-datagrid" title="工作任务单类型 DataGrid" style="width:auto;height:auto"
+       <table id="worktypes_datagrid" class="easyui-datagrid" title="工作任务单类型 " style="width:auto;height:auto"
                    data-options="
                  rownumbers:true,
                  idField:'Id',
@@ -221,9 +221,9 @@
                         effectRow.updated = updated;
                     }
                     //console.log(JSON.stringify(effectRow));
-                    $.post("/WorkTypes/SaveData", effectRow, function (rsp) {
-                        console.log(rsp);
-                        if (rsp.Success) {
+                    $.post("/WorkTypes/SaveData", effectRow, function (response) {
+                        console.log(response);
+                        if (response.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
 							$dg.datagrid('reload');

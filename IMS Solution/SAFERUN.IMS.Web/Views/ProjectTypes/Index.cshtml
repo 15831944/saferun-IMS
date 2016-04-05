@@ -41,7 +41,7 @@
                 <div class="table-responsive">
            
  
-                    <table id="projecttypes_datagrid" class="easyui-datagrid" title="项目类型 DataGrid" style="width:auto;height:auto"
+                    <table id="projecttypes_datagrid" class="easyui-datagrid" title="项目类型 " style="width:auto;height:auto"
                            data-options="
                                 rownumbers:true,
                                 idField:'Id',
@@ -206,9 +206,9 @@
                         effectRow.updated = updated;
                     }
                     console.log(JSON.stringify(effectRow));
-                    $.post("/ProjectTypes/SaveData", effectRow, function (rsp) {
-                        console.log(rsp);
-                        if (rsp.Success) {
+                    $.post("/ProjectTypes/SaveData", effectRow, function (response) {
+                        console.log(response);
+                        if (response.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
                             $dg.datagrid('reload');
