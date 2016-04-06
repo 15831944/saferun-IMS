@@ -88,7 +88,7 @@ namespace SAFERUN.IMS.Web.Repositories
 					 						if (rule.field == "PlanAuditDate")
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.PlanAuditDate)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.PlanAuditDate)>=0);
 						}
 				   				
 					
@@ -96,7 +96,7 @@ namespace SAFERUN.IMS.Web.Repositories
 					 						if (rule.field == "AuditDate")
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.AuditDate)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.AuditDate)>=0);
 						}
 				   				
 											if (rule.field == "AuditUser")

@@ -121,7 +121,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "StartingDateTime" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.StartingDateTime)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.StartingDateTime)>=0);
 						}
 				   
 				    				
@@ -130,7 +130,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "CompletedDateTime" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.CompletedDateTime)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.CompletedDateTime)>=0);
 						}
 				   
 				    				
@@ -173,7 +173,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "QCConfirmDateTime" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.QCConfirmDateTime)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.QCConfirmDateTime)>=0);
 						}
 				   
 				    				

@@ -426,16 +426,17 @@ namespace SAFERUN.IMS.Web.Repositories
 					
 				    				
 					
-				    						if (rule.field == "SKUId" && !string.IsNullOrEmpty(rule.value))
+				    						if (rule.field == "SKUId" && !string.IsNullOrEmpty(rule.value) && rule.value.IsNumeric())
 						{
+                                               
 							int val = Convert.ToInt32(rule.value);
 							And(x => x.SKUId == val);
 						}
-				   
-					
-				    				
-					
-				    						if (rule.field == "ParentComponentId" && !string.IsNullOrEmpty(rule.value))
+
+
+
+
+                                            if (rule.field == "ParentComponentId" && !string.IsNullOrEmpty(rule.value) && rule.value.IsNumeric())
 						{
 							int val = Convert.ToInt32(rule.value);
 							And(x => x.ParentComponentId == val);

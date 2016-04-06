@@ -211,7 +211,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "OrderPlanDate" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.OrderPlanDate)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.OrderPlanDate)>=0);
 						}
 				   
 				    				
@@ -220,7 +220,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "PlanedStartDate" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.PlanedStartDate)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.PlanedStartDate)>=0);
 						}
 				   
 				    				
@@ -229,7 +229,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "PlanedCompletedDate" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.PlanedCompletedDate)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.PlanedCompletedDate)>=0);
 						}
 				   
 				    				
@@ -238,7 +238,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "ActualStartDate" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.ActualStartDate)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.ActualStartDate)>=0);
 						}
 				   
 				    				
@@ -247,7 +247,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "ActualCompletedDate" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.ActualCompletedDate)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.ActualCompletedDate)>=0);
 						}
 				   
 				    				
@@ -256,7 +256,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "ActualFinishDate" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.ActualFinishDate)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.ActualFinishDate)>=0);
 						}
 				   
 				    				

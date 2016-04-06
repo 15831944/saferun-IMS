@@ -66,7 +66,7 @@ namespace SAFERUN.IMS.Web.Repositories
 					 						if (rule.field == "OrderDate")
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.OrderDate)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.OrderDate)>=0);
 						}
 				   				
 					
@@ -74,7 +74,7 @@ namespace SAFERUN.IMS.Web.Repositories
 					 						if (rule.field == "AuditDate")
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.AuditDate)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.AuditDate)>=0);
 						}
 				   				
 					
@@ -127,7 +127,7 @@ namespace SAFERUN.IMS.Web.Repositories
 					 						if (rule.field == "PlanFinishDate")
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.PlanFinishDate)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.PlanFinishDate)>=0);
 						}
 				   				
 					
@@ -135,7 +135,7 @@ namespace SAFERUN.IMS.Web.Repositories
 					 						if (rule.field == "ActualFinishDate")
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.ActualFinishDate)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.ActualFinishDate)>=0);
 						}
 				   				
 					
@@ -143,7 +143,7 @@ namespace SAFERUN.IMS.Web.Repositories
 					 						if (rule.field == "ShipDate")
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.ShipDate)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.ShipDate)>=0);
 						}
 				   				
 					
@@ -151,7 +151,7 @@ namespace SAFERUN.IMS.Web.Repositories
 					 						if (rule.field == "ColseDate")
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.ColseDate)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.ColseDate)>=0);
 						}
 				   									
                    

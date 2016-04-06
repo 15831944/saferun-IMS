@@ -102,7 +102,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "WorkDate" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.WorkDate)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.WorkDate)>=0);
 						}
 				   
 				    				
@@ -160,7 +160,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "ReviewDate" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.ReviewDate)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.ReviewDate)>=0);
 						}
 				   
 				    				

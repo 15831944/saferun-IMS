@@ -182,7 +182,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "AltProdctionDate1" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.AltProdctionDate1)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.AltProdctionDate1)>=0);
 						}
 				   
 				    				
@@ -191,7 +191,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "ActualProdctionDate1" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.ActualProdctionDate1)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.ActualProdctionDate1)>=0);
 						}
 				   
 				    				
@@ -200,7 +200,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "AltProdctionDate2" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.AltProdctionDate2)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.AltProdctionDate2)>=0);
 						}
 				   
 				    				
@@ -209,7 +209,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "ActualProdctionDate2" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.ActualProdctionDate2)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.ActualProdctionDate2)>=0);
 						}
 				   
 				    				
@@ -218,7 +218,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "AltProdctionDate3" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.AltProdctionDate3)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.AltProdctionDate3)>=0);
 						}
 				   
 				    				
@@ -227,7 +227,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "ActualProdctionDate3" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.ActualProdctionDate3)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.ActualProdctionDate3)>=0);
 						}
 				   
 				    				

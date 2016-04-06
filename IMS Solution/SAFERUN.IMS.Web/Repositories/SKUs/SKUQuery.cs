@@ -207,7 +207,7 @@ namespace SAFERUN.IMS.Web.Repositories
 					 						if (rule.field == "SUSR5")
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.SUSR5)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.SUSR5)>=0);
 						}
 				   									
                    

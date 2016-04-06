@@ -131,10 +131,17 @@ namespace SAFERUN.IMS.Web.Controllers
             return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetParentSKUs()
+        {
+            var skuRepository = _unitOfWork.Repository<SKU>();
+            var data = skuRepository.Queryable().Where(x=>x.SKUGroup=="部套").ToList();
+            var rows = data.Select(n => new { Id = n.Id, Sku = n.Sku });
+            return Json(rows, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult GetSKUs()
         {
             var skuRepository = _unitOfWork.Repository<SKU>();
-            var data = skuRepository.Queryable().ToList();
+            var data = skuRepository.Queryable().Where(x=>x.SKUGroup=="零件").ToList();
             var rows = data.Select(n => new { Id = n.Id, Sku = n.Sku });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }

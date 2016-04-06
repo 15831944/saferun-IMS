@@ -177,7 +177,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "OrderPlanDate" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.OrderPlanDate)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.OrderPlanDate)>=0);
 						}
 				   
 				    				
@@ -186,7 +186,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "PlanedStartDate" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.PlanedStartDate)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.PlanedStartDate)>=0);
 						}
 				   
 				    				
@@ -195,7 +195,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "ActualStartDate" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.ActualStartDate)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.ActualStartDate)>=0);
 						}
 				   
 				    				
@@ -204,7 +204,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "PlanDeliveryDate" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.PlanDeliveryDate)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.PlanDeliveryDate)>=0);
 						}
 				   
 				    				
@@ -213,7 +213,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "ActualDeliveryDate" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.ActualDeliveryDate)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.ActualDeliveryDate)>=0);
 						}
 				   
 				    				

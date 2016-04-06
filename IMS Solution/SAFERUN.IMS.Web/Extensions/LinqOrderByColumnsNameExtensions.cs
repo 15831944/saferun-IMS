@@ -7,7 +7,7 @@ using System.Web;
 
 namespace SAFERUN.IMS.Web.Extensions
 {
-     public static  class LinqOrderByColumnsNameExtensions
+    public static class LinqOrderByColumnsNameExtensions
     {
         private static IOrderedQueryable<T> OrderingHelper<T>(IQueryable<T> source, string propertyName, bool descending, bool anotherLevel)
         {
@@ -29,9 +29,9 @@ namespace SAFERUN.IMS.Web.Extensions
         {
             return OrderingHelper(source, propertyName, false, false);
         }
-        public static IOrderedQueryable<T> OrderBy<T>(this IQueryable<T> source, string propertyName,string order)
+        public static IOrderedQueryable<T> OrderBy<T>(this IQueryable<T> source, string propertyName, string order)
         {
-            if(order.ToLower()=="desc")
+            if (order.ToLower() == "desc")
                 return OrderingHelper(source, propertyName, true, false);
             else
                 return OrderingHelper(source, propertyName, false, false);
@@ -52,7 +52,7 @@ namespace SAFERUN.IMS.Web.Extensions
             return OrderingHelper(source, propertyName, true, true);
         }
 
-		public static IQueryable<T> OrderByName<T>(this IQueryable<T> q, string SortField, bool Ascending = true)
+        public static IQueryable<T> OrderByName<T>(this IQueryable<T> q, string SortField, bool Ascending = true)
         {
             if (SortField.IndexOf("DESC") > 0)
             {
@@ -83,10 +83,22 @@ namespace SAFERUN.IMS.Web.Extensions
     }
 
 
-     public class filterRule
-     {
-         public string field { get; set; }
-         public string op { get; set; }
-         public string value { get; set; }
-     }
+    public class filterRule
+    {
+        public string field { get; set; }
+        public string op { get; set; }
+        public string value { get; set; }
+    }
+
+    public static class ObjectExtensions
+    {
+
+        public static bool IsNumeric(this object x) { return (x == null ? false : IsNumeric(x.GetType())); }
+
+        // Method where you know the type of the object
+        public static bool IsNumeric(Type type) { return IsNumeric(type, Type.GetTypeCode(type)); }
+
+        // Method where you know the type and the type code of the object
+        public static bool IsNumeric(Type type, TypeCode typeCode) { return (typeCode == TypeCode.Decimal || (type.IsPrimitive && typeCode != TypeCode.Object && typeCode != TypeCode.Boolean && typeCode != TypeCode.Char)); }
+    }
 }

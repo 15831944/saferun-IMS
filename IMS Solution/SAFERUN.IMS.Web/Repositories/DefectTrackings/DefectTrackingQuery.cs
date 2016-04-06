@@ -204,7 +204,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "TrackingDateTime" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.TrackingDateTime)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.TrackingDateTime)>=0);
 						}
 				   
 				    				
@@ -213,7 +213,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "CheckedDateTime" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.CheckedDateTime)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.CheckedDateTime)>=0);
 						}
 				   
 				    				
@@ -222,7 +222,7 @@ namespace SAFERUN.IMS.Web.Repositories
 											if (rule.field == "CloseDateTime" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.CloseDateTime)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.CloseDateTime)>=0);
 						}
 				   
 				    									

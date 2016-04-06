@@ -119,7 +119,7 @@
                                             }
                                     }">@Html.DisplayNameFor(model => model.OrderId)</th>
 
-                                    <th data-options="field:'OrderProjectName',width:160, editor:{type:'textbox',options:{required:false} } ,sortable:false,resizable:false ">项目名称</th>
+                                    <th data-options="field:'OrderProjectName',width:160, editor:{type:'textbox',options:{required:false,readonly:true} } ,sortable:false,resizable:false ">项目名称</th>
 
                                     <th data-options="field:'PO',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.PO)</th>
 
@@ -134,8 +134,20 @@
                                                  editor:{ type:'combobox',
                                                  options:{
                                                     panelHeight: 'auto',
-                                                    data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
-                                                    required:true } }  ,formatter:statusformatter">@Html.DisplayNameFor(model => model.Status)</th>
+                                                    data: [ { value: 0, text: '启用' },{ value: 1, text: '禁用' } ],
+                                                    required:true } }  ,
+                                                    formatter:function(value,row,index){
+                                                          switch (value) {
+                                                                case 0:
+                                                                   return '启用';
+                                                                   break;
+                                                                case 1:
+                                                                   return '禁用';
+                                                                   break;
+
+
+                                                            }
+                                                    }">@Html.DisplayNameFor(model => model.Status)</th>
 
 
                                                     <th data-options="field:'Review',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Review)</th>
@@ -153,7 +165,7 @@
                                                     <th data-options="field:'PurchaseConfirm',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.PurchaseConfirm)</th>
 
 
-                                                    <th data-options="field:'ReviewDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ReviewDate)</th>
+                                                    <th data-options="field:'ReviewDate',width:160,align:'right',editor:{type:'datebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.ReviewDate)</th>
 
 
                                                     <th data-options="field:'Remark',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Remark)</th>
@@ -197,37 +209,37 @@
                                                             @*<th data-options="field:'ck',checkbox:true"></th>*@
                                                             @*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
 
-                                                            <th data-options="field:'WorkNo',width:140 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.WorkNo)</th>
+                                                            <th data-options="field:'WorkNo',width:120 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.WorkNo)</th>
 
                                                             @*<th data-options="field:'WorkId',width:100,sortable:true,resizable:true,
-                    formatter:function(value,row){
-                        return row.WorkWorkNo;
-                    },
-                    editor:{
-                        type:'combobox',
-                        options:{
-                            valueField:'Id',
-                            textField:'WorkNo',
-                            method:'get',
-                            url:'/WorkDetails/GetWorks',
-                            required:true
-                        }
-                    }">@Html.DisplayNameFor(model => model.WorkId)</th>*@
+                                                                formatter:function(value,row){
+                                                                    return row.WorkWorkNo;
+                                                                },
+                                                                editor:{
+                                                                    type:'combobox',
+                                                                    options:{
+                                                                        valueField:'Id',
+                                                                        textField:'WorkNo',
+                                                                        method:'get',
+                                                                        url:'/WorkDetails/GetWorks',
+                                                                        required:true
+                                                                    }
+                                                                }">@Html.DisplayNameFor(model => model.WorkId)</th>*@
 
 
-                                                            <th data-options="field:'ParentSKUId',width:100,sortable:true,resizable:true,
+                                                            <th data-options="field:'ParentSKUId',width:140,sortable:true,resizable:true,
                                                                 formatter:function(value,row){
                                                                     return row.ParentSKUSku;
                                                                 }">部套编码</th>
-                                       
-                                                            <th data-options="field:'ParentSKUProductName',width:140,sortable:true,resizable:true ">部套名称</th>
-                                       
-                                                            <th data-options="field:'ComponentSKUId',width:100,sortable:true,resizable:true,
+
+                                                            <th data-options="field:'ParentSKUProductName',width:120,sortable:true,resizable:true ">部套名称</th>
+
+                                                            <th data-options="field:'ComponentSKUId',width:140,sortable:true,resizable:true,
                                                                 formatter:function(value,row){
                                                                         return row.ComponentSKUSku;
                                                                     }
                                                             ">组件编码</th>
-                                                            <th data-options="field:'ComponentSKUProductName',width:140,sortable:true,resizable:true ">组件名称</th>
+                                                            <th data-options="field:'ComponentSKUProductName',width:120,sortable:true,resizable:true ">组件名称</th>
 
 
                                                             <th data-options="field:'GraphSKU',width:140,sortable:true,resizable:true ">图纸编号</th>
@@ -449,7 +461,19 @@
                                                  options:{
                                                     panelHeight: 'auto',
                                                     data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
-                                                    required:true } }  ,formatter:statusformatter">状态</th>
+                                                    required:true } }  ,
+                                                formatter:function(value,row,index){
+                                                     switch (value) {
+                                                                case 0:
+                                                                   return '启用';
+                                                                   break;
+                                                                case 1:
+                                                                   return '禁用';
+                                                                   break;
+                                                                default:
+                                                                    return '';
+                                                        }
+                                                }">状态</th>
 
 
 
@@ -596,7 +620,7 @@
                             }
                             function append() {
                                 if (endEditing()) {
-                                    $dg.datagrid('appendRow', { Status: 0 });
+                                    $dg.datagrid('appendRow', { WorkNo: '', Status: 0, WorkDate: moment(new Date()).format('YYYY-MM-DD') });
                                     editIndex = $dg.datagrid('getRows').length - 1;
                                     $dg.datagrid('selectRow', editIndex)
                                             .datagrid('beginEdit', editIndex);
@@ -637,10 +661,10 @@
                                                 console.log('fail', response);
                                             })
                                             .error(function (response) {
-                                                console.log('error',response);
+                                                console.log('error', response);
                                                 $.messager.alert("错误", "提交错误了！", 'error');
-                                            //$dg.datagrid('reload');
-                                        });
+                                                //$dg.datagrid('reload');
+                                            });
 
                                     }
 
@@ -1120,7 +1144,7 @@
 		   		           valueField: 'Id',
 		   		           textField: 'Sku',
 		   		           method: 'get',
-		   		           url: '/WorkDetails/GetSKUs',
+		   		           url: '/WorkDetails/GetParentSKUs',
 		   		           onChange: function (value) {
 		   		               if (value == '') {
 		   		                   $workdetailsgrid.datagrid('removeFilterRule', 'ParentSKUId');
@@ -1317,6 +1341,11 @@
                                 var work = $dg.datagrid('getSelected');
                                 var orderdetail = $('#orderdetails_datagrid').datagrid('getSelected');
                                 var bomcomponents = $bomdatagrid.datagrid('getSelections');
+                                if (bomcomponents == null || bomcomponents.length == 0) {
+                                    $.messager.alert('提示', '请选择要导入的记录');
+                                    return;
+                                }
+
                                 var viewmodel = {};
                                 viewmodel.OrderId = orderdetail.OrderId;
                                 viewmodel.OrderDetailId = orderdetail.Id;
