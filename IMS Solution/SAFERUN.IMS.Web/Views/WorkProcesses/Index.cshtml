@@ -91,8 +91,8 @@
                                                   required:true
                                               }
                                           }">@Html.DisplayNameFor(model => model.ProductionProcessId)</th>
-                                <th data-options="field:'Status',width:100,align:'right',
-                                                
+                                        <th data-options="field:'Status',width:100,align:'right',
+
                                                  formatter: function(value,row,index){
 				                                       switch(value) {
                                                                 case 0:
@@ -252,7 +252,7 @@
 
 
                                                         <th data-options="field:'Status',width:100,align:'right',
-                                                 
+
                                                  formatter: function(value,row,index){
 				                                        switch(value) {
                                                                 case 0:
@@ -264,7 +264,7 @@
                                                                 case 2:
                                                                     return '完成';
                                                                     break;
-                                                               
+
                                                                 default:
                                                                     return '新建';
                                                             }
@@ -339,7 +339,7 @@
                                         }">组件编码</th>
                                     @*<th data-options="field:'ComponentSKUProductName',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">组件名称</th>*@
                                     <th data-options="field:'GraphSKU',width:140 ,sortable:true,resizable:true ">图纸编号</th>
-                                    <th data-options="field:'GraphVer',width:90,sortable:true,resizable:true ">图纸版本号</th>
+                                    @*<th data-options="field:'GraphVer',width:90,sortable:true,resizable:true ">图纸版本号</th>*@
                                     <th data-options="field:'ConsumeQty',width:100,align:'right',sortable:true,resizable:true ">BOM单位用量</th>
                                     <th data-options="field:'StockQty',width:100,align:'right',sortable:true,resizable:true ">库存量</th>
                                     <th data-options="field:'RequirementQty',width:100,align:'right',sortable:true,resizable:true ">订单需求量</th>
@@ -771,9 +771,9 @@
                         var $workdetailsdg = $('#workdetails_datagrid');
 
                         function editProductionQty(value, row, index) {
-                            return "<input name='productionqty' class='easyui-numberbox' data-options='min:0,precision:0' id='productqty_" + index + "'  type='text'   value='" + (value||0) + "' onChange=onEditProductionQty(" + JSON.stringify(row) + ",this," + index +")>";
+                            return "<input name='productionqty' class='easyui-numberbox' data-options='min:0,precision:0' id='productqty_" + index + "'  type='text'   value='" + (value || 0) + "' onChange=onEditProductionQty(" + JSON.stringify(row) + ",this," + index + ")>";
                         }
-                        function onEditProductionQty(row, txt,index) {
+                        function onEditProductionQty(row, txt, index) {
                             //console.log(row);
                             var productionQty = row.RequirementQty - row.FinishedQty - row.DoingQty;
                             console.log($(txt).val(), productionQty);
@@ -790,14 +790,14 @@
                                 return;
                             }
                             $workdetailsdg.datagrid('getRows')[index]['ProductionQty'] = $(txt).val();
-                            
+
                             console.log($workdetailsdg.datagrid('getRows')[index]['ProductionQty']);
-                            
+
                         }
-                       
+
 
                         function workdetail_onSelect(index, row) {
-                             
+
                         }
 
                         $(function () {
@@ -1052,7 +1052,7 @@
                                             valueField: 'Id',
                                             textField: 'Sku',
                                             method: 'get',
-                                            url: '/WorkDetails/GetSKUs',
+                                            url: '/WorkDetails/GetParentSKUs',
                                             onChange: function (value) {
                                                 if (value == '') {
                                                     $workdetailsdg.datagrid('removeFilterRule', 'ParentSKUId');
@@ -1106,11 +1106,20 @@
                             var workdetails = $workdetailsdg.datagrid('getSelections');
                             var workdetailid = [];
                             $.each(workdetails, function (index, element) {
-                                if ((element.ProductionQty||0) > 0) {
+                                if ((element.ProductionQty || 0) > 0) {
                                     workdetailid.push(element);
                                 }
                             });
-                            if (workdetailid.length > 0) {
+                            if(workdetails==null || workdetails.length==0){
+                                $.messager.alert('提示', '请选中记录需要安排生产记录');
+                                return;
+                            }
+                            if (workdetailid.length == 0) {
+                                $.messager.alert('提示', '请制定要排产的数量');
+                                return;
+                            }
+
+                            
                                 //console.log(workdetailid);
                                 $.post('/WorkProcesses/GenerateWorkProceesses', { workdetails: workdetailid }, function (data, textStatus, jqXHR) {
                                     //console.log(data);
@@ -1119,9 +1128,7 @@
                                     $workdetailsdg.datagrid('reload');
 
                                 });
-                            } else {
-                                $.messager.alert('提示', '请选中记录需要安排生产记录');
-                            }
+                            
                         }
                         //---------------------------------------------------------------
                         //generateprocessdetails（）
@@ -1218,7 +1225,7 @@
                                 $workprocessdetailsdg.datagrid('appendRow', {
                                     WorkProcessId: workitem.Id,
                                     SKUId: workitem.SKUId,
-                                    GraphSKU:workitem.GraphSKU,
+                                    GraphSKU: workitem.GraphSKU,
                                     ComponentSKU: workitem.SKUSku, Status: 0
                                 });
                                 workprocessdetails_editIndex = $workprocessdetailsdg.datagrid('getRows').length - 1;

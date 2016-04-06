@@ -12,6 +12,7 @@ using Repository.Pattern.Repositories;
 using Repository.Pattern.Ef6;
 using SAFERUN.IMS.Web.Models;
 using SAFERUN.IMS.Web.Extensions;
+using System.Web.WebPages;
 
 namespace SAFERUN.IMS.Web.Repositories
 {
@@ -103,7 +104,7 @@ namespace SAFERUN.IMS.Web.Repositories
 
 
 
-                    if (rule.field == "ConsumeQty" && !string.IsNullOrEmpty(rule.value))
+                    if (rule.field == "ConsumeQty" && !string.IsNullOrEmpty(rule.value) )
                     {
                         int val = Convert.ToInt32(rule.value);
                         And(x => x.ConsumeQty == val);
@@ -164,7 +165,7 @@ namespace SAFERUN.IMS.Web.Repositories
 
 
 
-                    if (rule.field == "AltProdctionDate1" && !string.IsNullOrEmpty(rule.value))
+                    if (rule.field == "AltProdctionDate1" && !string.IsNullOrEmpty(rule.value) && rule.value.IsDateTime())
                     {
                         var date = Convert.ToDateTime(rule.value);
                         And(x => SqlFunctions.DateDiff("d", date, x.AltProdctionDate1) > 0);

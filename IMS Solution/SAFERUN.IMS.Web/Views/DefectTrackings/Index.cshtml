@@ -12,7 +12,7 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                
+
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -95,9 +95,9 @@
                                             }
                                     }">@Html.DisplayNameFor(model => model.OrderId)</th>
 
-                                <th data-options="field:'ProjectName',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.ProjectName)</th>
+                                    <th data-options="field:'ProjectName',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.ProjectName)</th>
 
-                                <th data-options="field:'SKUId',width:100,
+                                    <th data-options="field:'SKUId',width:100,
                         formatter:function(value,row){
                             return row.SKUSku;
                         },
@@ -130,22 +130,22 @@
 
 
 
-                       
 
+                        <th data-options="field:'GraphSKU',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.GraphSKU)</th>
 
                         <th data-options="field:'Supplier',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Supplier)</th>
 
 
-                        <th data-options="field:'GraphSKU',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.GraphSKU)</th>
 
 
-                        <th data-options="field:'QCQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.QCQty)</th>
+
+                                <th data-options="field:'QCQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0,required:true}}">@Html.DisplayNameFor(model => model.QCQty)</th>
 
 
-                        <th data-options="field:'CheckedQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.CheckedQty)</th>
+                                <th data-options="field:'CheckedQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0,required:true}}">@Html.DisplayNameFor(model => model.CheckedQty)</th>
 
 
-                        <th data-options="field:'NGQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.NGQty)</th>
+                                <th data-options="field:'NGQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0,required:true}}">@Html.DisplayNameFor(model => model.NGQty)</th>
 
                         <th data-options="field:'DefectTypeId',width:100,
                         formatter:function(value,row){
@@ -186,7 +186,18 @@
                         <th data-options="field:'DefectDesc',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.DefectDesc)</th>
 
 
-                        <th data-options="field:'Status',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Status)</th>
+                                <th data-options="field:'Status',width:100,align:'right',sortable:true,resizable:true, formatter: function(value,row,index){
+				                                        switch(value) {
+                                                                case 0:
+                                                                    return '新建';
+                                                                    break;
+                                                                case 1:
+                                                                    return '关闭';
+                                                                    break;
+                                                                default:
+                                                                    return '新建';
+                                                            }
+			                                     } ">状态</th>
 
 
                         <th data-options="field:'Result',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Result)</th>
@@ -198,13 +209,13 @@
                         <th data-options="field:'QCUser',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.QCUser)</th>
 
 
-                        <th data-options="field:'TrackingDateTime',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.TrackingDateTime)</th>
+                        <th data-options="field:'TrackingDateTime',width:160,align:'right',editor:{type:'datebox',options:{required:true}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.TrackingDateTime)</th>
 
 
-                        <th data-options="field:'CheckedDateTime',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.CheckedDateTime)</th>
+                        <th data-options="field:'CheckedDateTime',width:160,align:'right',editor:{type:'datebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.CheckedDateTime)</th>
 
 
-                        <th data-options="field:'CloseDateTime',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.CloseDateTime)</th>
+                        <th data-options="field:'CloseDateTime',width:160,align:'right',editor:{type:'datebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.CloseDateTime)</th>
 
 
                     </tr>
@@ -241,10 +252,10 @@
 
 @section Scripts {
     <script type="text/javascript">
-     
-  
+
+
         $(function () {
-            
+
 
             $('#alert1').hide('normal');
             $('#alert2').hide('normal');
@@ -326,7 +337,7 @@
 
 
                 //var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'OrderId' });
-                
+
                 //var orderorderkey = $(ed.target).combobox('getText');
                 //var orderid = $(ed.target).combobox('getValue');
 
@@ -336,7 +347,7 @@
 
 
                 var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'SKUId' });
-              
+
                 var skusku = $(ed.target).combobox('getText');
                 var skuid = $(ed.target).combobox('getValue');
 
@@ -370,7 +381,7 @@
         }
         function append() {
             if (endEditing()) {
-                $dg.datagrid('appendRow', { status: 'P' });
+                $dg.datagrid('appendRow', { Status: 0, TrackingDateTime: moment(new Date()).format('YYYY-MM-DD') });
                 editIndex = $dg.datagrid('getRows').length - 1;
                 $dg.datagrid('selectRow', editIndex)
                         .datagrid('beginEdit', editIndex);
@@ -429,6 +440,26 @@
         $(function () {
 
             $dg.datagrid('enableFilter', [
+                {
+                    field: 'Status',
+                    type: 'combobox',
+                    options: {
+                        panelHeight: 'auto',
+                        data: [{ value: '0', text: '新建' }, { value: '1', text: '关闭' }],
+                        onChange: function (value) {
+                            if (value == '') {
+                                $dg.datagrid('removeFilterRule', 'Status');
+                            } else {
+                                $dg.datagrid('addFilterRule', {
+                                    field: 'Status',
+                                    op: 'equal',
+                                    value: value
+                                });
+                            }
+                            $dg.datagrid('doFilter');
+                        }
+                    }
+                },
                          {
                              field: 'TrackingDateTime',
                              type: 'datebox',
@@ -577,4 +608,5 @@
         })
     </script>
 }
+
 
