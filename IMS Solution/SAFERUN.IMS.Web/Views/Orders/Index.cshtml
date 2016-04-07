@@ -425,6 +425,7 @@
                                     if (response.Success) {
                                         $.messager.alert("提示", "提交成功！");
                                         $dg.datagrid('acceptChanges');
+                                        $dg.datagrid('reload');
                                     }
                                 }, "JSON")
                                     .fail(function (response) {
@@ -743,6 +744,8 @@
                                     if (response.Success) {
                                         $.messager.alert("提示", "提交成功！");
                                         $orderdetailsdg.datagrid('acceptChanges');
+                                        //$dg.datagrid('reload');
+                                        $orderdetailsdg.datagrid('reload');
                                     }
                                 }, "JSON").error(function (response) {
                                     $.messager.alert("错误", "提交错误了！" + response.statusText, 'error');
