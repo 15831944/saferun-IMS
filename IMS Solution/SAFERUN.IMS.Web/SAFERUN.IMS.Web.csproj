@@ -1321,7 +1321,7 @@
     <Content Include="Scripts\uploadify\check-exists.php" />
     <Content Include="Scripts\uploadify\index.php" />
     <Content Include="Scripts\uploadify\uploadify.php" />
-    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Orders\Index2.cshtml" />
     <Content Include="Views\Orders\Create.cshtml" />
     <Content Include="Views\Orders\Edit.cshtml" />
     <Content Include="Views\Orders\EditForm.cshtml" />
@@ -1452,6 +1452,7 @@
     <Content Include="Views\Orders\Index_g.cshtml" />
     <Content Include="Views\Shared\_TerminalLayoutPage.cshtml" />
     <Content Include="Views\WorkProcessDetails\StationWorking.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

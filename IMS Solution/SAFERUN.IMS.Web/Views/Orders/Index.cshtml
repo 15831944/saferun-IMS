@@ -42,7 +42,9 @@
                            data-options="
                            checkOnSelect:true,
                            selectOnCheck:true,
-                 rownumbers:true,
+                           sortName:'Id',
+                           sortOrder:'desc',
+                rownumbers:true,
                 remoteFilter: true,
                 singleSelect: true,
                 toolbar: '#orders_toolbar',
@@ -391,8 +393,10 @@
                     }
                     function append() {
                         if (endEditing()) {
-                            $dg.datagrid('appendRow', { Status: 0 });
-                            editIndex = $dg.datagrid('getRows').length - 1;
+                            //$dg.datagrid('appendRow', { Status: 0 });
+                            $dg.datagrid('insertRow', { index: 0, row: { Status: 0, OrderDate: $.dateNow() } });
+                            //editIndex = $dg.datagrid('getRows').length - 1;
+                            editIndex = 0;
                             $dg.datagrid('selectRow', editIndex)
                                     .datagrid('beginEdit', editIndex);
                         }
@@ -643,16 +647,19 @@
                         filterByOrderId(row.Id);
                     }
                     function filterByOrderId(orderid) {
-                        var value = orderid;
-                        if (value == '') {
-                            $orderdetailsdg.datagrid('removeFilterRule', 'OrderId');
-                        } else {
-                            $orderdetailsdg.datagrid('addFilterRule', {
-                                field: 'OrderId',
-                                op: 'equal',
-                                value: value
-                            });
+
+                        if (!orderid) {
+                            orderid = -1;
                         }
+
+                        $orderdetailsdg.datagrid('removeFilterRule', 'OrderId');
+
+                        $orderdetailsdg.datagrid('addFilterRule', {
+                            field: 'OrderId',
+                            op: 'equal',
+                            value: orderid
+                        });
+
                         $orderdetailsdg.datagrid('doFilter');
 
                     }
