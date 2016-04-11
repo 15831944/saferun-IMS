@@ -34,12 +34,17 @@
                 </div>
             </div>
             <div class="ibox-content">
+                 
+            
 
-                <div class="table-responsive">
+
+                        <div class="easyui-layout" style="width:auto;height:850px;">
+                            <div data-options="region:'center' " style="height:420px">
+                                <div class="table-responsive">
 
 
-                    <table id="orders_datagrid" class="easyui-datagrid" title="订单主档 " style="width:auto;height:auto"
-                           data-options="
+                                    <table id="orders_datagrid" class="easyui-datagrid" title="订单主档 " style="width:auto;height:auto"
+                                           data-options="
                            checkOnSelect:true,
                            selectOnCheck:true,
                            sortName:'Id',
@@ -54,26 +59,26 @@
                 onSelect:onSelect,
                 pagination: 'true'
                    ">
-                        <thead>
-                            <tr>
-                                <th data-options="field:'ck',checkbox:true"></th>
-                                @*<th data-options="field:'_operate1',width:80,align:'center',formatter:formatOper">操作</th>*@
-                                <th data-options="field:'_operate2',width:120,align:'center',formatter:formatAction1">评审计划</th>
-                                <th data-options="field:'_operate3',width:120,align:'center',formatter:formatAction2">部套计划</th>
-                                @*<th data-options="field:'_operate4',width:120,align:'center',formatter:formatAction3">生产计划</th>*@
-                                @*<th data-options="field:'_operate5',width:120,align:'center',formatter:formatAction4">外购计划</th>*@
-                                <th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.OrderKey)</th>
+                                        <thead>
+                                            <tr>
+                                                <th data-options="field:'ck',checkbox:true" resizable="true"></th>
+                                                @*<th data-options="field:'_operate1',width:80,align:'center',formatter:formatOper">操作</th>*@
+                                                <th data-options="field:'_operate2',width:120,align:'center',formatter:formatAction1" resizable="true">评审计划</th>
+                                                <th data-options="field:'_operate3',width:120,align:'center',formatter:formatAction2" resizable="true">部套计划</th>
+                                                @*<th data-options="field:'_operate4',width:120,align:'center',formatter:formatAction3">生产计划</th>*@
+                                                @*<th data-options="field:'_operate5',width:120,align:'center',formatter:formatAction4">外购计划</th>*@
+                                                <th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.OrderKey)</th>
 
 
-                                <th data-options="field:'Sales',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.Sales)</th>
+                                                <th data-options="field:'Sales',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.Sales)</th>
 
 
-                                <th data-options="field:'OrderDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.OrderDate)</th>
+                                                <th data-options="field:'OrderDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.OrderDate)</th>
 
 
-                                <th data-options="field:'AuditDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.AuditDate)</th>
+                                                <th data-options="field:'AuditDate',width:160,align:'right',editor:{type:'datebox',options:{required:true}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.AuditDate)</th>
 
-                                <th data-options="field:'CustomerId',width:100,
+                                                <th data-options="field:'CustomerId',width:100,
                                     formatter:function(value,row){
                                         return row.CustomerAccountNumber;
                                     },
@@ -170,7 +175,8 @@
                                     @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>*@
                                 </div>
                             </div>
-
+                        </div>
+                        <div data-options="region:'south',split:true" style="height:420px;">
                             <div id="detailtabs" class="easyui-tabs" style="width:auto;height:400px;">
                                 <div title="订单明细" style="padding:10px;">
                                     <div class="table-responsive">
@@ -193,19 +199,19 @@
                                                     @*<th data-options="field:'OrderKey',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.OrderKey)</th>*@
 
                                                     @*<th data-options="field:'OrderId',width:100,
-                                                        formatter:function(value,row){
-                                                            return row.OrderOrderKey;
-                                                        },
-                                                        editor:{
-                                                            type:'combobox',
-                                                            options:{
-                                                                valueField:'Id',
-                                                                textField:'OrderKey',
-                                                                method:'get',
-                                                                url:'/OrderDetails/GetOrders',
-                                                                required:false
-                                                            }
-                                                        }">@Html.DisplayNameFor(model => model.OrderId)</th>*@
+                                                formatter:function(value,row){
+                                                    return row.OrderOrderKey;
+                                                },
+                                                editor:{
+                                                    type:'combobox',
+                                                    options:{
+                                                        valueField:'Id',
+                                                        textField:'OrderKey',
+                                                        method:'get',
+                                                        url:'/OrderDetails/GetOrders',
+                                                        required:false
+                                                    }
+                                                }">@Html.DisplayNameFor(model => model.OrderId)</th>*@
 
 
 
@@ -270,10 +276,11 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
             </div>
             @section Scripts {
                 <script type="text/javascript">
