@@ -3219,11 +3219,7 @@ function datetimeformatter(value, row, index) {
         return moment(value).format('YYYY-MM-DD HH:mm:ss');
 }
 
-(function ($) {
-    $.fn.dateNow = function () {
-        return   moment(new Date()).format('YYYY-MM-DD');
-    }
-})
+ 
 jQuery.extend({
     dateNow: function () {
         //console.log(new Date());
