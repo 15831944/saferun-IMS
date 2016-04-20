@@ -97,7 +97,7 @@ namespace SAFERUN.IMS.Web.Controllers
             {
                 foreach (var updated in users.updated)
                 {
-                    var user = new ApplicationUser { UserName = updated.UserName, Email = updated.Email };
+                    var user = new ApplicationUser { UserName = updated.UserName, PhoneNumber = updated.PhoneNumber, Email = updated.Email };
                     var result = UserManager.Update(user);
                 }
             }
@@ -105,7 +105,7 @@ namespace SAFERUN.IMS.Web.Controllers
             {
                 foreach (var deleted in users.deleted)
                 {
-                    var user = new ApplicationUser { UserName = deleted.UserName, Email = deleted.Email };
+                    var user = new ApplicationUser { UserName = deleted.UserName, PhoneNumber = deleted.PhoneNumber, Email = deleted.Email };
                     var result = UserManager.Delete(user);
                 }
             }
@@ -113,7 +113,7 @@ namespace SAFERUN.IMS.Web.Controllers
             {
                 foreach (var inserted in users.inserted)
                 {
-                    var user = new ApplicationUser { UserName = inserted.Email, Email = inserted.Email };
+                    var user = new ApplicationUser { UserName = inserted.UserName, PhoneNumber= inserted.PhoneNumber, Email = inserted.Email };
                     var result =   UserManager.Create(user, "123456");
                 }
             }
